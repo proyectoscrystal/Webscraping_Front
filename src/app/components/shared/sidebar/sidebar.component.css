@@ -1,0 +1,294 @@
+input[type="file"]:focus {
+  outline: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+.filterText {
+  position: relative;
+  opacity: unset;
+  z-index: unset;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.text-filter-container {
+  border: 1px solid red;
+}
+
+.img-preview {
+  width: 180px;
+}
+
+.container-year-scroll {
+  height: 110px;
+}
+
+.container-feature-scroll {
+  height: 300px;
+}
+
+.container-user-scroll {
+  height: 200px;
+}
+
+/* .custom-file {
+  border-radius: 25px;
+  background-color: #efefef;
+} */
+
+.material-icons {
+  color: white;
+}
+
+.custom-file-label::after {
+  background: unset;
+  opacity: 0;
+}
+
+.custom-file-label {
+  /* margin-left: 30px; */
+  margin-right: 20px;
+}
+
+.text-search {
+  position: absolute;
+  margin-left: 10px;
+}
+
+#wrapper {
+  overflow-x: hidden;
+}
+
+.border-right {
+  border-right: none !important;
+}
+
+.logo-sidebar {
+  color: #ffffff;
+}
+
+.logo-sidebar-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+#sidebar-wrapper {
+  background-color: #212121;
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+  padding: 1.5rem;
+  padding-top: 3rem;
+}
+
+#sidebar-wrapper h1 {
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+#sidebar-wrapper ul li {
+  font-size: 16px;
+}
+
+#sidebar-wrapper ul li a {
+  padding: 10px 0;
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+  overflow: hidden;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+/* Estilos de items del filtro*/
+.list-items-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.list-items-container p {
+  margin-left: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Checkbox */
+.control {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+/* Custom control */
+.control__indicator {
+  position: relative;
+  top: 2px;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  flex-shrink: 1;
+}
+
+.control__indicator__item {
+  height: 20px;
+  width: 20px;
+}
+
+.container-ppal-color {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+.control__indicator {
+  background: #ccc;
+}
+/* Hover and focus */
+
+.control input:checked ~ .control__indicator {
+  background: #42a5f5;
+}
+
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+  background: #0077c2;
+}
+.control input:disabled ~ .control__indicator {
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.control__indicator:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.control input:checked ~ .control__indicator:after {
+  display: block;
+}
+
+.control--checkbox .control__indicator:after {
+  left: 15px;
+  top: 4px;
+  width: 10px;
+  height: 20px;
+  border: solid rgb(255, 255, 255);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.control--checkbox .control__indicator__item:after {
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid rgb(255, 255, 255);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.control--checkbox input:disabled ~ .control__indicator:after {
+  border-color: #7b7b7b;
+}
+.control--radio .control__indicator:after {
+  left: 7px;
+  top: 7px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.label-caract {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+}
+
+.color-container-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.color-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.color-box-container {
+  padding: 8px;
+}
+
+.colors-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#colorSubmenu li {
+  padding: 10px;
+}
+
+/* Modal de filtro de color*/
+
+.color-ppal-item {
+  height: 30px;
+  width: 30px;
+}
+
+.container-colors-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* .colors-items {
+  flex-shrink: 1;
+  height: 30px;
+  width: 30px;
+} */

@@ -1,0 +1,35 @@
+.navbar-bg {
+  background: #212121;
+}
+
+.inicioReload {
+  cursor: pointer;
+}
+
+.btn-sidebar {
+  margin-top:10px;
+  background: #424242;
+  border: 1px solid #424242;
+  border-radius: 50%;
+}
+
+/* .title-navbar {
+  margin-left: 50px;
+} */
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-navbar {
+    margin: 0 auto;
+  }
+}
+
+.button-sidebar {
+  padding-top: 12px;
+}

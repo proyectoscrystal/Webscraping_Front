@@ -1,0 +1,81 @@
+<div class="container">
+    <h2 class="text-center title-new-image">Subir imágenes</h2>
+    <div class="row">
+        <div class="col-md mx-auto mt-5">
+            <div class="card">
+
+                <div class="card-body">
+                    <form #uploadForm="ngForm" (ngSubmit)="uploadPhoto(uploadForm)" ngNativeValidate>
+
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" name="imageName" #imageName ngModel class="custom-file-input"
+                                    id="customFile" (change)="onPhotoSelected($event, true)" multiple required accept="image/*">
+                                <label class="custom-file-label" for="customFile">Seleccione los archivos</label>
+                                <p>{{message}}</p>
+                            </div>
+                        </div>
+
+                        <div class="opciones">
+                            <div class="form-group">
+                                <label for="year">Año</label>
+                                <select class="form-control" id="year" name="year" ngModel required>
+                                    <option value="" selected="selected" disabled="disabled">Año</option>
+                                    <option *ngFor="let year of years" value="{{year.value}}">{{year.text}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quarter">Colección</label>
+                                <select class="form-control" name="quarter" id="quarter" ngModel required>
+                                    <option value="" selected="selected" disabled="disabled">Colección</option>
+                                    <option *ngFor="let quarter of quarters" value="{{quarter.value}}">{{quarter.text}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender">Género</label>
+                                <select class="form-control" id="gender" name="gender" ngModel required>
+                                    <option value="" selected="selected" disabled="disabled">Género</option>
+                                    <optgroup *ngFor="let gender of genders" label="{{gender.label}}">
+                                        <option *ngFor="let genero of gender.options" value="{{genero.value}}" disabled="{{genero.disabled}}">{{genero.text}}</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="uso">uso</label>
+                                <select class="form-control" id="use" name="use" ngModel required>
+                                    <option value="" selected="selected" disabled="disabled">Uso</option>
+                                    <option *ngFor="let use of uses" value="{{use.value}}">{{use.text}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuente">Fuente</label>
+                                <select class="form-control" id="origin" name="origin" ngModel required>
+                                    <option value="" selected="selected" disabled="disabled">Fuente</option>
+                                    <option *ngFor="let origin of origins" value="{{origin.value}}">{{origin.text}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <button class="btn btn-primary btn-block btn-subir">Subir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spinner-container">
+        <div class="spinner-row" *ngIf="mostrar">
+
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-label">
+                <strong>Cargando...</strong>
+            </div>
+        </div>
+    </div>
+</div>

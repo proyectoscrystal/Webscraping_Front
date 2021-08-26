@@ -1,0 +1,217 @@
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="border-right" id="sidebar-wrapper">
+    <div class="menu-container">
+      <div class="list-group">
+        <div class="logo-sidebar-container">
+          <h1 class="logo-sidebar">Filtro</h1>
+        </div>
+
+        <div class="image-filter-container">
+          <form #uploadFilter="ngForm" ngNativeValidate>
+            <div class="custom-text">
+              <input type="text" placeholder="camisa rojo cuello" class="filterText" (change)="filterText($event)">
+            </div>
+          </form>
+        </div>
+
+        <div class="image-filter-container">
+          <form #uploadFilter="ngForm" ngNativeValidate>
+            <div class="form-group">
+              <div class="custom-file">
+                <input type="file" name="imageName" #imageName ngModel class="custom-file-input" id="customFile"
+                  (change)="onPhotoSelected($event)">
+                <label class="custom-file-label" for="customFile">
+                  <span class="material-icons">camera_alt</span>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="preview" *ngIf="url">
+          <img id="output" [src]="url" class="img-preview">
+        </div>
+        
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Año</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <div class="overflow-auto container-year-scroll">
+                <li *ngFor="let year of years" class="list-items-container">
+                  <label class="control control--checkbox">
+                    <input class="year" type="checkbox" value="{{year.value}}" name="{{year.value}}"
+                      (change)="updateCheckFilter($event.target.checked, year, $event.target.className, $event.target)"
+                      id="{{year.value}}" />
+                    <div class="control__indicator__item control__indicator"></div>
+                    </label>
+                    <p>{{year.text}}</p>
+                </li>
+              </div>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#colectionSubmenu" data-toggle="collapse" aria-expanded="false"
+              class="dropdown-toggle">Colección</a>
+            <ul class="collapse list-unstyled" id="colectionSubmenu">
+              <li *ngFor="let quarter of quarters" class="list-items-container">
+                <label class="control control--checkbox">
+                  <input class="quarter" type="checkbox" value="{{quarter.value}}" name="{{quarter.value}}"
+                    (change)="updateCheckFilter($event.target.checked, quarter, $event.target.className)"
+                    id="{{quarter.value}}" />
+
+                  <div class="control__indicator__item control__indicator"></div>
+                </label>
+                <p>{{quarter.text}}</p>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#genderSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Género</a>
+            <ul class="collapse list-unstyled" id="genderSubmenu">
+              <div *ngFor="let gender of genders">
+                <label class="label-caract">{{gender.label}}</label>
+                <li *ngFor="let genero of gender.options" class="list-items-container">
+                  <label class="control control--checkbox">
+                    <input class="gender" disabled={{genero.disabled}} type="checkbox" value="{{genero.value}}"
+                      name="{{genero.value}}"
+                      (change)="updateCheckFilter($event.target.checked, genero, $event.target.className)" />
+
+                    <div class="control__indicator__item control__indicator"></div>
+                  </label>
+                  <p>{{genero.text}}</p>
+                </li>
+              </div>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#usoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Uso</a>
+            <ul class="collapse list-unstyled" id="usoSubmenu">
+              <li *ngFor="let use of uses" class="list-items-container">
+                <label class="control control--checkbox">
+                  <input class="use" type="checkbox" name="{{use.value}}" value="{{use.value}}"
+                    (change)="updateCheckFilter($event.target.checked, use, $event.target.className)" />
+                  <div class="control__indicator__item control__indicator"></div>
+                </label>
+                <p>{{use.text}}</p>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#fuenteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Fuente</a>
+            <ul class="collapse list-unstyled" id="fuenteSubmenu">
+              <li *ngFor="let origin of origins" class="list-items-container">
+                <label class="control control--checkbox">
+                  <input class="origin" type="checkbox" name="{{origin.value}}" value="{{origin.value}}"
+                    (change)="updateCheckFilter($event.target.checked, origin, $event.target.className)" />
+                  <div class="control__indicator__item control__indicator"></div>
+                </label>
+                <p>{{origin.text}}</p>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#caractSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tipo de
+              prenda</a>
+            <ul class="collapse list-unstyled" id="caractSubmenu">
+              <div class="overflow-auto container-feature-scroll">
+                <li *ngFor="let feature of prendasGenerales" class="list-items-container">
+                  <label class="control control--checkbox">
+                    <input class="feature" type="checkbox" name="{{feature.text}}" value="{{feature.text}}"
+                      (change)="updateCheckFilter($event.target.checked, feature, $event.target.className)" />
+                    <div class="control__indicator__item control__indicator"></div>
+                  </label>
+                  <p>{{feature.text}}</p>
+                </li>
+              </div>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#colorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Colores</a>
+            <ul class="collapse list-unstyled" id="colorSubmenu">
+              <div class="color-container-filter">
+                <div *ngFor="let color of colores" class="color-box-container">
+                  <div class="features-add-button-container">
+                    <button class="btn btn-primary btn-agregar" [ngStyle]="{'background': color.hexa}"
+                      (click)="showModalColors(color, colorModal)">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Usuarios</a>
+            <ul class="collapse list-unstyled" id="userSubmenu">
+              <div class="overflow-auto container-user-scroll">
+                <li *ngFor="let user of arrayUsers" class="list-items-container">
+                  <label class="control control--checkbox user-control">
+                    <input class="user" type="checkbox" name="{{user}}" value="{{user}}"
+                      (change)="updateCheckFilter($event.target.checked, user, $event.target.className)" />
+                    <div class="control__indicator__item control__indicator"></div>
+                  </label>
+                  <p>{{user}}</p>
+                </li>
+              </div>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid container-home mt-5">
+
+      <!-- Contenido de la web -->
+      <app-home></app-home>
+    </div>
+  </div>
+</div>
+
+<ng-template #colorModal>
+  <div class="modal-header">
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h3 class="text-center">Seleccionar colores</h3>
+    <div class="container-ppal-color">
+      <p>{{ppalColorModal.value}}</p>
+      <label class="control control--checkbox color-control">
+        <input class="color" type="checkbox" name="{{ppalColorModal.value}}" value="{{ppalColorModal.value}}"
+          (change)="updateCheckFilter($event.target.checked, ppalColorModal.value, $event.target.className)" />
+        <div class="control__indicator" [ngStyle]="{'background': ppalColorModal.hexa}"></div>
+      </label>
+
+    </div>
+
+    <div class="container container-main-colors">
+      <div class="row">
+        <div class="container-colors-group">
+          <div class="colors-items" *ngFor="let color of hexaColorModal">
+            <!-- <div class="colors-items" [ngStyle]="{'background': color}"></div> -->
+
+            <label class="control control--checkbox color-control">
+              <input class="color" type="checkbox" name="{{color}}" value="{{color}}"
+                (change)="updateCheckFilter($event.target.checked, color, $event.target.className)" />
+              <div class="control__indicator" [ngStyle]="{'background': color}"></div>
+            </label>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

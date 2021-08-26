@@ -1,0 +1,74 @@
+<div class="contenedor-labels">
+    <div class="button-sidebar">
+        <button class="btn btn-primary btn-sidebar" id="menu-toggle">
+            <span class="material-icons">view_sidebar</span>
+        </button>
+    </div>
+
+    <div class="total-images">
+        <p class="text-total">Número de imágenes: <span class="number-total">{{total}}</span></p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row images">
+        <div class="item-filters-top">
+            <div *ngFor="let filter of selectedFilter" class="content-filter-item">
+                <p class="item-filter">{{filter.item}}</p>
+            </div>
+        </div>
+        <div class="card-columns">
+
+            <div *ngFor="let photo of photos | paginate: { itemsPerPage: 24, currentPage: p }; let i = index"
+                class="card" (click)="viewDetail(photo._id)">
+                <div class="container-image">
+
+                    <img [src]="photo.base64" class="card-img-top" alt="imagen"> 
+                    
+                    <div class="overlay">
+                    </div>
+                </div>
+                <div class="container-username">
+                    <p>Subida por <span>{{photo.usuario[0].username}}</span></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="text-center">
+        <pagination-controls (pageChange)="p = $event" previousLabel="Regresar" nextLabel="Siguiente">
+        </pagination-controls>
+    </div>
+
+</div>
+
+<div class="footer">
+
+</div>
+
+<!-- Modal -->
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Agregar característica</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #crearFeature="ngForm" (ngSubmit)="createFeature(crearFeature)">
+            <div class="form-group">
+                <select class="form-control" id="featureOptions" name="featureOptions" ngModel>
+                    <option *ngFor="let feature of featuresOptions" value="{{feature.value}}"> {{feature.text}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
+                <button type="button" class="btn btn-primary" (click)="createFeature(crearFeature)">Save
+                    changes</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
