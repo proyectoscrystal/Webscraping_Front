@@ -162,6 +162,23 @@
               </div>
             </ul>
           </li>
+
+          <li>
+            <a href="#tipoPrendaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tipo de
+              prenda (Mango)</a>
+            <ul class="collapse list-unstyled" id="tipoPrendaSubmenu">
+              <div class="overflow-auto container-feature-scroll">
+                <li *ngFor="let categorias of prendasScrapingMango" class="list-items-container">
+                  <label class="control control--checkbox">
+                    <input class="categorias" type="checkbox" name="{{categorias.text}}" value="{{categorias.text}}"
+                      (change)="updateCheckFilter($event.target.checked, categorias, $event.target.className)" />
+                    <div class="control__indicator__item control__indicator"></div>
+                  </label>
+                  <p>{{categorias.text}}</p>
+                </li>
+              </div>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>

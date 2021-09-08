@@ -45,6 +45,41 @@
                             <ul class="list-unstyled components ">
                                 <li class="active">
                                     <h4 class="card-title title-submenu">
+                                        <a href="#prendaInfo" data-toggle="collapse" aria-expanded="false"
+                                            class="dropdown-toggle">Información prenda (Scraping)
+                                        </a>
+                                    </h4>
+                                    <ul class="collapse list-unstyled" id="prendaInfo">
+                                        <li>
+                                            <p class="card-text"> <span class="label-bold">Categoría: </span> 
+                                                {{photo.categoria}}
+                                            </p>
+                                            <p class="card-text"> <span class="label-bold">Nombre: </span>
+                                                {{photo.imageName}}
+                                            </p>
+                                            <p class="card-text"> <span class="label-bold">Precio: </span>
+                                                {{photo.precio}} 
+                                            </p>
+                                            <p class="card-text"> <span class="label-bold">Descuento: </span>
+                                                {{photo.descuento}} 
+                                            </p> 
+                                            <p class="card-text"> <span class="label-bold">Características: </span>
+                                                {{photo.caracteristicas}} 
+                                            </p>       
+                                            <p class="card-text"> <span class="label-bold">Uso: </span>
+                                                {{photo.use}}
+                                            </p>      
+                                            <p class="card-text"> <span class="label-bold">Origen: </span>
+                                                {{photo.origin}}
+                                            </p>                                            
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>                            
+
+                            <ul class="list-unstyled components ">
+                                <li class="active">
+                                    <h4 class="card-title title-submenu">
                                         <a href="#prendaGeneralSubmenu" data-toggle="collapse" aria-expanded="false"
                                             class="dropdown-toggle">Prendas generales
                                         </a>
@@ -200,7 +235,7 @@
 
                     <div class="username-container-main">
                         <div class="container-username">
-                            <p>Subida por <span>{{photo.usuario[0].username}}</span></p>
+                            <p>Subida por <span>{{photo.usuario[0]?.username || photo.user}}</span></p>
                         </div>
                     </div>
                 </div>

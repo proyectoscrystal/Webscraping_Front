@@ -316,7 +316,7 @@ export class NewImageComponent implements OnInit {
       }
     } else {
       let imgs = this.payload[0];
-      // console.log('UNA: ', imgs);
+      console.log('UNA: ', imgs);
       this.blackboxService.uploadPhoto(imgs).subscribe(
         (res) => {
           this.showSuccess();
