@@ -30,6 +30,7 @@ import { NewImageComponent } from './components/new-image/new-image.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ImageDetailComponent } from './components/image-detail/image-detail.component';
+import { InformesComponent } from './components/informes/informes.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ImageDetailComponent } from './components/image-detail/image-detail.com
     HomeComponent,
     NewImageComponent,
     ImageDetailComponent,
+    InformesComponent,
   ],
   imports: [
     BrowserModule,

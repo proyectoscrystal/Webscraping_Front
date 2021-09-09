@@ -6,6 +6,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { NewImageComponent } from './components/new-image/new-image.component';
 import { ImageDetailComponent } from './components/image-detail/image-detail.component';
+import { InformesComponent } from './components/informes/informes.component';
 
 import { AuthGuard } from './auth.guard';
 
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'informes',
+    component: InformesComponent,
   },
   {
     path: 'registerNewUserBlackbox',
