@@ -1,5 +1,4 @@
 <div class="d-flex" id="wrapper">
-
     <!-- Sidebar -->
     <div class="border-right" id="sidebar-wrapper">
         <div class="menu-container">
@@ -8,36 +7,40 @@
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle">Comparativos</a>
+                            class="sel1"><img src="./assets/rect.png" alt="" class="imgsel">Comparativos<img src="./assets/tri.png" alt="" class="imgsel2"></a>
+                        <ul class="collapse list-unstyled firstitem" id="homeSubmenu">
+                            <li class="list-items-container">
+                                <a href="#" class="sel2">Precio promedio</a>
+                            </li>
+                        </ul>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <div class="overflow-auto container-year-scroll">
-                                <li *ngFor="let year of years" class="list-items-container">
-                                    <label class="control control--checkbox">
-                                        <input class="year" type="checkbox" value="{{year.value}}" name="{{year.value}}"
-                                            (change)="updateCheckFilter($event.target.checked, year, $event.target.className, $event.target)"
-                                            id="{{year.value}}" />
-                                        <div class="control__indicator__item control__indicator"></div>
-                                    </label>
-                                    <p>{{year.text}}</p>
-                                </li>
-                            </div>
+                            <li class="list-items-container">
+                                <a href="#" class="sel2">Descuento promedio</a>
+                            </li>
+                        </ul>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li class="list-items-container">
+                                <a href="#" class="sel2">Recien llegados</a>
+                            </li>
+                        </ul>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li class="list-items-container">
+                                <a href="#" class="sel2">Descontinuados</a>
+                            </li>
+                        </ul>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li class="list-items-container">
+                                <a href="#" class="sel2">Resumen sku</a>
+                            </li>
                         </ul>
                     </li>
 
                     <li>
                         <a href="#colectionSubmenu" data-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle">Productos</a>
-                        <ul class="collapse list-unstyled" id="colectionSubmenu">
-                            <li *ngFor="let quarter of quarters" class="list-items-container">
-                                <label class="control control--checkbox">
-                                    <input class="quarter" type="checkbox" value="{{quarter.value}}"
-                                        name="{{quarter.value}}"
-                                        (change)="updateCheckFilter($event.target.checked, quarter, $event.target.className)"
-                                        id="{{quarter.value}}" />
-
-                                    <div class="control__indicator__item control__indicator"></div>
-                                </label>
-                                <p>{{quarter.text}}</p>
+                            class="sel1"><img src="./assets/rect.png" alt="" class="imgsel">Productos<img src="./assets/tri.png" alt="" class="imgsel2"></a>
+                        <ul class="collapse list-unstyled firstitem" id="colectionSubmenu">
+                            <li class="list-items-container">
+                                <a href="#" class="sel2">X</a>
                             </li>
                         </ul>
                     </li>
