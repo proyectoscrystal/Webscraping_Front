@@ -134,6 +134,11 @@
   margin-bottom: 0;
 }
 
+.column .card p {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 .card-precio {
   font-size: 1rem;
 }

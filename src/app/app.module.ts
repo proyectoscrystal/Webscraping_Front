@@ -11,6 +11,7 @@ import {
   LAZYLOAD_IMAGE_HOOKS,
   ScrollHooks,
 } from 'ng-lazyload-image';
+// import { ChartsModule } from 'ng2-charts';
 
 
 // Rutas
