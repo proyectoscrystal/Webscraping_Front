@@ -71,6 +71,7 @@ export class InformesComponent implements OnInit {
   objFilter: any;
   filterPhoto: any;
   url: any;
+  promedio: number;
 
   /**
    * Variables para la agrupación de colores
@@ -106,7 +107,7 @@ export class InformesComponent implements OnInit {
       (err) => {
         console.log(err);
       }
-    );
+      );
   }
 
   // Enviar datos al componente HomeComponent
@@ -154,6 +155,17 @@ export class InformesComponent implements OnInit {
 
     this.filterUsername();
   }
+
+  // obtener el promedio de precios
+  // getAverage() {
+  //   let totalEntradas: number = this.photos.length;
+  //   let total: number;
+  //   this.photos.forEach(precio => {
+  //     total += precio.precio;
+  //   });
+  //   console.log(`${total / totalEntradas}`);
+  // }
+
 
   // Filtrar nombres de usuario repetidos
   filterUsername() {

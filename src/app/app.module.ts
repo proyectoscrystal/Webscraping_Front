@@ -43,7 +43,6 @@ import { InformesComponent } from './components/informes/informes.component';
     HomeComponent,
     NewImageComponent,
     ImageDetailComponent,
-    InformesComponent,
   ],
   imports: [
     BrowserModule,
