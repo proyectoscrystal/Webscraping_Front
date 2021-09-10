@@ -34,6 +34,8 @@ interface valueFilter {
 export class InformesComponent implements OnInit {
   @ViewChild(HomeComponent) home: HomeComponent;
 
+  titulo: string;
+
   modalRef: BsModalRef;
   mostrar = false;
   total: number;
@@ -90,6 +92,7 @@ export class InformesComponent implements OnInit {
     this.toggleSidebar();
     this.showDataSidebar();
     this.getPhotoList();
+    this.titulo = "Resumen Mes";
   }
 
  /**

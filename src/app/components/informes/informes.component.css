@@ -129,6 +129,23 @@
   margin-bottom: 1rem;
 }
 
+
+/* sistema grid para organizar la parte superior (resumen, lista, date) */
+.grid {
+  display: grid;
+  grid-template-columns: 70% 15% 15%;
+}
+
+.titulo-grid1 {
+
+}
+
+.ul-grid1 {
+
+}
+
+
+
 .card-p {
   text-align: center;
   margin-bottom: 0;
