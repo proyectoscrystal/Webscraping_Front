@@ -163,6 +163,11 @@ tr:hover td{
   height: 15rem;
 }
 
+.container-cards {
+  width: 100%;
+  padding: 0 10px;
+}
+
 .Capa_1 {
   margin-left: 40%;
   width: 32px;
@@ -173,17 +178,69 @@ tr:hover td{
 /* sistema grid para organizar la parte superior (resumen, lista, date) */
 .grid {
   display: grid;
-  grid-template-columns: 70% 15% 15%;
+  grid-template-columns: 60% 15% 25%;
 }
 
 .titulo-grid1 {
 
 }
 
-.ul-grid1 {
-
+.input-grid1 {
+  display: grid;
+  grid-template-columns: 80% 10%;
+  gap: 10%;
+  align-items: start;
 }
 
+/* menu desplegable */
+#header {
+  margin: 0 1rem;
+}
+
+#date1 {
+  border: none;
+  border-radius: 5%;
+  background-color: #f1f1f1;
+  padding: 0 0 0.5rem 0.4rem;
+}
+
+.titulo-h1 {
+  padding-left: 1rem;
+}
+
+ul.nav {
+  list-style: none;
+  background-color: #f1f1f1;
+  border-radius: 7%;
+  padding-bottom: 0.5rem;
+  padding-left: 0.4rem;
+}
+
+ul.nav:hover {
+  background-color: #868686;
+}
+
+
+.nav li{
+  color: #0a0a0a;
+  text-decoration: none;
+  display: block;
+}
+
+.nav > li {
+  float: left;
+}
+
+.nav li ul {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+  }
+}
 
 
 .card-p {
