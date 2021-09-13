@@ -1,214 +1,261 @@
 <div class="d-flex" id="wrapper">
-    <!-- Sidebar -->
-    <div class="border-right" id="sidebar-wrapper">
-        <div class="menu-container">
-            <div class="list-group">
+  <!-- Sidebar -->
+  <div class="border-right" id="sidebar-wrapper">
+    <div class="menu-container">
+      <div class="list-group">
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a
+              href="#homeSubmenu"
+              data-toggle="collapse"
+              aria-expanded="false"
+              class="sel1"
+              ><img
+                src="./assets/rect.png"
+                alt=""
+                class="imgsel" />Comparativos<img
+                src="./assets/tri.png"
+                alt=""
+                class="imgsel2"
+            /></a>
+            <ul class="collapse list-unstyled firstitem" id="homeSubmenu">
+              <li class="list-items-container">
+                <a href="#" class="sel2">Precio promedio</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <li class="list-items-container">
+                <a href="#" class="sel2">Descuento promedio</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <li class="list-items-container">
+                <a href="#" class="sel2">Recien llegados</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <li class="list-items-container">
+                <a href="#" class="sel2">Descontinuados</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <li class="list-items-container">
+                <a href="#" class="sel2">Resumen sku</a>
+              </li>
+            </ul>
+          </li>
 
-                <ul class="list-unstyled components mb-5">
-                    <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="sel1"><img
-                                src="./assets/rect.png" alt="" class="imgsel">Comparativos<img src="./assets/tri.png"
-                                alt="" class="imgsel2"></a>
-                        <ul class="collapse list-unstyled firstitem" id="homeSubmenu">
-                            <li class="list-items-container">
-                                <a href="#" class="sel2">Precio promedio</a>
-                            </li>
-                        </ul>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li class="list-items-container">
-                                <a href="#" class="sel2">Descuento promedio</a>
-                            </li>
-                        </ul>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li class="list-items-container">
-                                <a href="#" class="sel2">Recien llegados</a>
-                            </li>
-                        </ul>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li class="list-items-container">
-                                <a href="#" class="sel2">Descontinuados</a>
-                            </li>
-                        </ul>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li class="list-items-container">
-                                <a href="#" class="sel2">Resumen sku</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="#colectionSubmenu" data-toggle="collapse" aria-expanded="false" class="sel1"><img
-                                src="./assets/rect.png" alt="" class="imgsel">Productos<img src="./assets/tri.png"
-                                alt="" class="imgsel2"></a>
-                        <ul class="collapse list-unstyled firstitem" id="colectionSubmenu">
-                            <li class="list-items-container">
-                                <a href="#" class="sel2">X</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
+          <li>
+            <a
+              href="#colectionSubmenu"
+              data-toggle="collapse"
+              aria-expanded="false"
+              class="sel1"
+              ><img
+                src="./assets/rect.png"
+                alt=""
+                class="imgsel" />Productos<img
+                src="./assets/tri.png"
+                alt=""
+                class="imgsel2"
+            /></a>
+            <ul class="collapse list-unstyled firstitem" id="colectionSubmenu">
+              <li class="list-items-container">
+                <a href="#" class="sel2">X</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!-- /#sidebar-wrapper -->
+  </div>
+  <!-- /#sidebar-wrapper -->
 
-    <!-- Page Content -->
-        <div class="container-cards mt-3">
-            <div class="grid">
+  <!-- Page Content -->
+  <div class="container-cards mt-3">
+    <div class="grid">
+      <div class="titulo-grid1">
+        <h1 class="titulo-h1">{{ titulo }}</h1>
+      </div>
 
-                <div class="titulo-grid1">
-                    <h1 class="titulo-h1">{{titulo}}</h1>
-                </div>
+      <div id="header" class="ul-grid1">
+        <ul class="nav">
+          <li>
+            Mes
+            <ul>
+              <li>año</li>
+              <li>Mes</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
 
-                <div id="header" class="ul-grid1">
-                    <ul class="nav">
-                        <li>Mes
-                            <ul>
-                                <li>año</li>
-                                <li>Mes</li>
-                            </ul>
-                        </li>
-                        
-                    </ul>
-                </div>
-
-                <div class="input-grid1">
-                    <input id="date1" type="date"/>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" heigth="16" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0" viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill: rgb(255, 87, 87);" role="img" aria-label="Illustration of a Funnel"><g id="__id33_ssutzzo1g"><path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)" style="fill: inherit;"></path></g></svg>
-                </div>
-                    
-            </div>
-
+      <div class="input-grid1">
+        <input id="date1" type="date" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          heigth="16"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          preserveAspectRatio="xMidYMid meet"
+          version="1.0"
+          viewBox="0.0 0.0 180.0 210.0"
+          zoomAndPan="magnify"
+          style="fill: rgb(255, 87, 87)"
+          role="img"
+          aria-label="Illustration of a Funnel"
+        >
+          <g id="__id33_ssutzzo1g">
+            <path
+              d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20"
+              transform="translate(-350 -144.09)"
+              style="fill: inherit"
+            ></path>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <!-- inicio cards resumen -->
     <div class="container-cards">
-        <div class="">
-
+      <div class="card-container">
+        <div class="column">
+          <div class="card">
+            <img src="../../../assets/money.png" class="Capa_1" alt="money" />
+            <!--todo hacer dinamico el precio y el porcentaje -->
+            <p class="card-p">Precio</p>
+            <p class="">promedio</p>
+            <p>$ 250.000</p>
+            <p>+ 0,39%</p>
+            <p>Que el mes pasado</p>
+          </div>
         </div>
-        <div class="card-container">
-            <div class="column">
-                <div class="card">
-                    <img src="../../../assets/money.png" class="Capa_1" alt="money">
-                    <!--todo hacer dinamico el precio y el porcentaje -->
-                    <p class="card-p">Precio</p>
-                    <p class="">promedio</p>
-                    <p>$ 250.000</p>
-                    <p>+ 0,39%</p>
-                    <p>Que el mes pasado</p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="card">
-                    <img src="../../../assets/discount.png" class="Capa_1" alt="discount">
-                    <p class="card-p">Descuento</p>
-                    <p class="">promedio</p>
-                    <p> 100 %</p>
-                    <p>- 0,55%</p>
-                    <p>Que el mes pasado</p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="card">
-                    <img src="../../../assets/new.png" class="Capa_1" alt="new">
-                    <p class="">Recien llegados</p>
-                    <p>15.000</p>
-                    <p>- 0,5%</p>
-                    <p>Que el mes pasado</p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="card">
-                    <img src="../../../assets/remove.png" class="Capa_1" alt="remove">
-                    <p class="">Descontinuados</p>
-                    <p>15.000</p>
-                    <p>10,55%</p>
-                    <p>Que el mes pasado</p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="card">
-                    <img src="../../../assets/sku.png" class="Capa_1" alt="sku">
-                    <p class="">Total</p>
-                    <p class="">SKU</p>
-                    <p>$ 250.000</p>
-                    <p>+ 0,39%</p>
-                    <p>Que el mes pasado</p>
-                </div>
-            </div>
-
+        <div class="column">
+          <div class="card">
+            <img
+              src="../../../assets/discount.png"
+              class="Capa_1"
+              alt="discount"
+            />
+            <p class="card-p">Descuento</p>
+            <p class="">promedio</p>
+            <p>100 %</p>
+            <p>- 0,55%</p>
+            <p>Que el mes pasado</p>
+          </div>
         </div>
-
-        <h2>Categorías con mayor cambio</h2>
-        <p>Comparación mes a mes</p>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Categoría</th>
-                        <th>Subcategoría</th>
-                        <th>Tipo de prenda</th>
-                        <th>Precio promedio</th>
-                        <th>Diferencia</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td data-label="Categoría">Mujeres</td>
-                        <td data-label="Subcategoría">Ropa</td>
-                        <td data-label="Tipo de prenda">Pantalon</td>
-                        <td data-label="Precio promedio">$65,772</td>
-                        <td data-label="Diferencia">88,69%</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Categoría">Mujeres</td>
-                        <td data-label="Subcategoría">Ropa</td>
-                        <td data-label="Tipo de prenda">Vestido</td>
-                        <td data-label="Precio promedio">$65,772</td>
-                        <td data-label="Diferencia">66,50%</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Categoría">Mujeres</td>
-                        <td data-label="Subcategoría">Ropa</td>
-                        <td data-label="Tipo de prenda">Camisa</td>
-                        <td data-label="Precio promedio">$65,772</td>
-                        <td data-label="Diferencia">46,94%</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Categoría">Mujeres</td>
-                        <td data-label="Subcategoría">Calzado</td>
-                        <td data-label="Tipo de prenda">Sandalias</td>
-                        <td data-label="Precio promedio">$65,772</td>
-                        <td data-label="Diferencia">67,02%</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Categoría">Mujeres</td>
-                        <td data-label="Subcategoría">Calzado</td>
-                        <td data-label="Tipo de prenda">Zapatos</td>
-                        <td data-label="Precio promedio">$65,772</td>
-                        <td data-label="Diferencia">34,43%</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Categoría">Mujeres</td>
-                        <td data-label="Subcategoría">Calzado</td>
-                        <td data-label="Tipo de prenda">Tenis</td>
-                        <td data-label="Precio promedio">$65,772</td>
-                        <td data-label="Diferencia">34,08%</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Categoría">Mujeres</td>
-                        <td data-label="Subcategoría">Accesorios</td>
-                        <td data-label="Tipo de prenda">Accesorios</td>
-                        <td data-label="Precio promedio">$65,772</td>
-                        <td data-label="Diferencia">132,93%</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Categoría">Mujeres</td>
-                        <td data-label="Subcategoría">Ropa</td>
-                        <td data-label="Tipo de prenda">Top</td>
-                        <td data-label="Precio promedio">$65,772</td>
-                        <td data-label="Diferencia">132,93%</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="column">
+          <div class="card">
+            <img src="../../../assets/new.png" class="Capa_1" alt="new" />
+            <p class="">Recien llegados</p>
+            <p>15.000</p>
+            <p>- 0,5%</p>
+            <p>Que el mes pasado</p>
+          </div>
         </div>
+        <div class="column">
+          <div class="card">
+            <img src="../../../assets/remove.png" class="Capa_1" alt="remove" />
+            <p class="">Descontinuados</p>
+            <p>15.000</p>
+            <p>10,55%</p>
+            <p>Que el mes pasado</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card">
+            <img src="../../../assets/sku.png" class="Capa_1" alt="sku" />
+            <p class="">Total</p>
+            <p class="">SKU</p>
+            <p>$ 250.000</p>
+            <p>+ 0,39%</p>
+            <p>Que el mes pasado</p>
+          </div>
+        </div>
+      </div>
+      <!-- fin cards container -->
     </div>
+
+    <!-- charts -->
+        <div class="chart-container">
+            <div class="chart-line">
+                <canvas id="myChart" #mychart></canvas>
+             </div>
+        </div>
+
+    <!-- tables -->
+    <h2>Categorías con mayor cambio</h2>
+    <p>Comparación mes a mes</p>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Subcategoría</th>
+            <th>Tipo de prenda</th>
+            <th>Precio promedio</th>
+            <th>Diferencia</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td data-label="Categoría">Mujeres</td>
+            <td data-label="Subcategoría">Ropa</td>
+            <td data-label="Tipo de prenda">Pantalon</td>
+            <td data-label="Precio promedio">$65,772</td>
+            <td data-label="Diferencia">88,69%</td>
+          </tr>
+          <tr>
+            <td data-label="Categoría">Mujeres</td>
+            <td data-label="Subcategoría">Ropa</td>
+            <td data-label="Tipo de prenda">Vestido</td>
+            <td data-label="Precio promedio">$65,772</td>
+            <td data-label="Diferencia">66,50%</td>
+          </tr>
+          <tr>
+            <td data-label="Categoría">Mujeres</td>
+            <td data-label="Subcategoría">Ropa</td>
+            <td data-label="Tipo de prenda">Camisa</td>
+            <td data-label="Precio promedio">$65,772</td>
+            <td data-label="Diferencia">46,94%</td>
+          </tr>
+          <tr>
+            <td data-label="Categoría">Mujeres</td>
+            <td data-label="Subcategoría">Calzado</td>
+            <td data-label="Tipo de prenda">Sandalias</td>
+            <td data-label="Precio promedio">$65,772</td>
+            <td data-label="Diferencia">67,02%</td>
+          </tr>
+          <tr>
+            <td data-label="Categoría">Mujeres</td>
+            <td data-label="Subcategoría">Calzado</td>
+            <td data-label="Tipo de prenda">Zapatos</td>
+            <td data-label="Precio promedio">$65,772</td>
+            <td data-label="Diferencia">34,43%</td>
+          </tr>
+          <tr>
+            <td data-label="Categoría">Mujeres</td>
+            <td data-label="Subcategoría">Calzado</td>
+            <td data-label="Tipo de prenda">Tenis</td>
+            <td data-label="Precio promedio">$65,772</td>
+            <td data-label="Diferencia">34,08%</td>
+          </tr>
+          <tr>
+            <td data-label="Categoría">Mujeres</td>
+            <td data-label="Subcategoría">Accesorios</td>
+            <td data-label="Tipo de prenda">Accesorios</td>
+            <td data-label="Precio promedio">$65,772</td>
+            <td data-label="Diferencia">132,93%</td>
+          </tr>
+          <tr>
+            <td data-label="Categoría">Mujeres</td>
+            <td data-label="Subcategoría">Ropa</td>
+            <td data-label="Tipo de prenda">Top</td>
+            <td data-label="Precio promedio">$65,772</td>
+            <td data-label="Diferencia">132,93%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>    <!-- fin container-cards -->
 </div>
