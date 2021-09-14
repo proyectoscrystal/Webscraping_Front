@@ -181,10 +181,6 @@ tr:hover td{
   grid-template-columns: 60% 15% 25%;
 }
 
-.titulo-grid1 {
-
-}
-
 .input-grid1 {
   display: grid;
   grid-template-columns: 80% 10%;
