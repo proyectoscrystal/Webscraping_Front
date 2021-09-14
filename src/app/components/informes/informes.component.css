@@ -93,10 +93,16 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* Tabla */
+/* Tablas */
 .table-container {
   width: 100%;
   max-width: 700px;
+  margin: auto;
+}
+
+.table-container-sku {
+  width: 100%;
+  max-width: 1600px;
   margin: auto;
 }
 
@@ -132,6 +138,39 @@ tr:hover td{
 .dif {
   color: green;
 }
+
+/* Responsive tables*/
+@media screen and (max-width: 600px) {
+  table {
+    border: 0px;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  td {
+    text-align: right;
+    display: block;
+  }
+
+  td:last-child {
+    border-bottom: 0px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    float: left;
+  }
+}
+/* Fin Tablas */
+
 /* Fin CSS Acevedo */
 
 
@@ -275,40 +314,12 @@ ul.nav:hover {
   height: 260px;
 }
 
-/* Responsive columns and tables - one column layout (vertical) on small screens */
+/* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
   .column {
     width: 100%;
     display: block;
     margin-bottom: 20px;
-  }
-
-  table {
-    border: 0px;
-  }
-
-  thead {
-    display: none;
-  }
-
-  tr {
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  td {
-    text-align: right;
-    display: block;
-  }
-
-  td:last-child {
-    border-bottom: 0px;
-  }
-
-  td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    float: left;
   }
 }
 
