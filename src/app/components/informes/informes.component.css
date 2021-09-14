@@ -276,7 +276,7 @@ ul.nav:hover {
 }
 
 .card-container {
-  background-color: antiquewhite;
+  height: 260px;
 }
 
 /* Responsive columns and tables - one column layout (vertical) on small screens */
@@ -321,6 +321,13 @@ ul.nav:hover {
   width: 100%;
 }
 
+.chart-line {
+  width: 90%;
+}
+
+.titulo-chart {
+  text-align: center;
+}
 
 
 /* fin estilos chart */
@@ -337,9 +344,9 @@ ul.nav:hover {
   }
 }
 
-@media (min-width: 750px) and (max-width: 947px){
+@media (min-width: 750px) {
   .chart-line {
-    width: auto;
+    margin: 1rem 0;
   }
 }
 
