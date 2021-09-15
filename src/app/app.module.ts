@@ -32,6 +32,11 @@ import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ImageDetailComponent } from './components/image-detail/image-detail.component';
 import { InformesComponent } from './components/informes/informes.component';
+import { InformePrecioComponent } from './components/informes/informe-precio/informe-precio.component';
+import { InformeDescuentoComponent } from './components/informes/informe-descuento/informe-descuento.component';
+import { InformeNuevosComponent } from './components/informes/informe-nuevos/informe-nuevos.component';
+import { InformeDescontinuadosComponent } from './components/informes/informe-descontinuados/informe-descontinuados.component';
+import { InformeSKUComponent } from './components/informes/informe-sku/informe-sku.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,12 @@ import { InformesComponent } from './components/informes/informes.component';
     HomeComponent,
     NewImageComponent,
     ImageDetailComponent,
+    InformePrecioComponent,
+    InformesComponent,
+    InformeDescuentoComponent,
+    InformeNuevosComponent,
+    InformeDescontinuadosComponent,
+    InformeSKUComponent,
   ],
   imports: [
     BrowserModule,
