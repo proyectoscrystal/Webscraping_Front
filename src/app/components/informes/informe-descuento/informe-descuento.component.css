@@ -97,3 +97,22 @@
   }
 
   /* fin chart */
+
+  /* grid para poner las cosas en una sola fila */
+
+  .grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+  }
+
+
+
+  /* media queryes */
+
+  @media (max-width: 1000px) {
+    .grid {
+      display: block;
+    }
+  }
+  
