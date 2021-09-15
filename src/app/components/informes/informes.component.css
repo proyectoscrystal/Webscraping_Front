@@ -52,6 +52,11 @@
   margin-left: 8px;
 }
 
+.prenda1 {
+  width: 120px;
+  height: 150px;
+}
+
 .firstitem {
   padding-top: 10px;
 }
@@ -101,6 +106,12 @@
 }
 
 .table-container-sku {
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
+}
+
+.table-container-tipoP {
   width: 100%;
   max-width: 1600px;
   margin: auto;
