@@ -22,6 +22,10 @@ export class BlackboxService {
     return this.http.get(this.url + '/getImages');
   }
 
+  getScraping() {
+    return this.http.get(this.url + '/webScraping');
+  }
+
   getPhoto(data) {
     return this.http.get(this.url + '/getImage/' + data);
   }

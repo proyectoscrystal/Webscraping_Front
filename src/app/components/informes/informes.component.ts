@@ -29,7 +29,6 @@ export class InformesComponent implements OnInit {
     this.getPhotoList();       
   }
 
-  
 
   // metodo para obtener todos los documentos de tipo images
   getPhotoList() {
