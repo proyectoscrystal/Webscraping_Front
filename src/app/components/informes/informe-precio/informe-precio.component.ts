@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
 
 @Component({
@@ -6,6 +6,9 @@ import { Chart, ChartConfiguration, registerables, LineController, LineElement, 
   templateUrl: './informe-precio.component.html',
   styleUrls: ['./informe-precio.component.css']
 })
+
+
+
 export class InformePrecioComponent implements OnInit {
 
   constructor() {
