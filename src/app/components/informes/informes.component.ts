@@ -18,6 +18,8 @@ export class InformesComponent implements OnInit {
   titulo: string;
   photos: any;
   averagePrice: number;
+  totalDiscount: number;
+  totalNew: number;
   currency1: any = '';
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string) {
@@ -38,7 +40,8 @@ export class InformesComponent implements OnInit {
         this.photos = res;
         console.log(res);
         this.getAverage();
-        
+        this.getDiscount();
+        this.getNew();
         return (this.photos = res);
       },
       (err) => {
@@ -70,6 +73,27 @@ export class InformesComponent implements OnInit {
     this.currency1 = this.currency1.split(',').join('.');
   }
 
-
-
+  getDiscount(){
+    let descuentoPromedio: number = 0;
+    let totalElementos2 = this.photos.length;   
+    this.photos.forEach(element => {
+      let { descuento } = element;
+      descuentoPromedio += descuento;
+    });
+    let discount = ((descuentoPromedio/100) * totalElementos2).toFixed();
+    this.totalDiscount = parseInt(discount);
   }
+
+  getNew(){
+    let totalNews = this.photos.length;
+    /*let totalNews = 0;
+    this.photos.forEach(element => {
+      let { tag } = element;
+      totalNews += tag;
+    });  */
+    let news = (totalNews).toFixed();
+    this.totalNew = parseInt(news);
+  }
+
+
+}
