@@ -26,6 +26,7 @@ export class InformesComponent implements OnInit {
   averagePrice: number;
   totalDiscount: number;
   totalNew: any;
+  totalsku: any;
   currency1: any = '';
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string) {
@@ -47,6 +48,7 @@ export class InformesComponent implements OnInit {
         this.getAverage();
         this.getDiscount();
         this.getNew();
+        this.setTotalSKU();
         return (this.photos = res);
       },
       (err) => {
@@ -101,6 +103,10 @@ export class InformesComponent implements OnInit {
     })
 
     this.totalNew = this.totalNew.length;
+  }
+
+  setTotalSKU() {
+    this.totalsku = this.photos.length;
   }
 
 

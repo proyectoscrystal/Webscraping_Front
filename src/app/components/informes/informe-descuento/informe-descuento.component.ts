@@ -21,7 +21,6 @@ export class InformeDescuentoComponent implements OnInit {
   data(value: any) {
     this.photos = value;
     this.total = this.photos.length;
-    console.log(this.photos);
   }
 
   canvas: any;
