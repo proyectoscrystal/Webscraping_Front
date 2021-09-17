@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
 import { BlackboxService } from '../../services/blackbox.service';
 
+import { InformePrecioComponent } from './informe-precio/informe-precio.component';
 
 
 
@@ -12,7 +13,7 @@ import { BlackboxService } from '../../services/blackbox.service';
   styleUrls: ['./informes.component.css']
 })
 export class InformesComponent implements OnInit {
-
+  @ViewChild(InformePrecioComponent) informePrecio: InformePrecioComponent;
   
   titulo: string;
   photos: any;
@@ -37,6 +38,7 @@ export class InformesComponent implements OnInit {
         this.photos = res;
         console.log(res);
         this.getAverage();
+        
         return (this.photos = res);
       },
       (err) => {
@@ -55,6 +57,7 @@ export class InformesComponent implements OnInit {
     });
     let price = (precioPromedio/totalElementos).toFixed()
     this.averagePrice = parseInt(price);
+    this.informePrecio.data(this.photos);
     this.setCurrency();
   }
 

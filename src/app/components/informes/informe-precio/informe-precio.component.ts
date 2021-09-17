@@ -11,6 +11,9 @@ import { Chart, ChartConfiguration, registerables, LineController, LineElement, 
 
 export class InformePrecioComponent implements OnInit {
 
+  photos: any;
+  total: any;
+
   constructor() {
     Chart.register(...registerables);
   }
@@ -21,6 +24,13 @@ export class InformePrecioComponent implements OnInit {
   canvas: any;
   ctx: any;
   @ViewChild('mychart') mychart:any;
+
+  // Recibe los datos del componente informes
+  data(value: any) {
+    this.photos = value;
+    this.total = this.photos.length;
+    console.log(this.photos);
+  }
 
   ngAfterViewInit() {
       Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
@@ -47,5 +57,7 @@ export class InformePrecioComponent implements OnInit {
     }); // fin chart 1
 
   }
+
+  
 
 }
