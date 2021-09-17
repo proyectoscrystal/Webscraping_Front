@@ -4,6 +4,9 @@ import { Chart, ChartConfiguration, registerables, LineController, LineElement, 
 import { BlackboxService } from '../../services/blackbox.service';
 
 import { InformePrecioComponent } from './informe-precio/informe-precio.component';
+import { InformeDescuentoComponent } from './informe-descuento/informe-descuento.component';
+import { InformeNuevosComponent } from './informe-nuevos/informe-nuevos.component';
+import { InformeSKUComponent } from './informe-sku/informe-sku.component';
 
 
 
@@ -14,12 +17,15 @@ import { InformePrecioComponent } from './informe-precio/informe-precio.componen
 })
 export class InformesComponent implements OnInit {
   @ViewChild(InformePrecioComponent) informePrecio: InformePrecioComponent;
+  @ViewChild(InformeDescuentoComponent) informeDescuento: InformeDescuentoComponent;
+  @ViewChild(InformeNuevosComponent) informeNuevo: InformeNuevosComponent;
+  @ViewChild(InformeSKUComponent) informeSKU: InformeSKUComponent;
   
   titulo: string;
   photos: any;
   averagePrice: number;
   totalDiscount: number;
-  totalNew: number;
+  totalNew: any;
   currency1: any = '';
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string) {
@@ -38,7 +44,6 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
         this.photos = res;
-        console.log(res);
         this.getAverage();
         this.getDiscount();
         this.getNew();
@@ -61,6 +66,10 @@ export class InformesComponent implements OnInit {
     let price = (precioPromedio/totalElementos).toFixed()
     this.averagePrice = parseInt(price);
     this.informePrecio.data(this.photos);
+    this.informeDescuento.data(this.photos);
+    this.informeNuevo.data(this.photos);
+    this.informeSKU.data(this.photos);
+    // this.informeDescuento.data(this.photos);
     this.setCurrency();
   }
 
@@ -85,14 +94,13 @@ export class InformesComponent implements OnInit {
   }
 
   getNew(){
-    let totalNews = this.photos.length;
-    /*let totalNews = 0;
-    this.photos.forEach(element => {
-      let { tag } = element;
-      totalNews += tag;
-    });  */
-    let news = (totalNews).toFixed();
-    this.totalNew = parseInt(news);
+    this.totalNew = this.photos.filter((res) => {
+      if(res.estado === 'nuevo'){
+        return res;
+      }
+    })
+
+    this.totalNew = this.totalNew.length;
   }
 
 

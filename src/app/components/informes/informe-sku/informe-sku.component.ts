@@ -8,11 +8,19 @@ import { Chart, ChartConfiguration, registerables, LineController, LineElement, 
 })
 export class InformeSKUComponent implements OnInit {
 
+  photos: any;
+  total: any;
+
   constructor() {
     Chart.register(...registerables);
    }
 
   ngOnInit(): void {
+  }
+
+  data(value: any) {
+    this.photos = value;
+    this.total = this.photos.length;
   }
 
   canvas: any;
