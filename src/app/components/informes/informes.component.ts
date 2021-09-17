@@ -85,14 +85,28 @@ export class InformesComponent implements OnInit {
   }
 
   getDiscount(){
-    let descuentoPromedio: number = 0;
-    let totalElementos2 = this.photos.length;   
-    this.photos.forEach(element => {
-      let { descuento } = element;
-      descuentoPromedio += descuento;
+    let discountTotal: any = this.photos.filter((prom) => {
+      if(prom.descuento !== null) {
+        return prom;
+      }
     });
-    let discount = ((descuentoPromedio/100) * totalElementos2).toFixed();
-    this.totalDiscount = parseInt(discount);
+    
+
+    let promedios: any = discountTotal.map(element => {
+      let { descuento, precio } = element;
+      
+      return parseFloat(Math.abs( ((descuento*100)/precio)-100 ).toFixed(2));  
+    });
+
+    let discount: any = 0;
+    promedios.forEach(element => {
+      discount += element;
+    });
+    this.totalDiscount = (discount/promedios.length);
+
+
+    // let discount = ((descuentoPromedio/100) * totalElementos2).toFixed();
+    // this.totalDiscount = parseInt(discount);
   }
 
   getNew(){
