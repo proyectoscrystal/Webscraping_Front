@@ -103,10 +103,6 @@ export class InformesComponent implements OnInit {
       discount += element;
     });
     this.totalDiscount = (discount/promedios.length);
-
-
-    // let discount = ((descuentoPromedio/100) * totalElementos2).toFixed();
-    // this.totalDiscount = parseInt(discount);
   }
 
   getNew(){
