@@ -59,7 +59,8 @@ export class InformePrecioComponent implements OnInit {
   averagePriceMango10: any  = 0;
   averagePriceMango11: any  = 0;
   averagePriceMango12: any  = 0;
-  // chartnumber: any = 1000000
+  label1: any;
+  label2: any;
 
 
   constructor(private blackboxService: BlackboxService) {
@@ -110,6 +111,7 @@ export class InformePrecioComponent implements OnInit {
      let octZ: any[] = [];
      let novZ: any[] = [];
      let dicZ: any[] = [];
+     this.label2 = 'Zara';
  
      
       photos.forEach(element => {
@@ -242,10 +244,89 @@ export class InformePrecioComponent implements OnInit {
      }); // fin del ciclo que guarda los precios de cada mes 
  
      // ciclos para sacar el precio promedio zara
+     this.setAveragePrice1Zara(eneZ);
+     this.setAveragePrice2Zara(febZ);
+     this.setAveragePrice3Zara(marZ);
+     this.setAveragePrice4Zara(abrZ);
+     this.setAveragePrice5Zara(mayZ);
+     this.setAveragePrice6Zara(junZ);
+     this.setAveragePrice7Zara(julZ);
      this.setAveragePrice8Zara(agosZ);
      this.setAveragePrice9Zara(sepZ);
      this.setAveragePrice10Zara(octZ);
+     this.setAveragePrice11Zara(novZ);
+     this.setAveragePrice12Zara(dicZ);
  
+   }
+ 
+   setAveragePrice1Zara(ene) {
+    if(ene.length === 0){
+      return this.averagePriceZara1 = 0;
+    }
+     ene.forEach(element => {
+       this.averagePriceZara1 += element;
+     }); 
+     this.averagePriceZara1 = parseFloat((this.averagePriceZara1/ene.length).toFixed(2));
+   }
+ 
+   setAveragePrice2Zara(feb) {
+    if(feb.length === 0){
+      return this.averagePriceZara2 = 0;
+    }
+     feb.forEach(element => {
+       this.averagePriceZara2 += element;
+     }); 
+     this.averagePriceZara2 = parseFloat((this.averagePriceZara2/feb.length).toFixed(2));
+   }
+ 
+   setAveragePrice3Zara(mar) {
+    if(mar.length === 0){
+      return this.averagePriceZara3 = 0;
+    }
+     mar.forEach(element => {
+       this.averagePriceZara3 += element;
+     }); 
+     this.averagePriceZara3 = parseFloat((this.averagePriceZara3/mar.length).toFixed(2));
+   }
+ 
+   setAveragePrice4Zara(abr) {
+    if(abr.length === 0){
+      return this.averagePriceZara4 = 0;
+    }
+     abr.forEach(element => {
+       this.averagePriceZara4 += element;
+     }); 
+     this.averagePriceZara4 = parseFloat((this.averagePriceZara4/abr.length).toFixed(2));
+   }
+ 
+   setAveragePrice5Zara(may) {
+    if(may.length === 0){
+      return this.averagePriceZara5 = 0;
+    }
+     may.forEach(element => {
+       this.averagePriceZara5 += element;
+     }); 
+     this.averagePriceZara5 = parseFloat((this.averagePriceZara5/may.length).toFixed(2));
+   }
+ 
+   setAveragePrice6Zara(jun) {
+    if(jun.length === 0){
+      return this.averagePriceZara6 = 0;
+    }
+     jun.forEach(element => {
+       this.averagePriceZara6 += element;
+     }); 
+     this.averagePriceZara6 = parseFloat((this.averagePriceZara6/jun.length).toFixed(2));
+   }
+ 
+   setAveragePrice7Zara(jul) {
+    if(jul.length === 0){
+      return this.averagePriceZara7 = 0;
+    }
+     jul.forEach(element => {
+       this.averagePriceZara7 += element;
+     }); 
+     this.averagePriceZara7 = parseFloat((this.averagePriceZara7/jul.length).toFixed(2));
    }
  
    setAveragePrice8Zara(agos) {
@@ -254,8 +335,7 @@ export class InformePrecioComponent implements OnInit {
     }
      agos.forEach(element => {
        this.averagePriceZara8 += element;
-     });
- 
+     }); 
      this.averagePriceZara8 = parseFloat((this.averagePriceZara8/agos.length).toFixed(2));
    }
  
@@ -265,8 +345,7 @@ export class InformePrecioComponent implements OnInit {
     }
      sepZ9.forEach(element => {
        this.averagePriceZara9 += element;
-     });
- 
+     }); 
      this.averagePriceZara9 = parseFloat((this.averagePriceZara9/sepZ9.length).toFixed(2));
    }
  
@@ -279,6 +358,28 @@ export class InformePrecioComponent implements OnInit {
      });
  
      this.averagePriceZara10 = parseFloat((this.averagePriceZara10/octZ.length).toFixed(2));
+   }
+ 
+   setAveragePrice11Zara(nov) {
+    if(nov.length === 0){
+      return this.averagePriceZara11 = 0;
+    }
+     nov.forEach(element => {
+       this.averagePriceZara11 += element;
+     });
+ 
+     this.averagePriceZara11 = parseFloat((this.averagePriceZara11/nov.length).toFixed(2));
+   }
+ 
+   setAveragePrice12Zara(dic) {
+    if(dic.length === 0){
+      return this.averagePriceZara12 = 0;
+    }
+     dic.forEach(element => {
+       this.averagePriceZara12 += element;
+     });
+ 
+     this.averagePriceZara12 = parseFloat((this.averagePriceZara12/dic.length).toFixed(2));
    }
 
 
@@ -298,6 +399,7 @@ export class InformePrecioComponent implements OnInit {
     let octZ: any[] = [];
     let novZ: any[] = [];
     let dicZ: any[] = [];
+    this.label1 = 'Mango';
 
     
      photos.forEach(element => {
@@ -411,9 +513,99 @@ export class InformePrecioComponent implements OnInit {
     }); // fin del ciclo que guarda los precios de cada mes 
 
     // ciclos para sacar el precio promedio
+    this.setAveragePrice1Mango(eneZ);
+    this.setAveragePrice2Mango(febZ);
+    this.setAveragePrice3Mango(marZ);
+    this.setAveragePrice4Mango(abrZ);
+    this.setAveragePrice5Mango(mayZ);
+    this.setAveragePrice6Mango(junZ);
+    this.setAveragePrice7Mango(julZ);
+    this.setAveragePrice8Mango(agosZ);
     this.setAveragePrice9Mango(sepZ);
     this.setAveragePrice10Mango(octZ);
+    this.setAveragePrice11Mango(novZ);
+    this.setAveragePrice12Mango(dicZ);
 
+  }
+
+  setAveragePrice1Mango(ene) {
+    if(ene.length === 0){
+      return this.averagePriceMango1 = 0;
+    }
+    ene.forEach(element => {
+      this.averagePriceMango1 += element;
+    });
+    this.averagePriceMango1 = parseFloat((this.averagePriceMango1/ene.length).toFixed(2));
+  }
+
+  setAveragePrice2Mango(feb) {
+    if(feb.length === 0){
+      return this.averagePriceMango2 = 0;
+    }
+    feb.forEach(element => {
+      this.averagePriceMango2 += element;
+    });
+    this.averagePriceMango2 = parseFloat((this.averagePriceMango2/feb.length).toFixed(2));
+  }
+
+  setAveragePrice3Mango(mar) {
+    if(mar.length === 0){
+      return this.averagePriceMango3 = 0;
+    }
+    mar.forEach(element => {
+      this.averagePriceMango3 += element;
+    });
+    this.averagePriceMango3 = parseFloat((this.averagePriceMango3/mar.length).toFixed(2));
+  }
+
+  setAveragePrice4Mango(abr) {
+    if(abr.length === 0){
+      return this.averagePriceMango4 = 0;
+    }
+    abr.forEach(element => {
+      this.averagePriceMango4 += element;
+    });
+    this.averagePriceMango4 = parseFloat((this.averagePriceMango4/abr.length).toFixed(2));
+  }
+
+  setAveragePrice5Mango(may) {
+    if(may.length === 0){
+      return this.averagePriceMango5 = 0;
+    }
+    may.forEach(element => {
+      this.averagePriceMango5 += element;
+    });
+    this.averagePriceMango5 = parseFloat((this.averagePriceMango5/may.length).toFixed(2));
+  }
+
+  setAveragePrice6Mango(jun) {
+    if(jun.length === 0){
+      return this.averagePriceMango6 = 0;
+    }
+    jun.forEach(element => {
+      this.averagePriceMango6 += element;
+    });
+    this.averagePriceMango6 = parseFloat((this.averagePriceMango6/jun.length).toFixed(2));
+  }
+
+  setAveragePrice7Mango(jul) {
+    if(jul.length === 0){
+      return this.averagePriceMango7 = 0;
+    }
+    jul.forEach(element => {
+      this.averagePriceMango7 += element;
+    });
+    this.averagePriceMango7 = parseFloat((this.averagePriceMango7/jul.length).toFixed(2));
+  }
+
+  setAveragePrice8Mango(agos) {
+    if(agos.length === 0){
+      return this.averagePriceMango8 = 0;
+    }
+    agos.forEach(element => {
+      this.averagePriceMango8 += element;
+    });
+    this.averagePriceMango8 = parseFloat((this.averagePriceMango8/agos.length).toFixed(2));
   }
 
   setAveragePrice9Mango(sepZ9) {
@@ -423,24 +615,45 @@ export class InformePrecioComponent implements OnInit {
     sepZ9.forEach(element => {
       this.averagePriceMango9 += element;
     });
-
     this.averagePriceMango9 = parseFloat((this.averagePriceMango9/sepZ9.length).toFixed(2));
   }
 
-  setAveragePrice10Mango(sepZ10) {
-    if(sepZ10.length === 0){
+  setAveragePrice10Mango(oct) {
+    if(oct.length === 0){
       return this.averagePriceMango10 = 0;
     }
-    sepZ10.forEach(element => {
+    oct.forEach(element => {
       this.averagePriceMango10 += element;
     });
+    this.averagePriceMango10 = parseFloat((this.averagePriceMango10/oct.length).toFixed(2));
+  }
 
-    this.averagePriceMango10 = parseFloat((this.averagePriceMango10/sepZ10.length).toFixed(2));
+  setAveragePrice11Mango(nov) {
+    if(nov.length === 0){
+      return this.averagePriceMango11 = 0;
+    }
+    nov.forEach(element => {
+      this.averagePriceMango11 += element;
+    });
+    this.averagePriceMango11 = parseFloat((this.averagePriceMango11/nov.length).toFixed(2));
+  }
+
+  setAveragePrice12Mango(dic) {
+    if(dic.length === 0){
+      return this.averagePriceMango12 = 0;
+    }
+    dic.forEach(element => {
+      this.averagePriceMango12 += element;
+    });
+    this.averagePriceMango12 = parseFloat((this.averagePriceMango12/dic.length).toFixed(2));
   }
 
 
+  // fin set precios promedio mango año en curso
 
-  // fin de la logica del precio promedio mango
+  // jp
+
+
   
 
  
@@ -464,13 +677,13 @@ export class InformePrecioComponent implements OnInit {
         type: 'line',
         data: {
             datasets: [{
-                label: 'Mango',
+                label: this.label1,
                 data: [this.averagePriceMango1, this.averagePriceMango2, this.averagePriceMango3, this.averagePriceMango4, this.averagePriceMango5, this.averagePriceMango6, this.averagePriceMango7, this.averagePriceMango8, this.averagePriceMango9, this.averagePriceMango10, this.averagePriceMango11, this.averagePriceMango12],
                 borderColor: "#007ee7",
                 fill: true,
             },
             {
-              label: 'Zara',
+              label: this.label2,
               data: [this.averagePriceZara1, this.averagePriceZara2, this.averagePriceZara3, this.averagePriceZara4, this.averagePriceZara5, this.averagePriceZara6, this.averagePriceZara7, this.averagePriceZara8, this.averagePriceZara9, this.averagePriceZara10, this.averagePriceZara11, this.averagePriceZara12 ],
               borderColor: "#bd0e0e",
               fill: true,
@@ -481,6 +694,9 @@ export class InformePrecioComponent implements OnInit {
     }); // fin chart 1
 
   }
+
+
+  //juan camilo
 
 }
 
