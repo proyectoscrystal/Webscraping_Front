@@ -3,15 +3,35 @@ import { Chart, ChartConfiguration, registerables, LineController, LineElement, 
 
 import { BlackboxService } from '../../../services/blackbox.service';
 
+//DataTables
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
 @Component({
   selector: 'app-informe-precio',
   templateUrl: './informe-precio.component.html',
   styleUrls: ['./informe-precio.component.css']
 })
 
-
-
 export class InformePrecioComponent implements OnInit {
+  
+
+  PRENDASX: PrendasArray[] = [
+    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Pantalon', preciopromedio: '$65.772', diferencia: '88.69% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Vestido', preciopromedio: '$65.772', diferencia: '66.50% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Camisa', preciopromedio: '$65.772', diferencia: '46.94% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Sandalias', preciopromedio: '$65.772', diferencia: '67.02% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Calzado', tipoprenda: 'Zapatos', preciopromedio: '$65.772', diferencia: '34.43% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Calzado', tipoprenda: 'Tenis', preciopromedio: '$65.772', diferencia: '34.08% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Calzado', tipoprenda: 'Zapatos', preciopromedio: '$65.772', diferencia: '132.93% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Accesorios', tipoprenda: 'Manilla', preciopromedio: '$65.772', diferencia: '70.58% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Top', preciopromedio: '$65.772', diferencia: '59.67% ↑'},
+    {categoria: 'Mujeres', subcategoria: 'Calzado', tipoprenda: 'Tenis', preciopromedio: '$65.772', diferencia: '70.80% ↑'},
+  ];
+
+  displayedColumns: string[] = ['categoria', 'subcategoria', 'tipoprenda', 'preciopromedio', 'diferencia'];
+  dataSource = new MatTableDataSource(this.PRENDASX);
 
   photos: any;
   total: any;
@@ -50,6 +70,9 @@ export class InformePrecioComponent implements OnInit {
     this.getPhotoList();
   }
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   getPhotoList() {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
@@ -63,6 +86,12 @@ export class InformePrecioComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+  
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
    // logica para los precios promedios en los charts
@@ -421,9 +450,11 @@ export class InformePrecioComponent implements OnInit {
 
   canvas: any;
   ctx: any;
-  @ViewChild('mychart') mychart:any;
+  @ViewChild('mychart') mychart: any;
 
   ng = function ngAfterViewInit() {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       console.log(this.averagePriceZara9);
       Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
       this.canvas = this.mychart.nativeElement; 
@@ -446,14 +477,18 @@ export class InformePrecioComponent implements OnInit {
           }],
             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre']
         },
+        
     }); // fin chart 1
 
   }
 
-  
-
-}
-function e(e: any, any: any) {
-  throw new Error('Function not implemented.');
 }
 
+//Datatables
+export interface PrendasArray {
+  categoria: string;
+  subcategoria: string;
+  tipoprenda: string;
+  preciopromedio: string;
+  diferencia: string;
+}
