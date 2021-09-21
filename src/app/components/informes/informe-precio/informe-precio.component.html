@@ -9,85 +9,55 @@
   </div>
 
   <div class="table-container">
-    <h2>Categorías con mayor cambio - Precio promedio <svg xmlns="http://www.w3.org/2000/svg" width="16" heigth="16"
-        xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
-        viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill: rgb(255, 87, 87);" role="img"
-        aria-label="Illustration of a Funnel">
-        <g id="__id33_ssutzzo1g">
-          <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
-            style="fill: inherit"></path>
-        </g>
-      </svg></h2>
+    <h2>Categorías con mayor cambio - Precio promedio</h2>
     <p>Comparación mes a mes</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Categoría</th>
-          <th>Subcategoría</th>
-          <th>Tipo de prenda</th>
-          <th>Precio promedio</th>
-          <th>Diferencia</th>
-        </tr>
-      </thead>
 
-      <tbody>
-        <tr>
-          <td data-label="Categoría">Mujeres</td>
-          <td data-label="Subcategoría">Ropa</td>
-          <td data-label="Tipo de prenda">Pantalon</td>
-          <td data-label="Precio promedio">$65,772</td>
-          <td data-label="Diferencia" style="color: green">88,69% ↑</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Mujeres</td>
-          <td data-label="Subcategoría">Ropa</td>
-          <td data-label="Tipo de prenda">Vestido</td>
-          <td data-label="Precio promedio">$65,772</td>
-          <td data-label="Diferencia" style="color: green">66,50% ↑</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Mujeres</td>
-          <td data-label="Subcategoría">Ropa</td>
-          <td data-label="Tipo de prenda">Camisa</td>
-          <td data-label="Precio promedio">$65,772</td>
-          <td data-label="Diferencia" style="color: green">46,94% ↑</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Mujeres</td>
-          <td data-label="Subcategoría">Calzado</td>
-          <td data-label="Tipo de prenda">Sandalias</td>
-          <td data-label="Precio promedio">$65,772</td>
-          <td data-label="Diferencia" style="color: green">67,02% ↑</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Mujeres</td>
-          <td data-label="Subcategoría">Calzado</td>
-          <td data-label="Tipo de prenda">Zapatos</td>
-          <td data-label="Precio promedio">$65,772</td>
-          <td data-label="Diferencia" style="color: green">34,43% ↑</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Mujeres</td>
-          <td data-label="Subcategoría">Calzado</td>
-          <td data-label="Tipo de prenda">Tenis</td>
-          <td data-label="Precio promedio">$65,772</td>
-          <td data-label="Diferencia" style="color: green">34,08% ↑</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Mujeres</td>
-          <td data-label="Subcategoría">Accesorios</td>
-          <td data-label="Tipo de prenda">Accesorios</td>
-          <td data-label="Precio promedio">$65,772</td>
-          <td data-label="Diferencia" style="color: green">132,93% ↑</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Mujeres</td>
-          <td data-label="Subcategoría">Ropa</td>
-          <td data-label="Tipo de prenda">Top</td>
-          <td data-label="Precio promedio">$65,772</td>
-          <td data-label="Diferencia" style="color: green">132,93% ↑</td>
-        </tr>
-      </tbody>
-    </table>
+    <mat-form-field appearance="standard">
+      <mat-label>Filtrar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo. Helium" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z4">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Categoria Column -->
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Categoría </th>
+          <td mat-cell *matCellDef="let element" data-label="Categoría"> {{element.categoria}} </td>
+        </ng-container>
+
+        <!-- Subcategoría Column -->
+        <ng-container matColumnDef="subcategoria">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Subcategoría </th>
+          <td mat-cell *matCellDef="let element" data-label="Subcategoría"> {{element.subcategoria}} </td>
+        </ng-container>
+
+        <!-- Tipo de prenda Column -->
+        <ng-container matColumnDef="tipoprenda">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Tipo de prenda </th>
+          <td mat-cell *matCellDef="let element" data-label="Tipo de prenda"> {{element.tipoprenda}} </td>
+        </ng-container>
+
+        <!-- Precio promedio Column -->
+        <ng-container matColumnDef="preciopromedio">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Precio promedio </th>
+          <td mat-cell *matCellDef="let element" data-label="Precio promedio"> {{element.preciopromedio}} </td>
+        </ng-container>
+
+        <!-- Diferencia Column -->
+        <ng-container matColumnDef="diferencia">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Diferencia </th>
+          <td mat-cell *matCellDef="let element" data-label="Diferencia"> {{element.diferencia}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" aria-label="Select page of users"></mat-paginator>
+
+    </div>
+
   </div>
+
 </div>

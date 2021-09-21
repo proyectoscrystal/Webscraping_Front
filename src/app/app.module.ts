@@ -38,6 +38,15 @@ import { InformeNuevosComponent } from './components/informes/informe-nuevos/inf
 import { InformeDescontinuadosComponent } from './components/informes/informe-descontinuados/informe-descontinuados.component';
 import { InformeSKUComponent } from './components/informes/informe-sku/informe-sku.component';
 
+// Material Datatables
+import {MatInputModule} from '@angular/material/input';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +63,7 @@ import { InformeSKUComponent } from './components/informes/informe-sku/informe-s
     InformeDescuentoComponent,
     InformeNuevosComponent,
     InformeDescontinuadosComponent,
-    InformeSKUComponent,
+    InformeSKUComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +78,13 @@ import { InformeSKUComponent } from './components/informes/informe-sku/informe-s
       maxOpened: 2,
     }), // ToastrModule added
     ModalModule.forRoot(),
+    MatInputModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatRippleModule,
+    MatSortModule,
+    MatTableModule,
+    MatFormFieldModule
   ],
   providers: [
     AuthGuard,
