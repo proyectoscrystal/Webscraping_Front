@@ -16,10 +16,9 @@ import { InformeSKUComponent } from './informe-sku/informe-sku.component';
   styleUrls: ['./informes.component.css']
 })
 export class InformesComponent implements OnInit {
-  @ViewChild(InformePrecioComponent) informePrecio: InformePrecioComponent;
-  @ViewChild(InformeDescuentoComponent) informeDescuento: InformeDescuentoComponent;
-  @ViewChild(InformeNuevosComponent) informeNuevo: InformeNuevosComponent;
-  @ViewChild(InformeSKUComponent) informeSKU: InformeSKUComponent;
+  // @ViewChild(InformeDescuentoComponent) informeDescuento: InformeDescuentoComponent;
+  // @ViewChild(InformeNuevosComponent) informeNuevo: InformeNuevosComponent;
+  // @ViewChild(InformeSKUComponent) informeSKU: InformeSKUComponent;
   
   titulo: string;
   photos: any;
@@ -32,6 +31,8 @@ export class InformesComponent implements OnInit {
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string) {
     Chart.register(...registerables);
     
+    // metodo para obtener todos los documentos de tipo images
+  
   }     
 
   ngOnInit(): void {
@@ -39,8 +40,6 @@ export class InformesComponent implements OnInit {
     this.getPhotoList();       
   }
 
-
-  // metodo para obtener todos los documentos de tipo images
   getPhotoList() {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
@@ -56,6 +55,7 @@ export class InformesComponent implements OnInit {
       }
     );
   }
+  
 
 
   getAverage(){
@@ -67,11 +67,7 @@ export class InformesComponent implements OnInit {
     });
     let price = (precioPromedio/totalElementos).toFixed()
     this.averagePrice = parseInt(price);
-    this.informePrecio.data(this.photos);
-    this.informeDescuento.data(this.photos);
-    this.informeNuevo.data(this.photos);
-    this.informeSKU.data(this.photos);
-    // this.informeDescuento.data(this.photos);
+    
     this.setCurrency();
   }
 
@@ -118,6 +114,9 @@ export class InformesComponent implements OnInit {
   setTotalSKU() {
     this.totalsku = this.photos.length;
   }
+
+
+
 
 
 }
