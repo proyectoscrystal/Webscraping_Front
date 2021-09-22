@@ -95,8 +95,8 @@ export class InformePrecioComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  
    // logica para los precios promedios en los charts
-   
  
    setAveragePriceZara(photos: any){
      let eneZ: any[] = [];
@@ -382,6 +382,7 @@ export class InformePrecioComponent implements OnInit {
      this.averagePriceZara12 = parseFloat((this.averagePriceZara12/dic.length).toFixed(2));
    }
 
+   // fin logica precio promedio zara
 
 
    // logica para el precio promedio de mango

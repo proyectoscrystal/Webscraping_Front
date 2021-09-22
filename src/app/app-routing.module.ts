@@ -1,3 +1,6 @@
+import { InformeNuevosComponent } from './components/informes/informe-nuevos/informe-nuevos.component';
+import { InformeDescuentoComponent } from './components/informes/informe-descuento/informe-descuento.component';
+import { InformePrecioComponent } from './components/informes/informe-precio/informe-precio.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -9,6 +12,8 @@ import { ImageDetailComponent } from './components/image-detail/image-detail.com
 import { InformesComponent } from './components/informes/informes.component';
 
 import { AuthGuard } from './auth.guard';
+import { InformeSKUComponent } from './components/informes/informe-sku/informe-sku.component';
+import { InformeDescontinuadosComponent } from './components/informes/informe-descontinuados/informe-descontinuados.component';
 
 const routes: Routes = [
   {
@@ -23,6 +28,33 @@ const routes: Routes = [
   {
     path: 'informes',
     component: InformesComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'informePrecios'
+      },
+      {
+        path: 'informePrecios',
+        component: InformePrecioComponent
+      },
+      {
+        path: 'informeDescuentos',
+        component: InformeDescuentoComponent
+      },
+      {
+        path: 'informeNuevos',
+        component: InformeNuevosComponent
+      },
+      {
+        path: 'informeSKU',
+        component: InformeSKUComponent
+      },
+      {
+        path: 'informeDescontinuados',
+        component: InformeDescontinuadosComponent
+      }
+    ]
   },
   {
     path: 'registerNewUserBlackbox',

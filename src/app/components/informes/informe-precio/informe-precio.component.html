@@ -2,9 +2,13 @@
   <div class="chart-container">
     <div class="titulo-chart">
       <h2>Precio promedio marcas</h2>
+      <select type="" class="form-control col-md-2" >
+        <option value="mes">Mes</option>
+        <option value="year">Año</option>
+      </select>
     </div>
     <div class="chart-line">
-      <canvas id="myChart" width="200px" height="100px" #mychart></canvas>
+      <canvas id="myChart" width="200px" height="120px" #mychart></canvas>
     </div>
   </div>
 
@@ -14,7 +18,7 @@
 
     <mat-form-field appearance="standard">
       <mat-label>Filtrar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo. Helium" #input>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo. Zapatos" #input>
     </mat-form-field>
 
     <div class="mat-elevation-z4">
