@@ -49,6 +49,11 @@
   .dif {
     color: green;
   }
+
+  .prenda1 {
+    width: 120px;
+    height: 150px;
+  }
   
   /* Responsive tables*/
   @media screen and (max-width: 600px) {
