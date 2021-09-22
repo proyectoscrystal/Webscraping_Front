@@ -20,7 +20,7 @@
             /></a>
             <ul class="collapse list-unstyled firstitem" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2">Precio promedio</a>
+                <a class="sel2" routerLink="informePrecios" routerLinkActive="activo" >Precio promedio</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -118,8 +118,8 @@
     <!-- inicio cards resumen -->
     <div class="container-cards">
       <div class="card-container">
-        <div class="column">
-          <div class="card">
+        <div class="column" >
+          <div class="card" routerLink="informePrecios" routerLinkActive="activo">
             <img src="../../../assets/money.png" class="Capa_1" alt="money" />
             <!--todo hacer dinamico el precio y el porcentaje -->
             <p class="card-p">Precio</p>
@@ -129,8 +129,8 @@
             <p>Que el mes pasado</p>
           </div>
         </div>
-        <div class="column">
-          <div class="card">
+        <div class="column" >
+          <div class="card" routerLink="informeDescuentos" routerLinkActive="activo">
             <img
               src="../../../assets/discount.png"
               class="Capa_1"
@@ -143,8 +143,8 @@
             <p>Que el mes pasado</p>
           </div>
         </div>
-        <div class="column">
-          <div class="card">
+        <div class="column" >
+          <div class="card" routerLink="informeNuevos" routerLinkActive="activo">
             <img src="../../../assets/new.png" class="Capa_1" alt="new" />
             <p class="">Recien llegados</p>
             <p> {{totalNew}} </p>
@@ -152,8 +152,8 @@
             <p>Que el mes pasado</p>
           </div>
         </div>
-        <div class="column">
-          <div class="card">
+        <div class="column" >
+          <div class="card" routerLink="informeDescontinuados" routerLinkActive="activo">
             <img src="../../../assets/remove.png" class="Capa_1" alt="remove" />
             <p class="">Descontinuados</p>
             <p>15.000</p>
@@ -161,12 +161,12 @@
             <p>Que el mes pasado</p>
           </div>
         </div>
-        <div class="column">
-          <div class="card">
+        <div class="column" >
+          <div class="card" routerLink="informeSKU" routerLinkActive="activo">
             <img src="../../../assets/sku.png" class="Capa_1" alt="sku" />
             <p class="">Total SKU</p>
             <p>{{totalsku}}</p>
-            <p>+ 0,39%</p>
+            <p class="porcentaje">+ 0,39%</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
@@ -174,150 +174,10 @@
       <!-- fin cards container -->
     </div>
 
-    
-    <!-- <app-informe-precio></app-informe-precio>
-    <br>
-    <br>
-    <hr>
-    <br>
-
-    <app-informe-descuento></app-informe-descuento>
-
-    <br>
-    <br>
-    <hr>
-    <br>
-
-    <app-informe-nuevos></app-informe-nuevos>   
-
-    <br>
-    <br>
-    <hr>
-    <br>
-
-    <app-informe-descontinuados></app-informe-descontinuados>
-
-    <br>
-    <br>
-    <hr>
-    <br>
-
-   <app-informe-sku></app-informe-sku>        -->
+    <!-- routing a los componentes hijos -->
    <router-outlet></router-outlet>
-
-    <br>
-    <br>
-    <hr>
-    <br>
-
-    <!-- tabla tipo de prenda -->
-    <div class="table-container-tipoP">
-      <h2>Tipo de prenda</h2>
-      <table class="tipoP">
-        <thead>
-          <tr>
-            <th>Categoría</th>
-            <th>Subcategoría</th>
-            <th>Tipo de prenda</th>
-            <th>SKU</th>
-            <th>Precio promedio</th>
-            <th>Nueva llegada</th>
-            <th>Tasa de frescura</th>
-            <th>Cantidad descuento</th>
-            <th>Descuento promedio</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td data-label="Categoría">Todo</td>
-            <td data-label="Subcategoría">Vestir</td>
-            <td data-label="Tipo de prenda">Todo</td>
-            <td data-label="SKU">124m</td>
-            <td data-label="Precio promedio">$55.50</td>
-            <td data-label="Nueva llegada">El 14.97m</td>
-            <td data-label="Tasa de frescura">12.07%</td>
-            <td data-label="Cantidad descuento">708.72K</td>
-            <td data-label="Descuento promedio" style="color: green;">88,69%</td>
-          </tr>
-          <tr>
-            <td data-label="Categoría">Todo</td>
-            <td data-label="Subcategoría">Calzado</td>
-            <td data-label="Tipo de prenda">Todo</td>
-            <td data-label="SKU">Los 30.61m</td>
-            <td data-label="Precio promedio">$82.00</td>
-            <td data-label="Nueva llegada">Los 4.27m</td>
-            <td data-label="Tasa de frescura">13.97%</td>
-            <td data-label="Cantidad descuento">590.83K</td>
-            <td data-label="Descuento promedio" style="color: green;">88,69%</td>
-          </tr>
-          <tr>
-            <td data-label="Categoría">Todo</td>
-            <td data-label="Subcategoría">Interior</td>
-            <td data-label="Tipo de prenda">Todo</td>
-            <td data-label="SKU">El 14.51m</td>
-            <td data-label="Precio promedio">$35.50</td>
-            <td data-label="Nueva llegada">1.98m</td>
-            <td data-label="Tasa de frescura">13.70%</td>
-            <td data-label="Cantidad descuento">452k</td>
-            <td data-label="Descuento promedio" style="color: green;">88,69%</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- Fin tabla tipo de prenda -->   
+   <br>
     
-    <br>
-    <br>
-    <br>
-
-    <!-- tabla productos -->
-    <div class="table-container-tipoP">
-      <h2>Productos</h2>
-      <table class="tipoP">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Tipo de prenda</th>
-            <th>Retail</th>
-            <th>Color</th>
-            <th>Talla</th>
-            <th>Precio</th>
-            <th>Descuento</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td data-label="Producto"><img src="./assets/prenda1.png" alt="" class="prenda1"/></td>
-            <td data-label="Tipo de prenda">Camisa</td>
-            <td data-label="Retail">Zara</td>
-            <td data-label="Color">Blanco</td>
-            <td data-label="Talla">S-M-L</td>
-            <td data-label="Precio">708.72K</td>
-            <td data-label="Descuento">22.92%</td>
-          </tr>
-          <tr>
-            <td data-label="Producto"><img src="./assets/prenda1.png" alt="" class="prenda1"/></td>
-            <td data-label="Tipo de prenda">Camisa</td>
-            <td data-label="Retail">Zara</td>
-            <td data-label="Color">Blanco</td>
-            <td data-label="Talla">S-M-L</td>
-            <td data-label="Precio">708.72K</td>
-            <td data-label="Descuento">22.92%</td>
-          </tr>
-          <tr>
-            <td data-label="Producto"><img src="./assets/prenda1.png" alt="" class="prenda1"/></td>
-            <td data-label="Tipo de prenda">Camisa</td>
-            <td data-label="Retail">Zara</td>
-            <td data-label="Color">Blanco</td>
-            <td data-label="Talla">S-M-L</td>
-            <td data-label="Precio">708.72K</td>
-            <td data-label="Descuento">22.92%</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
     <!-- Fin tabla productos -->      
   </div>
   <!-- fin page-content -->

@@ -14,6 +14,7 @@ import { InformesComponent } from './components/informes/informes.component';
 import { AuthGuard } from './auth.guard';
 import { InformeSKUComponent } from './components/informes/informe-sku/informe-sku.component';
 import { InformeDescontinuadosComponent } from './components/informes/informe-descontinuados/informe-descontinuados.component';
+import { InformeCategoriaComponent } from './components/informes/informe-categoria/informe-categoria.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
       {
         path: 'informeDescontinuados',
         component: InformeDescontinuadosComponent
+      },
+      {
+        path: 'informeCategoria',
+        component: InformeCategoriaComponent
       }
     ]
   },

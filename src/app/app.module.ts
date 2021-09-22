@@ -45,6 +45,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { InformeCategoriaComponent } from './components/informes/informe-categoria/informe-categoria.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     InformeDescuentoComponent,
     InformeNuevosComponent,
     InformeDescontinuadosComponent,
-    InformeSKUComponent
+    InformeSKUComponent,
+    InformeCategoriaComponent
   ],
   imports: [
     BrowserModule,
