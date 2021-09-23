@@ -35,7 +35,7 @@ export class InformePrecioComponent implements OnInit {
 
   photos: any;
   total: any;
-  yearMonth: string[] = ['mes','año','semana'];
+  yearMonth: string[] = ['mes','año Zara','año Mango'];
   seleccion: string = '';
   averagePriceZara1: any = 0;
   averagePriceZara2: any = 0;
@@ -63,7 +63,7 @@ export class InformePrecioComponent implements OnInit {
   averagePriceMango12: any  = 0;
   label1: any;
   label2: any;
-
+  myChart: Chart;
 
   constructor(private blackboxService: BlackboxService) {
     Chart.register(...registerables);    
@@ -71,6 +71,7 @@ export class InformePrecioComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPhotoList();
+    
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -85,8 +86,8 @@ export class InformePrecioComponent implements OnInit {
       (res) => {
         this.photos = res;
         this.AveragePriceZara(res);
-        this.setAveragePriceMango(res);
-        this.ng();
+        this.setAveragePriceMango(res); 
+        this.ng();  // se presenta el chart con promedio por mes
         return (this.photos = res);
       },
       (err) => {
@@ -461,8 +462,7 @@ export class InformePrecioComponent implements OnInit {
       if (element.origin === 'Mango' && year === currentYear ) {
 
         if(mes === 1 && element.descuento !== null) {      // estructura interna del if
-          eneZ.push(element.descuento);
-          
+          eneZ.push(element.descuento);          
 
         } 
         if(mes === 2 && element.descuento !== null) {      // estructura interna del if
@@ -660,7 +660,23 @@ export class InformePrecioComponent implements OnInit {
 
   // jp
 
+  mes() {
+    let year: any = new Date();
+    if (this.seleccion === "año Zara") {
+      this.label1 = year.getFullYear();
+      this.label2 = year.getFullYear() - 1;
+      this.ng();
 
+    } else if(this.seleccion === 'mes'){ 
+      this.label1 = 'Mango';
+      this.label2 = 'Zara';
+      this.ng();
+    } else if(this.seleccion === "año Mango"){
+      this.label1 = year.getFullYear();
+      this.label2 = year.getFullYear() - 1;
+      this.ng();
+    }
+  }
   
 
  
@@ -675,32 +691,36 @@ export class InformePrecioComponent implements OnInit {
   ng = function ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      // console.log(this.averagePriceZara9);
-      Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
-      this.canvas = this.mychart.nativeElement; 
-      this.ctx = this.canvas.getContext('2d');
-
-      new Chart(this.ctx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: this.label1,
-                data: [this.averagePriceMango1, this.averagePriceMango2, this.averagePriceMango3, this.averagePriceMango4, this.averagePriceMango5, this.averagePriceMango6, this.averagePriceMango7, this.averagePriceMango8, this.averagePriceMango9, this.averagePriceMango10, this.averagePriceMango11, this.averagePriceMango12],
-                borderColor: "#007ee7",
-                fill: true,
-            },
-            {
-              label: this.label2,
-              data: [this.averagePriceZara1, this.averagePriceZara2, this.averagePriceZara3, this.averagePriceZara4, this.averagePriceZara5, this.averagePriceZara6, this.averagePriceZara7, this.averagePriceZara8, this.averagePriceZara9, this.averagePriceZara10, this.averagePriceZara11, this.averagePriceZara12 ],
-              borderColor: "#bd0e0e",
-              fill: true,
-          }],
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre']
-        },
+      // console.log(this.averagePriceZara9); 
         
-    }); // fin chart 1
+      if(this.myChart){
+        this.myChart.destroy();
+      }
+
+      Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
+      this.myChart = new Chart("myChart", {
+      type: 'line',
+      data: {
+          datasets: [{
+              label: this.label1,
+              data: [this.averagePriceMango1, this.averagePriceMango2, this.averagePriceMango3, this.averagePriceMango4, this.averagePriceMango5, this.averagePriceMango6, this.averagePriceMango7, this.averagePriceMango8, this.averagePriceMango9, this.averagePriceMango10, this.averagePriceMango11, this.averagePriceMango12],
+              borderColor: "#007ee7",
+              fill: true,
+          },
+          {
+            label: this.label2,
+            data: [this.averagePriceZara1, this.averagePriceZara2, this.averagePriceZara3, this.averagePriceZara4, this.averagePriceZara5, this.averagePriceZara6, this.averagePriceZara7, this.averagePriceZara8, this.averagePriceZara9, this.averagePriceZara10, this.averagePriceZara11, this.averagePriceZara12 ],
+            borderColor: "#bd0e0e",
+            fill: true,
+        }],
+          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre']
+      },
+      
+  }); // fin chart 1
 
   }
+
+ 
 
 
   //juan camilo

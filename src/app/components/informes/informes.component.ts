@@ -61,14 +61,13 @@ export class InformesComponent implements OnInit {
 
 
   getAverage(){
-    let precioPromedio: number = 0;
-    let totalElementos = this.photos.length;   
+    let precioPromedio: number = 0;   
     this.photos.forEach(element => {
-      let { precio } = element;
+      let { precio, descuento } = element;
       precioPromedio += precio;
     });
-    let price = (precioPromedio/totalElementos).toFixed()
-    this.averagePrice = parseInt(price);
+    this.averagePrice = parseInt((precioPromedio/this.photos.length).toFixed());
+     
     
     this.setCurrency();
   }
@@ -87,8 +86,7 @@ export class InformesComponent implements OnInit {
       if(prom.descuento !== null) {
         return prom;
       }
-    });
-    
+    });    
 
     let promedios: any = discountTotal.map(element => {
       let { descuento, precio } = element;
