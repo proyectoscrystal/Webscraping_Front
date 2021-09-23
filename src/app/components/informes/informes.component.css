@@ -35,10 +35,6 @@
   text-decoration: none;
 }
 
-.sel2:hover {
-  color: rgba(230, 97, 57, 0.987);
-}
-
 .imgsel {
   width: 18px;
   height: 18px;
@@ -262,7 +258,7 @@ ul.nav:hover {
 
 /* clases del routing */
 .activo {
-  background-color: #ff5757;
+  background-color: #44BBA4;
   color: white;
   
 }
@@ -271,9 +267,19 @@ ul.nav:hover {
   color: green;
 }
 
-#homeSubmenu > li > a .activo {
+a.sel2.activo {
   background-color: transparent;
   color: #ff5757;
+}
+
+a.sel2.activo::before {
+  content: " "; 
+  position: absolute;
+  left: 10px;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #ff5757;
 }
 
 

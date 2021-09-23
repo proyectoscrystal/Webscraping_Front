@@ -35,6 +35,8 @@ export class InformePrecioComponent implements OnInit {
 
   photos: any;
   total: any;
+  yearMonth: string[] = ['mes','año','semana'];
+  seleccion: string = '';
   averagePriceZara1: any = 0;
   averagePriceZara2: any = 0;
   averagePriceZara3: any = 0;
@@ -74,11 +76,15 @@ export class InformePrecioComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  setYearMonth() {
+    console.log(this.seleccion);
+  }
+
   getPhotoList() {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
         this.photos = res;
-        this.setAveragePriceZara(res);
+        this.AveragePriceZara(res);
         this.setAveragePriceMango(res);
         this.ng();
         return (this.photos = res);
@@ -98,7 +104,7 @@ export class InformePrecioComponent implements OnInit {
   
    // logica para los precios promedios en los charts
  
-   setAveragePriceZara(photos: any){
+   AveragePriceZara(photos: any){
      let eneZ: any[] = [];
      let febZ: any[] = [];
      let marZ: any[] = [];
@@ -669,7 +675,7 @@ export class InformePrecioComponent implements OnInit {
   ng = function ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.averagePriceZara9);
+      // console.log(this.averagePriceZara9);
       Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
       this.canvas = this.mychart.nativeElement; 
       this.ctx = this.canvas.getContext('2d');

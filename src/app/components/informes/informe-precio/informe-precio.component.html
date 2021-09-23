@@ -2,9 +2,10 @@
   <div class="chart-container">
     <div class="titulo-chart">
       <h2>Precio promedio marcas</h2>
-      <select type="" class="form-control col-md-2">
-        <option value="mes">Mes</option>
-        <option value="year">Año</option>
+      <select class="form-control col-md-2" (change)="seleccion = $event.target.value">
+        <option *ngFor="let val of yearMonth" (value)="val" >
+          {{val}}
+        </option>
       </select>
     </div>
     <div class="chart-line">
@@ -16,7 +17,7 @@
     <h2>Categorías con mayor cambio - Precio promedio</h2>
     <p>Comparación mes a mes</p>
 
-    <mat-form-field appearance="standard">
+    <mat-form-field class="col-md-4" appearance="standard">
       <mat-label>Filtrar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo. Zapatos" #input>
     </mat-form-field>

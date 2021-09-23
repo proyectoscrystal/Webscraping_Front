@@ -25,22 +25,22 @@
             </ul>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2">Descuento promedio</a>
+                <a href="#" class="sel2" routerLink="informeDescuentos" routerLinkActive="activo">Descuento promedio</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2">Recien llegados</a>
+                <a href="#" class="sel2" routerLink="informeNuevos" routerLinkActive="activo">Recien llegados</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2">Descontinuados</a>
+                <a href="#" class="sel2" routerLink="informeDescontinuados" routerLinkActive="activo">Descontinuados</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2">Resumen sku</a>
+                <a href="#" class="sel2" routerLink="informeSKU" routerLinkActive="activo">Resumen sku</a>
               </li>
             </ul>
           </li>
@@ -156,7 +156,7 @@
           <div class="card" routerLink="informeDescontinuados" routerLinkActive="activo">
             <img src="../../../assets/remove.png" class="Capa_1" alt="remove" />
             <p class="">Descontinuados</p>
-            <p>15.000</p>
+            <p>{{totalDescontinuados}}</p>
             <p>10,55%</p>
             <p>Que el mes pasado</p>
           </div>

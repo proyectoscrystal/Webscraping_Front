@@ -27,6 +27,8 @@ export class InformesComponent implements OnInit {
   totalNew: any;
   totalsku: any;
   currency1: any = '';
+  totalDescontinuados: any = 0;
+
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string) {
     Chart.register(...registerables);
@@ -112,7 +114,11 @@ export class InformesComponent implements OnInit {
   }
 
   setTotalSKU() {
-    this.totalsku = this.photos.length;
+    let tallas: any = 0;
+    this.photos.forEach(element => {
+      tallas += element.talla.length;
+    });
+    this.totalsku = tallas;
   }
 
 
