@@ -3,6 +3,11 @@
 <div class="chart-container">
   <div class="titulo-chart">
     <h2>Descuento promedio marcas</h2>
+    <select class="form-control col-md-2" [(ngModel)]="seleccion" (change)="mes()">
+      <option *ngFor="let seleccion of yearMonth" (value)="mes" >
+        {{seleccion}}
+      </option>
+    </select>
   </div>
   <div class="chart-line">
     <canvas id="myChart" width="200px" height="120px" #mychart></canvas>
