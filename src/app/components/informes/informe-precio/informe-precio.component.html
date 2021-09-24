@@ -25,35 +25,32 @@
     <div class="mat-elevation-z4">
       <table mat-table [dataSource]="dataSource" matSort>
 
-        <!-- Categoria Column -->
         <ng-container matColumnDef="categoria">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Categoría </th>
-          <td mat-cell *matCellDef="let element" data-label="Categoría"> {{element.categoria}} </td>
+          <td mat-cell *matCellDef="let row" data-label="Categoría"> {{photo.categoria}} </td>
         </ng-container>
 
-        <!-- Subcategoría Column -->
+        <!--
         <ng-container matColumnDef="subcategoria">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Subcategoría </th>
           <td mat-cell *matCellDef="let element" data-label="Subcategoría"> {{element.subcategoria}} </td>
         </ng-container>
 
-        <!-- Tipo de prenda Column -->
         <ng-container matColumnDef="tipoprenda">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Tipo de prenda </th>
           <td mat-cell *matCellDef="let element" data-label="Tipo de prenda"> {{element.tipoprenda}} </td>
         </ng-container>
 
-        <!-- Precio promedio Column -->
         <ng-container matColumnDef="preciopromedio">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Precio promedio </th>
           <td mat-cell *matCellDef="let element" data-label="Precio promedio"> {{element.preciopromedio}} </td>
         </ng-container>
 
-        <!-- Diferencia Column -->
         <ng-container matColumnDef="diferencia">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Diferencia </th>
           <td mat-cell *matCellDef="let element" data-label="Diferencia"> {{element.diferencia}} </td>
         </ng-container>
+        -->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

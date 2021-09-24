@@ -19,6 +19,20 @@
   padding-top: 3rem;
 }
 
+.contenedor-labels {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+.btn-sidebar {
+  background: #424242;
+  border: 1px solid #424242;
+  border-radius: 50%;
+}
+
 .sel1 {
   font-size: 16px;
   padding: 10px 0;

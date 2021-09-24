@@ -39,7 +39,16 @@ export class InformesComponent implements OnInit {
 
   ngOnInit(): void {
     this.titulo = 'Resumen Mes'; 
-    this.getPhotoList();       
+    this.getPhotoList();  
+    this.toggleSidebar();     
+  }
+
+  // Ocultar/Mostrar sidebar
+  toggleSidebar() {
+    $('#menu-toggle').click(function (e) {
+      e.preventDefault();
+      $('#wrapper').toggleClass('toggled');
+    });
   }
 
   getPhotoList() {
