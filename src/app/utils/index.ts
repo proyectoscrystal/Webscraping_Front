@@ -78,25 +78,6 @@ export class Datos {
     { text: 'ZAPATOS', value: 'ZAPATOS' }
   ];
 
-  private prendasScrapingMango: any[] = [
-    { text: 'Camisas', value: 'Camisas' },
-    { text: 'Camisetas', value: 'Camisetas' },
-    { text: 'Polos', value: 'Polos' },
-    { text: 'Sobrecamisas', value: 'Sobrecamisas' },
-    { text: 'Sudaderas', value: 'Sudaderas' },
-    { text: 'Cárdigans y jerséis', value: 'Cárdigans y jerséis' },
-    { text: 'Americanas', value: 'Americanas' },
-    { text: 'Chaquetas', value: 'Chaquetas' },
-    { text: 'Piel', value: 'Piel' },
-    { text: 'Abrigos', value: 'Abrigos' },
-    { text: 'Bermudas', value: 'Bermudas' },
-    { text: 'Pantalones', value: 'Pantalones' },
-    { text: 'Vaqueros', value: 'Vaqueros' },
-    { text: 'Bañadores', value: 'Bañadores' },
-    { text: 'Ropa deportiva', value: 'Ropa deportiva' },
-    { text: 'Pijamas y ropa interior', value: 'Pijamas y ropa interior' }
-  ];  
-
   private prendasInferiores: any[] = [
     { text: 'ajustado', value: 'ajustado' },
     { text: 'bolsillo_superior', value: 'bolsillo_superior' },

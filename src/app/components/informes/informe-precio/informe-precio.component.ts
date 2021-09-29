@@ -31,8 +31,8 @@ export class InformePrecioComponent implements OnInit {
   ];
 
   displayedColumns: string[] = ['categoria', 'subcategoria', 'tipoprenda', 'preciopromedio', 'diferencia'];
-  public dataSource = new MatTableDataSource();
-  //dataSource = new MatTableDataSource(this.PRENDASX);
+  //public dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource(this.PRENDASX);
 
 
   photos: any;
@@ -87,7 +87,7 @@ export class InformePrecioComponent implements OnInit {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
         this.photos = res;
-        this.dataSource.data = this.photos; 
+        //this.dataSource.data = this.photos; 
         this.AveragePriceZara(res);
         this.setAveragePriceMango(res); 
         this.ng();  // se presenta el chart con promedio por mes
