@@ -60,7 +60,6 @@ export class SidebarComponent implements OnInit {
   orderSelected = [];
   userSelected = [];
   prendasGenerales = [];
-  prendasScrapingMango = [];
   fileName = [];
   payload = [];
   filesBase64 = [];
@@ -243,7 +242,6 @@ export class SidebarComponent implements OnInit {
     this.featuresOptions = this.datos.featureOptions;
     this.colores = this.datos.mainColors;
     this.prendasGenerales = this.datos.prendasGenerales;
-    this.prendasScrapingMango = this.datos.prendasScrapingMango;
   }
 
   // Ocultar/Mostrar sidebar

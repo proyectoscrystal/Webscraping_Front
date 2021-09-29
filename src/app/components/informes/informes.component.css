@@ -23,14 +23,25 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
-  padding-top: 5px;
-  padding-left: 5px;
+  padding-top: 175px;
 }
 
 .btn-sidebar {
-  background: #424242;
-  border: 1px solid #424242;
-  border-radius: 50%;
+  background: #cecece;
+  border: 0px solid #cecece;
+  width: 40px;
+  height: 130px;
+  padding-right: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.iconox {
+  font-size: 16px !important;
+}
+
+.material-icons{
+  font-size: 30px;
 }
 
 .sel1 {
@@ -272,8 +283,8 @@ ul.nav:hover {
 
 /* clases del routing */
 .activo {
-  background-color: #44BBA4;
-  color: white;
+  background-color:#c4e3eb ;
+  color: black;
   
 }
 
@@ -283,7 +294,7 @@ ul.nav:hover {
 
 a.sel2.activo {
   background-color: transparent;
-  color: #ff5757;
+  color: #c4e3eb ;
 }
 
 a.sel2.activo::before {
