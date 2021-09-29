@@ -66,6 +66,160 @@ export class InformeDescuentoComponent implements OnInit {
   ctx: any;
   @ViewChild('mychart') mychart:any;
 
+  AverageDiscountZara(photos: any){
+    let eneZ: any[] = [];
+    let febZ: any[] = [];
+    let marZ: any[] = [];
+    let abrZ: any[] = [];
+    let mayZ: any[] = [];
+    let junZ: any[] = [];
+    let julZ: any[] = [];
+    let agosZ: any[] = [];
+    let sepZ: any[] = [];
+    let octZ: any[] = [];
+    let novZ: any[] = [];
+    let dicZ: any[] = [];
+    this.label2 = 'Zara';
+
+    
+     photos.forEach(element => {
+      let date = new Date();
+      let currentYear = date.getFullYear();
+      let currentMonth = date.getMonth();
+      let fecha = element.createdAt.split('T').slice(0,1)[0];  // funcion para obtener la fecha 
+      let mes = parseInt(fecha.split('-')[1]); // funcion para obtener el mes como numero
+      let year = parseInt(fecha.split('-')[0]);
+
+      if(element.origin === 'Zara' && year === currentYear ) { 
+
+        if(mes === 1 && element.descuento === null) {      // estructura interna del if
+          eneZ.push(element.precio); 
+        } 
+        if(mes === 2 && element.descuento === null) {      // estructura interna del if
+          febZ.push(element.precio);
+        } 
+        if(mes === 3 && element.descuento === null) {      // estructura interna del if
+          marZ.push(element.precio);
+        } 
+        if(mes === 4 && element.descuento === null) {      // estructura interna del if
+          abrZ.push(element.precio);
+        } 
+        if(mes === 5 && element.descuento === null) {      // estructura interna del if
+          mayZ.push(element.precio);
+
+        } 
+        if(mes === 6 && element.descuento === null) {      // estructura interna del if
+          junZ.push(element.precio);
+        } 
+        if(mes === 7 && element.descuento === null) {      // estructura interna del if
+          julZ.push(element.precio);
+
+        } 
+        if(mes === 8 && element.descuento === null) {      // estructura interna del if
+          agosZ.push(element.precio);
+        }
+        if(mes === 9 && element.descuento === null) {      // estructura interna del if
+          sepZ.push(element.precio);
+        } 
+        if(mes === 10 && element.descuento === null) {      // estructura interna del if
+          octZ.push(element.precio); 
+        }          
+        if(mes === 11 && element.descuento === null) {      // estructura interna del if
+          novZ.push(element.precio); 
+        }  
+        if(mes === 12 && element.descuento === null) {      // estructura interna del if
+          dicZ.push(element.precio);
+        }        
+
+
+      } 
+      
+      if (element.origin === 'Zara' && year === currentYear ) {
+
+        if(mes === 1 && element.descuento !== null) {      // estructura interna del if
+          eneZ.push(element.descuento);
+        } 
+        if(mes === 2 && element.descuento !== null) {      // estructura interna del if
+          febZ.push(element.descuento);
+        } 
+        if(mes === 3 && element.descuento !== null) {      // estructura interna del if
+          marZ.push(element.descuento);
+        } 
+        if(mes === 4 && element.descuento !== null) {      // estructura interna del if
+          abrZ.push(element.descuento);
+        } 
+        if(mes === 5 && element.descuento !== null) {      // estructura interna del if
+          mayZ.push(element.descuento);
+        } 
+        if(mes === 6 && element.descuento !== null) {      // estructura interna del if
+          junZ.push(element.descuento);
+        } 
+        if(mes === 7 && element.descuento !== null) {      // estructura interna del if
+          julZ.push(element.descuento);
+        } 
+        if(mes === 8 && element.descuento !== null) {      // estructura interna del if
+          agosZ.push(element.descuento);
+        } 
+        if(mes === 9 && element.descuento !== null) {      // estructura interna del if
+          sepZ.push(element.descuento);
+        } 
+        if(mes === 10 && element.descuento !== null) {      // estructura interna del if
+          octZ.push(element.descuento);
+        } 
+        if(mes === 11 && element.descuento !== null) {      // estructura interna del if
+          novZ.push(element.descuento);  
+        } 
+        if(mes === 12 && element.descuento !== null) {      // estructura interna del if
+          dicZ.push(element.descuento);
+        } 
+
+      }
+      
+    }); // fin del ciclo que guarda los precios de cada mes 
+
+    // iniciar las variables
+     this.discountPriceZara1= 0;
+     this.discountPriceZara2= 0;
+     this.discountPriceZara3= 0;
+     this.discountPriceZara4= 0;
+     this.discountPriceZara5= 0;
+     this.discountPriceZara6= 0;
+     this.discountPriceZara7= 0;
+     this.discountPriceZara8= 0;
+     this.discountPriceZara9= 0;
+     this.discountPriceZara10= 0;
+     this.discountPriceZara11= 0;
+     this.discountPriceZara12= 0;
+
+    // ciclos para sacar el precio promedio zara
+    // this.setAveragePrice1Zara(eneZ);
+    // this.setAveragePrice2Zara(febZ);
+    // this.setAveragePrice3Zara(marZ);
+    // this.setAveragePrice4Zara(abrZ);
+    // this.setAveragePrice5Zara(mayZ);
+    // this.setAveragePrice6Zara(junZ);
+    // this.setAveragePrice7Zara(julZ);
+    // this.setAveragePrice8Zara(agosZ);
+    // this.setAveragePrice9Zara(sepZ);
+    // this.setAveragePrice10Zara(octZ);
+    // this.setAveragePrice11Zara(novZ);
+    // this.setAveragePrice12Zara(dicZ);
+
+    eneZ= [];
+    febZ = [];
+    marZ = [];
+    abrZ = [];
+    mayZ = [];
+    junZ = [];
+    julZ = [];
+    agosZ = [];
+    sepZ = [];
+    octZ = [];
+    novZ = [];
+    dicZ = [];
+
+  }
+
 
   mes() {
     if (this.seleccion === "año Zara") {      
@@ -74,7 +228,7 @@ export class InformeDescuentoComponent implements OnInit {
 
     } else if(this.seleccion === 'mes'){ 
       // this.setAveragePriceMango(this.photos);
-      // this.AveragePriceZara(this.photos);
+      // this.AverageDiscountZara(this.photos);
       this.ng();
     } else if(this.seleccion === "año Mango"){
       // this.PriceMangoYear(this.photos);
