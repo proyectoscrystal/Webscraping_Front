@@ -3,10 +3,9 @@ import { Chart, ChartConfiguration, registerables, LineController, LineElement, 
 
 import { BlackboxService } from '../../../services/blackbox.service';
 
-//DataTables
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+// Angular DataTable
+import { OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-informe-precio',
@@ -14,26 +13,10 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./informe-precio.component.css']
 })
 
-export class InformePrecioComponent implements OnInit {
-  
+export class InformePrecioComponent implements OnDestroy, OnInit {
 
-  PRENDASX: PrendasArray[] = [
-    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Pantalon', preciopromedio: '$65.772', diferencia: '88.69% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Vestido', preciopromedio: '$65.772', diferencia: '66.50% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Camisa', preciopromedio: '$65.772', diferencia: '46.94% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Sandalias', preciopromedio: '$65.772', diferencia: '67.02% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Calzado', tipoprenda: 'Zapatos', preciopromedio: '$65.772', diferencia: '34.43% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Calzado', tipoprenda: 'Tenis', preciopromedio: '$65.772', diferencia: '34.08% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Calzado', tipoprenda: 'Zapatos', preciopromedio: '$65.772', diferencia: '132.93% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Accesorios', tipoprenda: 'Manilla', preciopromedio: '$65.772', diferencia: '70.58% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Ropa', tipoprenda: 'Top', preciopromedio: '$65.772', diferencia: '59.67% ↑'},
-    {categoria: 'Mujeres', subcategoria: 'Calzado', tipoprenda: 'Tenis', preciopromedio: '$65.772', diferencia: '70.80% ↑'},
-  ];
-
-  displayedColumns: string[] = ['categoria', 'subcategoria', 'tipoprenda', 'preciopromedio', 'diferencia'];
-  //public dataSource = new MatTableDataSource();
-  dataSource = new MatTableDataSource(this.PRENDASX);
-
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
   photos: any;
   total: any;
@@ -74,10 +57,18 @@ export class InformePrecioComponent implements OnInit {
   ngOnInit(): void {
     this.getPhotoList();
     
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+      }
+    };
   }
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
 
   setYearMonth() {
     console.log(this.seleccion);
@@ -87,7 +78,7 @@ export class InformePrecioComponent implements OnInit {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
         this.photos = res;
-        //this.dataSource.data = this.photos; 
+        this.dtTrigger.next();
         this.AveragePriceZara(res);
         this.setAveragePriceMango(res); 
         this.ng();  // se presenta el chart con promedio por mes
@@ -98,14 +89,7 @@ export class InformePrecioComponent implements OnInit {
       }
     );
   }
-  
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  
    // logica para los precios promedios en los charts
  
    AveragePriceZara(photos: any){
@@ -1351,8 +1335,6 @@ export class InformePrecioComponent implements OnInit {
   @ViewChild('mychart') mychart: any;
 
   ng = function ngAfterViewInit() {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
       // console.log(this.averagePriceZara9); 
         
       if(this.myChart){
@@ -1392,13 +1374,4 @@ export class InformePrecioComponent implements OnInit {
 
   //juan camilo
 
-}
-
-//Datatables
-export interface PrendasArray {
-  categoria: string;
-  subcategoria: string;
-  tipoprenda: string;
-  preciopromedio: string;
-  diferencia: string;
 }

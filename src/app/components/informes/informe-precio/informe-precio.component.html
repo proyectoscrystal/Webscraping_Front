@@ -3,13 +3,13 @@
     <div class="titulo-chart">
       <h2>Precio promedio marcas</h2>
       <select class="form-control col-md-2" [(ngModel)]="seleccion" (change)="mes()">
-        <option *ngFor="let seleccion of yearMonth" (value)="seleccion" >
+        <option *ngFor="let seleccion of yearMonth" (value)="seleccion">
           {{seleccion}}
         </option>
       </select>
     </div>
     <div class="chart-line">
-      <canvas id="myChart" width="200px" height="120px" ></canvas>  <!-- #mychart -->
+      <canvas id="myChart" width="200px" height="120px"></canvas> <!-- #mychart -->
     </div>
   </div>
 
@@ -17,78 +17,36 @@
     <h2>Categorías con mayor cambio - Precio promedio</h2>
     <p>Comparación mes a mes</p>
 
-    <mat-form-field class="col-md-4" appearance="standard">
-      <mat-label>Filtrar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo. Zapatos" #input>
-    </mat-form-field>
-
-    <div class="mat-elevation-z4">
-      <table mat-table [dataSource]="dataSource" matSort>
-
-        <!-- Categoria Column -->
-        <ng-container matColumnDef="categoria">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Categoría </th>
-          <td mat-cell *matCellDef="let element" data-label="Categoría"> {{element.categoria}} </td>
-        </ng-container>
-
-        <!-- Subcategoría Column -->
-        <ng-container matColumnDef="subcategoria">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Subcategoría </th>
-          <td mat-cell *matCellDef="let element" data-label="Subcategoría"> {{element.subcategoria}} </td>
-        </ng-container>
-
-        <!-- Tipo de prenda Column -->
-        <ng-container matColumnDef="tipoprenda">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Tipo de prenda </th>
-          <td mat-cell *matCellDef="let element" data-label="Tipo de prenda"> {{element.tipoprenda}} </td>
-        </ng-container>
-
-        <!-- Precio promedio Column -->
-        <ng-container matColumnDef="preciopromedio">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Precio promedio </th>
-          <td mat-cell *matCellDef="let element" data-label="Precio promedio"> {{element.preciopromedio}} </td>
-        </ng-container>
-
-        <!-- Diferencia Column -->
-        <ng-container matColumnDef="diferencia">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="tabletitle"> Diferencia </th>
-          <td mat-cell *matCellDef="let element" data-label="Diferencia"> {{element.diferencia}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" aria-label="Select page of users"></mat-paginator>
-
-    </div>
-
-  </div>
-  <!--
-  <div class="table-container">
-    <h2>Categorías con mayor cambio - Precio promedio</h2>
-    <p>Comparación mes a mes</p>
-    
-    <table>
-
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-hover table-sm">
       <thead>
         <tr>
-          <th>Tipo de prenda</th>
+          <th>Categoría</th>
           <th>Subcategoría</th>
-          <th>Nombre imagen</th>
+          <th>Tipo de prenda</th>
+          <th>Precio promedio</th>
+          <th>Diferencia</th>
         </tr>
       </thead>
-
       <tbody>
-        <tr *ngFor="let photo of photos">
-          <td>{{ photo.categoria }}</td>
-          <td>{{ photo.x }}</td>
-          <td>{{ photo.imageName }}</td>
+        <tr *ngFor="let e of photos">
+          <td data-label="Categoría"> {{e.categoria}} </td>
+          <td data-label="Subcategoría"> {{e.x}} </td>
+          <td data-label="Tipo de prenda"> {{e.imageName}} </td>
+          <td data-label="Precio promedio"> {{e.x}} </td>
+          <td data-label="Diferencia"> {{e.x}} </td>
         </tr>
       </tbody>
-      
+      <!--
+        <tfoot>
+            <tr>
+                <th class="">
+                    <select class="form-control" name="Value">
+                        <option *ngFor="let a of photos">{{a.categoria}}</option>
+                    </select>
+                </th>
+            </tr>
+        </tfoot>
+        -->
     </table>
   </div>
-  -->
-  
 </div>

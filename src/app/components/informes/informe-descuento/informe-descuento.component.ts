@@ -3,12 +3,19 @@ import { Chart, ChartConfiguration, registerables, LineController, LineElement, 
 
 import { BlackboxService } from '../../../services/blackbox.service';
 
+// Angular DataTable
+import { OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+
 @Component({
   selector: 'app-informe-descuento',
   templateUrl: './informe-descuento.component.html',
   styleUrls: ['./informe-descuento.component.css']
 })
-export class InformeDescuentoComponent implements OnInit {
+export class InformeDescuentoComponent implements OnDestroy, OnInit {
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
   photos: any;
   total: any;
@@ -44,15 +51,29 @@ export class InformeDescuentoComponent implements OnInit {
 
   constructor(private blackboxService: BlackboxService) {
     Chart.register(...registerables);
-   }
+  }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
+    this.getPhotoList();
+    
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+      }
+    };
+  }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
   }
 
   getPhotoList() {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
         this.photos = res;
+        this.dtTrigger.next();
         this.ng();
         return (this.photos = res);
       },

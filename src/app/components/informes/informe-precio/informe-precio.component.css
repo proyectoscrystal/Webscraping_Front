@@ -7,43 +7,12 @@
 
 .table-container {
   width: 100%;
-  max-width: 700px;
+  max-width: auto;
   margin: auto;
 }
 
-.tabletitle {
-  font-size: 14px;
-  font-weight: bold;
-  color: #000000;
-}
-
-table {
-  width: 100%;
-  background-color: white;
-  border-collapse: collapse;
-  text-align: left;
-  margin: 0;
-  padding: 0;
-  table-layout: fixed;
-}
-
-th,
-td {
-  padding: 7px;
-}
-
-thead {
-  background-color: #cecece;
-  border-bottom: solid 1px #919090;
-  color: #000000;
-}
-
-tr:nth-child(even) {
-  background-color: #ddd;
-}
-
 tr:hover td {
-  background-color:#c4e3eb ;
+  background-color:#358da3;
   color: white;
 }
 

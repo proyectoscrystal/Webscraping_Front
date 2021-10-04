@@ -16,83 +16,26 @@
 
 <!-- tabla descuento promedio -->
 <div class="table-container">
-  <h2>Categorías con mayor cambio - Descuento promedio <svg xmlns="http://www.w3.org/2000/svg" width="16" heigth="16"
-    xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
-    viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill: rgb(255, 87, 87);" role="img"
-    aria-label="Illustration of a Funnel">
-    <g id="__id33_ssutzzo1g">
-      <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
-        style="fill: inherit"></path>
-    </g>
-  </svg></h2>
+  <h2>Categorías con mayor cambio - Descuento promedio</h2>
   <p>Comparación mes a mes</p>
-  <table>
+
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-hover table-sm">
     <thead>
       <tr>
         <th>Categoría</th>
         <th>Subcategoría</th>
         <th>Tipo de prenda</th>
-        <th>Promedio descuento</th>
+        <th>Descuento promedio</th>
         <th>Diferencia</th>
       </tr>
     </thead>
-
     <tbody>
-      <tr>
-        <td data-label="Categoría">Mujeres</td>
-        <td data-label="Subcategoría">Ropa</td>
-        <td data-label="Tipo de prenda">Pantalon</td>
-        <td data-label="Promedio descuento">50%</td>
-        <td data-label="Diferencia" style="color: green">88,69% ↑</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Mujeres</td>
-        <td data-label="Subcategoría">Ropa</td>
-        <td data-label="Tipo de prenda">Vestido</td>
-        <td data-label="Promedio descuento">50%</td>
-        <td data-label="Diferencia" style="color: green">66,50% ↑</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Mujeres</td>
-        <td data-label="Subcategoría">Ropa</td>
-        <td data-label="Tipo de prenda">Camisa</td>
-        <td data-label="Promedio descuento">50%</td>
-        <td data-label="Diferencia" style="color: green">46,94% ↑</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Mujeres</td>
-        <td data-label="Subcategoría">Calzado</td>
-        <td data-label="Tipo de prenda">Sandalias</td>
-        <td data-label="Promedio descuento">50%</td>
-        <td data-label="Diferencia" style="color: green">67,02% ↑</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Mujeres</td>
-        <td data-label="Subcategoría">Calzado</td>
-        <td data-label="Tipo de prenda">Zapatos</td>
-        <td data-label="Promedio descuento">50%</td>
-        <td data-label="Diferencia" style="color: green">34,43% ↑</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Mujeres</td>
-        <td data-label="Subcategoría">Calzado</td>
-        <td data-label="Tipo de prenda">Tenis</td>
-        <td data-label="Promedio descuento">50%</td>
-        <td data-label="Diferencia" style="color: green">34,08% ↑</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Mujeres</td>
-        <td data-label="Subcategoría">Accesorios</td>
-        <td data-label="Tipo de prenda">Accesorios</td>
-        <td data-label="Promedio descuento">$50%</td>
-        <td data-label="Diferencia" style="color: green">132,93% ↑</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Mujeres</td>
-        <td data-label="Subcategoría">Ropa</td>
-        <td data-label="Tipo de prenda">Top</td>
-        <td data-label="Promedio descuento">50%</td>
-        <td data-label="Diferencia" style="color: green">132,93% ↑</td>
+      <tr *ngFor="let e of photos">
+        <td data-label="Categoría"> {{e.categoria}} </td>
+        <td data-label="Subcategoría"> {{e.x}} </td>
+        <td data-label="Tipo de prenda"> {{e.imageName}} </td>
+        <td data-label="Descuento promedio"> {{e.x}} </td>
+        <td data-label="Diferencia"> {{e.x}} </td>
       </tr>
     </tbody>
   </table>

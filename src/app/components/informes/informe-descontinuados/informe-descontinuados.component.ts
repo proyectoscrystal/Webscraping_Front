@@ -1,18 +1,55 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
 
+import { BlackboxService } from '../../../services/blackbox.service';
+
+// Angular DataTable
+import { OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+
 @Component({
   selector: 'app-informe-descontinuados',
   templateUrl: './informe-descontinuados.component.html',
   styleUrls: ['./informe-descontinuados.component.css']
 })
-export class InformeDescontinuadosComponent implements OnInit {
+export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
 
-  constructor() {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
+
+  photos: any;
+
+  constructor(private blackboxService: BlackboxService) {
     Chart.register(...registerables);
-   }
+  }
 
   ngOnInit(): void {
+    this.getPhotoList();
+    
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+      }
+    };
+  }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  getPhotoList() {
+    this.blackboxService.getPhotos().subscribe(
+      (res) => {
+        this.photos = res;
+        this.dtTrigger.next();
+        return (this.photos = res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   canvas: any;

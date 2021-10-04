@@ -1,7 +1,7 @@
 <!-- chart -->
 <div class="chart-container">
   <div class="titulo-chart">
-    <h2>Toral SKU marcas</h2>
+    <h2>Total SKU marcas</h2>
   </div>
   <div class="chart-line">
     <canvas id="myChart" width="200px" height="120px" #mychart></canvas>
@@ -12,12 +12,13 @@
 <!-- tabla SKU -->
 <div class="table-container-sku">
   <h2>Resumen mes SKU</h2>
-  <table class="w">
+
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped row-border hover">
     <thead>
       <tr>
-        <th>Categoría<img src="./assets/redtri.png" alt="" class="redtri" /></th>
-        <th>Subcategoría<img src="./assets/redtri.png" alt="" class="redtri" /></th>
-        <th>Tipo de prenda<img src="./assets/redtri.png" alt="" class="redtri" /></th>
+        <th>Categoría</th>
+        <th>Subcategoría</th>
+        <th>Tipo de prenda</th>
         <th>SKU</th>
         <th>Precio promedio</th>
         <th>Nueva llegada</th>
@@ -25,37 +26,16 @@
         <th>Descuento promedio</th>
       </tr>
     </thead>
-
     <tbody>
-      <tr>
-        <td data-label="Categoría">Todo</td>
-        <td data-label="Subcategoría">Vestir</td>
-        <td data-label="Tipo de prenda">Todo</td>
-        <td data-label="SKU">124m</td>
-        <td data-label="Precio promedio">$55.50</td>
-        <td data-label="Nueva llegada">El 14.97m</td>
-        <td data-label="Tasa de frescura">12.07%</td>
-        <td data-label="Descuento promedio" style="color: green">88,69%</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Todo</td>
-        <td data-label="Subcategoría">Calzado</td>
-        <td data-label="Tipo de prenda">Todo</td>
-        <td data-label="SKU">Los 30.61m</td>
-        <td data-label="Precio promedio">$82.00</td>
-        <td data-label="Nueva llegada">Los 4.27m</td>
-        <td data-label="Tasa de frescura">13.97%</td>
-        <td data-label="Descuento promedio" style="color: green">88,69%</td>
-      </tr>
-      <tr>
-        <td data-label="Categoría">Todo</td>
-        <td data-label="Subcategoría">Interior</td>
-        <td data-label="Tipo de prenda">Todo</td>
-        <td data-label="SKU">El 14.51m</td>
-        <td data-label="Precio promedio">$35.50</td>
-        <td data-label="Nueva llegada">1.98m</td>
-        <td data-label="Tasa de frescura">13.70%</td>
-        <td data-label="Descuento promedio" style="color: green">88,69%</td>
+      <tr *ngFor="let e of photos">
+        <td data-label="Categoría"> {{e.categoria}} </td>
+        <td data-label="Subcategoría"> {{e.x}} </td>
+        <td data-label="Tipo de prenda"> {{e.imageName}} </td>
+        <td data-label="SKU"> {{e.x}} </td>
+        <td data-label="Precio promedio"> {{e.x}} </td>
+        <td data-label="Nueva llegada"> {{e.x}} </td>
+        <td data-label="Tasa de frescura"> {{e.x}} </td>
+        <td data-label="Descuento promedio"> {{e.x}} </td>
       </tr>
     </tbody>
   </table>
