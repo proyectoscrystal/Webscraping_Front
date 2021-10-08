@@ -19,7 +19,9 @@ export class InformesComponent implements OnInit {
   // @ViewChild(InformeDescuentoComponent) informeDescuento: InformeDescuentoComponent;
   // @ViewChild(InformeNuevosComponent) informeNuevo: InformeNuevosComponent;
   // @ViewChild(InformeSKUComponent) informeSKU: InformeSKUComponent;
-  
+
+  isCollapsed = false;
+
   titulo: string;
   photos: any;
   averagePrice: number;
@@ -32,22 +34,23 @@ export class InformesComponent implements OnInit {
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string) {
     Chart.register(...registerables);
-    
+
     // metodo para obtener todos los documentos de tipo images
-  
-  }     
+
+  }
 
   ngOnInit(): void {
-    this.titulo = 'Resumen Mes'; 
-    this.getPhotoList();  
-    this.toggleSidebar();     
+    this.titulo = 'Resumen Mes';
+    this.getPhotoList();
+    this.toggleSidebar();
   }
 
   // Ocultar/Mostrar sidebar
   toggleSidebar() {
-    $('#menu-toggle').click(function (e) {
+    $('#menu-toggle').on('click', function (e) {
       e.preventDefault();
       $('#wrapper').toggleClass('toggled');
+      (<any>$('#wrapper.toggled').find("#sidebar-wrapper").find(".collapse")).collapse('hide');
     });
   }
 
@@ -66,53 +69,53 @@ export class InformesComponent implements OnInit {
       }
     );
   }
-  
 
 
-  getAverage(){
-    let precioPromedio: number = 0;   
+
+  getAverage() {
+    let precioPromedio: number = 0;
     this.photos.forEach(element => {
       let { precio, descuento } = element;
       precioPromedio += precio;
     });
-    this.averagePrice = parseInt((precioPromedio/this.photos.length).toFixed());
-     
-    
+    this.averagePrice = parseInt((precioPromedio / this.photos.length).toFixed());
+
+
     this.setCurrency();
   }
 
   setCurrency() {
-    this.currency1 = formatCurrency(this.averagePrice,this.locale, '$ ');
-    this.currency1 = this.currency1.split(' ').splice(1,1);
+    this.currency1 = formatCurrency(this.averagePrice, this.locale, '$ ');
+    this.currency1 = this.currency1.split(' ').splice(1, 1);
     this.currency1 = this.currency1[0].split('.');
-    this.currency1 = this.currency1.splice(0,1);
+    this.currency1 = this.currency1.splice(0, 1);
     this.currency1 = this.currency1[0];
     this.currency1 = this.currency1.split(',').join('.');
   }
 
-  getDiscount(){
+  getDiscount() {
     let discountTotal: any = this.photos.filter((prom) => {
-      if(prom.descuento !== null) {
+      if (prom.descuento !== null) {
         return prom;
       }
-    });    
+    });
 
     let promedios: any = discountTotal.map(element => {
       let { descuento, precio } = element;
-      
-      return parseFloat(Math.abs( ((descuento*100)/precio)-100 ).toFixed(2));  
+
+      return parseFloat(Math.abs(((descuento * 100) / precio) - 100).toFixed(2));
     });
 
     let discount: any = 0;
     promedios.forEach(element => {
       discount += element;
     });
-    this.totalDiscount = (discount/promedios.length);
+    this.totalDiscount = (discount / promedios.length);
   }
 
-  getNew(){
+  getNew() {
     this.totalNew = this.photos.filter((res) => {
-      if(res.estado === 'nuevo'){
+      if (res.estado === 'nuevo') {
         return res;
       }
     })

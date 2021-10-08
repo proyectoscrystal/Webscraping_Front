@@ -6,13 +6,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import {
   LazyLoadImageModule,
   LAZYLOAD_IMAGE_HOOKS,
   ScrollHooks,
 } from 'ng-lazyload-image';
 // import { ChartsModule } from 'ng2-charts'
-
 
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
@@ -42,7 +42,6 @@ import { InformeCategoriaComponent } from './components/informes/informe-categor
 
 // Angular DataTables
 import { DataTablesModule } from "angular-datatables";
-
 
 @NgModule({
   declarations: [
@@ -76,7 +75,8 @@ import { DataTablesModule } from "angular-datatables";
       maxOpened: 2,
     }), // ToastrModule added
     ModalModule.forRoot(),
-    DataTablesModule
+    DataTablesModule,
+    CollapseModule.forRoot()
   ],
   providers: [
     AuthGuard,

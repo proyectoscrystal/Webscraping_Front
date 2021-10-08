@@ -30,23 +30,35 @@
       <tbody>
         <tr *ngFor="let e of photos">
           <td data-label="Categoría"> {{e.categoria}} </td>
-          <td data-label="Subcategoría"> {{e.x}} </td>
+          <td data-label="Subcategoría"> {{e.subCategoria}} </td>
           <td data-label="Tipo de prenda"> {{e.imageName}} </td>
           <td data-label="Precio promedio"> {{e.x}} </td>
           <td data-label="Diferencia"> {{e.x}} </td>
         </tr>
       </tbody>
-      <!--
-        <tfoot>
-            <tr>
-                <th class="">
-                    <select class="form-control" name="Value">
-                        <option *ngFor="let a of photos">{{a.categoria}}</option>
-                    </select>
-                </th>
-            </tr>
-        </tfoot>
-        -->
+      <tfoot>
+        <tr>
+          <th>
+            <select class="form-control" placeholder="" name="" id="selectDropdown">
+              <option value="">Todo</option>
+              <option *ngFor="let a of categorys" [value]="a.categoria">{{a.categoria}}</option>
+            </select>
+            <!-- <input type="text" class="form-control" placeholder="Buscar" name="search-categoria" id="inputSearch" /> -->
+          </th>
+          <th>
+            <select class="form-control" placeholder="" name="" id="selectDropdown">
+              <option value="">Todo</option>
+              <option *ngFor="let a of subcategorys" [value]="a.subCategoria">{{a.subCategoria}}</option>
+            </select>
+          </th>
+          <th>
+            <select class="form-control" placeholder="" name="" id="selectDropdown">
+              <option value="">Todo</option>
+              <option *ngFor="let a of imagesNames" [value]="a.imageName">{{a.imageName}}</option>
+            </select>
+          </th>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </div>

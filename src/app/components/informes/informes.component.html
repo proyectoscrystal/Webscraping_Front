@@ -6,52 +6,43 @@
         <ul class="list-unstyled components mb-5">
           <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="sel1">
-              <img src="./assets/rect.png" alt="" class="imgsel material-icons" />Comparativos<img src="./assets/tri.png" alt="" class="imgsel2"/>
+              <img src="./assets/rect.png" alt="" class="imgsel material-icons" />Comparativos<img
+                src="./assets/tri.png" alt="" class="imgsel2" />
             </a>
-            <ul class="collapse list-unstyled firstitem" id="homeSubmenu">
+            <ul class="collapse list-unstyled firstitem itemlist" id="homeSubmenu">
               <li class="list-items-container">
-                <a class="sel2" routerLink="informePrecios" routerLinkActive="activo" >Precio promedio</a>
+                <a class="sel2" routerLink="informePrecios" routerLinkActive="activo">Precio promedio</a>
               </li>
             </ul>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
+            <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2" routerLink="informeDescuentos" routerLinkActive="activo">Descuento promedio</a>
+                <a class="sel2" routerLink="informeDescuentos" routerLinkActive="activo">Descuento promedio</a>
               </li>
             </ul>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
+            <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2" routerLink="informeNuevos" routerLinkActive="activo">Recien llegados</a>
+                <a class="sel2" routerLink="informeNuevos" routerLinkActive="activo">Recien llegados</a>
               </li>
             </ul>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
+            <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2" routerLink="informeDescontinuados" routerLinkActive="activo">Descontinuados</a>
+                <a class="sel2" routerLink="informeDescontinuados" routerLinkActive="activo">Descontinuados</a>
               </li>
             </ul>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
+            <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2" routerLink="informeSKU" routerLinkActive="activo">Resumen sku</a>
+                <a class="sel2" routerLink="informeSKU" routerLinkActive="activo">Resumen sku</a>
               </li>
             </ul>
           </li>
 
           <li>
-            <a
-              href="#colectionSubmenu"
-              data-toggle="collapse"
-              aria-expanded="false"
-              class="sel1"
-              ><img
-                src="./assets/rect.png"
-                alt=""
-                class="imgsel" />Productos<img
-                src="./assets/tri.png"
-                alt=""
-                class="imgsel2"
-            /></a>
-            <ul class="collapse list-unstyled firstitem" id="colectionSubmenu">
+            <a href="#colectionSubmenu" data-toggle="collapse" aria-expanded="false" class="sel1">
+              <img src="./assets/rect.png" alt="" class="imgsel" />Productos<img src="./assets/tri.png" alt="imagen" class="imgsel2" />
+            </a>
+            <ul class="collapse list-unstyled firstitem itemlist" id="colectionSubmenu">
               <li class="list-items-container">
-                <a href="#" class="sel2">X</a>
+                <a routerLink="informeCategoria" routerLinkActive="activo" class="sel2">X</a>
               </li>
             </ul>
           </li>
@@ -63,9 +54,9 @@
 
   <div class="contenedor-labels">
     <div class="button-sidebar">
-        <button class="btn-sidebar" id="menu-toggle">
-          <span class="material-icons">navigate_before</span>
-        </button>
+      <button class="btn-sidebar" id="menu-toggle">
+        <span class="material-icons">navigate_before</span>
+      </button>
     </div>
   </div>
 
@@ -90,25 +81,12 @@
 
       <div class="input-grid1">
         <input id="date1" type="date" />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          heigth="16"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          preserveAspectRatio="xMidYMid meet"
-          version="1.0"
-          viewBox="0.0 0.0 180.0 210.0"
-          zoomAndPan="magnify"
-          style="fill:#358da3 "
-          role="img"
-          aria-label="Illustration of a Funnel"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" heigth="16" xmlns:xlink="http://www.w3.org/1999/xlink"
+          preserveAspectRatio="xMidYMid meet" version="1.0" viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify"
+          style="fill:#358da3 " role="img" aria-label="Illustration of a Funnel">
           <g id="__id33_ssutzzo1g">
-            <path
-              d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20"
-              transform="translate(-350 -144.09)"
-              style="fill: inherit"
-            ></path>
+            <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
+              style="fill: inherit"></path>
           </g>
         </svg>
       </div>
@@ -116,7 +94,7 @@
     <!-- inicio cards resumen -->
     <div class="container-cards">
       <div class="card-container">
-        <div class="column" >
+        <div class="column">
           <div class="card" routerLink="informePrecios" routerLinkActive="activo">
             <img src="../../../assets/money.png" class="Capa_1" alt="money" />
             <!--todo hacer dinamico el precio y el porcentaje -->
@@ -127,13 +105,9 @@
             <p>Que el mes pasado</p>
           </div>
         </div>
-        <div class="column" >
+        <div class="column">
           <div class="card" routerLink="informeDescuentos" routerLinkActive="activo">
-            <img
-              src="../../../assets/discount.png"
-              class="Capa_1"
-              alt="discount"
-            />
+            <img src="../../../assets/discount.png" class="Capa_1" alt="discount" />
             <p class="card-p">Descuento</p>
             <p class="">promedio</p>
             <p> {{totalDiscount}}% </p>
@@ -141,7 +115,7 @@
             <p>Que el mes pasado</p>
           </div>
         </div>
-        <div class="column" >
+        <div class="column">
           <div class="card" routerLink="informeNuevos" routerLinkActive="activo">
             <img src="../../../assets/new.png" class="Capa_1" alt="new" />
             <p class="">Recien llegados</p>
@@ -150,7 +124,7 @@
             <p>Que el mes pasado</p>
           </div>
         </div>
-        <div class="column" >
+        <div class="column">
           <div class="card" routerLink="informeDescontinuados" routerLinkActive="activo">
             <img src="../../../assets/remove.png" class="Capa_1" alt="remove" />
             <p class="">Descontinuados</p>
@@ -159,7 +133,7 @@
             <p>Que el mes pasado</p>
           </div>
         </div>
-        <div class="column" >
+        <div class="column">
           <div class="card" routerLink="informeSKU" routerLinkActive="activo">
             <img src="../../../assets/sku.png" class="Capa_1" alt="sku" />
             <p class="">Total SKU</p>
@@ -173,10 +147,10 @@
     </div>
 
     <!-- routing a los componentes hijos -->
-   <router-outlet></router-outlet>
-   <br>
-    
-    <!-- Fin tabla productos -->      
+    <router-outlet></router-outlet>
+    <br>
+
+    <!-- Fin tabla productos -->
   </div>
   <!-- fin page-content -->
 </div>

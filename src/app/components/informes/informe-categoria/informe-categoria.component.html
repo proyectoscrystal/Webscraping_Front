@@ -1,108 +1,242 @@
+<!-- Cards Mujer - Hombre - Kids -->
+<div class="grey-bg container-fluid mb-4">
+  <section id="minimal-statistics">
+    <div class="row">
+      <div class="col-xl-4 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="align-self-center">
+                  <img src="../../../../assets/mujer.png" alt="Silueta Mujer" class="float-left imgCards">
+                </div>
+                <div class="media-body text-left">
+                  <h3>Mujeres</h3>
+                  <p>Nuevos: 50</p>
+                  <p>Descontinuados: 20</p>
+                  <p>Promoción: 1200</p>
+                  <p>Total SKU: 50</p>
+                </div>
+                <div class="align-self-center">
+                  <a href="#">
+                    <span class="material-icons" style="font-size: 25px;">add_circle</span>
+                    <p>Más detalles</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="align-self-center">
+                  <img src="../../../../assets/hombre.png" alt="Silueta Hombre" class="float-left imgCards">
+                </div>
+                <div class="media-body text-left">
+                  <h3>Hombres</h3>
+                  <p>Nuevos: 50</p>
+                  <p>Descontinuados: 20</p>
+                  <p>Promoción: 1200</p>
+                  <p>Total SKU: 50</p>
+                </div>
+                <div class="align-self-center">
+                  <a href="#">
+                    <span class="material-icons" style="font-size: 25px;">add_circle</span>
+                    <p>Más detalles</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="align-self-center">
+                  <img src="../../../../assets/kids.png" alt="Silueta Kids" class="float-left imgCards">
+                </div>
+                <div class="media-body text-left ml-4">
+                  <h3>Kids</h3>
+                  <p>Nuevos: 50</p>
+                  <p>Descontinuados: 20</p>
+                  <p>Promoción: 1200</p>
+                  <p>Total SKU: 50</p>
+                </div>
+                <div class="align-self-center">
+                  <a href="#">
+                    <span class="material-icons" style="font-size: 25px;">add_circle</span>
+                    <p>Más detalles</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- Cards Mujer - Hombre - Kids -->
+
 <!-- tabla tipo de prenda -->
-<div class="table-container-tipoP">
-    <h2>Tipo de prenda</h2>
-    <table class="tipoP">
-      <thead>
-        <tr>
-          <th>Categoría</th>
-          <th>Subcategoría</th>
-          <th>Tipo de prenda</th>
-          <th>SKU</th>
-          <th>Precio promedio</th>
-          <th>Nueva llegada</th>
-          <th>Tasa de frescura</th>
-          <th>Cantidad descuento</th>
-          <th>Descuento promedio</th>
-        </tr>
-      </thead>
+<div class="table-container-sku">
+  <h2>Tipo de prenda</h2>
 
-      <tbody>
-        <tr>
-          <td data-label="Categoría">Todo</td>
-          <td data-label="Subcategoría">Vestir</td>
-          <td data-label="Tipo de prenda">Todo</td>
-          <td data-label="SKU">124m</td>
-          <td data-label="Precio promedio">$55.50</td>
-          <td data-label="Nueva llegada">El 14.97m</td>
-          <td data-label="Tasa de frescura">12.07%</td>
-          <td data-label="Cantidad descuento">708.72K</td>
-          <td data-label="Descuento promedio" style="color: green;">88,69%</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Todo</td>
-          <td data-label="Subcategoría">Calzado</td>
-          <td data-label="Tipo de prenda">Todo</td>
-          <td data-label="SKU">Los 30.61m</td>
-          <td data-label="Precio promedio">$82.00</td>
-          <td data-label="Nueva llegada">Los 4.27m</td>
-          <td data-label="Tasa de frescura">13.97%</td>
-          <td data-label="Cantidad descuento">590.83K</td>
-          <td data-label="Descuento promedio" style="color: green;">88,69%</td>
-        </tr>
-        <tr>
-          <td data-label="Categoría">Todo</td>
-          <td data-label="Subcategoría">Interior</td>
-          <td data-label="Tipo de prenda">Todo</td>
-          <td data-label="SKU">El 14.51m</td>
-          <td data-label="Precio promedio">$35.50</td>
-          <td data-label="Nueva llegada">1.98m</td>
-          <td data-label="Tasa de frescura">13.70%</td>
-          <td data-label="Cantidad descuento">452k</td>
-          <td data-label="Descuento promedio" style="color: green;">88,69%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <!-- Fin tabla tipo de prenda -->   
-  
-  <br>
-  <br>
-  <br>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped row-border hover" id="">
+    <thead>
+      <tr>
+        <th>Categoría</th>
+        <th>Subcategoría</th>
+        <th>Tipo de prenda</th>
+        <th>SKU</th>
+        <th>Precio promedio</th>
+        <th>Nueva llegada</th>
+        <th>Tasa de frescura</th>
+        <th>Cantidad descuento</th>
+        <th>Descuento promedio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of photos">
+        <td data-label="Categoría"> {{e.categoria}} </td>
+        <td data-label="Subcategoría"> {{e.x}} </td>
+        <td data-label="Tipo de prenda"> {{e.imageName}} </td>
+        <td data-label="SKU"> {{e.x}} </td>
+        <td data-label="Precio promedio"> {{e.x}} </td>
+        <td data-label="Nueva llegada"> {{e.x}} </td>
+        <td data-label="Tasa de frescura"> {{e.x}} </td>
+        <td data-label="Cantidad descuento"> {{e.x}} </td>
+        <td data-label="Descuento promedio"> {{e.x}} </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of categorys" [value]="a.categoria">{{a.categoria}}</option>
+          </select>
+          <!-- <input type="text" class="form-control" placeholder="Buscar" name="search-categoria" /> -->
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of categorys" [value]="a.x">{{a.x}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of imagesNames" [value]="a.imageName">{{a.imageName}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of categorys" [value]="a.x">{{a.x}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of categorys" [value]="a.x">{{a.x}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of categorys" [value]="a.x">{{a.x}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of categorys" [value]="a.x">{{a.x}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of categorys" [value]="a.x">{{a.x}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let a of categorys" [value]="a.x">{{a.x}}</option>
+          </select>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<!-- Fin tabla tipo de prenda -->
 
-  <!-- tabla productos -->
-  <div class="table-container-tipoP">
-    <h2>Productos</h2>
-    <table class="tipoP">
-      <thead>
-        <tr>
-          <th>Producto</th>
-          <th>Tipo de prenda</th>
-          <th>Retail</th>
-          <th>Color</th>
-          <th>Talla</th>
-          <th>Precio</th>
-          <th>Descuento</th>
-        </tr>
-      </thead>
+<br>
+<br>
+<br>
 
-      <tbody>
-        <tr>
-          <td data-label="Producto"><img src="./assets/prenda1.png" alt="" class="prenda1"/></td>
-          <td data-label="Tipo de prenda">Camisa</td>
-          <td data-label="Retail">Zara</td>
-          <td data-label="Color">Blanco</td>
-          <td data-label="Talla">S-M-L</td>
-          <td data-label="Precio">708.72K</td>
-          <td data-label="Descuento">22.92%</td>
-        </tr>
-        <tr>
-          <td data-label="Producto"><img src="./assets/prenda1.png" alt="" class="prenda1"/></td>
-          <td data-label="Tipo de prenda">Camisa</td>
-          <td data-label="Retail">Zara</td>
-          <td data-label="Color">Blanco</td>
-          <td data-label="Talla">S-M-L</td>
-          <td data-label="Precio">708.72K</td>
-          <td data-label="Descuento">22.92%</td>
-        </tr>
-        <tr>
-          <td data-label="Producto"><img src="./assets/prenda1.png" alt="" class="prenda1"/></td>
-          <td data-label="Tipo de prenda">Camisa</td>
-          <td data-label="Retail">Zara</td>
-          <td data-label="Color">Blanco</td>
-          <td data-label="Talla">S-M-L</td>
-          <td data-label="Precio">708.72K</td>
-          <td data-label="Descuento">22.92%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<!-- tabla productos -->
+<div class="table-container-sku">
+  <h2>Tipo de prenda</h2>
+
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped row-border hover" id="">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Tipo de prenda</th>
+        <th>Retail</th>
+        <th>Color</th>
+        <th>Talla</th>
+        <th>Precio</th>
+        <th>Descuento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of photos">
+        <td data-label="Producto">
+          <img [src]="i.base64" class="prenda1" alt="imagen">
+        </td>
+        <td data-label="Tipo de prenda"> {{i.imageName}} </td>
+        <td data-label="Retail"> {{i.origin}} </td>
+        <td data-label="Color"> {{i.color}} </td>
+        <td data-label="Talla"> {{i.talla}} </td>
+        <td data-label="Precio"> {{i.precio}} </td>
+        <td data-label="Descuento"> {{i.descuento}} </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>
+
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let i of imagesNames" [value]="i.imageName">{{i.imageName}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let i of imagesNames" [value]="i.imageName">{{i.imageName}}</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-control" placeholder="" name="">
+            <option value="">Todo</option>
+            <option *ngFor="let i of categorys" [value]="i.x">{{i.x}}</option>
+          </select>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<!-- fin tabla productos -->
