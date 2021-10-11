@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {
   LazyLoadImageModule,
   LAZYLOAD_IMAGE_HOOKS,
@@ -76,7 +77,8 @@ import { DataTablesModule } from "angular-datatables";
     }), // ToastrModule added
     ModalModule.forRoot(),
     DataTablesModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [
     AuthGuard,
