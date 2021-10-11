@@ -30,6 +30,11 @@ export class BlackboxService {
     return this.http.get(this.url + '/getImage/' + data);
   }
 
+  getInfoCards(data: any) {
+    console.log(data);
+    return this.http.get(this.url + '/m_infoCards', data);
+  }
+
   uploadPhoto(data: any) {
 
     const headerDict = {
