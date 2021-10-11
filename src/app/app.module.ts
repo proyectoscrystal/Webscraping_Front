@@ -39,7 +39,7 @@ import { InformeNuevosComponent } from './components/informes/informe-nuevos/inf
 import { InformeDescontinuadosComponent } from './components/informes/informe-descontinuados/informe-descontinuados.component';
 import { InformeSKUComponent } from './components/informes/informe-sku/informe-sku.component';
 
-import { InformeCategoriaComponent } from './components/informes/informe-categoria/informe-categoria.component';
+import { InformeCategoriaComponent } from './components/informe-categoria/informe-categoria.component';
 
 // Angular DataTables
 import { DataTablesModule } from "angular-datatables";

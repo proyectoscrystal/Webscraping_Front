@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
-import { BlackboxService } from '../../../services/blackbox.service';
+import { BlackboxService } from '../../services/blackbox.service';
 
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
@@ -29,6 +29,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit, AfterViewIn
 
   ngOnInit(): void {
     this.getPhotoList();
+    this.toggleSidebar();
     
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -56,6 +57,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit, AfterViewIn
         console.log(err);
       }
     );
+  }
+
+  // Ocultar/Mostrar sidebar
+  toggleSidebar() {
+    $('#menu-toggle-sidebar2').on('click', function (e) {
+      e.preventDefault();
+      $('#wrapper').toggleClass('toggled');
+      (<any>$('#wrapper.toggled').find("#sidebar-wrapper").find(".collapse")).collapse('hide');
+    });
   }
 
   filterDuplicates() {
