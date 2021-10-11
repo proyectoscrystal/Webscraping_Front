@@ -38,7 +38,8 @@
 
           <li>
             <a href="#colectionSubmenu" data-toggle="collapse" aria-expanded="false" class="sel1">
-              <img src="./assets/rect.png" alt="" class="imgsel" />Productos<img src="./assets/tri.png" alt="imagen" class="imgsel2" />
+              <img src="./assets/rect.png" alt="" class="imgsel" />Productos<img src="./assets/tri.png" alt="imagen"
+                class="imgsel2" />
             </a>
             <ul class="collapse list-unstyled firstitem itemlist" id="colectionSubmenu">
               <li class="list-items-container">
@@ -54,7 +55,7 @@
 
   <div class="contenedor-labels">
     <div class="button-sidebar">
-      <button class="btn-sidebar" id="menu-toggle">
+      <button class="btn-sidebar" id="menu-toggle-sidebar">
         <span class="material-icons">navigate_before</span>
       </button>
     </div>
@@ -81,14 +82,101 @@
 
       <div class="input-grid1">
         <input id="date1" type="date" />
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" heigth="16" xmlns:xlink="http://www.w3.org/1999/xlink"
-          preserveAspectRatio="xMidYMid meet" version="1.0" viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify"
-          style="fill:#358da3 " role="img" aria-label="Illustration of a Funnel">
+
+        <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="16" heigth="16"
+          xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
+          viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
+          aria-label="Illustration of a Funnel">
           <g id="__id33_ssutzzo1g">
             <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
               style="fill: inherit"></path>
           </g>
         </svg>
+        <br>
+        <ng-template #template>
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">Filtros</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="list-unstyled components">
+
+              <li class="active">
+                <a href="#filterMArk" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Marca
+                </a>
+                <ul class="collapse list-unstyled" id="filterMArk">
+                  <li *ngFor="let e of origins">
+                    <label class="control control--checkbox">{{e.origin}}<input type="checkbox" class="ml-2" /></label>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterCategory" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Categoria
+                </a>
+                <ul class="collapse list-unstyled" id="filterCategory">
+                  <li *ngFor="let e of categorys">
+                    <label class="control control--checkbox">{{e.categoria}}<input type="checkbox" class="ml-2" /></label>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterSubCategory" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Sub categoría
+                </a>
+                <ul class="collapse list-unstyled" id="filterSubCategory">
+                  <li *ngFor="let e of subcategorys">
+                    <label class="control control--checkbox">{{e.subCategoria}}<input type="checkbox" class="ml-2" /></label>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterImageName" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Tipo de prenda
+                </a>
+                <ul class="collapse list-unstyled" id="filterImageName">
+                  <li *ngFor="let e of imagesnames">
+                    <label class="control control--checkbox">{{e.imageName}}<input type="checkbox" class="ml-2" /></label>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterColor" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Color
+                </a>
+                <ul class="collapse list-unstyled" id="filterColor">
+                  <li *ngFor="let e of colors">
+                    <label class="control control--checkbox">{{e.color}}<input type="checkbox" class="ml-2" /></label>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterMaterials" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Materiales
+                </a>
+                <ul class="collapse list-unstyled" id="filterMaterials">
+                  <li *ngFor="let e of materials">
+                    <label class="control control--checkbox">{{e.materiales}}<input type="checkbox" class="ml-2" /></label>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+            <button type="button" class="btn btn-primary">Aplicar filtros</button>
+          </div>
+        </ng-template>
+
       </div>
     </div>
     <!-- inicio cards resumen -->
