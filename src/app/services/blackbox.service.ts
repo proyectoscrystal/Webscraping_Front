@@ -30,9 +30,9 @@ export class BlackboxService {
     return this.http.get(this.url + '/getImage/' + data);
   }
 
-  getInfoCards(data: any) {
-    console.log(data);
-    return this.http.get(this.url + '/m_infoCards', data);
+  getInfoCards(params: any) {
+    console.log(params);
+    return this.http.get(this.url + '/m_infoCards/' ,{ params } );
   }
 
   uploadPhoto(data: any) {

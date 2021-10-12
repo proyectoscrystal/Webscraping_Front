@@ -38,11 +38,11 @@ export class InformesComponent implements OnInit {
   materials: any;
   infoCards: any;
   params: any;
-  origin: 'Zara';
-  categoria: '';
-  subCategoria: '';
-  tipoPrenda: '';
-  color: '';
+  origin: String = 'Mango';
+  categoria: String = '';
+  subCategoria: String = '';
+  tipoPrenda: String = '';
+  color: String = '';
   precioPromedio: any;
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
@@ -88,7 +88,7 @@ export class InformesComponent implements OnInit {
 
   getInfoCards() {
     let params = {
-      origin: 'Zara',
+      origin: 'Mango',
       categoria: this.categoria,
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
