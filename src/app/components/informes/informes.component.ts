@@ -96,7 +96,7 @@ export class InformesComponent implements OnInit {
   getInfoCards() {
     let params = {
       origin: this.origin,
-      categoria: 'Mujer',
+      categoria: this.categoria,
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
       color: this.color
