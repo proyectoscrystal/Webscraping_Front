@@ -2,7 +2,7 @@
   <div class="chart-container">
     <div class="titulo-chart">
       <h2>Precio promedio marcas</h2>
-      <select class="form-control col-md-2" [(ngModel)]="seleccion" (change)="mes()">
+      <select class="form-control col-md-2" [(ngModel)]="seleccion" >
         <option *ngFor="let seleccion of yearMonth" (value)="seleccion">
           {{seleccion}}
         </option>

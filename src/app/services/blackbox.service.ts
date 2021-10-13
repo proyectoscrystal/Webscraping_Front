@@ -34,6 +34,10 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_infoCards/' ,{ params } );
   }
 
+  getInfoPrice(params: any) {
+    return this.http.get(this.url + '/m_averagePrice/' ,{ params } );
+  }
+
   uploadPhoto(data: any) {
 
     const headerDict = {

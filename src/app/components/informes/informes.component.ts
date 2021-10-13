@@ -96,7 +96,7 @@ export class InformesComponent implements OnInit {
   getInfoCards() {
     let params = {
       origin: this.origin,
-      categoria: this.categoria,
+      categoria: 'Mujer',
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
       color: this.color
@@ -105,7 +105,6 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
         this.setInfoCards(res);
-        console.log(res);
       },
       (err) => {
         console.log(err);
