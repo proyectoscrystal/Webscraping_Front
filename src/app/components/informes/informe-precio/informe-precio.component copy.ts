@@ -104,7 +104,8 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
           this.averagePrice2[index - 24] = res.obj.values[index];
         }
       }
-    }  else if (res.obj.origin === 'Mango') {
+
+    } else if (res.obj.origin === 'Mango') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
@@ -116,17 +117,13 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
         }
       }
 
+
     } else if (res.obj.origin === 'Zara') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
-      for (let index = 0; index < res.obj.values.length; index++) {
-        if (index <= 11) {
-          this.averagePrice1[index] = res.obj.values[index];
-        } else if (index >= 12 && index <= 23) {
-          this.averagePrice2[index - 12] = res.obj.values[index];
-        }
-      }
+
+
     }
 
   }
