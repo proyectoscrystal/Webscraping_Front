@@ -186,20 +186,18 @@
           <div class="card" routerLink="informePrecios" routerLinkActive="activo">
             <img src="../../../assets/money.png" class="Capa_1" alt="money" />
             <!--todo hacer dinamico el precio y el porcentaje -->
-            <p class="card-p">Precio</p>
-            <p class="">promedio</p>
+            <p class="card-p">Precio promedio</p>
             <p>$ {{currency1}}</p>
-            <p>+ 0,39%</p>
+            <p [ngClass]="difference1()" >{{priceDifference[0] === 0 ? '-' : '+'}} {{priceDifference[1]}}%</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
           <div class="card" routerLink="informeDescuentos" routerLinkActive="activo">
             <img src="../../../assets/discount.png" class="Capa_1" alt="discount" />
-            <p class="card-p">Descuento</p>
-            <p class="">promedio</p>
+            <p class="card-p">Descuento promedio</p>
             <p> {{totalDiscount}}% </p>
-            <p>- 0,55%</p>
+            <p [ngClass]="difference2()"> {{discountDifference[0] === 0 ? '-' : '+'}} {{discountDifference[1]}}%</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
@@ -208,7 +206,7 @@
             <img src="../../../assets/new.png" class="Capa_1" alt="new" />
             <p class="">Recien llegados</p>
             <p> {{totalNew}} </p>
-            <p>- 0,5%</p>
+            <p [ngClass]="difference3()"> {{newsDifference[0] === 0 ? '-' : '+'}} {{newsDifference[1]}}</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
@@ -226,7 +224,7 @@
             <img src="../../../assets/sku.png" class="Capa_1" alt="sku" />
             <p class="">Total SKU</p>
             <p>{{totalsku}}</p>
-            <p class="porcentaje">+ 0,39%</p>
+            <p [ngClass]="difference5()" >{{skuDifference[0] === 0 ? '-' : '+'}} {{skuDifference[1]}}</p>
             <p>Que el mes pasado</p>
           </div>
         </div>

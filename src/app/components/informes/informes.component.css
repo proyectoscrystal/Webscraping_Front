@@ -253,7 +253,6 @@ ul.nav:hover {
 
 .card-p {
   text-align: center;
-  margin-bottom: 0;
 }
 
 .column .card p {
@@ -298,8 +297,12 @@ ul.nav:hover {
   
 }
 
-.activo .porcentaje {
-  color: green;
+.porcentaje {
+  color: rgb(103 209 166);
+}
+
+.porcentaje2 {
+  color: rgb(255 92 96);
 }
 
 a.sel2.activo {

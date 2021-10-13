@@ -31,7 +31,6 @@ export class BlackboxService {
   }
 
   getInfoCards(params: any) {
-    console.log(params);
     return this.http.get(this.url + '/m_infoCards/' ,{ params } );
   }
 

@@ -25,10 +25,7 @@ export class InformesComponent implements OnInit {
   titulo: string;
   photos: any;
   averagePrice: number;
-  totalDiscount: number;
   totalNew: any;
-  totalsku: any;
-  currency1: any = '';
   totalDescontinuados: any = 0;
   origins: any;
   categorys: any;
@@ -36,9 +33,19 @@ export class InformesComponent implements OnInit {
   imagesnames: any;
   colors: any;
   materials: any;
+  
+  // variables de los cards
+  totalsku: any = '';
+  totalDiscount: number;
+  currency1: any = '';
+  priceDifference: any[];
+  discountDifference: any[];
+  newsDifference: any[];
+  skuDifference: any[];
+
   infoCards: any;
   params: any;
-  origin: String = 'Mango';
+  origin: String = '';
   categoria: String = '';
   subCategoria: String = '';
   tipoPrenda: String = '';
@@ -53,10 +60,10 @@ export class InformesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getInfoCards();
     this.titulo = 'Resumen Mes';
     this.getPhotoList();
     this.toggleSidebar();
-    this.getInfoCards();
   }
 
   // Ocultar/Mostrar sidebar
@@ -88,7 +95,7 @@ export class InformesComponent implements OnInit {
 
   getInfoCards() {
     let params = {
-      origin: 'Mango',
+      origin: this.origin,
       categoria: this.categoria,
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
@@ -118,9 +125,45 @@ export class InformesComponent implements OnInit {
     this.totalDiscount = info.obj.discount;
     this.totalNew = info.obj.nuevos;
     this.totalDescontinuados = info.obj.descontinuados;
+    this.totalsku = info.obj.sku
 
-    this.totalsku = info.obj.sku;
+    this.priceDifference = info.obj.differencePrice;
+    this.discountDifference = info.obj.differencePorcentage;
+    this.skuDifference = info.obj.differenceSKU;
+    this.newsDifference = info.obj.differenceNew;
+
+
   }
+
+  difference1() {
+    if(this.priceDifference[0] === 0) {
+      return 'porcentaje2';
+    }
+    return 'porcentaje';
+  }
+
+  difference2() {
+    if(this.discountDifference[0] === 0) {
+      return 'porcentaje2';
+    }
+    return 'porcentaje';
+  }
+
+  difference3() {
+    if(this.newsDifference[0] === 0) {
+      return 'porcentaje2';
+    }
+    return 'porcentaje';
+  }
+
+  
+  difference5() {
+    if(this.skuDifference[0] === 0) {
+      return 'porcentaje2';
+    }
+    return 'porcentaje';
+  }
+
 
   filterDuplicatesOrigin() {
     this.origins = this.photos.filter(
