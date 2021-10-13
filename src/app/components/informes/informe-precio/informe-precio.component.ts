@@ -104,12 +104,9 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
           this.averagePrice2[index - 24] = res.obj.values[index];
         }
       }
-<<<<<<< HEAD
     } else if(res.obj.origin === 'Mango') {
-=======
 
     } else if (res.obj.origin === 'Mango') {
->>>>>>> 87b4429d80551306e7f49aba19586386ade83170
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
@@ -120,7 +117,6 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
           this.averagePrice2[index - 12] = res.obj.values[index];
         }
       }
-<<<<<<< HEAD
     } else if(res.obj.origin === 'Zara') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
@@ -132,7 +128,6 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
           this.averagePrice2[index - 12] = res.obj.values[index];
         }        
       }
-=======
 
 
     } else if (res.obj.origin === 'Zara') {
@@ -140,7 +135,6 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
 
->>>>>>> 87b4429d80551306e7f49aba19586386ade83170
 
     }
 

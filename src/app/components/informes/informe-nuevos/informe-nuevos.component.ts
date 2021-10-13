@@ -20,12 +20,23 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
 
   photos: any;
   total: any;
+  label1: any;
+  label2: any;
+  origin: any = '';
+  categoria: any = '';
+  subCategoria: any = '';
+  tipoPrenda: any = '';
+  color: any = '';
+  months: any;
+  averageDiscount1: any;
+  averageDiscount2: any;
 
   constructor(private blackboxService: BlackboxService) { 
     Chart.register(...registerables);
   }
 
   ngOnInit(): void {
+    this.getInfoNews();
     this.getPhotoList();
     
     this.dtOptions = {
@@ -54,39 +65,105 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     );
   }
 
-  data(value: any) {
-    this.photos = value;
-    this.total = this.photos.length;
+  getInfoNews() {
+    let params = {
+      origin: this.origin,
+      categoria: this.categoria,
+      subCategoria: this.subCategoria,
+      tipoPrenda: this.tipoPrenda,
+      color: this.color
+    };
+
+    this.blackboxService.getInfoNews(params).subscribe(
+      (res) => {
+        this.setInfoNews(res);
+        console.log(res);
+        this.ng();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
+
+  setInfoNews(res) {
+    let date = new Date();
+    let year = date.getFullYear();
+    if(res.obj.origin === 'general'){
+      this.label1 = 'Zara';
+      this.label2 = 'Mango';
+      this.months = res.obj.months;
+      console.log(res);
+      for (let index = 0; index < res.obj.values.length; index++) {
+        if(index <= 11){
+          this.averageDiscount1[index] = res.obj.values[index];
+        } else if (index >= 24 && index <= 35){
+          this.averageDiscount2[index - 24] = res.obj.values[index];
+        }        
+      }
+    } else if(res.obj.origin === 'Mango') {
+      this.label1 = `${res.obj.origin} ${year}`;
+      this.label2 = `${res.obj.origin} ${year - 1}`;
+      this.months = res.obj.months;
+      for (let index = 0; index < res.obj.values.length; index++) {
+        if(index <= 11){
+          this.averageDiscount1[index] = res.obj.values[index];
+        } else if (index >= 12 && index <= 23){
+          this.averageDiscount2[index - 12] = res.obj.values[index];
+        }        
+      }
+    } else if(res.obj.origin === 'Zara') {
+      this.label1 = `${res.obj.origin} ${year}`;
+      this.label2 = `${res.obj.origin} ${year - 1}`;
+      this.months = res.obj.months;
+      for (let index = 0; index < res.obj.values.length; index++) {
+        if(index <= 11){
+          this.averageDiscount1[index] = res.obj.values[index];
+        } else if (index >= 12 && index <= 23){
+          this.averageDiscount2[index - 12] = res.obj.values[index];
+        }        
+      }
+
+    }
+
+  }
+
 
   canvas: any;
   ctx: any;
   @ViewChild('mychart') mychart:any;
 
-  ngAfterViewInit() {
-      Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
-      this.canvas = this.mychart.nativeElement; 
-      this.ctx = this.canvas.getContext('2d');
+  ng = function ngAfterViewInit() {
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort; 
+      
+    if(this.myChart){
+      this.myChart.clear();
+      this.myChart.destroy();
+    }
+    
 
-      new Chart(this.ctx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: 'Mango',
-                data: [0, 30, 20, 40, 60, 40, 10, 80, 30, 10, 64, 53],
-                borderColor: "#007ee7",
-                fill: true,
-            },
-            {
-              label: 'Zara',
-              data: [0, 20, 40, 60, 80, 20, 40, 60, 80, 100, 34, 23 ],
-              borderColor: "#bd0e0e",
-              fill: true,
-          }],
-            labels: ['January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021', 'June 2021', 'July 2021', 'August 2021', 'September 2021', 'October 2021', 'November 2021', 'December 2021']
+    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
+    this.myChart = new Chart("myChart", {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: this.label1,
+            data: this.averageDiscount1,
+            borderColor: "#007ee7",
+            fill: true,
         },
-    }); // fin chart 1
+        {
+          label: this.label2,
+          data: this.averageDiscount2,
+          borderColor: "#bd0e0e",
+          fill: true,
+      }],
+        labels: this.months
+    },
+    
+}); // fin chart 1
 
-  }
+}
 
 }

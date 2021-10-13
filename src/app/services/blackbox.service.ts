@@ -42,6 +42,10 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_averageDiscount/' ,{ params } );
   }
 
+  getInfoNews(params: any) {
+    return this.http.get(this.url + '/m_averageNews/' ,{ params } );
+  }
+
   uploadPhoto(data: any) {
 
     const headerDict = {
