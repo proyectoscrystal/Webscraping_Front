@@ -68,22 +68,17 @@
         <h1 class="titulo-h1">{{ titulo }}</h1>
       </div>
 
-      <div id="header" class="ul-grid1">
-        <ul class="nav">
-          <li>
-            Mes
-            <ul>
-              <li>año</li>
-              <li>Mes</li>
-            </ul>
-          </li>
-        </ul>
+      <div class="selectTop">
+        <select class="form-control">
+          <option value="">Mes</option>
+          <option value="">Semana</option>
+        </select>
       </div>
 
       <div class="input-grid1">
         <input id="date1" type="date" />
 
-        <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="16" heigth="16"
+        <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
           xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
           viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
           aria-label="Illustration of a Funnel">
@@ -108,8 +103,17 @@
                   class="dropdown-toggle menu-color">Marca
                 </a>
                 <ul class="collapse list-unstyled" id="filterMArk">
-                  <li *ngFor="let e of origins">
-                    <label class="control control--checkbox">{{e.origin}}<input type="checkbox" class="ml-2" /></label>
+                  <li>
+                    <label class="control control--checkbox" class="radio">
+                      Zara
+                      <input type="checkbox" class="ml-2 check" />
+                    </label>
+                  </li>
+                  <li>
+                    <label class="control control--checkbox">
+                      Mango
+                      <input type="checkbox" class="ml-2 check" />
+                    </label>
                   </li>
                 </ul>
               </li>
@@ -119,9 +123,28 @@
                   class="dropdown-toggle menu-color">Categoria
                 </a>
                 <ul class="collapse list-unstyled" id="filterCategory">
-                  <li *ngFor="let e of categorys">
-                    <label class="control control--checkbox">{{e.categoria}}<input type="checkbox" class="ml-2" /></label>
+                  <li>
+                    <label class="control control--checkbox" class="radio">
+                      Mujer
+                      <input type="checkbox" class="ml-2 check2" />
+                    </label>
                   </li>
+                  <li>
+                    <label class="control control--checkbox">
+                      Hombre
+                      <input type="checkbox" class="ml-2 check2" />
+                    </label>
+                  <li>
+                    <label class="control control--checkbox" class="radio">
+                      Niña
+                      <input type="checkbox" class="ml-2 check2" />
+                    </label>
+                  </li>
+                  <li>
+                    <label class="control control--checkbox">
+                      Niño
+                      <input type="checkbox" class="ml-2 check2" />
+                    </label>
                 </ul>
               </li>
 
@@ -131,7 +154,9 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterSubCategory">
                   <li *ngFor="let e of subcategorys">
-                    <label class="control control--checkbox">{{e.subCategoria}}<input type="checkbox" class="ml-2" /></label>
+                    <label class="control control--checkbox">
+                      {{e.subCategoria}}
+                      <input type="checkbox" class="ml-2" /></label>
                   </li>
                 </ul>
               </li>
@@ -142,7 +167,9 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterImageName">
                   <li *ngFor="let e of imagesnames">
-                    <label class="control control--checkbox">{{e.imageName}}<input type="checkbox" class="ml-2" /></label>
+                    <label class="control control--checkbox">
+                      {{e.imageName}}
+                      <input type="checkbox" class="ml-2" /></label>
                   </li>
                 </ul>
               </li>
@@ -153,7 +180,9 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterColor">
                   <li *ngFor="let e of colors">
-                    <label class="control control--checkbox">{{e.color}}<input type="checkbox" class="ml-2" /></label>
+                    <label class="control control--checkbox">
+                      {{e.color}}
+                      <input type="checkbox" class="ml-2" /></label>
                   </li>
                 </ul>
               </li>
@@ -164,7 +193,9 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterMaterials">
                   <li *ngFor="let e of materials">
-                    <label class="control control--checkbox">{{e.materiales}}<input type="checkbox" class="ml-2" /></label>
+                    <label class="control control--checkbox">
+                      {{e.materiales}}
+                      <input type="checkbox" class="ml-2" /></label>
                   </li>
                 </ul>
               </li>
@@ -188,7 +219,7 @@
             <!--todo hacer dinamico el precio y el porcentaje -->
             <p class="card-p">Precio promedio</p>
             <p>$ {{currency1}}</p>
-            <p [ngClass]="difference1()" >{{priceDifference[0] === 0 ? '-' : '+'}} {{priceDifference[1]}}%</p>
+            <p [ngClass]="difference1()">{{priceDifference[0] === 0 ? '-' : '+'}} {{priceDifference[1]}}%</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
@@ -224,7 +255,7 @@
             <img src="../../../assets/sku.png" class="Capa_1" alt="sku" />
             <p class="">Total SKU</p>
             <p>{{totalsku}}</p>
-            <p [ngClass]="difference5()" >{{skuDifference[0] === 0 ? '-' : '+'}} {{skuDifference[1]}}</p>
+            <p [ngClass]="difference5()">{{skuDifference[0] === 0 ? '-' : '+'}} {{skuDifference[1]}}</p>
             <p>Que el mes pasado</p>
           </div>
         </div>

@@ -33,7 +33,7 @@ export class InformesComponent implements OnInit {
   imagesnames: any;
   colors: any;
   materials: any;
-  
+
   // variables de los cards
   totalsku: any = '';
   totalDiscount: number;
@@ -64,6 +64,7 @@ export class InformesComponent implements OnInit {
     this.titulo = 'Resumen Mes';
     this.getPhotoList();
     this.toggleSidebar();
+    this.onlyOne();
   }
 
   // Ocultar/Mostrar sidebar
@@ -135,29 +136,29 @@ export class InformesComponent implements OnInit {
   }
 
   difference1() {
-    if(this.priceDifference[0] === 0) {
+    if (this.priceDifference[0] === 0) {
       return 'porcentaje2';
     }
     return 'porcentaje';
   }
 
   difference2() {
-    if(this.discountDifference[0] === 0) {
+    if (this.discountDifference[0] === 0) {
       return 'porcentaje2';
     }
     return 'porcentaje';
   }
 
   difference3() {
-    if(this.newsDifference[0] === 0) {
+    if (this.newsDifference[0] === 0) {
       return 'porcentaje2';
     }
     return 'porcentaje';
   }
 
-  
+
   difference5() {
-    if(this.skuDifference[0] === 0) {
+    if (this.skuDifference[0] === 0) {
       return 'porcentaje2';
     }
     return 'porcentaje';
@@ -199,4 +200,17 @@ export class InformesComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  onlyOne() {
+    $(document).on("change", ".check", function() {
+      var $allCheckboxes = $(".check");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check2", function() {
+      var $allCheckboxes = $(".check2");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+  }
 }

@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
-
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
@@ -16,6 +16,8 @@ import { DataTableDirective } from 'angular-datatables';
 
 export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit {
 
+  modalRef: BsModalRef;
+
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
 
@@ -24,10 +26,10 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
 
   photos: any;
   total: any;
-  yearMonth: string[] = ['mes','año Zara','año Mango'];
+  yearMonth: string[] = ['mes', 'año Zara', 'año Mango'];
   seleccion: string = '';
-  averagePrice1: number[] = [];  
-  averagePrice2: number[] = [];  
+  averagePrice1: number[] = [];
+  averagePrice2: number[] = [];
   months: [];
   label1: any;
   label2: any;
@@ -42,14 +44,14 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
   tipoPrenda: any = '';
   color: any = '';
 
-  constructor(private blackboxService: BlackboxService) {
-    Chart.register(...registerables);    
+  constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
+    Chart.register(...registerables);
   }
 
   ngOnInit(): void {
     this.getInfoPrice()
     this.getPhotoList();
-    
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -91,36 +93,36 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
   setInfoPrice(res) {
     let date = new Date();
     let year = date.getFullYear();
-    if(res.obj.origin === 'general'){
+    if (res.obj.origin === 'general') {
       this.label1 = 'Zara';
       this.label2 = 'Mango';
       this.months = res.obj.months;
       for (let index = 0; index < res.obj.values.length; index++) {
-        if(index <= 11){
+        if (index <= 11) {
           this.averagePrice1[index] = res.obj.values[index];
-        } else if (index >= 24 && index <= 35){
+        } else if (index >= 24 && index <= 35) {
           this.averagePrice2[index - 24] = res.obj.values[index];
-        }        
+        }
       }
 
-    } else if(res.obj.origin === 'Mango') {
+    } else if (res.obj.origin === 'Mango') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
       for (let index = 0; index < res.obj.values.length; index++) {
-        if(index <= 11){
+        if (index <= 11) {
           this.averagePrice1[index] = res.obj.values[index];
-        } else if (index >= 12 && index <= 23){
+        } else if (index >= 12 && index <= 23) {
           this.averagePrice2[index - 12] = res.obj.values[index];
-        }        
+        }
       }
 
 
-    } else if(res.obj.origin === 'Zara') {
+    } else if (res.obj.origin === 'Zara') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
-      
+
 
     }
 
@@ -184,44 +186,46 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
         });
       });
     });
-  } 
- 
+  }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 
   // desde aca empieza el chart
 
-  
+
   @ViewChild('mychart') mychart: any;
 
   ng = function ngAfterViewInit() {
-      // console.log(this.averagePriceZara9); 
-        
-      if(this.myChart){
-        this.myChart.clear();
-        this.myChart.destroy();
-      }
-      
+    // console.log(this.averagePriceZara9); 
 
-      Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
-      this.myChart = new Chart("myChart", {
+    if (this.myChart) {
+      this.myChart.clear();
+      this.myChart.destroy();
+    }
+
+
+    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
+    this.myChart = new Chart("myChart", {
       type: 'line',
       data: {
-          datasets: [{
-              label: this.label1,
-              data: this.averagePrice1 ,
-              borderColor: "#007ee7",
-              fill: true,
-          },
-          {
-            label: this.label2,
-            data: this.averagePrice2,
-            borderColor: "#bd0e0e",
-            fill: true,
+        datasets: [{
+          label: this.label1,
+          data: this.averagePrice1,
+          borderColor: "#007ee7",
+          fill: true,
+        },
+        {
+          label: this.label2,
+          data: this.averagePrice2,
+          borderColor: "#bd0e0e",
+          fill: true,
         }],
-          labels: this.months
+        labels: this.months
       },
-      
-  }); // fin chart 1
+
+    }); // fin chart 1
 
   }
 
