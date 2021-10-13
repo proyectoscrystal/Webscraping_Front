@@ -52,6 +52,9 @@ export class InformesComponent implements OnInit {
   color: String = '';
   precioPromedio: any;
 
+  zaraSeleccionada: string = '';
+  mangoSeleccionada: string = '';
+
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
     Chart.register(...registerables);
 
@@ -92,6 +95,12 @@ export class InformesComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+  
+  setSelected() {
+    this.origin = this.zaraSeleccionada;
+    this.origin = this.mangoSeleccionada;
+    console.log(this.origin);
   }
 
   getInfoCards() {
@@ -201,13 +210,13 @@ export class InformesComponent implements OnInit {
   }
 
   onlyOne() {
-    $(document).on("change", ".check", function() {
+    $(document).on("change", ".check", function () {
       var $allCheckboxes = $(".check");
       $allCheckboxes.prop("disabled", false);
       this.checked && $allCheckboxes.not(this).prop("disabled", true);
     });
 
-    $(document).on("change", ".check2", function() {
+    $(document).on("change", ".check2", function () {
       var $allCheckboxes = $(".check2");
       $allCheckboxes.prop("disabled", false);
       this.checked && $allCheckboxes.not(this).prop("disabled", true);

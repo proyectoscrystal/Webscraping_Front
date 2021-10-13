@@ -106,13 +106,13 @@
                   <li>
                     <label class="control control--checkbox" class="radio">
                       Zara
-                      <input type="checkbox" class="ml-2 check" />
+                      <input type="checkbox" class="ml-2 check" [(ngModel)]="zaraSeleccionada" (change)="setSelected()"/>
                     </label>
                   </li>
                   <li>
                     <label class="control control--checkbox">
                       Mango
-                      <input type="checkbox" class="ml-2 check" />
+                      <input type="checkbox" class="ml-2 check" [(ngModel)]="mangoSeleccionada" (change)="setSelected()"/>
                     </label>
                   </li>
                 </ul>
