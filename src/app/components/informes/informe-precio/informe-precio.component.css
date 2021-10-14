@@ -22,18 +22,12 @@
   width: 100%;
 }
 
-.selectCharts {
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-top: -8px;
-}
-
 .filterTable {
   display: flex;
   width: auto;
 }
 
-.filterSvgTable {
+.filterSvgCharts, .filterSvgTable {
   margin-left: 20px;
   margin-top: -10px;
 }

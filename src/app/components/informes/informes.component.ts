@@ -1,5 +1,6 @@
 import { formatCurrency } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild, Inject, LOCALE_ID } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
 import { BlackboxService } from '../../services/blackbox.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -52,14 +53,12 @@ export class InformesComponent implements OnInit {
   color: String = '';
   precioPromedio: any;
 
-  zaraSeleccionada: string = '';
-  mangoSeleccionada: string = '';
+  marcas = [{ marca: "Zara" }, { marca: "Mango" }]
+  formFilters: FormGroup;
 
-  constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
+  constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService, private formBuilder: FormBuilder) {
     Chart.register(...registerables);
-
     // metodo para obtener todos los documentos de tipo images
-
   }
 
   ngOnInit(): void {
@@ -68,6 +67,21 @@ export class InformesComponent implements OnInit {
     this.getPhotoList();
     this.toggleSidebar();
     this.onlyOne();
+
+    this.formFilters = this.formBuilder.group({
+      marcaSel: this.formBuilder.array([])
+    });
+  }
+
+  onChange(marca: string, isChecked: boolean) {
+    const formArray = <FormArray>this.formFilters.controls.marcaSel;
+
+    if (isChecked) {
+      formArray.push(new FormControl(marca));
+    } else {
+      let index = formArray.controls.findIndex(x => x.value == marca)
+      formArray.removeAt(index);
+    }
   }
 
   // Ocultar/Mostrar sidebar
@@ -95,12 +109,6 @@ export class InformesComponent implements OnInit {
         console.log(err);
       }
     );
-  }
-  
-  setSelected() {
-    this.origin = this.zaraSeleccionada;
-    this.origin = this.mangoSeleccionada;
-    console.log(this.origin);
   }
 
   getInfoCards() {
