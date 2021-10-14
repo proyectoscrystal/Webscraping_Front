@@ -104,17 +104,17 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterMArk">
                   <li>
-                    <label class="control control--checkbox" class="radio">
-                      Zara
-                      <input type="checkbox" class="ml-2 check" value="Zara" [(ngModel)]="zaraSeleccionada" (change)="setSelected()"/>
-                    </label>
+                    <form [formGroup]="formFilters">
+                      <div *ngFor="let data of marcas">
+                        <label fclass="control control--checkbox" class="radio">
+                          {{data.marca}}
+                          <input type="checkbox" class="check" (change)="onChange(data.marca, $event.target.checked)">
+                          <br>
+                        </label>
+                      </div>
+                    </form>
                   </li>
-                  <li>
-                    <label class="control control--checkbox">
-                      Mango
-                      <input type="checkbox" class="ml-2 check" value="Mango" [(ngModel)]="mangoSeleccionada" (change)="setSelected()"/>
-                    </label>
-                  </li>
+                  <pre>Form values: {{formFilters.value | json}}</pre>
                 </ul>
               </li>
 
