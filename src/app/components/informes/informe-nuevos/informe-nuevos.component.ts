@@ -28,8 +28,9 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   tipoPrenda: any = '';
   color: any = '';
   months: any;
-  averageDiscount1: any;
-  averageDiscount2: any;
+
+  averageNews1: number[] = [];
+  averageNews2: number[] = [];
 
   constructor(private blackboxService: BlackboxService) { 
     Chart.register(...registerables);
@@ -96,9 +97,9 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       console.log(res);
       for (let index = 0; index < res.obj.values.length; index++) {
         if(index <= 11){
-          this.averageDiscount1[index] = res.obj.values[index];
+          this.averageNews1[index] = res.obj.values[index];
         } else if (index >= 24 && index <= 35){
-          this.averageDiscount2[index - 24] = res.obj.values[index];
+          this.averageNews2[index - 24] = res.obj.values[index];
         }        
       }
     } else if(res.obj.origin === 'Mango') {
@@ -107,9 +108,9 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.months = res.obj.months;
       for (let index = 0; index < res.obj.values.length; index++) {
         if(index <= 11){
-          this.averageDiscount1[index] = res.obj.values[index];
+          this.averageNews1[index] = res.obj.values[index];
         } else if (index >= 12 && index <= 23){
-          this.averageDiscount2[index - 12] = res.obj.values[index];
+          this.averageNews2[index - 12] = res.obj.values[index];
         }        
       }
     } else if(res.obj.origin === 'Zara') {
@@ -118,9 +119,9 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.months = res.obj.months;
       for (let index = 0; index < res.obj.values.length; index++) {
         if(index <= 11){
-          this.averageDiscount1[index] = res.obj.values[index];
+          this.averageNews1[index] = res.obj.values[index];
         } else if (index >= 12 && index <= 23){
-          this.averageDiscount2[index - 12] = res.obj.values[index];
+          this.averageNews2[index - 12] = res.obj.values[index];
         }        
       }
 
@@ -129,8 +130,6 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   }
 
 
-  canvas: any;
-  ctx: any;
   @ViewChild('mychart') mychart:any;
 
   ng = function ngAfterViewInit() {
@@ -149,13 +148,13 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     data: {
         datasets: [{
             label: this.label1,
-            data: this.averageDiscount1,
+            data: this.averageNews1,
             borderColor: "#007ee7",
             fill: true,
         },
         {
           label: this.label2,
-          data: this.averageDiscount2,
+          data: this.averageNews2,
           borderColor: "#bd0e0e",
           fill: true,
       }],
