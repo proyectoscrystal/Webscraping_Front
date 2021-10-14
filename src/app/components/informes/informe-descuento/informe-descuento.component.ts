@@ -80,7 +80,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.blackboxService.getInfoDiscount(params).subscribe(
       (res) => {
         this.setInfoDiscount(res);
-        console.log(res);
+        // console.log(res);
         this.ng();
       },
       (err) => {

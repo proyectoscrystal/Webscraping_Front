@@ -77,7 +77,6 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.blackboxService.getInfoSKU(params).subscribe(
       (res) => {
         this.setInfoSKU(res);
-        console.log(res);
         this.ng();
       },
       (err) => {

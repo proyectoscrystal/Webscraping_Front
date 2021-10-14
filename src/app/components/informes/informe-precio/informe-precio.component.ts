@@ -81,7 +81,7 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
     this.blackboxService.getInfoPrice(params).subscribe(
       (res) => {
         this.setInfoPrice(res);
-        console.log(res);
+        // console.log(res);
         this.ng();
       },
       (err) => {
