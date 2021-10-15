@@ -232,5 +232,18 @@ export class Datos {
     },
   ];
 
+  //Datos para los filtros de informes
+  private origins: any[] = [
+    { value: 'Zara', text: 'Zara' },
+    { value: 'Mango', text: 'Mango' },
+  ];
+
+  private categorias: any[] = [
+    { value: 'Hombre', text: 'Hombre' },
+    { value: 'Mujer', text: 'Mujer' },
+    { value: 'Niño', text: 'Niño' },
+    { value: 'Niña', text: 'Niña' }
+  ];
+
   constructor() {}
 }

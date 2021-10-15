@@ -10,7 +10,17 @@ import { InformeDescuentoComponent } from './informe-descuento/informe-descuento
 import { InformeNuevosComponent } from './informe-nuevos/informe-nuevos.component';
 import { InformeSKUComponent } from './informe-sku/informe-sku.component';
 
+import { Datos } from '../../utils/index';
 
+interface photoObject {
+  origin: string[];
+}
+
+interface valueFilter {
+  checked: boolean;
+  clase: string;
+  item: string;
+}
 
 @Component({
   selector: 'app-informes',
@@ -21,6 +31,7 @@ export class InformesComponent implements OnInit {
   // @ViewChild(InformeDescuentoComponent) informeDescuento: InformeDescuentoComponent;
   // @ViewChild(InformeNuevosComponent) informeNuevo: InformeNuevosComponent;
   // @ViewChild(InformeSKUComponent) informeSKU: InformeSKUComponent;
+
   modalRef: BsModalRef;
 
   titulo: string;
@@ -28,7 +39,7 @@ export class InformesComponent implements OnInit {
   averagePrice: number;
   totalNew: any;
   totalDescontinuados: any = 0;
-  origins: any;
+  originData: any;
   categorys: any;
   subcategorys: any;
   imagesnames: any;
@@ -44,38 +55,47 @@ export class InformesComponent implements OnInit {
   newsDifference: any[];
   skuDifference: any[];
 
+  datos: any;
   infoCards: any;
   params: any;
-  origin: String = '';
   categoria: String = '';
   subCategoria: String = '';
   tipoPrenda: String = '';
   color: String = '';
   precioPromedio: any;
 
-  marcas = [{ marca: "Zara" }, { marca: "Mango" }]
-  formFilters: FormGroup;
+  originSelected: any[];
+  categoriaSelected: any[];
+  selectedFilter = [];
+
+  //marcas = [{ marca: "Zara" }, { marca: "Mango" }]
+  //formFilters: FormGroup;
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService, private formBuilder: FormBuilder) {
     Chart.register(...registerables);
+    this.datos = new Datos();
     // metodo para obtener todos los documentos de tipo images
   }
 
   ngOnInit(): void {
     this.getInfoCards();
+    this.showDataModal()
     this.titulo = 'Resumen Mes';
     this.getPhotoList();
     this.toggleSidebar();
     this.onlyOne();
 
+    /*
     this.formFilters = this.formBuilder.group({
       marcaSel: this.formBuilder.array([])
     });
+    */
   }
 
+  /*
   onChange(marca: string, isChecked: boolean) {
     const formArray = <FormArray>this.formFilters.controls.marcaSel;
-
+  
     if (isChecked) {
       formArray.push(new FormControl(marca));
     } else {
@@ -83,6 +103,7 @@ export class InformesComponent implements OnInit {
       formArray.removeAt(index);
     }
   }
+  */
 
   // Ocultar/Mostrar sidebar
   toggleSidebar() {
@@ -97,8 +118,6 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
         this.photos = res;
-        this.filterDuplicatesOrigin();
-        this.filterDuplicatesCategorys();
         this.filterDuplicatesSubCategorys();
         this.filterDuplicatesImagesNames();
         this.filterDuplicatesColors();
@@ -111,9 +130,13 @@ export class InformesComponent implements OnInit {
     );
   }
 
+
+  //===============INICIO FILTROS MODAL===============
+
+  //Setear filtros obtenidos en cards
   getInfoCards() {
     let params = {
-      origin: this.origin,
+      origin: this.originSelected,
       categoria: this.categoria,
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
@@ -129,6 +152,79 @@ export class InformesComponent implements OnInit {
       }
     );
   }
+
+  //Obtener datos desde index.ts para mostrar en el modal
+  showDataModal() {
+    this.originData = this.datos.origins;
+  }
+
+  // Función para validar checked del filtro
+  validateCheckFilter(checked, item, className) {
+    let data = {
+      checked,
+      clase: className,
+      item: item.value || item,
+    };
+
+    this.sendDataToFilter(data);
+
+    if (checked) {
+      if (className == 'origin') {
+        this.originSelected.push(item.value);
+      } else {
+        if (className == 'origin' && !checked) {
+          this.originSelected.splice(this.originSelected.indexOf(item.value), 1);
+        }
+      }
+
+      this.getInfoCards();
+    }
+  }
+
+  //Envia los datos seleccionados en el filtro
+  sendDataToFilter(value: valueFilter) {
+    this.filterItemsData(value);
+  }
+
+  //Recibe los datos seleccionados en el filtro
+  filterItemsData(value) {
+    console.log(value);
+
+    if (value.checked) {
+      if (value.clase == 'origin') {
+        this.selectedFilter.push(value);
+        console.log('ORIGIN: ', this.selectedFilter);
+      }
+    } else {
+      if (value.clase == 'origin' && !value.checked) {
+        this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      }
+    }
+  }
+
+  //Recibir respuesta del filtro
+  filterPhotoItems(value) {
+    this.selectedFilter = []
+    console.log('value: ', value);
+    this.photos = value.consulta;
+
+    console.log(this.selectedFilter);
+  }
+
+  sendFilter() {
+    this.blackboxService.sendFilter().subscribe((res) => {
+      console.log(res);
+      this.photos = res;
+      this.sendPhotoFilter(this.photos);
+    });
+  }
+
+  sendPhotoFilter(value: valueFilter) {
+    this.filterPhotoItems(value);
+  }
+
+  //===============FIN FILTROS MODAL===============
+
 
   setInfoCards(info: any) {
     this.precioPromedio = info.obj.precioPromedio;
@@ -148,8 +244,6 @@ export class InformesComponent implements OnInit {
     this.discountDifference = info.obj.differencePorcentage;
     this.skuDifference = info.obj.differenceSKU;
     this.newsDifference = info.obj.differenceNew;
-
-
   }
 
   difference1() {
@@ -181,17 +275,6 @@ export class InformesComponent implements OnInit {
     return 'porcentaje';
   }
 
-
-  filterDuplicatesOrigin() {
-    this.origins = this.photos.filter(
-      (dupe: { origin: any; }, i: any, arr: any[]) => arr.findIndex(t => t.origin === dupe.origin) === i
-    );
-  }
-  filterDuplicatesCategorys() {
-    this.categorys = this.photos.filter(
-      (dupe: { categoria: any; }, i: any, arr: any[]) => arr.findIndex(t => t.categoria === dupe.categoria) === i
-    );
-  }
   filterDuplicatesSubCategorys() {
     this.subcategorys = this.photos.filter(
       (dupe: { subCategoria: any; }, i: any, arr: any[]) => arr.findIndex(t => t.subCategoria === dupe.subCategoria) === i

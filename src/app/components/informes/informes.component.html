@@ -103,6 +103,16 @@
                   class="dropdown-toggle menu-color">Marca
                 </a>
                 <ul class="collapse list-unstyled" id="filterMArk">
+
+                  <li *ngFor="let origin of originData">
+                    <label class="control control--checkbox">
+                      {{origin.text}}
+                      <input class="origin check" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                        (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
+                        id="{{origin.value}}" />
+                      </label>
+                  </li>
+                  <!--
                   <li>
                     <form [formGroup]="formFilters">
                       <div *ngFor="let data of marcas">
@@ -115,6 +125,7 @@
                     </form>
                   </li>
                   <pre>Form values: {{formFilters.value | json}}</pre>
+                  -->
                 </ul>
               </li>
 
