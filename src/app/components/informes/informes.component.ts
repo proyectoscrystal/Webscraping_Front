@@ -58,6 +58,7 @@ export class InformesComponent implements OnInit {
   datos: any;
   infoCards: any;
   params: any;
+  origin: String = '';
   categoria: String = '';
   subCategoria: String = '';
   tipoPrenda: String = '';
@@ -67,6 +68,7 @@ export class InformesComponent implements OnInit {
   originSelected: any[];
   categoriaSelected: any[];
   selectedFilter = [];
+  categoryData: any;
 
   //marcas = [{ marca: "Zara" }, { marca: "Mango" }]
   //formFilters: FormGroup;
@@ -85,25 +87,9 @@ export class InformesComponent implements OnInit {
     this.toggleSidebar();
     this.onlyOne();
 
-    /*
-    this.formFilters = this.formBuilder.group({
-      marcaSel: this.formBuilder.array([])
-    });
-    */
   }
 
-  /*
-  onChange(marca: string, isChecked: boolean) {
-    const formArray = <FormArray>this.formFilters.controls.marcaSel;
-  
-    if (isChecked) {
-      formArray.push(new FormControl(marca));
-    } else {
-      let index = formArray.controls.findIndex(x => x.value == marca)
-      formArray.removeAt(index);
-    }
-  }
-  */
+ 
 
   // Ocultar/Mostrar sidebar
   toggleSidebar() {
@@ -136,7 +122,7 @@ export class InformesComponent implements OnInit {
   //Setear filtros obtenidos en cards
   getInfoCards() {
     let params = {
-      origin: this.originSelected,
+      origin: this.origin,
       categoria: this.categoria,
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
@@ -146,6 +132,7 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
         this.setInfoCards(res);
+        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -156,6 +143,7 @@ export class InformesComponent implements OnInit {
   //Obtener datos desde index.ts para mostrar en el modal
   showDataModal() {
     this.originData = this.datos.origins;
+    this.categoryData = this.datos.categorias;
   }
 
   // Función para validar checked del filtro
@@ -163,64 +151,36 @@ export class InformesComponent implements OnInit {
     let data = {
       checked,
       clase: className,
-      item: item.value || item,
+      item: item.value || '',
     };
 
-    this.sendDataToFilter(data);
+    this.filterItemsData(data);
 
-    if (checked) {
-      if (className == 'origin') {
-        this.originSelected.push(item.value);
-      } else {
-        if (className == 'origin' && !checked) {
-          this.originSelected.splice(this.originSelected.indexOf(item.value), 1);
-        }
-      }
-
-      this.getInfoCards();
-    }
-  }
-
-  //Envia los datos seleccionados en el filtro
-  sendDataToFilter(value: valueFilter) {
-    this.filterItemsData(value);
   }
 
   //Recibe los datos seleccionados en el filtro
   filterItemsData(value) {
+    const { item } = value;
     console.log(value);
+    
 
-    if (value.checked) {
-      if (value.clase == 'origin') {
-        this.selectedFilter.push(value);
-        console.log('ORIGIN: ', this.selectedFilter);
-      }
-    } else {
-      if (value.clase == 'origin' && !value.checked) {
-        this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      }
-    }
+    if (value.checked && value.clase === 'marca') {
+          this.origin = item;
+          console.log(item);        
+    } 
+    if (value.checked && value.clase === 'categoria') {
+      this.categoria = item;
+      console.log(item);        
+    } 
+
+    
+
   }
 
-  //Recibir respuesta del filtro
-  filterPhotoItems(value) {
-    this.selectedFilter = []
-    console.log('value: ', value);
-    this.photos = value.consulta;
+  applyFilter() {
+    this.modalRef.hide();
 
-    console.log(this.selectedFilter);
-  }
-
-  sendFilter() {
-    this.blackboxService.sendFilter().subscribe((res) => {
-      console.log(res);
-      this.photos = res;
-      this.sendPhotoFilter(this.photos);
-    });
-  }
-
-  sendPhotoFilter(value: valueFilter) {
-    this.filterPhotoItems(value);
+    this.getInfoCards();
   }
 
   //===============FIN FILTROS MODAL===============
@@ -297,6 +257,11 @@ export class InformesComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
+    this.origin = '';
+    this.categoria = '';
+    this.subCategoria = '';
+    this.tipoPrenda = '';
+    this.color = '';
     this.modalRef = this.modalService.show(template);
   }
 

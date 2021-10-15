@@ -107,11 +107,13 @@
                   <li *ngFor="let origin of originData">
                     <label class="control control--checkbox">
                       {{origin.text}}
-                      <input class="origin check" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                      <input class="marca" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
                         (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
                         id="{{origin.value}}" />
                       </label>
                   </li>
+
+
                   <!--
                   <li>
                     <form [formGroup]="formFilters">
@@ -134,7 +136,18 @@
                   class="dropdown-toggle menu-color">Categoria
                 </a>
                 <ul class="collapse list-unstyled" id="filterCategory">
-                  <li>
+
+                  <li *ngFor="let category of categoryData">
+                    <label class="control control--checkbox">
+                      {{category.text}}
+                      <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
+                        (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
+                        id="{{category.value}}" />
+                      </label>
+                  </li>
+
+
+                  <!-- <li>
                     <label class="control control--checkbox" class="radio">
                       Mujer
                       <input type="checkbox" class="ml-2 check2" />
@@ -155,7 +168,7 @@
                     <label class="control control--checkbox">
                       Niño
                       <input type="checkbox" class="ml-2 check2" />
-                    </label>
+                    </label> -->
                 </ul>
               </li>
 
@@ -215,7 +228,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
-            <button type="button" class="btn btn-primary">Aplicar filtros</button>
+            <button type="button" class="btn btn-primary" (click)="applyFilter()">Aplicar filtros</button>
           </div>
         </ng-template>
 
