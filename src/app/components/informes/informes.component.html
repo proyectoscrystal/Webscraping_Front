@@ -43,7 +43,7 @@
             </a>
             <ul class="collapse list-unstyled firstitem itemlist" id="colectionSubmenu">
               <li class="list-items-container">
-                <a routerLink="/informeCategoria" class="sel2">X</a>
+                <a routerLink="/informeCategoria" class="sel2">Prendas</a>
               </li>
             </ul>
           </li>
@@ -65,7 +65,7 @@
   <div class="container-cards mt-3">
     <div class="grid">
       <div class="titulo-grid1">
-        <h1 class="titulo-h1">{{ titulo }}</h1>
+        <h1 class="titulo-h1">Resumen Mes</h1>
       </div>
 
       <div class="selectTop">
@@ -106,28 +106,12 @@
 
                   <li *ngFor="let origin of originData">
                     <label class="control control--checkbox">
-                      {{origin.text}}
-                      <input class="marca" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                      <input class="marca check" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
                         (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
                         id="{{origin.value}}" />
-                      </label>
+                      {{origin.text}}
+                    </label>
                   </li>
-
-
-                  <!--
-                  <li>
-                    <form [formGroup]="formFilters">
-                      <div *ngFor="let data of marcas">
-                        <label fclass="control control--checkbox" class="radio">
-                          {{data.marca}}
-                          <input type="checkbox" class="check" (change)="onChange(data.marca, $event.target.checked)">
-                          <br>
-                        </label>
-                      </div>
-                    </form>
-                  </li>
-                  <pre>Form values: {{formFilters.value | json}}</pre>
-                  -->
                 </ul>
               </li>
 
@@ -136,39 +120,15 @@
                   class="dropdown-toggle menu-color">Categoria
                 </a>
                 <ul class="collapse list-unstyled" id="filterCategory">
-
                   <li *ngFor="let category of categoryData">
                     <label class="control control--checkbox">
-                      {{category.text}}
-                      <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
+                      <input class="categoria check2" type="checkbox" value="{{category.value}}"
+                        name="{{category.value}}"
                         (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
                         id="{{category.value}}" />
-                      </label>
-                  </li>
-
-
-                  <!-- <li>
-                    <label class="control control--checkbox" class="radio">
-                      Mujer
-                      <input type="checkbox" class="ml-2 check2" />
+                      {{category.text}}
                     </label>
                   </li>
-                  <li>
-                    <label class="control control--checkbox">
-                      Hombre
-                      <input type="checkbox" class="ml-2 check2" />
-                    </label>
-                  <li>
-                    <label class="control control--checkbox" class="radio">
-                      Niña
-                      <input type="checkbox" class="ml-2 check2" />
-                    </label>
-                  </li>
-                  <li>
-                    <label class="control control--checkbox">
-                      Niño
-                      <input type="checkbox" class="ml-2 check2" />
-                    </label> -->
                 </ul>
               </li>
 
@@ -177,24 +137,35 @@
                   class="dropdown-toggle menu-color">Sub categoría
                 </a>
                 <ul class="collapse list-unstyled" id="filterSubCategory">
-                  <li *ngFor="let e of subcategorys">
+                  <li *ngFor="let subcategory of subCategoryData">
                     <label class="control control--checkbox">
-                      {{e.subCategoria}}
-                      <input type="checkbox" class="ml-2" /></label>
+
+                      <input class="subCategoria check3" type="checkbox" value="{{subcategory.value}}"
+                        name="{{subcategory.value}}"
+                        (change)="validateCheckFilter($event.target.checked, subcategory, $event.target.className, $event.target)"
+                        id="{{subcategory.value}}" />
+                      {{subcategory.text}}
+                    </label>
                   </li>
                 </ul>
               </li>
 
               <li class="active mt-2">
-                <a href="#filterImageName" data-toggle="collapse" aria-expanded="false"
+                <a href="#filterTipoPrenda" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle menu-color">Tipo de prenda
                 </a>
-                <ul class="collapse list-unstyled" id="filterImageName">
-                  <li *ngFor="let e of imagesnames">
-                    <label class="control control--checkbox">
-                      {{e.imageName}}
-                      <input type="checkbox" class="ml-2" /></label>
-                  </li>
+                <ul class="collapse list-unstyled" id="filterTipoPrenda">
+                  <div class="overflow-auto container-scroll">
+                    <li *ngFor="let tipoprenda of tipoPrendaData">
+                      <label class="control control--checkbox">
+                        <input class="tipoPrenda check4" type="checkbox" value="{{tipoprenda.value}}"
+                          name="{{tipoprenda.value}}"
+                          (change)="validateCheckFilter($event.target.checked, tipoprenda, $event.target.className, $event.target)"
+                          id="{{tipoprenda.value}}" />
+                        {{tipoprenda.text}}
+                      </label>
+                    </li>
+                  </div>
                 </ul>
               </li>
 
@@ -203,11 +174,16 @@
                   class="dropdown-toggle menu-color">Color
                 </a>
                 <ul class="collapse list-unstyled" id="filterColor">
-                  <li *ngFor="let e of colors">
-                    <label class="control control--checkbox">
-                      {{e.color}}
-                      <input type="checkbox" class="ml-2" /></label>
-                  </li>
+                  <div class="overflow-auto container-scroll">
+                    <li *ngFor="let color of colorData">
+                      <label class="control control--checkbox">
+                        <input class="color check5" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                          (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
+                          id="{{color.value}}" />
+                        {{color.text}}
+                      </label>
+                    </li>
+                  </div>
                 </ul>
               </li>
 
@@ -216,11 +192,13 @@
                   class="dropdown-toggle menu-color">Materiales
                 </a>
                 <ul class="collapse list-unstyled" id="filterMaterials">
-                  <li *ngFor="let e of materials">
-                    <label class="control control--checkbox">
+                  <div class="overflow-auto container-scroll">
+                    <li *ngFor="let e of materials">
+                      <label class="control control--checkbox">
+                        <input type="checkbox" class="ml-2" /></label>
                       {{e.materiales}}
-                      <input type="checkbox" class="ml-2" /></label>
-                  </li>
+                    </li>
+                  </div>
                 </ul>
               </li>
 
@@ -291,7 +269,6 @@
     <router-outlet></router-outlet>
     <br>
 
-    <!-- Fin tabla productos -->
   </div>
   <!-- fin page-content -->
 </div>

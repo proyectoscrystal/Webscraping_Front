@@ -12,10 +12,6 @@ import { InformeSKUComponent } from './informe-sku/informe-sku.component';
 
 import { Datos } from '../../utils/index';
 
-interface photoObject {
-  origin: string[];
-}
-
 interface valueFilter {
   checked: boolean;
   clase: string;
@@ -34,12 +30,10 @@ export class InformesComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  titulo: string;
   photos: any;
   averagePrice: number;
   totalNew: any;
   totalDescontinuados: any = 0;
-  originData: any;
   categorys: any;
   subcategorys: any;
   imagesnames: any;
@@ -55,7 +49,6 @@ export class InformesComponent implements OnInit {
   newsDifference: any[];
   skuDifference: any[];
 
-  datos: any;
   infoCards: any;
   params: any;
   origin: String = '';
@@ -65,15 +58,15 @@ export class InformesComponent implements OnInit {
   color: String = '';
   precioPromedio: any;
 
-  originSelected: any[];
-  categoriaSelected: any[];
-  selectedFilter = [];
+  //Datos index.ts
+  datos: any;
+  originData: any;
   categoryData: any;
+  subCategoryData: any;
+  tipoPrendaData: any;
+  colorData: any;
 
-  //marcas = [{ marca: "Zara" }, { marca: "Mango" }]
-  //formFilters: FormGroup;
-
-  constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService, private formBuilder: FormBuilder) {
+  constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
     Chart.register(...registerables);
     this.datos = new Datos();
     // metodo para obtener todos los documentos de tipo images
@@ -81,15 +74,11 @@ export class InformesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInfoCards();
-    this.showDataModal()
-    this.titulo = 'Resumen Mes';
+    this.showDataModal();
     this.getPhotoList();
     this.toggleSidebar();
     this.onlyOne();
-
   }
-
- 
 
   // Ocultar/Mostrar sidebar
   toggleSidebar() {
@@ -115,7 +104,6 @@ export class InformesComponent implements OnInit {
       }
     );
   }
-
 
   //===============INICIO FILTROS MODAL===============
 
@@ -144,9 +132,12 @@ export class InformesComponent implements OnInit {
   showDataModal() {
     this.originData = this.datos.origins;
     this.categoryData = this.datos.categorias;
+    this.subCategoryData = this.datos.subcategorias;
+    this.tipoPrendaData = this.datos.tipoprendas;
+    this.colorData = this.datos.colores;
   }
 
-  // Función para validar checked del filtro
+  //Función para validar checked del filtro
   validateCheckFilter(checked, item, className) {
     let data = {
       checked,
@@ -155,32 +146,81 @@ export class InformesComponent implements OnInit {
     };
 
     this.filterItemsData(data);
-
   }
 
   //Recibe los datos seleccionados en el filtro
   filterItemsData(value) {
     const { item } = value;
     console.log(value);
-    
 
-    if (value.checked && value.clase === 'marca') {
-          this.origin = item;
-          console.log(item);        
-    } 
-    if (value.checked && value.clase === 'categoria') {
+    if (value.checked && value.clase === 'marca check') {
+      this.origin = item;
+      console.log(item);
+    }
+    if (value.checked && value.clase === 'categoria check2') {
       this.categoria = item;
-      console.log(item);        
-    } 
-
-    
-
+      console.log(item);
+    }
+    if (value.checked && value.clase === 'subCategoria check3') {
+      this.subCategoria = item;
+      console.log(item);
+    }
+    if (value.checked && value.clase === 'tipoPrenda check4') {
+      this.tipoPrenda = item;
+      console.log(item);
+    }
+    if (value.checked && value.clase === 'color check5') {
+      this.color = item;
+      console.log(item);
+    }
   }
 
   applyFilter() {
     this.modalRef.hide();
 
     this.getInfoCards();
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.origin = '';
+    this.categoria = '';
+    this.subCategoria = '';
+    this.tipoPrenda = '';
+    this.color = '';
+
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onlyOne() {
+    $(document).on("change", ".check", function () {
+      var $allCheckboxes = $(".check");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check2", function () {
+      var $allCheckboxes = $(".check2");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check3", function () {
+      var $allCheckboxes = $(".check3");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check4", function () {
+      var $allCheckboxes = $(".check4");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check5", function () {
+      var $allCheckboxes = $(".check5");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
   }
 
   //===============FIN FILTROS MODAL===============
@@ -254,28 +294,5 @@ export class InformesComponent implements OnInit {
     this.materials = this.photos.filter(
       (dupe: { materiales: any; }, i: any, arr: any[]) => arr.findIndex(t => t.materiales === dupe.materiales) === i
     );
-  }
-
-  openModal(template: TemplateRef<any>) {
-    this.origin = '';
-    this.categoria = '';
-    this.subCategoria = '';
-    this.tipoPrenda = '';
-    this.color = '';
-    this.modalRef = this.modalService.show(template);
-  }
-
-  onlyOne() {
-    $(document).on("change", ".check", function () {
-      var $allCheckboxes = $(".check");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
-    });
-
-    $(document).on("change", ".check2", function () {
-      var $allCheckboxes = $(".check2");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
-    });
   }
 }

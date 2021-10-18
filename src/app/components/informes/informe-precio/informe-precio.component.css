@@ -1,20 +1,5 @@
-/* Tablas */
-.mat-form-field {
-  width: 100%;
-  font-size: 14px;
-  margin: 0 auto;
-}
-
-.table-container {
-  width: 100%;
-  max-width: auto;
-  margin: auto;
-}
-
-.menu-color,
-.prendaGen {
-  color: #212121;
-  font-weight: bold;
+.container-scroll {
+  height: 250px;
 }
 
 .filtersCharts {
@@ -32,7 +17,23 @@
   margin-top: -10px;
 }
 
+.menu-color {
+  color: #212121;
+  font-weight: bold;
+}
 
+/* Tablas */
+.mat-form-field {
+  width: 100%;
+  font-size: 14px;
+  margin: 0 auto;
+}
+
+.table-container {
+  width: 100%;
+  max-width: auto;
+  margin: auto;
+}
 
 tr:hover td {
   background-color:#358da3;

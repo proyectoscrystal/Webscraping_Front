@@ -1,12 +1,21 @@
 import { AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+
+//Filtro modal
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Datos } from '../../../utils/index';
+
+interface valueFilter {
+  checked: boolean;
+  clase: string;
+  item: string;
+}
 
 @Component({
   selector: 'app-informe-precio',
@@ -44,13 +53,24 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
   tipoPrenda: any = '';
   color: any = '';
 
+  //Datos index.ts
+  datos: any;
+  originData: any;
+  categoryData: any;
+  subCategoryData: any;
+  tipoPrendaData: any;
+  colorData: any;
+
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
     Chart.register(...registerables);
+    this.datos = new Datos();
   }
 
   ngOnInit(): void {
     this.getInfoPrice()
     this.getPhotoList();
+    this.showDataModal();
+    this.onlyOne();
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -90,6 +110,105 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
     );
   }
 
+  //===============INICIO FILTROS MODAL===============
+
+  //Obtener datos desde index.ts para mostrar en el modal
+  showDataModal() {
+    this.originData = this.datos.origins;
+    this.categoryData = this.datos.categorias;
+    this.subCategoryData = this.datos.subcategorias;
+    this.tipoPrendaData = this.datos.tipoprendas;
+    this.colorData = this.datos.colores;
+  }
+
+  //Función para validar checked del filtro
+  validateCheckFilter(checked, item, className) {
+    let data = {
+      checked,
+      clase: className,
+      item: item.value || '',
+    };
+
+    this.filterItemsData(data);
+  }
+
+  //Recibe los datos seleccionados en el filtro
+  filterItemsData(value) {
+    const { item } = value;
+    console.log(value);
+
+    if (value.checked && value.clase === 'marca check') {
+      this.origin = item;
+      console.log(item);
+    }
+    if (value.checked && value.clase === 'categoria check2') {
+      this.categoria = item;
+      console.log(item);
+    }
+    if (value.checked && value.clase === 'subCategoria check3') {
+      this.subCategoria = item;
+      console.log(item);
+    }
+    if (value.checked && value.clase === 'tipoPrenda check4') {
+      this.tipoPrenda = item;
+      console.log(item);
+    }
+    if (value.checked && value.clase === 'color check5') {
+      this.color = item;
+      console.log(item);
+    }
+  }
+
+  applyFilter() {
+    this.modalRef.hide();
+
+    this.getInfoPrice();
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.origin = '';
+    this.categoria = '';
+    this.subCategoria = '';
+    this.tipoPrenda = '';
+    this.color = '';
+
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onlyOne() {
+    $(document).on("change", ".check", function () {
+      var $allCheckboxes = $(".check");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check2", function () {
+      var $allCheckboxes = $(".check2");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check3", function () {
+      var $allCheckboxes = $(".check3");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check4", function () {
+      var $allCheckboxes = $(".check4");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+
+    $(document).on("change", ".check5", function () {
+      var $allCheckboxes = $(".check5");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+  }
+
+  //===============FIN FILTROS MODAL===============
+
   setInfoPrice(res) {
     let date = new Date();
     let year = date.getFullYear();
@@ -104,7 +223,7 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
           this.averagePrice2[index - 24] = res.obj.values[index];
         }
       }
-    }  else if (res.obj.origin === 'Mango') {
+    } else if (res.obj.origin === 'Mango') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
@@ -115,7 +234,6 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
           this.averagePrice2[index - 12] = res.obj.values[index];
         }
       }
-
     } else if (res.obj.origin === 'Zara') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
@@ -128,7 +246,6 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
         }
       }
     }
-
   }
 
   getPhotoList() {
@@ -191,23 +308,15 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
     });
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
-
-  // desde aca empieza el chart
-
-
+  //Desde aca empieza el chart
   @ViewChild('mychart') mychart: any;
 
   ng = function ngAfterViewInit() {
     // console.log(this.averagePriceZara9); 
-
     if (this.myChart) {
       this.myChart.clear();
       this.myChart.destroy();
     }
-
 
     Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
     this.myChart = new Chart("myChart", {
@@ -229,9 +338,5 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
       },
 
     }); // fin chart 1
-
   }
-
-  //juan camilo
-
 }
