@@ -66,6 +66,8 @@ export class InformesComponent implements OnInit {
   tipoPrendaData: any;
   colorData: any;
 
+  selectedFilter = [];
+
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
     Chart.register(...registerables);
     this.datos = new Datos();
@@ -151,28 +153,53 @@ export class InformesComponent implements OnInit {
   //Recibe los datos seleccionados en el filtro
   filterItemsData(value) {
     const { item } = value;
-    console.log(value);
 
     if (value.checked && value.clase === 'marca check') {
       this.origin = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'marca check' && !value.checked) {
+      this.origin = "";
+      console.log(this.origin);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'categoria check2') {
       this.categoria = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'categoria check2' && !value.checked) {
+      this.categoria = "";
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'subCategoria check3') {
       this.subCategoria = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'subCategoria check3' && !value.checked) {
+      this.subCategoria = "";
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'tipoPrenda check4') {
       this.tipoPrenda = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'tipoPrenda check4' && !value.checked) {
+      this.tipoPrenda = "";
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'color check5') {
       this.color = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'color check5' && !value.checked) {
+      this.color = "";
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
   }
 
   applyFilter() {

@@ -36,6 +36,10 @@
   border-bottom-right-radius: 10px;
 }
 
+.hoverSvgFilter:hover {
+  cursor: pointer;
+}
+
 .iconox {
   font-size: 16px !important;
 }

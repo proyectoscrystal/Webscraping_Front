@@ -17,6 +17,10 @@
   margin-top: -10px;
 }
 
+.hoverSvgFilter:hover {
+  cursor: pointer;
+}
+
 .menu-color {
   color: #212121;
   font-weight: bold;
