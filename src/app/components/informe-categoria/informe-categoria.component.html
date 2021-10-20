@@ -82,10 +82,10 @@
                       </div>
                       <div class="media-body text-left">
                         <h3>Mujeres</h3>
-                        <p>Nuevos: 50</p>
-                        <p>Descontinuados: 20</p>
-                        <p>Promoción: 1200</p>
-                        <p>Total SKU: 50</p>
+                        <p>Nuevos: {{womenNew}}</p>
+                        <p>Descontinuados: {{womendiscontinued}}</p>
+                        <p>Promoción: {{womenPromotion}}</p>
+                        <p>Total SKU: {{womensku}}</p>
                       </div>
                       <div class="align-self-center">
                         <a href="#">
@@ -108,10 +108,10 @@
                       </div>
                       <div class="media-body text-left">
                         <h3>Hombres</h3>
-                        <p>Nuevos: 50</p>
-                        <p>Descontinuados: 20</p>
-                        <p>Promoción: 1200</p>
-                        <p>Total SKU: 50</p>
+                        <p>Nuevos: {{menNew}}</p>
+                        <p>Descontinuados: {{mendiscontinued}}</p>
+                        <p>Promoción: {{menPromotion}}</p>
+                        <p>Total SKU: {{mensku}}</p>
                       </div>
                       <div class="align-self-center">
                         <a href="#">
@@ -134,10 +134,10 @@
                       </div>
                       <div class="media-body text-left ml-4">
                         <h3>Kids</h3>
-                        <p>Nuevos: 50</p>
-                        <p>Descontinuados: 20</p>
-                        <p>Promoción: 1200</p>
-                        <p>Total SKU: 50</p>
+                        <p>Nuevos: {{kidsNew}}</p>
+                        <p>Descontinuados: {{kidsdiscontinued}}</p>
+                        <p>Promoción: {{kidsPromotion}}</p>
+                        <p>Total SKU: {{kidssku}}</p>
                       </div>
                       <div class="align-self-center">
                         <a href="#">
@@ -178,13 +178,13 @@
             <tr *ngFor="let e of photos">
               <td data-label="Categoría"> {{e.categoria}} </td>
               <td data-label="Subcategoría"> {{e.subCategoria}} </td>
-              <td data-label="Tipo de prenda"> {{e.imageName}} </td>
-              <td data-label="SKU"> {{e.x}} </td>
-              <td data-label="Precio promedio"> {{e.x}} </td>
+              <td data-label="Tipo de prenda"> {{e.tipoPrenda}} </td>
+              <td data-label="SKU"> {{e.numeroTallas}} </td>
+              <td data-label="Precio promedio"> {{e.precio}} </td>
               <td data-label="Nueva llegada"> {{e.x}} </td>
               <td data-label="Tasa de frescura"> {{e.x}} </td>
               <td data-label="Cantidad descuento"> {{e.x}} </td>
-              <td data-label="Descuento promedio"> {{e.x}} </td>
+              <td data-label="Descuento promedio"> {{e.descuento !== null ? e.descuento : 0}} </td>
             </tr>
           </tbody>
           <tfoot>
@@ -199,13 +199,13 @@
               <th>
                 <select class="form-control" placeholder="" name="">
                   <option value="">Todo</option>
-                  <option *ngFor="let a of categorys" [value]="a.x">{{a.x}}</option>
+                  <option *ngFor="let a of categorys" [value]="a.x">{{a.subCategoria}}</option>
                 </select>
               </th>
               <th>
                 <select class="form-control" placeholder="" name="">
                   <option value="">Todo</option>
-                  <option *ngFor="let a of imagesNames" [value]="a.imageName">{{a.imageName}}</option>
+                  <option *ngFor="let a of imagesNames" [value]="a.imageName">{{a.tipoPrenda}}</option>
                 </select>
               </th>
               <th>
@@ -267,6 +267,7 @@
               <th>Retail</th>
               <th>Color</th>
               <th>Talla</th>
+              <th>Tallas agotadas</th>
               <th>Precio</th>
               <th>Descuento</th>
             </tr>
@@ -280,8 +281,9 @@
               <td data-label="Retail"> {{i.origin}} </td>
               <td data-label="Color"> {{i.color}} </td>
               <td data-label="Talla"> {{i.talla}} </td>
+              <td data-label="Talla"> {{i.tallasAgotadas}} </td>
               <td data-label="Precio"> {{i.precio}} </td>
-              <td data-label="Descuento"> {{i.descuento}} </td>
+              <td data-label="Descuento"> {{i.descuento !== null ? i.descuento : 0}} </td>
             </tr>
           </tbody>
           <tfoot>

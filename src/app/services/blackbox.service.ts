@@ -34,6 +34,10 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_infoCards/' ,{ params } );
   }
 
+  getPrendasInfoCards(params: any) {
+    return this.http.get(this.url + '/m_prendasInfo/' ,{ params } );
+  }
+
   getInfoPrice(params: any) {
     return this.http.get(this.url + '/m_averagePrice/' ,{ params } );
   }

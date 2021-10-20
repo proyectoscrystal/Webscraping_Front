@@ -23,11 +23,33 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit, AfterViewIn
   photos: any;
   categorys: any;
   imagesNames: any;
+  origin: String = '';
+  categoria: String = '';
+  subCategoria: String = '';
+  tipoPrenda: String = '';
+  color: String = '';
+
+  // variables para las cards
+  womenNew: number = 0;
+  womendiscontinued: number = 0;
+  womenPromotion: number = 0;
+  womensku: number = 0;
+  
+  menNew: number = 0;
+  mendiscontinued: number = 0;
+  menPromotion: number = 0;
+  mensku: number = 0;
+  
+  kidsNew: number = 0;
+  kidsdiscontinued: number = 0;
+  kidsPromotion: number = 0;
+  kidssku: number = 0;
 
   constructor(private blackboxService: BlackboxService) { 
   }
 
   ngOnInit(): void {
+    this.getInfoCards()
     this.getPhotoList();
     this.toggleSidebar();
     
@@ -106,5 +128,45 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit, AfterViewIn
       });
     });
   }  
+
+
+  // peticion infoCards
+  getInfoCards() {
+    let params = {
+      origin: this.origin,
+      categoria: this.categoria,
+      subCategoria: this.subCategoria,
+      tipoPrenda: this.tipoPrenda,
+      color: this.color
+    };
+
+    this.blackboxService.getPrendasInfoCards(params).subscribe(
+      (res) => {
+        this.setPrendasInfoCards(res);
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  setPrendasInfoCards(res) {
+    this.womenNew = res.obj.newWomen;
+    this.womendiscontinued = res.obj.discontinuedWomen;
+    this.womenPromotion = res.obj.promotionWomen;
+    this.womensku = res.obj.totalskuWomen;
+
+    this.menNew = res.obj.newMen;
+    this.mendiscontinued = res.obj.discontinuedMen;
+    this.menPromotion = res.obj.promotionMen;
+    this.mensku = res.obj.totalskuMen;
+
+    this.kidsNew = res.obj.newKids;
+    this.kidsdiscontinued = res.obj.discontinuedKids;
+    this.kidsPromotion = res.obj.promotionKids;
+    this.kidssku = res.obj.totalskuKids;
+  }
+
 
 }
