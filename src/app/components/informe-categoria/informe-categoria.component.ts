@@ -73,7 +73,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit, AfterViewIn
         this.filterDuplicates();
         this.filterDuplicatesImageNames();
         this.dtTrigger.next();
-        return (this.photos = res);
       },
       (err) => {
         console.log(err);

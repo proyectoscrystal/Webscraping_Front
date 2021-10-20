@@ -1,5 +1,21 @@
-import { AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import {
+  Chart,
+  ChartConfiguration,
+  registerables,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+} from 'chart.js';
 import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
@@ -20,12 +36,13 @@ interface valueFilter {
 @Component({
   selector: 'app-informe-precio',
   templateUrl: './informe-precio.component.html',
-  styleUrls: ['./informe-precio.component.css']
+  styleUrls: ['./informe-precio.component.css'],
 })
-
-export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit {
-
+export class InformePrecioComponent
+  implements OnDestroy, OnInit, AfterViewInit
+{
   modalRef: BsModalRef;
+  modalRef2: BsModalRef;
 
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
@@ -53,6 +70,12 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
   tipoPrenda: any = '';
   color: any = '';
 
+  origin2: any = '';
+  categoria2: any = '';
+  subCategoria2: any = '';
+  tipoPrenda2: any = '';
+  color2: any = '';
+
   //Datos index.ts
   datos: any;
   originData: any;
@@ -61,14 +84,19 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
   tipoPrendaData: any;
   colorData: any;
 
-  constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
+  constructor(
+    private blackboxService: BlackboxService,
+    private modalService: BsModalService,
+    private modalService2: BsModalService
+  ) {
     Chart.register(...registerables);
     this.datos = new Datos();
   }
 
   ngOnInit(): void {
-    this.getInfoPrice()
-    this.getPhotoList();
+    this.getInfoPrice();
+    this.getInfoTable();
+
     this.showDataModal();
     this.onlyOne();
 
@@ -76,8 +104,8 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
       pagingType: 'full_numbers',
       pageLength: 10,
       language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-      }
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
     };
   }
 
@@ -95,14 +123,38 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
       categoria: this.categoria,
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
-      color: this.color
+      color: this.color,
     };
 
     this.blackboxService.getInfoPrice(params).subscribe(
       (res) => {
         this.setInfoPrice(res);
-        // console.log(res);
         this.ng();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getInfoTable() {
+    let params = {
+      origin: this.origin,
+      categoria: this.categoria,
+      subCategoria: this.subCategoria,
+      tipoPrenda: this.tipoPrenda,
+      color: this.color,
+    };
+
+    this.blackboxService.getTablePriceInfo(params).subscribe(
+      (res) => {
+        // console.log(res);
+        this.setInfoTable(res);
+
+        // this.dtTrigger.next();
+        // this.filterDuplicatesCategory();
+        // this.filterDuplicatesImagesNames();
+        // this.filterDuplicatesSubCategory();
       },
       (err) => {
         console.log(err);
@@ -132,34 +184,51 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
     this.filterItemsData(data);
   }
 
+  //Función para validar checked del filtro
+  validateCheckFilter2(checked, item, className) {
+    let data = {
+      checked,
+      clase: className,
+      item: item.value || '',
+    };
+
+    console.log(data);
+
+    this.filterItemsData(data);
+  }
+
   //Recibe los datos seleccionados en el filtro
   filterItemsData(value) {
     const { item } = value;
-    console.log(value);
+    // console.log(value);
 
     if (value.checked && value.clase === 'marca check') {
       this.origin = item;
-      console.log(item);
     }
     if (value.checked && value.clase === 'categoria check2') {
       this.categoria = item;
-      console.log(item);
     }
     if (value.checked && value.clase === 'subCategoria check3') {
       this.subCategoria = item;
-      console.log(item);
     }
     if (value.checked && value.clase === 'tipoPrenda check4') {
       this.tipoPrenda = item;
-      console.log(item);
     }
     if (value.checked && value.clase === 'color check5') {
       this.color = item;
-      console.log(item);
     }
   }
 
+  applyFilter2() {
+    console.log('precionaron desde el filtro de la tabla');
+    this.modalRef2.hide();
+
+    this.getInfoTable();
+    this.rerender();
+  }
+
   applyFilter() {
+    console.log('precionaron desde el filtro del chart');
     this.modalRef.hide();
 
     this.getInfoPrice();
@@ -175,35 +244,45 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
     this.modalRef = this.modalService.show(template);
   }
 
+  openModal2(template2: TemplateRef<any>) {
+    this.origin2 = '';
+    this.categoria2 = '';
+    this.subCategoria2 = '';
+    this.tipoPrenda2 = '';
+    this.color2 = '';
+
+    this.modalRef2 = this.modalService2.show(template2);
+  }
+
   onlyOne() {
-    $(document).on("change", ".check", function () {
-      var $allCheckboxes = $(".check");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check', function () {
+      var $allCheckboxes = $('.check');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check2", function () {
-      var $allCheckboxes = $(".check2");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check2', function () {
+      var $allCheckboxes = $('.check2');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check3", function () {
-      var $allCheckboxes = $(".check3");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check3', function () {
+      var $allCheckboxes = $('.check3');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check4", function () {
-      var $allCheckboxes = $(".check4");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check4', function () {
+      var $allCheckboxes = $('.check4');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check5", function () {
-      var $allCheckboxes = $(".check5");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check5', function () {
+      var $allCheckboxes = $('.check5');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
   }
 
@@ -248,39 +327,43 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
     }
   }
 
-  getPhotoList() {
-    this.blackboxService.getPhotos().subscribe(
-      (res) => {
-        this.photos = res;
-        this.dtTrigger.next();
-        this.filterDuplicatesCategory();
-        this.filterDuplicatesImagesNames();
-        this.filterDuplicatesSubCategory();
-        this.ng();  // se presenta el chart con promedio por mes
-        return (this.photos = res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+  setInfoTable(res) {
+    this.photos = res.obj.arr;
+
+    this.dtTrigger.next();
+    this.filterDuplicatesCategory();
+    this.filterDuplicatesImagesNames();
+    this.filterDuplicatesSubCategory();
   }
 
   filterDuplicatesCategory() {
     this.categorys = this.photos.filter(
-      (dupe: { categoria: any; }, i: any, arr: any[]) => arr.findIndex(t => t.categoria === dupe.categoria) === i
+      (dupe: { categoria: any }, i: any, arr: any[]) =>
+        arr.findIndex((t) => t.categoria === dupe.categoria) === i
     );
   }
 
   filterDuplicatesSubCategory() {
     this.subcategorys = this.photos.filter(
-      (dupe: { subCategoria: any; }, i: any, arr: any[]) => arr.findIndex(t => t.subCategoria === dupe.subCategoria) === i
+      (dupe: { subCategoria: any }, i: any, arr: any[]) =>
+        arr.findIndex((t) => t.subCategoria === dupe.subCategoria) === i
     );
   }
 
   filterDuplicatesImagesNames() {
     this.imagesNames = this.photos.filter(
-      (dupe: { imageName: any; }, i: any, arr: any[]) => arr.findIndex(t => t.imageName === dupe.imageName) === i
+      (dupe: { imageName: any }, i: any, arr: any[]) =>
+        arr.findIndex((t) => t.imageName === dupe.imageName) === i
     );
+  }
+
+  rerender(): void {
+    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -312,31 +395,38 @@ export class InformePrecioComponent implements OnDestroy, OnInit, AfterViewInit 
   @ViewChild('mychart') mychart: any;
 
   ng = function ngAfterViewInit() {
-    // console.log(this.averagePriceZara9); 
+    // console.log(this.averagePriceZara9);
     if (this.myChart) {
       this.myChart.clear();
       this.myChart.destroy();
     }
 
-    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
-    this.myChart = new Chart("myChart", {
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title
+    );
+    this.myChart = new Chart('myChart', {
       type: 'line',
       data: {
-        datasets: [{
-          label: this.label1,
-          data: this.averagePrice1,
-          borderColor: "#007ee7",
-          fill: true,
-        },
-        {
-          label: this.label2,
-          data: this.averagePrice2,
-          borderColor: "#bd0e0e",
-          fill: true,
-        }],
-        labels: this.months
+        datasets: [
+          {
+            label: this.label1,
+            data: this.averagePrice1,
+            borderColor: '#007ee7',
+            fill: true,
+          },
+          {
+            label: this.label2,
+            data: this.averagePrice2,
+            borderColor: '#bd0e0e',
+            fill: true,
+          },
+        ],
+        labels: this.months,
       },
-
     }); // fin chart 1
-  }
+  };
 }

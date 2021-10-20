@@ -148,10 +148,12 @@
     </div>
   </div>
 
+
+  <!-- filtro para la tabla -->
   <div class="table-container">
     <div class="filterTable">
       <h2>Categorías con mayor cambio - Precio promedio</h2>
-      <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
+      <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal2(template2)" width="17" heigth="17"
         xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
         viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
         aria-label="Illustration of a Funnel" class="filterSvgTable">
@@ -161,10 +163,10 @@
         </g>
       </svg>
       <br>
-      <ng-template #template>
+      <ng-template #template2>
         <div class="modal-header">
-          <h4 class="modal-title pull-left">Filtros</h4>
-          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <h4 class="modal-title pull-left">Filtro: </h4> 
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -180,7 +182,7 @@
                 <li *ngFor="let origin of originData">
                   <label class="control control--checkbox">
                     <input class="marca check" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
-                      (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
+                      (change)="validateCheckFilter2($event.target.checked, origin, $event.target.className, $event.target)"
                       id="{{origin.value}}" />
                     {{origin.text}}
                   </label>
@@ -196,7 +198,7 @@
                 <li *ngFor="let category of categoryData">
                   <label class="control control--checkbox">
                     <input class="categoria check2" type="checkbox" value="{{category.value}}" name="{{category.value}}"
-                      (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
+                      (change)="validateCheckFilter2($event.target.checked, category, $event.target.className, $event.target)"
                       id="{{category.value}}" />
                     {{category.text}}
                   </label>
@@ -214,7 +216,7 @@
 
                     <input class="subCategoria check3" type="checkbox" value="{{subcategory.value}}"
                       name="{{subcategory.value}}"
-                      (change)="validateCheckFilter($event.target.checked, subcategory, $event.target.className, $event.target)"
+                      (change)="validateCheckFilter2($event.target.checked, subcategory, $event.target.className, $event.target)"
                       id="{{subcategory.value}}" />
                     {{subcategory.text}}
                   </label>
@@ -232,7 +234,7 @@
                     <label class="control control--checkbox">
                       <input class="tipoPrenda check4" type="checkbox" value="{{tipoprenda.value}}"
                         name="{{tipoprenda.value}}"
-                        (change)="validateCheckFilter($event.target.checked, tipoprenda, $event.target.className, $event.target)"
+                        (change)="validateCheckFilter2($event.target.checked, tipoprenda, $event.target.className, $event.target)"
                         id="{{tipoprenda.value}}" />
                       {{tipoprenda.text}}
                     </label>
@@ -250,7 +252,7 @@
                   <li *ngFor="let color of colorData">
                     <label class="control control--checkbox">
                       <input class="color check5" type="checkbox" value="{{color.value}}" name="{{color.value}}"
-                        (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
+                        (change)="validateCheckFilter2($event.target.checked, color, $event.target.className, $event.target)"
                         id="{{color.value}}" />
                       {{color.text}}
                     </label>
@@ -277,8 +279,8 @@
           </ul>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="applyFilter()">Aplicar filtros</button>
+          <button type="button" class="btn btn-secondary" (click)="modalRef2.hide()">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="applyFilter2()">Aplicar filtros</button>
         </div>
       </ng-template>
     </div>
