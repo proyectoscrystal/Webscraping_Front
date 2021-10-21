@@ -23,7 +23,7 @@
         <ng-template #template>
           <div class="modal-header">
             <h4 class="modal-title pull-left">Filtros</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -137,10 +137,15 @@
             </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
             <button type="button" class="btn btn-primary" (click)="applyFilter()">Aplicar filtros</button>
           </div>
         </ng-template>
+      </div>
+      <div class="item-filters-top">
+        <div *ngFor="let filter of selectedFilter" class="content-filter-item">
+            <p class="item-filter">{{filter.item}}</p>
+        </div>
       </div>
     </div>
     <div class="chart-line">
@@ -166,7 +171,7 @@
       <ng-template #template2>
         <div class="modal-header">
           <h4 class="modal-title pull-left">Filtro: </h4> 
-          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal2()">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -181,7 +186,7 @@
 
                 <li *ngFor="let origin of originData">
                   <label class="control control--checkbox">
-                    <input class="marca check" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                    <input class="marca2 check" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
                       (change)="validateCheckFilter2($event.target.checked, origin, $event.target.className, $event.target)"
                       id="{{origin.value}}" />
                     {{origin.text}}
@@ -197,7 +202,7 @@
               <ul class="collapse list-unstyled" id="filterCategory">
                 <li *ngFor="let category of categoryData">
                   <label class="control control--checkbox">
-                    <input class="categoria check2" type="checkbox" value="{{category.value}}" name="{{category.value}}"
+                    <input class="categoria2 check2" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                       (change)="validateCheckFilter2($event.target.checked, category, $event.target.className, $event.target)"
                       id="{{category.value}}" />
                     {{category.text}}
@@ -214,7 +219,7 @@
                 <li *ngFor="let subcategory of subCategoryData">
                   <label class="control control--checkbox">
 
-                    <input class="subCategoria check3" type="checkbox" value="{{subcategory.value}}"
+                    <input class="subCategoria2 check3" type="checkbox" value="{{subcategory.value}}"
                       name="{{subcategory.value}}"
                       (change)="validateCheckFilter2($event.target.checked, subcategory, $event.target.className, $event.target)"
                       id="{{subcategory.value}}" />
@@ -232,7 +237,7 @@
                 <div class="overflow-auto container-scroll">
                   <li *ngFor="let tipoprenda of tipoPrendaData">
                     <label class="control control--checkbox">
-                      <input class="tipoPrenda check4" type="checkbox" value="{{tipoprenda.value}}"
+                      <input class="tipoPrenda2 check4" type="checkbox" value="{{tipoprenda.value}}"
                         name="{{tipoprenda.value}}"
                         (change)="validateCheckFilter2($event.target.checked, tipoprenda, $event.target.className, $event.target)"
                         id="{{tipoprenda.value}}" />
@@ -251,7 +256,7 @@
                 <div class="overflow-auto container-scroll">
                   <li *ngFor="let color of colorData">
                     <label class="control control--checkbox">
-                      <input class="color check5" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                      <input class="color2 check5" type="checkbox" value="{{color.value}}" name="{{color.value}}"
                         (change)="validateCheckFilter2($event.target.checked, color, $event.target.className, $event.target)"
                         id="{{color.value}}" />
                       {{color.text}}
@@ -279,10 +284,15 @@
           </ul>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="modalRef2.hide()">Cerrar</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal2()">Cerrar</button>
           <button type="button" class="btn btn-primary" (click)="applyFilter2()">Aplicar filtros</button>
         </div>
       </ng-template>
+    </div>
+    <div class="item-filters-top">
+      <div *ngFor="let filter2 of selectedFilter2" class="content-filter-item">
+          <p class="item-filter">{{filter2.item}}</p>
+      </div>
     </div>
 
     <p>Comparación mes a mes</p>
