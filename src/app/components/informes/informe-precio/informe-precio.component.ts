@@ -106,12 +106,44 @@ export class InformePrecioComponent
       language: {
         url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
       },
+      destroy: true,
     };
+  }
+
+  ngAfterViewInit(): void {
+    this.afterView();
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
+
+  afterView() {
+    this.dtTrigger.subscribe(() => {
+      this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.columns(0).every(function () {
+          const that = this;
+          $('#selectDropdown', this.footer()).on('keyup change', function () {
+            if (that.search() !== this['value']) {
+              that.search(this['value']).draw();
+            }
+          });
+          $('#inputSearch', this.footer()).on('keyup change', function () {
+            if (that.search() !== this['value']) {
+              that.search(this['value']).draw();
+            }
+          });
+          /*
+          $('select', this.column(colIdx).footer()).on('keyup change', function() {
+            that.column(colIdx).search(this['value']).draw();
+          });
+          */
+        });
+      });
+    });
+  }
+
+  
 
   setYearMonth() {
     console.log(this.seleccion);
@@ -149,9 +181,9 @@ export class InformePrecioComponent
     this.blackboxService.getTablePriceInfo(params).subscribe(
       (res) => {
         // console.log(res);
+        
         this.setInfoTable(res);
-
-        // this.dtTrigger.next();
+        this.dtTrigger.next();
         // this.filterDuplicatesCategory();
         // this.filterDuplicatesImagesNames();
         // this.filterDuplicatesSubCategory();
@@ -192,8 +224,6 @@ export class InformePrecioComponent
       item: item.value || '',
     };
 
-    console.log(data);
-
     this.filterItemsData(data);
   }
 
@@ -220,15 +250,12 @@ export class InformePrecioComponent
   }
 
   applyFilter2() {
-    console.log('precionaron desde el filtro de la tabla');
     this.modalRef2.hide();
 
     this.getInfoTable();
-    this.rerender();
   }
 
   applyFilter() {
-    console.log('precionaron desde el filtro del chart');
     this.modalRef.hide();
 
     this.getInfoPrice();
@@ -245,6 +272,12 @@ export class InformePrecioComponent
   }
 
   openModal2(template2: TemplateRef<any>) {
+    this.origin = '';
+    this.categoria = '';
+    this.subCategoria = '';
+    this.tipoPrenda = '';
+    this.color = '';
+
     this.origin2 = '';
     this.categoria2 = '';
     this.subCategoria2 = '';
@@ -329,11 +362,6 @@ export class InformePrecioComponent
 
   setInfoTable(res) {
     this.photos = res.obj.arr;
-
-    this.dtTrigger.next();
-    this.filterDuplicatesCategory();
-    this.filterDuplicatesImagesNames();
-    this.filterDuplicatesSubCategory();
   }
 
   filterDuplicatesCategory() {
@@ -361,36 +389,24 @@ export class InformePrecioComponent
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();
+      // set options 
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+    this.dtOptionsReload();
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.subscribe(() => {
-      this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.columns(0).every(function () {
-          const that = this;
-          $('#selectDropdown', this.footer()).on('keyup change', function () {
-            if (that.search() !== this['value']) {
-              that.search(this['value']).draw();
-            }
-          });
-          $('#inputSearch', this.footer()).on('keyup change', function () {
-            if (that.search() !== this['value']) {
-              that.search(this['value']).draw();
-            }
-          });
-          /*
-          $('select', this.column(colIdx).footer()).on('keyup change', function() {
-            that.column(colIdx).search(this['value']).draw();
-          });
-          */
-        });
-      });
-    });
+  dtOptionsReload() {
+    this.dtOptions = {
+      destroy: true,
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
+    };
   }
-
+ 
   //Desde aca empieza el chart
   @ViewChild('mychart') mychart: any;
 
