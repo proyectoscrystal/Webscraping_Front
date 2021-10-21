@@ -51,6 +51,8 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     subCategoryData: any;
     tipoPrendaData: any;
     colorData: any;
+  tableAvgnuevos: any;
+  tableDifference: any;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
     Chart.register(...registerables);
@@ -59,7 +61,6 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.getInfoNews();
-    this.getPhotoList();
     this.showDataModal();
     this.onlyOne();
 
@@ -76,19 +77,36 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  getPhotoList() {
-    this.blackboxService.getPhotos().subscribe(
+  // peticion para la tabla
+  getInfotableNews() {
+    let params = {
+      origin: this.origin,
+      categoria: this.categoria,
+      subCategoria: this.subCategoria,
+      tipoPrenda: this.tipoPrenda,
+      color: this.color,
+    };
+
+    this.blackboxService.getTableDiscountInfo(params).subscribe(
       (res) => {
-        this.photos = res;
-        this.dtTrigger.next();
-        return (this.photos = res);
+        // console.log(res);
+        this.setInfoTable(res);
+        // this.dtTrigger.next();
       },
       (err) => {
         console.log(err);
       }
     );
   }
+  
+  // set info table
+  setInfoTable(res) {
+    this.photos = res.obj.arr;
+    this.tableAvgnuevos = res.obj.nuevosPromedio;
+    this.tableDifference = res.obj.differences;
+  }
 
+  // peticion para el chart
   getInfoNews() {
     let params = {
       origin: this.origin,

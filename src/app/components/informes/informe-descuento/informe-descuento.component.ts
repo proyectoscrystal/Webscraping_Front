@@ -18,6 +18,7 @@ import { Subject } from 'rxjs';
 //Filtro modal
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Datos } from '../../../utils/index';
+import { DataTableDirective } from 'angular-datatables';
 
 interface valueFilter {
   checked: boolean;
@@ -31,6 +32,10 @@ interface valueFilter {
   styleUrls: ['./informe-descuento.component.css'],
 })
 export class InformeDescuentoComponent implements OnDestroy, OnInit {
+
+  @ViewChild(DataTableDirective, { static: false })
+  datatableElement: DataTableDirective;
+
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
 
@@ -107,8 +112,9 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableDiscountInfo(params).subscribe(
       (res) => {
+        // console.log(res);
         this.setInfoTable(res);
-        this.dtTrigger.next();
+        // this.dtTrigger.next();
       },
       (err) => {
         console.log(err);
@@ -314,6 +320,25 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
         }
       }
     }
+  }
+
+  rerender(): void {
+    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+    });
+    this.dtOptionsReload();
+  }
+
+  dtOptionsReload() {
+    this.dtOptions = {
+      destroy: true,
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
+    };
   }
 
  
