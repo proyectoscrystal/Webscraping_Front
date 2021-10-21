@@ -302,33 +302,10 @@
           <td data-label="Categoría"> {{e.categoria}} </td>
           <td data-label="Subcategoría"> {{e.subCategoria}} </td>
           <td data-label="Tipo de prenda"> {{e.tipoPrenda}} </td>
-          <td data-label="Precio promedio"> {{e.x}} </td>
-          <td data-label="Diferencia"> {{e.x}} </td>
+          <td data-label="Precio promedio" > $ {{tableAvgPrice}} </td>
+          <td data-label="Diferencia" [ngClass]="diferencia()"> {{tableDifference[1]}} </td>
         </tr>
       </tbody>
-      <tfoot>
-        <tr>
-          <th>
-            <select class="form-control" placeholder="" name="" id="selectDropdown">
-              <option value="">Todo</option>
-              <option *ngFor="let a of categorys" [value]="a.categoria">{{a.categoria}}</option>
-            </select>
-            <!-- <input type="text" class="form-control" placeholder="Buscar" name="search-categoria" id="inputSearch" /> -->
-          </th>
-          <th>
-            <select class="form-control" placeholder="" name="" id="selectDropdown">
-              <option value="">Todo</option>
-              <option *ngFor="let a of subcategorys" [value]="a.subCategoria">{{a.subCategoria}}</option>
-            </select>
-          </th>
-          <th>
-            <select class="form-control" placeholder="" name="" id="selectDropdown">
-              <option value="">Todo</option>
-              <option *ngFor="let a of imagesNames" [value]="a.imageName">{{a.imageName}}</option>
-            </select>
-          </th>
-        </tr>
-      </tfoot>
     </table>
   </div>
 </div>

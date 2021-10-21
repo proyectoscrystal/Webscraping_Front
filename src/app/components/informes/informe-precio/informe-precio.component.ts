@@ -51,6 +51,8 @@ export class InformePrecioComponent
   dtTrigger = new Subject();
 
   photos: any;
+  tableAvgPrice: any;
+  tableDifference: any;
   total: any;
   yearMonth: string[] = ['mes', 'año Zara', 'año Mango'];
   seleccion: string = '';
@@ -169,6 +171,7 @@ export class InformePrecioComponent
     );
   }
 
+  // peticion a la tabla
   getInfoTable() {
     let params = {
       origin: this.origin,
@@ -183,10 +186,7 @@ export class InformePrecioComponent
         // console.log(res);
         
         this.setInfoTable(res);
-        this.dtTrigger.next();
-        // this.filterDuplicatesCategory();
-        // this.filterDuplicatesImagesNames();
-        // this.filterDuplicatesSubCategory();
+        // this.dtTrigger.next();
       },
       (err) => {
         console.log(err);
@@ -360,30 +360,21 @@ export class InformePrecioComponent
     }
   }
 
+  // funcion para poner estilo a la tabla
+  diferencia() {
+    if (this.tableDifference[0] === 0) {
+      return 'diferencia2';
+    }
+    return 'diferencia';
+  }
+
   setInfoTable(res) {
     this.photos = res.obj.arr;
+    this.tableAvgPrice = res.obj.precioPromedio;
+    this.tableDifference = res.obj.differences;
   }
 
-  filterDuplicatesCategory() {
-    this.categorys = this.photos.filter(
-      (dupe: { categoria: any }, i: any, arr: any[]) =>
-        arr.findIndex((t) => t.categoria === dupe.categoria) === i
-    );
-  }
-
-  filterDuplicatesSubCategory() {
-    this.subcategorys = this.photos.filter(
-      (dupe: { subCategoria: any }, i: any, arr: any[]) =>
-        arr.findIndex((t) => t.subCategoria === dupe.subCategoria) === i
-    );
-  }
-
-  filterDuplicatesImagesNames() {
-    this.imagesNames = this.photos.filter(
-      (dupe: { imageName: any }, i: any, arr: any[]) =>
-        arr.findIndex((t) => t.imageName === dupe.imageName) === i
-    );
-  }
+  
 
   rerender(): void {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {

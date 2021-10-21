@@ -100,6 +100,13 @@ tr:hover td {
   grid-template-columns: 50% 50%;
 }
 
+.diferencia {
+  color: rgb(103 209 166);
+}
+
+.diferencia2 {
+  color: rgb(255 92 96);
+}
 
 
 /* media queryes */

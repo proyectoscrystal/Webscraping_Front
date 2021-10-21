@@ -1,5 +1,14 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
+import {
+  Chart,
+  ChartConfiguration,
+  registerables,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+} from 'chart.js';
 import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
@@ -19,14 +28,14 @@ interface valueFilter {
 @Component({
   selector: 'app-informe-descuento',
   templateUrl: './informe-descuento.component.html',
-  styleUrls: ['./informe-descuento.component.css']
+  styleUrls: ['./informe-descuento.component.css'],
 })
 export class InformeDescuentoComponent implements OnDestroy, OnInit {
-
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
 
   modalRef: BsModalRef;
+  modalRef2: BsModalRef;
 
   photos: any;
   total: any;
@@ -51,24 +60,34 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+  subcategorys: any;
+  categorys: any;
+  imagesNames: any;
+  tableAvgDescuento: any;
+  tableDifference: any;
 
-  constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
+  constructor(
+    private blackboxService: BlackboxService,
+    private modalService: BsModalService,
+    private modalService2: BsModalService
+  ) {
     Chart.register(...registerables);
     this.datos = new Datos();
   }
 
   ngOnInit(): void {
     this.getInfoDiscount();
-    this.getPhotoList();
+    this.getInfotableDiscount();
     this.showDataModal();
     this.onlyOne();
 
     this.dtOptions = {
+      destroy: true,
       pagingType: 'full_numbers',
       pageLength: 10,
       language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-      }
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
     };
   }
 
@@ -76,13 +95,20 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  getPhotoList() {
-    this.blackboxService.getPhotos().subscribe(
+  // peticion para la tabla
+  getInfotableDiscount() {
+    let params = {
+      origin: this.origin,
+      categoria: this.categoria,
+      subCategoria: this.subCategoria,
+      tipoPrenda: this.tipoPrenda,
+      color: this.color,
+    };
+
+    this.blackboxService.getTableDiscountInfo(params).subscribe(
       (res) => {
-        this.photos = res;
+        this.setInfoTable(res);
         this.dtTrigger.next();
-        this.ng();
-        return (this.photos = res);
       },
       (err) => {
         console.log(err);
@@ -90,13 +116,14 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     );
   }
 
+  // peticion para el chart
   getInfoDiscount() {
     let params = {
       origin: this.origin,
       categoria: this.categoria,
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
-      color: this.color
+      color: this.color,
     };
 
     this.blackboxService.getInfoDiscount(params).subscribe(
@@ -109,6 +136,13 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
         console.log(err);
       }
     );
+  }
+
+  // set info table
+  setInfoTable(res) {
+    this.photos = res.obj.arr;
+    this.tableAvgDescuento = res.obj.descuentoPromedio;
+    this.tableDifference = res.obj.differences;
   }
 
   //===============INICIO FILTROS MODAL===============
@@ -133,10 +167,19 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.filterItemsData(data);
   }
 
+  validateCheckFilter2(checked, item, className) {
+    let data = {
+      checked,
+      clase: className,
+      item: item.value || '',
+    };
+
+    this.filterItemsData(data);
+  }
+
   //Recibe los datos seleccionados en el filtro
   filterItemsData(value) {
     const { item } = value;
-    console.log(value);
 
     if (value.checked && value.clase === 'marca check') {
       this.origin = item;
@@ -166,6 +209,12 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.getInfoDiscount();
   }
 
+  applyFilter2() {
+    this.modalRef2.hide();
+
+    this.getInfotableDiscount();
+  }
+
   openModal(template: TemplateRef<any>) {
     this.origin = '';
     this.categoria = '';
@@ -176,39 +225,57 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  openModal2(template2: TemplateRef<any>) {
+    this.origin = '';
+    this.categoria = '';
+    this.subCategoria = '';
+    this.tipoPrenda = '';
+    this.color = '';
+
+    this.modalRef2 = this.modalService2.show(template2);
+  }
+
+  // funcion para poner estilo a la tabla
+  diferencia() {
+    if (this.tableDifference[0] === 0) {
+      return 'diferencia2';
+    }
+    return 'diferencia';
+  }
+
   onlyOne() {
-    $(document).on("change", ".check", function () {
-      var $allCheckboxes = $(".check");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check', function () {
+      var $allCheckboxes = $('.check');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check2", function () {
-      var $allCheckboxes = $(".check2");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check2', function () {
+      var $allCheckboxes = $('.check2');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check3", function () {
-      var $allCheckboxes = $(".check3");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check3', function () {
+      var $allCheckboxes = $('.check3');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check4", function () {
-      var $allCheckboxes = $(".check4");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check4', function () {
+      var $allCheckboxes = $('.check4');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check5", function () {
-      var $allCheckboxes = $(".check5");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check5', function () {
+      var $allCheckboxes = $('.check5');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
   }
 
-  //===============FIN FILTROS MODAL===============  
+  //===============FIN FILTROS MODAL===============
 
   setInfoDiscount(res) {
     let date = new Date();
@@ -246,47 +313,50 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
           this.averageDiscount2[index - 12] = res.obj.values[index];
         }
       }
-
     }
-
   }
+
+ 
 
   canvas: any;
   ctx: any;
   @ViewChild('mychart') mychart: any;
 
-
   ng = function ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort; 
+    // this.dataSource.sort = this.sort;
 
     if (this.myChart) {
       this.myChart.clear();
       this.myChart.destroy();
     }
 
-
-    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
-    this.myChart = new Chart("myChart", {
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title
+    );
+    this.myChart = new Chart('myChart', {
       type: 'line',
       data: {
-        datasets: [{
-          label: this.label1,
-          data: this.averageDiscount1,
-          borderColor: "#007ee7",
-          fill: true,
-        },
-        {
-          label: this.label2,
-          data: this.averageDiscount2,
-          borderColor: "#bd0e0e",
-          fill: true,
-        }],
-        labels: this.months
+        datasets: [
+          {
+            label: this.label1,
+            data: this.averageDiscount1,
+            borderColor: '#007ee7',
+            fill: true,
+          },
+          {
+            label: this.label2,
+            data: this.averageDiscount2,
+            borderColor: '#bd0e0e',
+            fill: true,
+          },
+        ],
+        labels: this.months,
       },
-
     }); // fin chart 1
-
-  }
-
+  };
 }
