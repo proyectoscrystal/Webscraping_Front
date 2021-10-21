@@ -39,10 +39,15 @@ interface valueFilter {
   styleUrls: ['./informe-precio.component.css'],
 })
 export class InformePrecioComponent
-  implements OnDestroy, OnInit, AfterViewInit
-{
+  implements OnDestroy, OnInit, AfterViewInit {
+
+  //Config modal filtros
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
 
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
@@ -85,6 +90,9 @@ export class InformePrecioComponent
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+
+  selectedFilter = [];
+  selectedFilter2 = [];
 
   constructor(
     private blackboxService: BlackboxService,
@@ -230,35 +238,100 @@ export class InformePrecioComponent
   //Recibe los datos seleccionados en el filtro
   filterItemsData(value) {
     const { item } = value;
-    // console.log(value);
 
+    //Filtro chart
     if (value.checked && value.clase === 'marca check') {
       this.origin = item;
+      this.selectedFilter.push(value);
+      console.log(item);
+    } else if (value.clase == 'marca check' && !value.checked) {
+      this.origin = "";
+      console.log(this.origin);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'categoria check2') {
       this.categoria = item;
+      this.selectedFilter.push(value);
+      console.log(item);
+    } else if (value.clase == 'categoria check2' && !value.checked) {
+      this.categoria = "";
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'subCategoria check3') {
       this.subCategoria = item;
+      this.selectedFilter.push(value);
+      console.log(item);
+    } else if (value.clase == 'subCategoria check3' && !value.checked) {
+      this.subCategoria = "";
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'tipoPrenda check4') {
       this.tipoPrenda = item;
+      this.selectedFilter.push(value);
+      console.log(item);
+    } else if (value.clase == 'tipoPrenda check4' && !value.checked) {
+      this.tipoPrenda = "";
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'color check5') {
       this.color = item;
+      this.selectedFilter.push(value);
+      console.log(item);
+    } else if (value.clase == 'color check5' && !value.checked) {
+      this.color = "";
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
-  }
 
-  applyFilter2() {
-    this.modalRef2.hide();
+    //Filtro tabla
+    if (value.checked && value.clase === 'marca2 check') {
+      this.origin2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'marca2 check' && !value.checked) {
+      this.origin2 = "";
+      console.log(this.origin2);
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
 
-    this.getInfoTable();
-  }
+    if (value.checked && value.clase === 'categoria2 check2') {
+      this.categoria2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'categoria2 check2' && !value.checked) {
+      this.categoria2 = "";
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
 
-  applyFilter() {
-    this.modalRef.hide();
+    if (value.checked && value.clase === 'subCategoria2 check3') {
+      this.subCategoria2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'subCategoria2 check3' && !value.checked) {
+      this.subCategoria2 = "";
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
 
-    this.getInfoPrice();
+    if (value.checked && value.clase === 'tipoPrenda2 check4') {
+      this.tipoPrenda2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'tipoPrenda2 check4' && !value.checked) {
+      this.tipoPrenda2 = "";
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
+
+    if (value.checked && value.clase === 'color2 check5') {
+      this.color2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'color2 check5' && !value.checked) {
+      this.color2 = "";
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
   }
 
   openModal(template: TemplateRef<any>) {
@@ -268,7 +341,21 @@ export class InformePrecioComponent
     this.tipoPrenda = '';
     this.color = '';
 
-    this.modalRef = this.modalService.show(template);
+    this.selectedFilter.splice(0, this.selectedFilter.length);
+
+    this.modalRef = this.modalService.show(template, this.config);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+
+    this.selectedFilter.splice(0, this.selectedFilter.length);
+  }
+
+  applyFilter() {
+    this.modalRef.hide();
+
+    this.getInfoPrice();
   }
 
   openModal2(template2: TemplateRef<any>) {
@@ -284,7 +371,22 @@ export class InformePrecioComponent
     this.tipoPrenda2 = '';
     this.color2 = '';
 
-    this.modalRef2 = this.modalService2.show(template2);
+    this.selectedFilter2.splice(0, this.selectedFilter2.length);
+
+    this.modalRef2 = this.modalService2.show(template2, this.config);
+  }
+
+  closeModal2() {
+    this.modalRef2.hide();
+
+    this.selectedFilter2.splice(0, this.selectedFilter2.length);
+  }
+
+  applyFilter2() {
+    this.modalRef2.hide();
+
+    this.getInfoTable();
+    this.rerender();
   }
 
   onlyOne() {

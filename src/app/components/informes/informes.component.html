@@ -91,14 +91,7 @@
         <ng-template #template>
           <div class="modal-header">
             <h4 class="modal-title pull-left">Filtros</h4>
-            <div *ngFor="let filter of selectedFilter">
-              <ul>
-                <li>
-                  <p class="item-filter">{{filter.item}}</p>
-                </li>
-              </ul>
-            </div>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -212,7 +205,7 @@
             </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
             <button type="button" class="btn btn-primary" (click)="applyFilter()">Aplicar filtros</button>
           </div>
         </ng-template>
@@ -220,6 +213,11 @@
       </div>
     </div>
     <!-- inicio cards resumen -->
+    <div class="item-filters-top">
+      <div *ngFor="let filter of selectedFilter" class="content-filter-item">
+          <p class="item-filter">{{filter.item}}</p>
+      </div>
+    </div>
     <div class="container-cards">
       <div class="card-container">
         <div class="column">

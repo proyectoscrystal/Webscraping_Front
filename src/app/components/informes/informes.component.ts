@@ -28,7 +28,12 @@ export class InformesComponent implements OnInit {
   // @ViewChild(InformeNuevosComponent) informeNuevo: InformeNuevosComponent;
   // @ViewChild(InformeSKUComponent) informeSKU: InformeSKUComponent;
 
+  //Config modal filtros
   modalRef: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
 
   photos: any;
   averagePrice: number;
@@ -201,12 +206,6 @@ export class InformesComponent implements OnInit {
 
   }
 
-  applyFilter() {
-    this.modalRef.hide();
-
-    this.getInfoCards();
-  }
-
   openModal(template: TemplateRef<any>) {
     this.origin = '';
     this.categoria = '';
@@ -214,7 +213,21 @@ export class InformesComponent implements OnInit {
     this.tipoPrenda = '';
     this.color = '';
 
-    this.modalRef = this.modalService.show(template);
+    this.selectedFilter.splice(0, this.selectedFilter.length);
+
+    this.modalRef = this.modalService.show(template, this.config);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+
+    this.selectedFilter.splice(0, this.selectedFilter.length);
+  }
+
+  applyFilter() {
+    this.modalRef.hide();
+
+    this.getInfoCards();
   }
 
   onlyOne() {
@@ -250,7 +263,6 @@ export class InformesComponent implements OnInit {
   }
 
   //===============FIN FILTROS MODAL===============
-
 
   setInfoCards(info: any) {
     this.precioPromedio = info.obj.precioPromedio;
