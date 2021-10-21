@@ -182,11 +182,11 @@ export class InformePrecioComponent
   // peticion a la tabla
   getInfoTable() {
     let params = {
-      origin: this.origin,
-      categoria: this.categoria,
-      subCategoria: this.subCategoria,
-      tipoPrenda: this.tipoPrenda,
-      color: this.color,
+      origin: this.origin2,
+      categoria: this.categoria2,
+      subCategoria: this.subCategoria2,
+      tipoPrenda: this.tipoPrenda2,
+      color: this.color2,
     };
 
     this.blackboxService.getTablePriceInfo(params).subscribe(
@@ -359,12 +359,6 @@ export class InformePrecioComponent
   }
 
   openModal2(template2: TemplateRef<any>) {
-    this.origin = '';
-    this.categoria = '';
-    this.subCategoria = '';
-    this.tipoPrenda = '';
-    this.color = '';
-
     this.origin2 = '';
     this.categoria2 = '';
     this.subCategoria2 = '';
