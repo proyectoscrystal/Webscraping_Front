@@ -1,4 +1,10 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import {
   Chart,
   ChartConfiguration,
@@ -14,11 +20,11 @@ import { BlackboxService } from '../../../services/blackbox.service';
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 //Filtro modal
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Datos } from '../../../utils/index';
-import { DataTableDirective } from 'angular-datatables';
 
 interface valueFilter {
   checked: boolean;
@@ -31,11 +37,13 @@ interface valueFilter {
   templateUrl: './informe-descuento.component.html',
   styleUrls: ['./informe-descuento.component.css'],
 })
-export class InformeDescuentoComponent implements OnDestroy, OnInit {
-
+export class InformeDescuentoComponent
+  implements OnDestroy, OnInit, AfterViewInit
+{
+  
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
-
+  
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
 
@@ -57,6 +65,12 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   subCategoria: any = '';
   tipoPrenda: any = '';
   color: any = '';
+
+  origin2: any = '';
+  categoria2: any = '';
+  subCategoria2: any = '';
+  tipoPrenda2: any = '';
+  color2: any = '';
 
   //Datos index.ts
   datos: any;
@@ -87,17 +101,46 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.onlyOne();
 
     this.dtOptions = {
-      destroy: true,
       pagingType: 'full_numbers',
       pageLength: 10,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
       },
+      destroy: true,
     };
+  }
+
+  ngAfterViewInit(): void {
+    this.afterView();
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+  }
+
+  afterView() {
+    this.dtTrigger.subscribe(() => {
+      this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.columns(0).every(function () {
+          const that = this;
+          $('#selectDropdown', this.footer()).on('keyup change', function () {
+            if (that.search() !== this['value']) {
+              that.search(this['value']).draw();
+            }
+          });
+          $('#inputSearch', this.footer()).on('keyup change', function () {
+            if (that.search() !== this['value']) {
+              that.search(this['value']).draw();
+            }
+          });
+          /*
+          $('select', this.column(colIdx).footer()).on('keyup change', function() {
+            that.column(colIdx).search(this['value']).draw();
+          });
+          */
+        });
+      });
+    });
   }
 
   // peticion para la tabla
@@ -219,6 +262,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.modalRef2.hide();
 
     this.getInfotableDiscount();
+    this.rerender();
   }
 
   openModal(template: TemplateRef<any>) {
@@ -232,6 +276,13 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   }
 
   openModal2(template2: TemplateRef<any>) {
+    this.origin2 = '';
+    this.categoria2 = '';
+    this.subCategoria2 = '';
+    this.tipoPrenda2 = '';
+    this.color2 = '';
+
+    // temporal
     this.origin = '';
     this.categoria = '';
     this.subCategoria = '';
@@ -341,10 +392,6 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     };
   }
 
- 
-
-  canvas: any;
-  ctx: any;
   @ViewChild('mychart') mychart: any;
 
   ng = function ngAfterViewInit() {

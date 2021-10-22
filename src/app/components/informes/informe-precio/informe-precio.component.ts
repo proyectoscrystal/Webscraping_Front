@@ -39,14 +39,14 @@ interface valueFilter {
   styleUrls: ['./informe-precio.component.css'],
 })
 export class InformePrecioComponent
-  implements OnDestroy, OnInit, AfterViewInit {
-
+  implements OnDestroy, OnInit, AfterViewInit
+{
   //Config modal filtros
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   config = {
     backdrop: true,
-    ignoreBackdropClick: true
+    ignoreBackdropClick: true,
   };
 
   @ViewChild(DataTableDirective, { static: false })
@@ -153,12 +153,7 @@ export class InformePrecioComponent
     });
   }
 
-  
-
-  setYearMonth() {
-    console.log(this.seleccion);
-  }
-
+  // peticion para el chart
   getInfoPrice() {
     let params = {
       origin: this.origin,
@@ -192,7 +187,7 @@ export class InformePrecioComponent
     this.blackboxService.getTablePriceInfo(params).subscribe(
       (res) => {
         // console.log(res);
-        
+
         this.setInfoTable(res);
         this.dtTrigger.next();
       },
@@ -200,6 +195,12 @@ export class InformePrecioComponent
         console.log(err);
       }
     );
+  }
+  
+  setInfoTable(res) {
+    this.photos = res.obj.arr;
+    this.tableAvgPrice = res.obj.precioPromedio;
+    this.tableDifference = res.obj.differences;
   }
 
   //===============INICIO FILTROS MODAL===============
@@ -245,7 +246,7 @@ export class InformePrecioComponent
       this.selectedFilter.push(value);
       console.log(item);
     } else if (value.clase == 'marca check' && !value.checked) {
-      this.origin = "";
+      this.origin = '';
       console.log(this.origin);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
@@ -255,7 +256,7 @@ export class InformePrecioComponent
       this.selectedFilter.push(value);
       console.log(item);
     } else if (value.clase == 'categoria check2' && !value.checked) {
-      this.categoria = "";
+      this.categoria = '';
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
 
@@ -264,7 +265,7 @@ export class InformePrecioComponent
       this.selectedFilter.push(value);
       console.log(item);
     } else if (value.clase == 'subCategoria check3' && !value.checked) {
-      this.subCategoria = "";
+      this.subCategoria = '';
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
 
@@ -273,7 +274,7 @@ export class InformePrecioComponent
       this.selectedFilter.push(value);
       console.log(item);
     } else if (value.clase == 'tipoPrenda check4' && !value.checked) {
-      this.tipoPrenda = "";
+      this.tipoPrenda = '';
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
 
@@ -282,7 +283,7 @@ export class InformePrecioComponent
       this.selectedFilter.push(value);
       console.log(item);
     } else if (value.clase == 'color check5' && !value.checked) {
-      this.color = "";
+      this.color = '';
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
 
@@ -292,7 +293,7 @@ export class InformePrecioComponent
       this.selectedFilter2.push(value);
       console.log(item);
     } else if (value.clase == 'marca2 check' && !value.checked) {
-      this.origin2 = "";
+      this.origin2 = '';
       console.log(this.origin2);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
     }
@@ -302,7 +303,7 @@ export class InformePrecioComponent
       this.selectedFilter2.push(value);
       console.log(item);
     } else if (value.clase == 'categoria2 check2' && !value.checked) {
-      this.categoria2 = "";
+      this.categoria2 = '';
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
     }
 
@@ -311,7 +312,7 @@ export class InformePrecioComponent
       this.selectedFilter2.push(value);
       console.log(item);
     } else if (value.clase == 'subCategoria2 check3' && !value.checked) {
-      this.subCategoria2 = "";
+      this.subCategoria2 = '';
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
     }
 
@@ -320,7 +321,7 @@ export class InformePrecioComponent
       this.selectedFilter2.push(value);
       console.log(item);
     } else if (value.clase == 'tipoPrenda2 check4' && !value.checked) {
-      this.tipoPrenda2 = "";
+      this.tipoPrenda2 = '';
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
     }
 
@@ -329,9 +330,22 @@ export class InformePrecioComponent
       this.selectedFilter2.push(value);
       console.log(item);
     } else if (value.clase == 'color2 check5' && !value.checked) {
-      this.color2 = "";
+      this.color2 = '';
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
     }
+  }
+
+  applyFilter() {
+    this.modalRef.hide();
+
+    this.getInfoPrice();
+  }
+
+  applyFilter2() {
+    this.modalRef2.hide();
+
+    this.getInfoTable();
+    this.rerender();
   }
 
   openModal(template: TemplateRef<any>) {
@@ -346,18 +360,6 @@ export class InformePrecioComponent
     this.modalRef = this.modalService.show(template, this.config);
   }
 
-  closeModal() {
-    this.modalRef.hide();
-
-    this.selectedFilter.splice(0, this.selectedFilter.length);
-  }
-
-  applyFilter() {
-    this.modalRef.hide();
-
-    this.getInfoPrice();
-  }
-
   openModal2(template2: TemplateRef<any>) {
     this.origin2 = '';
     this.categoria2 = '';
@@ -370,17 +372,24 @@ export class InformePrecioComponent
     this.modalRef2 = this.modalService2.show(template2, this.config);
   }
 
+  closeModal() {
+    this.modalRef.hide();
+
+    this.selectedFilter.splice(0, this.selectedFilter.length);
+  }
+
   closeModal2() {
     this.modalRef2.hide();
 
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
   }
 
-  applyFilter2() {
-    this.modalRef2.hide();
-
-    this.getInfoTable();
-    this.rerender();
+  // funcion para poner estilo a la tabla
+  diferencia() {
+    if (this.tableDifference[0] === 0) {
+      return 'diferencia2';
+    }
+    return 'diferencia';
   }
 
   onlyOne() {
@@ -456,22 +465,6 @@ export class InformePrecioComponent
     }
   }
 
-  // funcion para poner estilo a la tabla
-  diferencia() {
-    if (this.tableDifference[0] === 0) {
-      return 'diferencia2';
-    }
-    return 'diferencia';
-  }
-
-  setInfoTable(res) {
-    this.photos = res.obj.arr;
-    this.tableAvgPrice = res.obj.precioPromedio;
-    this.tableDifference = res.obj.differences;
-  }
-
-  
-
   rerender(): void {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -490,7 +483,7 @@ export class InformePrecioComponent
       },
     };
   }
- 
+
   //Desde aca empieza el chart
   @ViewChild('mychart') mychart: any;
 

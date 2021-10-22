@@ -43,6 +43,10 @@ export class BlackboxService {
   }
 
   getTableDiscountInfo(params: any) {
+    return this.http.get(this.url + '/m_tableNewsInfo/' ,{ params } );
+  }
+
+  getTableNewsInfo(params: any) {
     return this.http.get(this.url + '/m_tableDiscountInfo/' ,{ params } );
   }
 
