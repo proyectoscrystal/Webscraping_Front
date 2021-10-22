@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   Chart,
   ChartConfiguration,
@@ -32,20 +32,27 @@ interface valueFilter {
   templateUrl: './informe-sku.component.html',
   styleUrls: ['./informe-sku.component.css'],
 })
-export class InformeSKUComponent implements OnDestroy, OnInit, AfterViewInit {
+export class InformeSKUComponent implements OnDestroy, OnInit {
+
+  //Config modal filtros
+  modalRef: BsModalRef;
+  modalRef2: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+  };
+
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
 
-  modalRef: BsModalRef;
-  modalRef2: BsModalRef;
-
   photos: any;
   total: any;
   label1: any;
   label2: any;
+
   origin: any = '';
   categoria: any = '';
   subCategoria: any = '';
@@ -69,6 +76,9 @@ export class InformeSKUComponent implements OnDestroy, OnInit, AfterViewInit {
   colorData: any;
   tableAvgSKU: any;
   tableDifference: any;
+
+  selectedFilter = [];
+  selectedFilter2 = [];
 
   constructor(
     private blackboxService: BlackboxService,
@@ -95,42 +105,18 @@ export class InformeSKUComponent implements OnDestroy, OnInit, AfterViewInit {
     };
   }
 
-  ngAfterViewInit(): void {
-    this.afterView();
-  }
-
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
-  afterView() {
-    this.dtTrigger.subscribe(() => {
-      this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.columns(0).every(function () {
-          const that = this;
-          $('#selectDropdown', this.footer()).on('keyup change', function () {
-            if (that.search() !== this['value']) {
-              that.search(this['value']).draw();
-            }
-          });
-          $('#inputSearch', this.footer()).on('keyup change', function () {
-            if (that.search() !== this['value']) {
-              that.search(this['value']).draw();
-            }
-          });
-        });
-      });
-    });
-  }
-
-   // peticion para la tabla
-   getInfotableSKU() {
+  // peticion para la tabla
+  getInfotableSKU() {
     let params = {
-      origin: this.origin,
-      categoria: this.categoria,
-      subCategoria: this.subCategoria,
-      tipoPrenda: this.tipoPrenda,
-      color: this.color,
+      origin: this.origin2,
+      categoria: this.categoria2,
+      subCategoria: this.subCategoria2,
+      tipoPrenda: this.tipoPrenda2,
+      color: this.color2,
     };
 
     this.blackboxService.getTableSKUInfo(params).subscribe(
@@ -208,25 +194,98 @@ export class InformeSKUComponent implements OnDestroy, OnInit, AfterViewInit {
   filterItemsData(value) {
     const { item } = value;
 
+    //Filtro chart
     if (value.checked && value.clase === 'marca check') {
       this.origin = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'marca check' && !value.checked) {
+      this.origin = '';
+      console.log(this.origin);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'categoria check2') {
       this.categoria = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'categoria check2' && !value.checked) {
+      this.categoria = '';
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'subCategoria check3') {
       this.subCategoria = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'subCategoria check3' && !value.checked) {
+      this.subCategoria = '';
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'tipoPrenda check4') {
       this.tipoPrenda = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'tipoPrenda check4' && !value.checked) {
+      this.tipoPrenda = '';
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
     }
+
     if (value.checked && value.clase === 'color check5') {
       this.color = item;
+      this.selectedFilter.push(value);
       console.log(item);
+    } else if (value.clase == 'color check5' && !value.checked) {
+      this.color = '';
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+    }
+
+    //Filtro tabla
+    if (value.checked && value.clase === 'marca2 check') {
+      this.origin2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'marca2 check' && !value.checked) {
+      this.origin2 = '';
+      console.log(this.origin2);
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
+
+    if (value.checked && value.clase === 'categoria2 check2') {
+      this.categoria2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'categoria2 check2' && !value.checked) {
+      this.categoria2 = '';
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
+
+    if (value.checked && value.clase === 'subCategoria2 check3') {
+      this.subCategoria2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'subCategoria2 check3' && !value.checked) {
+      this.subCategoria2 = '';
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
+
+    if (value.checked && value.clase === 'tipoPrenda2 check4') {
+      this.tipoPrenda2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'tipoPrenda2 check4' && !value.checked) {
+      this.tipoPrenda2 = '';
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+    }
+
+    if (value.checked && value.clase === 'color2 check5') {
+      this.color2 = item;
+      this.selectedFilter2.push(value);
+      console.log(item);
+    } else if (value.clase == 'color2 check5' && !value.checked) {
+      this.color2 = '';
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
     }
   }
 
@@ -250,7 +309,9 @@ export class InformeSKUComponent implements OnDestroy, OnInit, AfterViewInit {
     this.tipoPrenda = '';
     this.color = '';
 
-    this.modalRef = this.modalService.show(template);
+    this.selectedFilter.splice(0, this.selectedFilter.length);
+
+    this.modalRef = this.modalService.show(template, this.config);
   }
 
   openModal2(template2: TemplateRef<any>) {
@@ -260,14 +321,21 @@ export class InformeSKUComponent implements OnDestroy, OnInit, AfterViewInit {
     this.tipoPrenda2 = '';
     this.color2 = '';
 
-    // temporal
-    this.origin = '';
-    this.categoria = '';
-    this.subCategoria = '';
-    this.tipoPrenda = '';
-    this.color = '';
+    this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
-    this.modalRef2 = this.modalService2.show(template2);
+    this.modalRef2 = this.modalService2.show(template2, this.config);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+
+    this.selectedFilter.splice(0, this.selectedFilter.length);
+  }
+
+  closeModal2() {
+    this.modalRef2.hide();
+
+    this.selectedFilter2.splice(0, this.selectedFilter2.length);
   }
 
   // funcion para poner estilo a la tabla

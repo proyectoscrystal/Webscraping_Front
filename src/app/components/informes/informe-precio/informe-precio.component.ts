@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   Input,
   OnInit,
@@ -38,9 +37,8 @@ interface valueFilter {
   templateUrl: './informe-precio.component.html',
   styleUrls: ['./informe-precio.component.css'],
 })
-export class InformePrecioComponent
-  implements OnDestroy, OnInit, AfterViewInit
-{
+export class InformePrecioComponent implements OnDestroy, OnInit {
+
   //Config modal filtros
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
@@ -120,37 +118,8 @@ export class InformePrecioComponent
     };
   }
 
-  ngAfterViewInit(): void {
-    this.afterView();
-  }
-
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
-  }
-
-  afterView() {
-    this.dtTrigger.subscribe(() => {
-      this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.columns(0).every(function () {
-          const that = this;
-          $('#selectDropdown', this.footer()).on('keyup change', function () {
-            if (that.search() !== this['value']) {
-              that.search(this['value']).draw();
-            }
-          });
-          $('#inputSearch', this.footer()).on('keyup change', function () {
-            if (that.search() !== this['value']) {
-              that.search(this['value']).draw();
-            }
-          });
-          /*
-          $('select', this.column(colIdx).footer()).on('keyup change', function() {
-            that.column(colIdx).search(this['value']).draw();
-          });
-          */
-        });
-      });
-    });
   }
 
   // peticion para el chart
@@ -196,7 +165,7 @@ export class InformePrecioComponent
       }
     );
   }
-  
+
   setInfoTable(res) {
     this.photos = res.obj.arr;
     this.tableAvgPrice = res.obj.precioPromedio;

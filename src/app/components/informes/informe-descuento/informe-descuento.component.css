@@ -21,6 +21,31 @@
   cursor: pointer;
 }
 
+.item-filters-top {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.content-filter-item {
+  height: 35px;
+  background-color: rgba(33, 33, 33, 0.8);
+  border-radius: calc(1px * 6);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 20px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-filter {
+  margin: 0;
+  font-weight: bold;
+  color: white;
+}
+
 .menu-color {
   color: #212121;
   font-weight: bold;
