@@ -432,7 +432,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.dtOptions = {
       destroy: true,
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 15,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
       },

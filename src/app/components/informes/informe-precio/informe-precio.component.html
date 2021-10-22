@@ -38,7 +38,7 @@
 
                   <li *ngFor="let origin of originData">
                     <label class="control control--checkbox">
-                      <input class="marca check" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                      <input class="marca" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
                         (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
                         id="{{origin.value}}" />
                       {{origin.text}}

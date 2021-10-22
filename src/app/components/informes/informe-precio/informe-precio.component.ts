@@ -210,11 +210,11 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     const { item } = value;
 
     //Filtro chart
-    if (value.checked && value.clase === 'marca check') {
+    if (value.checked && value.clase === 'marca') {
       this.origin = item;
       this.selectedFilter.push(value);
       console.log(item);
-    } else if (value.clase == 'marca check' && !value.checked) {
+    } else if (value.clase == 'marca' && !value.checked) {
       this.origin = '';
       console.log(this.origin);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);

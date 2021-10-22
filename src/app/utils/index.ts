@@ -255,6 +255,7 @@ export class Datos {
   private tipoprendas: any[] = [
     { value: 'camisas', text: 'Camisas' },
     { value: 'camisetas', text: 'Camisetas' },
+    { value: 'abrigos', text: 'Abrigos' },
     { value: 'polos', text: 'Polos' },
     { value: 'jeans', text: 'Jeans' },
     { value: 'pantalones', text: 'Pantalones' },
