@@ -1,5 +1,14 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Chart,
+  ChartConfiguration,
+  registerables,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+} from 'chart.js';
 
 import { BlackboxService } from '../../../services/blackbox.service';
 
@@ -10,6 +19,7 @@ import { Subject } from 'rxjs';
 //Filtro modal
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Datos } from '../../../utils/index';
+import { DataTableDirective } from 'angular-datatables';
 
 interface valueFilter {
   checked: boolean;
@@ -20,14 +30,17 @@ interface valueFilter {
 @Component({
   selector: 'app-informe-sku',
   templateUrl: './informe-sku.component.html',
-  styleUrls: ['./informe-sku.component.css']
+  styleUrls: ['./informe-sku.component.css'],
 })
-export class InformeSKUComponent implements OnDestroy, OnInit {
+export class InformeSKUComponent implements OnDestroy, OnInit, AfterViewInit {
+  @ViewChild(DataTableDirective, { static: false })
+  datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
 
   modalRef: BsModalRef;
+  modalRef2: BsModalRef;
 
   photos: any;
   total: any;
@@ -42,44 +55,88 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   averageSKU1: number[] = [];
   averageSKU2: number[] = [];
 
+  origin2: any = '';
+  categoria2: any = '';
+  subCategoria2: any = '';
+  tipoPrenda2: any = '';
+  color2: any = '';
+
   datos: any;
   originData: any;
   categoryData: any;
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+  tableAvgSKU: any;
+  tableDifference: any;
 
-  constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
+  constructor(
+    private blackboxService: BlackboxService,
+    private modalService: BsModalService,
+    private modalService2: BsModalService
+  ) {
     Chart.register(...registerables);
     this.datos = new Datos();
   }
 
   ngOnInit(): void {
+    this.getInfotableSKU()
     this.getInfoSKU();
-    this.getPhotoList();
     this.showDataModal();
     this.onlyOne();
 
     this.dtOptions = {
+      destroy: true,
       pagingType: 'full_numbers',
       pageLength: 15,
       language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-      }
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
     };
+  }
+
+  ngAfterViewInit(): void {
+    this.afterView();
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
-  getPhotoList() {
-    this.blackboxService.getPhotos().subscribe(
+  afterView() {
+    this.dtTrigger.subscribe(() => {
+      this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.columns(0).every(function () {
+          const that = this;
+          $('#selectDropdown', this.footer()).on('keyup change', function () {
+            if (that.search() !== this['value']) {
+              that.search(this['value']).draw();
+            }
+          });
+          $('#inputSearch', this.footer()).on('keyup change', function () {
+            if (that.search() !== this['value']) {
+              that.search(this['value']).draw();
+            }
+          });
+        });
+      });
+    });
+  }
+
+   // peticion para la tabla
+   getInfotableSKU() {
+    let params = {
+      origin: this.origin,
+      categoria: this.categoria,
+      subCategoria: this.subCategoria,
+      tipoPrenda: this.tipoPrenda,
+      color: this.color,
+    };
+
+    this.blackboxService.getTableSKUInfo(params).subscribe(
       (res) => {
-        this.photos = res;
+        this.setInfoTable(res);
         this.dtTrigger.next();
-        this.ng();
-        return (this.photos = res);
       },
       (err) => {
         console.log(err);
@@ -87,13 +144,21 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     );
   }
 
+  // set info table
+  setInfoTable(res) {
+    this.photos = res.obj.arr;
+    this.tableAvgSKU = res.obj.SKU;
+    this.tableDifference = res.obj.differences;
+  }
+
+  // peticion para el chart
   getInfoSKU() {
     let params = {
       origin: this.origin,
       categoria: this.categoria,
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
-      color: this.color
+      color: this.color,
     };
 
     this.blackboxService.getInfoSKU(params).subscribe(
@@ -129,10 +194,19 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.filterItemsData(data);
   }
 
+  validateCheckFilter2(checked, item, className) {
+    let data = {
+      checked,
+      clase: className,
+      item: item.value || '',
+    };
+
+    this.filterItemsData(data);
+  }
+
   //Recibe los datos seleccionados en el filtro
   filterItemsData(value) {
     const { item } = value;
-    console.log(value);
 
     if (value.checked && value.clase === 'marca check') {
       this.origin = item;
@@ -162,6 +236,13 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.getInfoSKU();
   }
 
+  applyFilter2() {
+    this.modalRef2.hide();
+
+    this.getInfotableSKU();
+    this.rerender();
+  }
+
   openModal(template: TemplateRef<any>) {
     this.origin = '';
     this.categoria = '';
@@ -172,39 +253,64 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  openModal2(template2: TemplateRef<any>) {
+    this.origin2 = '';
+    this.categoria2 = '';
+    this.subCategoria2 = '';
+    this.tipoPrenda2 = '';
+    this.color2 = '';
+
+    // temporal
+    this.origin = '';
+    this.categoria = '';
+    this.subCategoria = '';
+    this.tipoPrenda = '';
+    this.color = '';
+
+    this.modalRef2 = this.modalService2.show(template2);
+  }
+
+  // funcion para poner estilo a la tabla
+  diferencia() {
+    if (this.tableDifference[0] === 0) {
+      return 'diferencia2';
+    }
+    return 'diferencia';
+  }
+
   onlyOne() {
-    $(document).on("change", ".check", function () {
-      var $allCheckboxes = $(".check");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check', function () {
+      var $allCheckboxes = $('.check');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check2", function () {
-      var $allCheckboxes = $(".check2");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check2', function () {
+      var $allCheckboxes = $('.check2');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check3", function () {
-      var $allCheckboxes = $(".check3");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check3', function () {
+      var $allCheckboxes = $('.check3');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check4", function () {
-      var $allCheckboxes = $(".check4");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check4', function () {
+      var $allCheckboxes = $('.check4');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
 
-    $(document).on("change", ".check5", function () {
-      var $allCheckboxes = $(".check5");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    $(document).on('change', '.check5', function () {
+      var $allCheckboxes = $('.check5');
+      $allCheckboxes.prop('disabled', false);
+      this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
   }
 
-  //===============FIN FILTROS MODAL===============    
+  //===============FIN FILTROS MODAL===============
 
   setInfoSKU(res) {
     let date = new Date();
@@ -243,44 +349,65 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
           this.averageSKU2[index - 12] = res.obj.values[index];
         }
       }
-
     }
+  }
 
+  rerender(): void {
+    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+    });
+    this.dtOptionsReload();
+  }
+
+  dtOptionsReload() {
+    this.dtOptions = {
+      destroy: true,
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
+    };
   }
 
   @ViewChild('mychart') mychart: any;
 
   ng = function ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort; 
+    // this.dataSource.sort = this.sort;
 
     if (this.myChart) {
       this.myChart.clear();
       this.myChart.destroy();
     }
 
-
-    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
-    this.myChart = new Chart("myChart", {
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title
+    );
+    this.myChart = new Chart('myChart', {
       type: 'line',
       data: {
-        datasets: [{
-          label: this.label1,
-          data: this.averageSKU1,
-          borderColor: "#007ee7",
-          fill: true,
-        },
-        {
-          label: this.label2,
-          data: this.averageSKU2,
-          borderColor: "#bd0e0e",
-          fill: true,
-        }],
-        labels: this.months
+        datasets: [
+          {
+            label: this.label1,
+            data: this.averageSKU1,
+            borderColor: '#007ee7',
+            fill: true,
+          },
+          {
+            label: this.label2,
+            data: this.averageSKU2,
+            borderColor: '#bd0e0e',
+            fill: true,
+          },
+        ],
+        labels: this.months,
       },
-
     }); // fin chart 1
-
-  }
-
+  };
 }

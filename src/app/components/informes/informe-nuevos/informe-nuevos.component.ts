@@ -148,9 +148,8 @@ export class InformeNuevosComponent
       color: this.color,
     };
 
-    this.blackboxService.getTableDiscountInfo(params).subscribe(
+    this.blackboxService.getTableNewsInfo(params).subscribe(
       (res) => {
-        console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
       },

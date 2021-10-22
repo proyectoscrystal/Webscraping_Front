@@ -38,18 +38,24 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_prendasInfo/' ,{ params } );
   }
 
+  // peticiones para las tablas 
   getTablePriceInfo(params: any) {
     return this.http.get(this.url + '/m_tablePriceInfo/' ,{ params } );
   }
 
   getTableDiscountInfo(params: any) {
-    return this.http.get(this.url + '/m_tableNewsInfo/' ,{ params } );
-  }
-
-  getTableNewsInfo(params: any) {
     return this.http.get(this.url + '/m_tableDiscountInfo/' ,{ params } );
   }
 
+  getTableSKUInfo(params: any) {
+    return this.http.get(this.url + '/m_tableSKUInfo/' ,{ params } );
+  }
+
+  getTableNewsInfo(params: any) {
+    return this.http.get(this.url + '/m_tableNewsInfo/' ,{ params } );
+  }
+
+  // peticiones para los charts
   getInfoPrice(params: any) {
     return this.http.get(this.url + '/m_averagePrice/' ,{ params } );
   }

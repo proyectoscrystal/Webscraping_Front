@@ -43,7 +43,7 @@ export class InformeDescuentoComponent
   
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
-  
+
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
 
@@ -157,7 +157,7 @@ export class InformeDescuentoComponent
       (res) => {
         // console.log(res);
         this.setInfoTable(res);
-        // this.dtTrigger.next();
+        this.dtTrigger.next();
       },
       (err) => {
         console.log(err);
