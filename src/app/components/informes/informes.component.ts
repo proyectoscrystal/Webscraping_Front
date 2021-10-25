@@ -56,11 +56,11 @@ export class InformesComponent implements OnInit {
 
   infoCards: any;
   params: any;
-  origin: any[];
-  categoria: any[];
-  subCategoria: any[];
-  tipoPrenda: any[];
-  color: any[];
+  origin: any = '';
+  categoria: any = '';
+  subCategoria: any = '';
+  tipoPrenda: any = '';
+  color: any = '';
   precioPromedio: any;
   //Probando =================================================================================
 
@@ -121,16 +121,25 @@ export class InformesComponent implements OnInit {
 
   //Setear filtros obtenidos en cards
   getInfoCards() {
+    // let params = {
+    //   origin: this.origin,
+    //   categoria: this.categoria,
+    //   subCategoria: this.subCategoria,
+    //   tipoPrenda: this.tipoPrenda,
+    //   color: this.color
+    // };
+
     let params = {
-      origin: this.origin,
-      categoria: this.categoria,
-      subCategoria: this.subCategoria,
-      tipoPrenda: this.tipoPrenda,
-      color: this.color
-    }
+      origin: this.originSelected,
+      categoria: this.categoriaSelected,
+      subCategoria: this.subCategoriaSelected,
+      tipoPrenda: this.tipoPrendaSelected,
+      color: this.colorSelected,
+    };
 
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
+        console.log(res);
         this.setInfoCards(res);
       },
       (err) => {
