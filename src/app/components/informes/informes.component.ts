@@ -62,6 +62,7 @@ export class InformesComponent implements OnInit {
   tipoPrenda: any[];
   color: any[];
   precioPromedio: any;
+  //Probando =================================================================================
 
   //Datos index.ts
   datos: any;
@@ -89,7 +90,6 @@ export class InformesComponent implements OnInit {
     this.showDataModal();
     this.getPhotoList();
     this.toggleSidebar();
-    this.onlyOne();
   }
 
   // Ocultar/Mostrar sidebar
@@ -258,38 +258,6 @@ export class InformesComponent implements OnInit {
     this.modalRef.hide();
 
     this.getInfoCards();
-  }
-
-  onlyOne() {
-    $(document).on("change", ".check", function () {
-      var $allCheckboxes = $(".check");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
-    });
-
-    $(document).on("change", ".check2", function () {
-      var $allCheckboxes = $(".check2");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
-    });
-
-    $(document).on("change", ".check3", function () {
-      var $allCheckboxes = $(".check3");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
-    });
-
-    $(document).on("change", ".check4", function () {
-      var $allCheckboxes = $(".check4");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
-    });
-
-    $(document).on("change", ".check5", function () {
-      var $allCheckboxes = $(".check5");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
-    });
   }
 
   //===============FIN FILTROS MODAL===============
