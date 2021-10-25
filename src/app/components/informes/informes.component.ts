@@ -79,7 +79,6 @@ export class InformesComponent implements OnInit {
   colorSelected = [];
 
   origenSeleccionado: any;
-
   origenCheck: any;
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
@@ -108,10 +107,6 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
         this.photos = res;
-        this.filterDuplicatesSubCategorys();
-        this.filterDuplicatesImagesNames();
-        this.filterDuplicatesColors();
-        this.filterDuplicatesMaterials();
         return (this.photos = res);
       },
       (err) => {
@@ -267,7 +262,6 @@ export class InformesComponent implements OnInit {
     this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
     this.colorSelected.splice(0, this.colorSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
-
   }
 
   
@@ -346,26 +340,5 @@ export class InformesComponent implements OnInit {
       return 'porcentaje2';
     }
     return 'porcentaje';
-  }
-
-  filterDuplicatesSubCategorys() {
-    this.subcategorys = this.photos.filter(
-      (dupe: { subCategoria: any; }, i: any, arr: any[]) => arr.findIndex(t => t.subCategoria === dupe.subCategoria) === i
-    );
-  }
-  filterDuplicatesImagesNames() {
-    this.imagesnames = this.photos.filter(
-      (dupe: { imageName: any; }, i: any, arr: any[]) => arr.findIndex(t => t.imageName === dupe.imageName) === i
-    );
-  }
-  filterDuplicatesColors() {
-    this.colors = this.photos.filter(
-      (dupe: { color: any; }, i: any, arr: any[]) => arr.findIndex(t => t.color === dupe.color) === i
-    );
-  }
-  filterDuplicatesMaterials() {
-    this.materials = this.photos.filter(
-      (dupe: { materiales: any; }, i: any, arr: any[]) => arr.findIndex(t => t.materiales === dupe.materiales) === i
-    );
   }
 }

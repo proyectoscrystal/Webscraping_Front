@@ -84,7 +84,18 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   tableDifference: any;
 
   selectedFilter = [];
+  originSelected = [];
+  categoriaSelected = [];
+  subCategoriaSelected = [];
+  tipoPrendaSelected = [];
+  colorSelected = [];
+
   selectedFilter2 = [];
+  originSelected2 = [];
+  categoriaSelected2 = [];
+  subCategoriaSelected2 = [];
+  tipoPrendaSelected2 = [];
+  colorSelected2 = [];
 
   constructor(
     private blackboxService: BlackboxService,
@@ -99,7 +110,6 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     this.getInfotableNews();
     this.getInfoNews();
     this.showDataModal();
-    this.onlyOne();
 
     this.dtOptions = {
       destroy: true,
@@ -118,11 +128,11 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   // peticion para la tabla
   getInfotableNews() {
     let params = {
-      origin: this.origin2,
-      categoria: this.categoria2,
-      subCategoria: this.subCategoria2,
-      tipoPrenda: this.tipoPrenda2,
-      color: this.color2,
+      origin: this.originSelected2,
+      categoria: this.categoriaSelected2,
+      subCategoria: this.subCategoriaSelected2,
+      tipoPrenda: this.tipoPrendaSelected2,
+      color: this.colorSelected2,
     };
 
     this.blackboxService.getTableNewsInfo(params).subscribe(
@@ -146,11 +156,11 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   // peticion para el chart
   getInfoNews() {
     let params = {
-      origin: this.origin,
-      categoria: this.categoria,
-      subCategoria: this.subCategoria,
-      tipoPrenda: this.tipoPrenda,
-      color: this.color,
+      origin: this.originSelected,
+      categoria: this.categoriaSelected,
+      subCategoria: this.subCategoriaSelected,
+      tipoPrenda: this.tipoPrendaSelected,
+      color: this.colorSelected,
     };
 
     this.blackboxService.getInfoNews(params).subscribe(
@@ -202,97 +212,127 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     const { item } = value;
 
     //Filtro chart
-    if (value.checked && value.clase === 'marca check') {
-      this.origin = item;
+    if (value.checked && value.clase === 'marca') {
+      this.originSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'marca check' && !value.checked) {
-      this.origin = '';
+      this.origin = this.originSelected;
       console.log(this.origin);
+
+    } else if (value.clase == 'marca' && !value.checked) {
+      this.origin = [];
+      this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.originSelected);
     }
 
-    if (value.checked && value.clase === 'categoria check2') {
-      this.categoria = item;
+    if (value.checked && value.clase === 'categoria') {
+      this.categoriaSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'categoria check2' && !value.checked) {
-      this.categoria = '';
+      this.categoria = this.categoriaSelected;
+      console.log(this.categoria);
+    } else if (value.clase == 'categoria' && !value.checked) {
+      this.categoria = [];
+      this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.categoriaSelected);
     }
 
-    if (value.checked && value.clase === 'subCategoria check3') {
-      this.subCategoria = item;
+    if (value.checked && value.clase === 'subCategoria') {
+      this.subCategoriaSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'subCategoria check3' && !value.checked) {
-      this.subCategoria = '';
+      this.subCategoria = this.subCategoriaSelected;
+      console.log(this.subCategoria);
+    } else if (value.clase == 'subCategoria' && !value.checked) {
+      this.subCategoria = []
+      this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.subCategoriaSelected);
     }
 
-    if (value.checked && value.clase === 'tipoPrenda check4') {
-      this.tipoPrenda = item;
+    if (value.checked && value.clase === 'tipoPrenda') {
+      this.tipoPrendaSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'tipoPrenda check4' && !value.checked) {
-      this.tipoPrenda = '';
+      this.tipoPrenda = this.tipoPrendaSelected;
+      console.log(this.tipoPrenda);
+    } else if (value.clase == 'tipoPrenda' && !value.checked) {
+      this.tipoPrenda = [];
+      this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.tipoPrendaSelected);
     }
 
-    if (value.checked && value.clase === 'color check5') {
-      this.color = item;
+    if (value.checked && value.clase === 'color') {
+      this.colorSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'color check5' && !value.checked) {
-      this.color = '';
+      this.color = this.colorSelected;
+      console.log(this.color);
+    } else if (value.clase == 'color' && !value.checked) {
+      this.color = [];
+      this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.colorSelected);
     }
 
     //Filtro tabla
-    if (value.checked && value.clase === 'marca2 check') {
-      this.origin2 = item;
+    if (value.checked && value.clase === 'marca2') {
+      this.originSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'marca2 check' && !value.checked) {
-      this.origin2 = '';
+      this.origin2 = this.originSelected2;
       console.log(this.origin2);
+
+    } else if (value.clase == 'marca2' && !value.checked) {
+      this.origin2 = [];
+      this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      console.log(this.originSelected2);
     }
 
-    if (value.checked && value.clase === 'categoria2 check2') {
-      this.categoria2 = item;
+    if (value.checked && value.clase === 'categoria2') {
+      this.categoriaSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'categoria2 check2' && !value.checked) {
-      this.categoria2 = '';
+      this.categoria2 = this.categoriaSelected2;
+      console.log(this.categoria);
+    } else if (value.clase == 'categoria2' && !value.checked) {
+      this.categoria2 = [];
+      this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      console.log(this.categoriaSelected2);
     }
 
-    if (value.checked && value.clase === 'subCategoria2 check3') {
-      this.subCategoria2 = item;
+    if (value.checked && value.clase === 'subCategoria2') {
+      this.subCategoriaSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'subCategoria2 check3' && !value.checked) {
-      this.subCategoria2 = '';
+      this.subCategoria2 = this.subCategoriaSelected2;
+      console.log(this.subCategoria);
+    } else if (value.clase == 'subCategoria2' && !value.checked) {
+      this.subCategoria2 = []
+      this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      console.log(this.subCategoriaSelected2);
     }
 
-    if (value.checked && value.clase === 'tipoPrenda2 check4') {
-      this.tipoPrenda2 = item;
+    if (value.checked && value.clase === 'tipoPrenda2') {
+      this.tipoPrendaSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'tipoPrenda2 check4' && !value.checked) {
-      this.tipoPrenda2 = '';
+      this.tipoPrenda2 = this.tipoPrendaSelected2;
+      console.log(this.tipoPrenda2);
+    } else if (value.clase == 'tipoPrenda2' && !value.checked) {
+      this.tipoPrenda2 = [];
+      this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      console.log(this.tipoPrendaSelected2);
     }
 
-    if (value.checked && value.clase === 'color2 check5') {
-      this.color2 = item;
+    if (value.checked && value.clase === 'color2') {
+      this.colorSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'color2 check5' && !value.checked) {
-      this.color2 = '';
+      this.color2 = this.colorSelected2;
+      console.log(this.color2);
+    } else if (value.clase == 'color2' && !value.checked) {
+      this.color2 = [];
+      this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      console.log(this.colorSelected2);
     }
   }
 
@@ -310,24 +350,34 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.origin = '';
-    this.categoria = '';
-    this.subCategoria = '';
-    this.tipoPrenda = '';
-    this.color = '';
+    this.origin = [];
+    this.categoria = [];
+    this.subCategoria = [];
+    this.tipoPrenda = [];
+    this.color = [];
 
+    this.originSelected.splice(0, this.originSelected.length);
+    this.categoriaSelected.splice(0, this.categoriaSelected.length);
+    this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
+    this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
+    this.colorSelected.splice(0, this.colorSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
     this.modalRef = this.modalService.show(template, this.config);
   }
 
   openModal2(template2: TemplateRef<any>) {
-    this.origin2 = '';
-    this.categoria2 = '';
-    this.subCategoria2 = '';
-    this.tipoPrenda2 = '';
-    this.color2 = '';
+    this.origin2 = [];
+    this.categoria2 = [];
+    this.subCategoria2 = [];
+    this.tipoPrenda2 = [];
+    this.color2 = [];
 
+    this.originSelected2.splice(0, this.originSelected2.length);
+    this.categoriaSelected2.splice(0, this.categoriaSelected2.length);
+    this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
+    this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
+    this.colorSelected2.splice(0, this.colorSelected2.length);
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
     this.modalRef2 = this.modalService2.show(template2, this.config);
@@ -336,12 +386,22 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   closeModal() {
     this.modalRef.hide();
 
+    this.originSelected.splice(0, this.originSelected.length);
+    this.categoriaSelected.splice(0, this.categoriaSelected.length);
+    this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
+    this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
+    this.colorSelected.splice(0, this.colorSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
   }
 
   closeModal2() {
     this.modalRef2.hide();
 
+    this.originSelected2.splice(0, this.originSelected2.length);
+    this.categoriaSelected2.splice(0, this.categoriaSelected2.length);
+    this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
+    this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
+    this.colorSelected2.splice(0, this.colorSelected2.length);
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
   }
 
@@ -351,38 +411,6 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       return 'diferencia2';
     }
     return 'diferencia';
-  }
-
-  onlyOne() {
-    $(document).on('change', '.check', function () {
-      var $allCheckboxes = $('.check');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
-
-    $(document).on('change', '.check2', function () {
-      var $allCheckboxes = $('.check2');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
-
-    $(document).on('change', '.check3', function () {
-      var $allCheckboxes = $('.check3');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
-
-    $(document).on('change', '.check4', function () {
-      var $allCheckboxes = $('.check4');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
-
-    $(document).on('change', '.check5', function () {
-      var $allCheckboxes = $('.check5');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
   }
 
   //===============FIN FILTROS MODAL===============

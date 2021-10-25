@@ -175,12 +175,12 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterColor">
                   <div class="overflow-auto container-scroll">
-                    <li *ngFor="let color of colorData">
+                    <li *ngFor="let colores of colorData">
                       <label class="control control--checkbox">
-                        <input class="color" type="checkbox" value="{{color.value}}" name="{{color.value}}"
-                          (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
-                          id="{{color.value}}" />
-                        {{color.text}}
+                        <input class="color" type="checkbox" value="{{colores.value}}" name="{{colores.value}}"
+                          (change)="validateCheckFilter($event.target.checked, colores, $event.target.className, $event.target)"
+                          id="{{colores.value}}" />
+                        {{colores.text}}
                       </label>
                     </li>
                   </div>
