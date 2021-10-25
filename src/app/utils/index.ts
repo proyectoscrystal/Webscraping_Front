@@ -351,6 +351,16 @@ export class Datos {
     { value: 'trench y parkas', text: 'Trench y parkas' },
   ];
 
+  private params: any[] = [
+    {
+      origin: '',
+      categoria: '',
+      subCategoria: '',
+      tipoPrenda: '',
+      color: ''
+    }
+  ]
+
   private colores: any[] = [
     { value: 'amarillo', text: 'Amarillo' },
     { value: 'beige', text: 'Beige' },

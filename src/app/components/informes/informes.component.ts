@@ -127,7 +127,7 @@ export class InformesComponent implements OnInit {
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
       color: this.color
-    };
+    }
 
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
