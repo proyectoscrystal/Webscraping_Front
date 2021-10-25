@@ -62,7 +62,6 @@ export class InformesComponent implements OnInit {
   tipoPrenda: any[];
   color: any[];
   precioPromedio: any;
-  //Probando =================================================================================
 
   //Datos index.ts
   datos: any;
@@ -78,6 +77,10 @@ export class InformesComponent implements OnInit {
   subCategoriaSelected = [];
   tipoPrendaSelected = [];
   colorSelected = [];
+
+  origenSeleccionado: any;
+
+  origenCheck: any;
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
     Chart.register(...registerables);
@@ -127,7 +130,7 @@ export class InformesComponent implements OnInit {
       subCategoria: this.subCategoria,
       tipoPrenda: this.tipoPrenda,
       color: this.color
-    }
+    };
 
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
@@ -168,12 +171,16 @@ export class InformesComponent implements OnInit {
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
       console.log(this.origin);
-      
+
+      localStorage.setItem("Origen", JSON.stringify(this.originSelected));
+
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
+
+      localStorage.removeItem("Origen");
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -223,7 +230,6 @@ export class InformesComponent implements OnInit {
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
     }
-
   }
 
   openModal(template: TemplateRef<any>) {
@@ -252,6 +258,28 @@ export class InformesComponent implements OnInit {
     this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
     this.colorSelected.splice(0, this.colorSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
+
+  }
+
+  
+  setCheck() {
+    this.origenCheck = localStorage.getItem("Origen");
+    this.origenCheck = JSON.parse(this.origenCheck);
+    console.log("Marca almacenada: " + this.origenCheck);
+
+    if (this.origenCheck !== null) {
+      var chequear = document.getElementById("marca");
+      chequear.setAttribute('checked', 'checked');
+    }
+  }
+
+  clearLocalStorage() {
+    //localStorage.clear();
+  }
+
+  localStorageAlert() {
+    this.origenSeleccionado = localStorage.getItem("Origen");
+    alert(this.origenSeleccionado);
   }
 
   applyFilter() {

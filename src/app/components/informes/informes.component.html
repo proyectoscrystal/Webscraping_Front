@@ -108,7 +108,7 @@
                     <label class="control control--checkbox">
                       <input class="marca" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
                         (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
-                        id="{{origin.value}}" />
+                        id="marca" />
                       {{origin.text}}
                     </label>
                   </li>
@@ -205,6 +205,8 @@
             </ul>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="localStorageAlert()">Mostrar datos</button>
+            <button type="button" class="btn btn-secondary" (click)="setCheck()">Setear filtro anterior</button>
             <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
             <button type="button" class="btn btn-primary" (click)="applyFilter()">Aplicar filtros</button>
           </div>
