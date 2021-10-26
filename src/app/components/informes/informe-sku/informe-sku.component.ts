@@ -90,6 +90,9 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   subCategoriaSelected2 = [];
   tipoPrendaSelected2 = [];
   colorSelected2 = [];
+  averagePrice: any;
+  averageNews2: any;
+  averageDiscount2: any;
 
   constructor(
     private blackboxService: BlackboxService,
@@ -145,6 +148,9 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.photos = res.obj.arr;
     this.tableAvgSKU = res.obj.SKU;
     this.tableDifference = res.obj.differences;
+    this.averagePrice = res.obj.precioPromedio;
+    this.averageNews2 = res.obj.nuevosPromedio;
+    this.averageDiscount2 = res.obj.descuentoPromedio;
   }
 
   // peticion para el chart
@@ -415,7 +421,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.label1 = 'Zara';
       this.label2 = 'Mango';
       this.months = res.obj.months;
-      console.log(res);
+      // console.log(res);
       for (let index = 0; index < res.obj.values.length; index++) {
         if (index <= 11) {
           this.averageSKU1[index] = res.obj.values[index];

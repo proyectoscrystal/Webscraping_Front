@@ -292,7 +292,6 @@
         <th>SKU</th>
         <th>Precio promedio</th>
         <th>Nueva llegada</th>
-        <th>Tasa de frescura</th>
         <th>Descuento promedio</th>
       </tr>
     </thead>
@@ -301,11 +300,10 @@
         <td data-label="Categoría"> {{e.categoria}} </td>
         <td data-label="Subcategoría"> {{e.subCategoria}} </td>
         <td data-label="Tipo de prenda"> {{e.tipoPrenda}} </td>
-        <td data-label="SKU"> {{e.x}} </td>
-        <td data-label="Precio promedio"> {{e.x}} </td>
-        <td data-label="Nueva llegada"> {{e.x}} </td>
-        <td data-label="Tasa de frescura"> {{e.x}} </td>
-        <td data-label="Descuento promedio"> {{e.x}} </td>
+        <td data-label="SKU"> {{tableAvgSKU}} </td>
+        <td data-label="Precio promedio">$ {{averagePrice}} </td>
+        <td data-label="Nueva llegada"> {{averageNews2}} </td>
+        <td data-label="Descuento promedio"> {{averageDiscount2}} % </td>
       </tr>
     </tbody>
   </table>
