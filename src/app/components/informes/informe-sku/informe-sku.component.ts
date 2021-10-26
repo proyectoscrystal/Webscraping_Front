@@ -93,6 +93,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   averagePrice: any;
   averageNews2: any;
   averageDiscount2: any;
+  tasaFrescura: any;
 
   constructor(
     private blackboxService: BlackboxService,
@@ -151,6 +152,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.averagePrice = res.obj.precioPromedio;
     this.averageNews2 = res.obj.nuevosPromedio;
     this.averageDiscount2 = res.obj.descuentoPromedio;
+    this.tasaFrescura = res.obj.tasaFrescura;
   }
 
   // peticion para el chart
