@@ -56,6 +56,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   kidsPromotion: number = 0;
   kidssku: number = 0;
 
+  //Cards
+  originCards: any = '';
+  categoriaCards: any = '';
+  subCategoriaCards: any = '';
+  tipoPrendaCards: any = '';
+  colorCards: any = '';
+
   //Tabla 1
   origin: any = '';
   categoria: any = '';
@@ -78,6 +85,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   tipoPrendaData: any;
   colorData: any;
 
+  //Cards
+  selectedFilterCards = [];
+  originSelectedCards = [];
+  categoriaSelectedCards = [];
+  subCategoriaSelectedCards = [];
+  tipoPrendaSelectedCards = [];
+  colorSelectedCards = [];
+
   //Tabla 1
   selectedFilter = [];
   originSelected = [];
@@ -97,7 +112,8 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   constructor(
     private blackboxService: BlackboxService, 
     private modalService: BsModalService,
-    private modalService2: BsModalService
+    private modalService2: BsModalService,
+    private modalServiceCards: BsModalService
   ) {
     this.datos = new Datos();
   }
@@ -134,11 +150,11 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   // Peticion infoCards
   getInfoCards() {
     let params = {
-      origin: this.origin,
-      categoria: this.categoria,
-      subCategoria: this.subCategoria,
-      tipoPrenda: this.tipoPrenda,
-      color: this.color
+      origin: this.originSelectedCards,
+      categoria: this.categoriaSelectedCards,
+      subCategoria: this.subCategoriaSelectedCards,
+      tipoPrenda: this.tipoPrendaSelected2,
+      color: this.colorSelectedCards
     };
 
     this.blackboxService.getPrendasInfoCards(params).subscribe(
@@ -242,7 +258,69 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   filterItemsData(value) {
     const { item } = value;
 
-    //Filtro chart
+    //Filtro cards
+    if (value.checked && value.clase === 'marcaCards') {
+      this.originSelectedCards.push(item);
+      this.selectedFilterCards.push(value);
+      this.originCards = this.originSelectedCards;
+      console.log(this.originCards);
+
+    } else if (value.clase == 'marca' && !value.checked) {
+      this.originCards = [];
+      this.originSelectedCards.splice(this.originSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      console.log(this.originSelectedCards);
+    }
+
+    if (value.checked && value.clase === 'categoriaCards') {
+      this.categoriaSelectedCards.push(item);
+      this.selectedFilterCards.push(value);
+      this.categoriaCards = this.categoriaSelected;
+      console.log(this.categoriaCards);
+    } else if (value.clase == 'categoria' && !value.checked) {
+      this.categoriaCards = [];
+      this.categoriaSelectedCards.splice(this.categoriaSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      console.log(this.categoriaSelectedCards);
+    }
+
+    if (value.checked && value.clase === 'subCategoriaCards') {
+      this.subCategoriaSelectedCards.push(item);
+      this.selectedFilterCards.push(value);
+      this.subCategoriaCards = this.subCategoriaSelectedCards;
+      console.log(this.subCategoriaCards);
+    } else if (value.clase == 'subCategoria' && !value.checked) {
+      this.subCategoriaCards = []
+      this.subCategoriaSelectedCards.splice(this.subCategoriaSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      console.log(this.subCategoriaSelectedCards);
+    }
+
+    if (value.checked && value.clase === 'tipoPrendaCards') {
+      this.tipoPrendaSelectedCards.push(item);
+      this.selectedFilterCards.push(value);
+      this.tipoPrendaCards = this.tipoPrendaSelectedCards;
+      console.log(this.tipoPrendaCards);
+    } else if (value.clase == 'tipoPrenda' && !value.checked) {
+      this.tipoPrendaCards = [];
+      this.tipoPrendaSelectedCards.splice(this.tipoPrendaSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      console.log(this.tipoPrendaSelectedCards);
+    }
+
+    if (value.checked && value.clase === 'colorCards') {
+      this.colorSelectedCards.push(item);
+      this.selectedFilterCards.push(value);
+      this.colorCards = this.colorSelectedCards;
+      console.log(this.colorCards);
+    } else if (value.clase == 'color' && !value.checked) {
+      this.colorCards = [];
+      this.colorSelectedCards.splice(this.colorSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      console.log(this.colorSelectedCards);
+    }
+
+    //Filtro tabla
     if (value.checked && value.clase === 'marca') {
       this.originSelected.push(item);
       this.selectedFilter.push(value);
@@ -304,7 +382,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       console.log(this.colorSelected);
     }
 
-    //Filtro tabla
+    //Filtro tabla 2
     if (value.checked && value.clase === 'marca2') {
       this.originSelected2.push(item);
       this.selectedFilter2.push(value);
@@ -367,6 +445,12 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     }
   }  
 
+  applyFilterCards() {
+    this.modalRef.hide();
+
+    this.getInfoCards();
+  }
+
   applyFilter() {
     this.modalRef.hide();
 
@@ -379,6 +463,23 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
 
     this.getInfoTable2();
     this.rerender();
+  }
+
+  openModalCards(templateCards: TemplateRef<any>) {
+    this.originCards = [];
+    this.categoriaCards = [];
+    this.subCategoriaCards = [];
+    this.tipoPrendaCards = [];
+    this.colorCards = [];
+
+    this.originSelectedCards.splice(0, this.originSelectedCards.length);
+    this.categoriaSelectedCards.splice(0, this.categoriaSelectedCards.length);
+    this.subCategoriaSelectedCards.splice(0, this.subCategoriaSelectedCards.length);
+    this.tipoPrendaSelectedCards.splice(0, this.tipoPrendaSelectedCards.length);
+    this.colorSelectedCards.splice(0, this.colorSelectedCards.length);
+    this.selectedFilterCards.splice(0, this.selectedFilterCards.length);
+
+    this.modalRef = this.modalService.show(templateCards, this.config);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -413,6 +514,17 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
     this.modalRef2 = this.modalService2.show(template2, this.config);
+  }
+
+  closeModalCards() {
+    this.modalRef.hide();
+
+    this.originSelectedCards.splice(0, this.originSelectedCards.length);
+    this.categoriaSelectedCards.splice(0, this.categoriaSelectedCards.length);
+    this.subCategoriaSelectedCards.splice(0, this.subCategoriaSelectedCards.length);
+    this.tipoPrendaSelectedCards.splice(0, this.tipoPrendaSelectedCards.length);
+    this.colorSelectedCards.splice(0, this.colorSelectedCards.length);
+    this.selectedFilterCards.splice(0, this.selectedFilterCards.length);
   }
 
   closeModal() {

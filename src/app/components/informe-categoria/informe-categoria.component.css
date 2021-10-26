@@ -1,3 +1,10 @@
+#date1 {
+  border: none;
+  border-radius: 5%;
+  background-color: #f1f1f1;
+  padding: 0 0 0.5rem 0.4rem;
+}
+
 /* Tablas */
 .table-container {
   width: 100%;
