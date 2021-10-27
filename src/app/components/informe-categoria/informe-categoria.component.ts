@@ -27,6 +27,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   //Config modal filtros
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
+  modalRefCards: BsModalRef;
   config = {
     backdrop: true,
     ignoreBackdropClick: true,
@@ -77,6 +78,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   tipoPrenda2: any = '';
   color2: any = '';
 
+
   //Datos index.ts
   datos: any;
   originData: any;
@@ -100,6 +102,12 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   subCategoriaSelected = [];
   tipoPrendaSelected = [];
   colorSelected = [];
+  averagePrice: any;
+  averageNews2: any;
+  averageDiscount2: any;
+  tasaFrescura: any;
+  tableAvgSKU: any;
+  tableDifference : any;
 
   //Tabla2
   selectedFilter2 = [];
@@ -108,6 +116,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   subCategoriaSelected2 = [];
   tipoPrendaSelected2 = [];
   colorSelected2 = [];
+
 
   constructor(
     private blackboxService: BlackboxService, 
@@ -126,6 +135,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.showDataModal();
 
     this.dtOptions = {
+      destroy: true,
       pagingType: 'full_numbers',
       pageLength: 5,
       language: {
@@ -153,7 +163,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       origin: this.originSelectedCards,
       categoria: this.categoriaSelectedCards,
       subCategoria: this.subCategoriaSelectedCards,
-      tipoPrenda: this.tipoPrendaSelected2,
+      tipoPrenda: this.tipoPrendaSelectedCards,
       color: this.colorSelectedCards
     };
 
@@ -168,6 +178,24 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     );
   }
 
+  // setteo de datos en las cards
+  setPrendasInfoCards(res) {
+    this.womenNew = res.obj.newWomen;
+    this.womendiscontinued = res.obj.discontinuedWomen;
+    this.womenPromotion = res.obj.promotionWomen;
+    this.womensku = res.obj.totalskuWomen;
+
+    this.menNew = res.obj.newMen;
+    this.mendiscontinued = res.obj.discontinuedMen;
+    this.menPromotion = res.obj.promotionMen;
+    this.mensku = res.obj.totalskuMen;
+
+    this.kidsNew = res.obj.newKids;
+    this.kidsdiscontinued = res.obj.discontinuedKids;
+    this.kidsPromotion = res.obj.promotionKids;
+    this.kidssku = res.obj.totalskuKids;
+  }
+
   // Peticion a la tabla 1
   getInfoTable() {
     let params = {
@@ -179,7 +207,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     };
 
     //Cambiar la ruta de get
-    this.blackboxService.getTableDiscountInfo(params).subscribe(
+    this.blackboxService.getTableSKUInfo(params).subscribe(
       (res) => {
 
         this.setInfoTable(res);
@@ -189,6 +217,17 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
         console.log(err);
       }
     );
+  }
+
+  // set info table
+  setInfoTable(res) {
+    this.photos = res.obj.arr;
+    this.tableAvgSKU = res.obj.SKU;
+    this.tableDifference = res.obj.differences;
+    this.averagePrice = res.obj.precioPromedio;
+    this.averageNews2 = res.obj.nuevosPromedio;
+    this.averageDiscount2 = res.obj.descuentoPromedio;
+    this.tasaFrescura = res.obj.tasaFrescura;
   }
 
   // Peticion a la tabla 2
@@ -206,6 +245,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       (res) => {
 
         this.setInfoTable2(res);
+        this.dtTrigger.next();
       },
       (err) => {
         console.log(err);
@@ -213,9 +253,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     );
   }
 
-  setInfoTable(res) {
-    this.photos = res.obj.arr;
-  }
 
   setInfoTable2(res) {
     this.photos = res.obj.arr;
@@ -445,10 +482,12 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     }
   }  
 
+  // metodos para aplicar los filtros
   applyFilterCards() {
-    this.modalRef.hide();
+    this.modalRefCards.hide();
 
     this.getInfoCards();
+    this.rerender();
   }
 
   applyFilter() {
@@ -479,7 +518,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.colorSelectedCards.splice(0, this.colorSelectedCards.length);
     this.selectedFilterCards.splice(0, this.selectedFilterCards.length);
 
-    this.modalRef = this.modalService.show(templateCards, this.config);
+    this.modalRefCards = this.modalServiceCards.show(templateCards, this.config);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -517,7 +556,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   }
 
   closeModalCards() {
-    this.modalRef.hide();
+    this.modalRefCards.hide();
 
     this.originSelectedCards.splice(0, this.originSelectedCards.length);
     this.categoriaSelectedCards.splice(0, this.categoriaSelectedCards.length);
@@ -567,20 +606,5 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     };
   }
 
-  setPrendasInfoCards(res) {
-    this.womenNew = res.obj.newWomen;
-    this.womendiscontinued = res.obj.discontinuedWomen;
-    this.womenPromotion = res.obj.promotionWomen;
-    this.womensku = res.obj.totalskuWomen;
-
-    this.menNew = res.obj.newMen;
-    this.mendiscontinued = res.obj.discontinuedMen;
-    this.menPromotion = res.obj.promotionMen;
-    this.mensku = res.obj.totalskuMen;
-
-    this.kidsNew = res.obj.newKids;
-    this.kidsdiscontinued = res.obj.discontinuedKids;
-    this.kidsPromotion = res.obj.promotionKids;
-    this.kidssku = res.obj.totalskuKids;
-  }
+  
 }

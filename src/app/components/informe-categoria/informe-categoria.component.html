@@ -6,6 +6,7 @@
     <div class="menu-container">
       <div class="list-group">
         <ul class="list-unstyled components mb-5">
+        
           <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="sel1">
               <img src="./assets/rect.png" alt="" class="imgsel material-icons" />Comparativos<img
@@ -73,7 +74,8 @@
         <h1 class="titulo-h1">Resumen Mes</h1>
         
         <input id="date1" type="date" class="mr-3" />
-    
+
+        <!-- filtro de las cards -->
         <svg xmlns="http://www.w3.org/2000/svg" (click)="openModalCards(templateCards)" width="17" heigth="17"
           xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
           viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
@@ -198,7 +200,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closeModalCards()">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="applyFilter()">Aplicar filtros</button>
+          <button type="button" class="btn btn-primary" (click)="applyFilterCards()">Aplicar filtros</button>
         </div>
       </ng-template>
       <div class="item-filters-top">
@@ -445,7 +447,6 @@
             <th>Precio promedio</th>
             <th>Nueva llegada</th>
             <th>Tasa de frescura</th>
-            <th>Cantidad descuento</th>
             <th>Descuento promedio</th>
           </tr>
         </thead>
@@ -454,12 +455,11 @@
             <td data-label="Categoría"> {{e.categoria}} </td>
             <td data-label="Subcategoría"> {{e.subCategoria}} </td>
             <td data-label="Tipo de prenda"> {{e.tipoPrenda}} </td>
-            <td data-label="SKU"> {{e.numeroTallas}} </td>
-            <td data-label="Precio promedio"> {{e.precio}} </td>
-            <td data-label="Nueva llegada"> {{e.x}} </td>
-            <td data-label="Tasa de frescura"> {{e.x}} </td>
-            <td data-label="Cantidad descuento"> {{e.x}} </td>
-            <td data-label="Descuento promedio"> {{e.descuento !== null ? e.descuento : 0}} </td>
+            <td data-label="SKU"> {{tableAvgSKU}} </td>
+            <td data-label="Precio promedio"> {{averagePrice}} </td>
+            <td data-label="Nueva llegada"> {{averageNews2}} </td>
+            <td data-label="Tasa de frescura"> {{tasaFrescura}} </td>
+            <td data-label="Descuento promedio"> {{averageDiscount2}} </td>
           </tr>
         </tbody>
       </table>
