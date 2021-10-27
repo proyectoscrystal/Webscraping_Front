@@ -28,6 +28,12 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { NewImageComponent } from './components/new-image/new-image.component';
 
+//Productos
+import { GeneralComponent } from './components/productos/general/general.component';
+import { CatMujerComponent } from './components/productos/cat-mujer/cat-mujer.component';
+import { CatHombreComponent } from './components/productos/cat-hombre/cat-hombre.component';
+import { CatKidsComponent } from './components/productos/cat-kids/cat-kids.component';
+
 // Guard
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -43,6 +49,7 @@ import { InformeCategoriaComponent } from './components/informe-categoria/inform
 
 // Angular DataTables
 import { DataTablesModule } from "angular-datatables";
+import { ProductosComponent } from './components/productos/productos.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +68,12 @@ import { DataTablesModule } from "angular-datatables";
     InformeNuevosComponent,
     InformeDescontinuadosComponent,
     InformeSKUComponent,
-    InformeCategoriaComponent
+    InformeCategoriaComponent,
+    GeneralComponent,
+    CatMujerComponent,
+    CatHombreComponent,
+    CatKidsComponent,
+    ProductosComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,73 @@
+.hoverSvgFilter:hover {
+  cursor: pointer;
+}
+
+.item-filters-top {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.content-filter-item {
+  height: 35px;
+  background-color: rgba(33, 33, 33, 0.8);
+  border-radius: calc(1px * 6);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 20px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-filter {
+  margin: 0;
+  font-weight: bold;
+  color: white;
+}
+
+.menu-color {
+  color: #212121;
+  font-weight: bold;
+}
+
+.container-scroll {
+  height: 250px;
+}
+
+.container-top {
+  width: 100%;
+  padding: 0 10px;
+}
+
+/* sistema grid para organizar la parte superior (resumen, lista, date) */
+.grid {
+  display: grid;
+  grid-template-columns: 60% 15% 25%;
+}
+
+.input-grid1 {
+  display: grid;
+  grid-template-columns: 80% 10%;
+  gap: 10%;
+  align-items: start;
+}
+
+#date1 {
+  border: none;
+  border-radius: 5%;
+  background-color: #f1f1f1;
+  padding: 0 0 0.5rem 0.4rem;
+}
+
+.titulo-h1 {
+  padding-left: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+  }
+}

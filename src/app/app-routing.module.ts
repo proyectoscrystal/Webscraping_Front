@@ -16,6 +16,13 @@ import { InformeSKUComponent } from './components/informes/informe-sku/informe-s
 import { InformeDescontinuadosComponent } from './components/informes/informe-descontinuados/informe-descontinuados.component';
 import { InformeCategoriaComponent } from './components/informe-categoria/informe-categoria.component';
 
+// Productos
+import { ProductosComponent } from './components/productos/productos.component';
+import { GeneralComponent } from './components/productos/general/general.component';
+import { CatMujerComponent } from './components/productos/cat-mujer/cat-mujer.component';
+import { CatHombreComponent } from './components/productos/cat-hombre/cat-hombre.component';
+import { CatKidsComponent } from './components/productos/cat-kids/cat-kids.component';
+
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -60,6 +67,33 @@ const routes: Routes = [
   {
     path: 'informeCategoria',
     component: InformeCategoriaComponent
+  },
+  {
+    path: 'productos',
+    component: ProductosComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'general'
+      },
+      {
+        path: 'general',
+        component: GeneralComponent
+      },
+      {
+        path: 'informeCatMujer',
+        component: CatMujerComponent
+      },
+      {
+        path: 'informeCatHombre',
+        component: CatHombreComponent
+      },
+      {
+        path: 'informeCatKids',
+        component: CatKidsComponent
+      } 
+    ]
   },
   {
     path: 'registerNewUserBlackbox',
