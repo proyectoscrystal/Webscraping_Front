@@ -71,6 +71,7 @@ export class InformesComponent implements OnInit {
   tipoPrendaData: any;
   colorData: any;
 
+  // filtros seleccionados
   selectedFilter = [];
   originSelected = [];
   categoriaSelected = [];
@@ -78,6 +79,8 @@ export class InformesComponent implements OnInit {
   tipoPrendaSelected = [];
   colorSelected = [];
 
+  inicio = "";
+  fin = "";
   origenSeleccionado: any;
   origenCheck: any;
 
@@ -119,13 +122,6 @@ export class InformesComponent implements OnInit {
 
   //Setear filtros obtenidos en cards
   getInfoCards() {
-    // let params = {
-    //   origin: this.origin,
-    //   categoria: this.categoria,
-    //   subCategoria: this.subCategoria,
-    //   tipoPrenda: this.tipoPrenda,
-    //   color: this.color
-    // };
 
     let params = {
       origin: this.originSelected,
@@ -133,11 +129,12 @@ export class InformesComponent implements OnInit {
       subCategoria: this.subCategoriaSelected,
       tipoPrenda: this.tipoPrendaSelected,
       color: this.colorSelected,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
     };
 
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
-        console.log(res);
         this.setInfoCards(res);
       },
       (err) => {
@@ -330,6 +327,16 @@ export class InformesComponent implements OnInit {
     this.newsDifference = info.obj.differenceNew;
   }
 
+  fechaInicio(){    
+    console.log(this.inicio);
+  }
+
+  fechaFin(){
+    // let date = new Date(this.fin);
+    console.log(this.fin);
+  }
+
+  // metodos para setear la clase de las diferencias
   difference1() {
     if (this.priceDifference[0] === 0) {
       return 'porcentaje2';
@@ -358,4 +365,7 @@ export class InformesComponent implements OnInit {
     }
     return 'porcentaje';
   }
+
+
+
 }
