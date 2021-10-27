@@ -209,13 +209,13 @@
 /* sistema grid para organizar la parte superior (resumen, lista, date) */
 .grid {
   display: grid;
-  grid-template-columns: 60% 15% 25%;
+  grid-template-columns: 40% 15% 45%;
 }
 
 .input-grid1 {
   display: grid;
-  grid-template-columns: 80% 10%;
-  gap: 10%;
+  grid-template-columns: 40% 40% 10%;
+  gap: 5%;
   align-items: start;
 }
 
