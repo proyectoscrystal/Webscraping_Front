@@ -116,6 +116,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   subCategoriaSelected2 = [];
   tipoPrendaSelected2 = [];
   colorSelected2 = [];
+  descuentoTable2: any;
 
 
   constructor(
@@ -253,9 +254,9 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     );
   }
 
-
   setInfoTable2(res) {
     this.photos = res.obj.arr;
+    this.descuentoTable2 = res.obj.descuentoPromedio;
   }
 
 //===============INICIO FILTROS MODAL===============
