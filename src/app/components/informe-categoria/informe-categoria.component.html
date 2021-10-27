@@ -434,7 +434,7 @@
       </div>
       <div class="item-filters-top">
         <div *ngFor="let filter of selectedFilter" class="content-filter-item">
-          <p class="item-filter">{{filterx.item}}</p>
+          <p class="item-filter">{{filter.item}}</p>
         </div>
       </div>
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped row-border hover">

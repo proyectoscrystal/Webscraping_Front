@@ -178,6 +178,8 @@ export class InformesComponent implements OnInit {
 
       localStorage.setItem("Origen", JSON.stringify(this.originSelected));
 
+      this.getInfoCards();
+
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
@@ -185,6 +187,8 @@ export class InformesComponent implements OnInit {
       console.log(this.originSelected);
 
       localStorage.removeItem("Origen");
+
+      this.getInfoCards();
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -192,11 +196,15 @@ export class InformesComponent implements OnInit {
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
       console.log(this.categoria);
+
+      this.getInfoCards();
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.categoriaSelected);
+
+      this.getInfoCards();
     }
 
     if (value.checked && value.clase === 'subCategoria') {
@@ -204,11 +212,15 @@ export class InformesComponent implements OnInit {
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
+
+      this.getInfoCards();
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
+
+      this.getInfoCards();
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
@@ -216,11 +228,15 @@ export class InformesComponent implements OnInit {
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
       console.log(this.tipoPrenda);
+
+      this.getInfoCards();
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.tipoPrendaSelected);
+
+      this.getInfoCards();
     }
 
     if (value.checked && value.clase === 'color') {
@@ -228,15 +244,23 @@ export class InformesComponent implements OnInit {
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       console.log(this.color);
+
+      this.getInfoCards();
     } else if (value.clase == 'color' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
+
+      this.getInfoCards();
     }
   }
 
   openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, this.config);
+  }
+
+  clearFilters () {
     this.origin = [];
     this.categoria = [];
     this.subCategoria = [];
@@ -250,18 +274,11 @@ export class InformesComponent implements OnInit {
     this.colorSelected.splice(0, this.colorSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
-    this.modalRef = this.modalService.show(template, this.config);
+    this.getInfoCards();
   }
 
   closeModal() {
     this.modalRef.hide();
-
-    this.originSelected.splice(0, this.originSelected.length);
-    this.categoriaSelected.splice(0, this.categoriaSelected.length);
-    this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
-    this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
-    this.colorSelected.splice(0, this.colorSelected.length);
-    this.selectedFilter.splice(0, this.selectedFilter.length);
   }
 
   
