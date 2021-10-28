@@ -47,13 +47,13 @@
 /* sistema grid para organizar la parte superior (resumen, select, date) */
 .grid {
   display: grid;
-  grid-template-columns: 70% 13% 0%;
+  grid-template-columns: 70% 30%;
 }
 
 .input-grid1 {
   display: grid;
-  grid-template-columns: 100% 100% 0%;
-  gap: 10%;
+  grid-template-columns: 45% 45% 10%;
+  gap: 3%;
   align-items: start;
 }
 
@@ -69,7 +69,7 @@
 @media screen and (max-width: 600px) {
   .grid {
     display: grid;
-    grid-template-columns: 40% 25% 0%;
+    grid-template-columns: 70% 30%;
   }
 }
 
