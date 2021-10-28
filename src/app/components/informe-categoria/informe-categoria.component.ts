@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { BlackboxService } from '../../services/blackbox.service';
 
@@ -20,13 +20,11 @@ interface valueFilter {
 @Component({
   selector: 'app-informe-categoria',
   templateUrl: './informe-categoria.component.html',
-  styleUrls: ['./informe-categoria.component.css']
+  styleUrls: ['./informe-categoria.component.css'],
 })
 export class InformeCategoriaComponent implements OnDestroy, OnInit {
-
   //Config modal filtros
   modalRef: BsModalRef;
-  modalRef2: BsModalRef;
   modalRefCards: BsModalRef;
   config = {
     backdrop: true,
@@ -37,7 +35,9 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
+  dtOptions2: DataTables.Settings = {};
   dtTrigger = new Subject();
+  dtTrigger2 = new Subject();
 
   photos: any;
 
@@ -71,13 +71,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   tipoPrenda: any = '';
   color: any = '';
 
-  //Tabla 2
-  origin2: any = '';
-  categoria2: any = '';
-  subCategoria2: any = '';
-  tipoPrenda2: any = '';
-  color2: any = '';
-
+  
 
   //Datos index.ts
   datos: any;
@@ -107,22 +101,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   averageDiscount2: any;
   tasaFrescura: any;
   tableAvgSKU: any;
-  tableDifference : any;
+  tableDifference: any;
 
-  //Tabla2
-  selectedFilter2 = [];
-  originSelected2 = [];
-  categoriaSelected2 = [];
-  subCategoriaSelected2 = [];
-  tipoPrendaSelected2 = [];
-  colorSelected2 = [];
-  descuentoTable2: any;
-
+  
 
   constructor(
-    private blackboxService: BlackboxService, 
+    private blackboxService: BlackboxService,
     private modalService: BsModalService,
-    private modalService2: BsModalService,
     private modalServiceCards: BsModalService
   ) {
     this.datos = new Datos();
@@ -132,21 +117,23 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.toggleSidebar();
     this.getInfoCards();
     this.getInfoTable();
-    this.getInfoTable2();
     this.showDataModal();
 
     this.dtOptions = {
-      destroy: true,
       pagingType: 'full_numbers',
-      pageLength: 5,
+      pageLength: 10,
       language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-      }
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
+      destroy: true,
     };
+
+    
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+    this.dtTrigger2.unsubscribe();
   }
 
   // Ocultar/Mostrar sidebar
@@ -154,7 +141,9 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     $('#menu-toggle-sidebar2').on('click', function (e) {
       e.preventDefault();
       $('#wrapper').toggleClass('toggled');
-      (<any>$('#wrapper.toggled').find("#sidebar-wrapper").find(".collapse")).collapse('hide');
+      (<any>(
+        $('#wrapper.toggled').find('#sidebar-wrapper').find('.collapse')
+      )).collapse('hide');
     });
   }
 
@@ -165,7 +154,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       categoria: this.categoriaSelectedCards,
       subCategoria: this.subCategoriaSelectedCards,
       tipoPrenda: this.tipoPrendaSelectedCards,
-      color: this.colorSelectedCards
+      color: this.colorSelectedCards,
     };
 
     this.blackboxService.getPrendasInfoCards(params).subscribe(
@@ -210,7 +199,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     //Cambiar la ruta de get
     this.blackboxService.getTableSKUInfo(params).subscribe(
       (res) => {
-
         this.setInfoTable(res);
         this.dtTrigger.next();
       },
@@ -231,35 +219,9 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.tasaFrescura = res.obj.tasaFrescura;
   }
 
-  // Peticion a la tabla 2
-  getInfoTable2() {
-    let params = {
-      origin: this.originSelected2,
-      categoria: this.categoriaSelected2,
-      subCategoria: this.subCategoriaSelected2,
-      tipoPrenda: this.tipoPrendaSelected2,
-      color: this.colorSelected2,
-    };
+  
 
-    //Cambiar la ruta de get
-    this.blackboxService.getTablePriceInfo(params).subscribe(
-      (res) => {
-
-        this.setInfoTable2(res);
-        this.dtTrigger.next();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
-  setInfoTable2(res) {
-    this.photos = res.obj.arr;
-    this.descuentoTable2 = res.obj.descuentoPromedio;
-  }
-
-//===============INICIO FILTROS MODAL===============
+  //===============INICIO FILTROS MODAL===============
 
   //Obtener datos desde index.ts para mostrar en el modal
   showDataModal() {
@@ -302,11 +264,16 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilterCards.push(value);
       this.originCards = this.originSelectedCards;
       console.log(this.originCards);
-
     } else if (value.clase == 'marcaCards' && !value.checked) {
       this.originCards = [];
-      this.originSelectedCards.splice(this.originSelectedCards.indexOf(item), 1);
-      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      this.originSelectedCards.splice(
+        this.originSelectedCards.indexOf(item),
+        1
+      );
+      this.selectedFilterCards.splice(
+        this.selectedFilterCards.indexOf(value),
+        1
+      );
       console.log(this.originSelectedCards);
     }
 
@@ -317,8 +284,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       console.log(this.categoriaCards);
     } else if (value.clase == 'categoriaCards' && !value.checked) {
       this.categoriaCards = [];
-      this.categoriaSelectedCards.splice(this.categoriaSelectedCards.indexOf(item), 1);
-      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      this.categoriaSelectedCards.splice(
+        this.categoriaSelectedCards.indexOf(item),
+        1
+      );
+      this.selectedFilterCards.splice(
+        this.selectedFilterCards.indexOf(value),
+        1
+      );
       console.log(this.categoriaSelectedCards);
     }
 
@@ -328,9 +301,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.subCategoriaCards = this.subCategoriaSelectedCards;
       console.log(this.subCategoriaCards);
     } else if (value.clase == 'subCategoriaCards' && !value.checked) {
-      this.subCategoriaCards = []
-      this.subCategoriaSelectedCards.splice(this.subCategoriaSelectedCards.indexOf(item), 1);
-      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      this.subCategoriaCards = [];
+      this.subCategoriaSelectedCards.splice(
+        this.subCategoriaSelectedCards.indexOf(item),
+        1
+      );
+      this.selectedFilterCards.splice(
+        this.selectedFilterCards.indexOf(value),
+        1
+      );
       console.log(this.subCategoriaSelectedCards);
     }
 
@@ -341,8 +320,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       console.log(this.tipoPrendaCards);
     } else if (value.clase == 'tipoPrendaCards' && !value.checked) {
       this.tipoPrendaCards = [];
-      this.tipoPrendaSelectedCards.splice(this.tipoPrendaSelectedCards.indexOf(item), 1);
-      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      this.tipoPrendaSelectedCards.splice(
+        this.tipoPrendaSelectedCards.indexOf(item),
+        1
+      );
+      this.selectedFilterCards.splice(
+        this.selectedFilterCards.indexOf(value),
+        1
+      );
       console.log(this.tipoPrendaSelectedCards);
     }
 
@@ -354,7 +339,10 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     } else if (value.clase == 'colorCards' && !value.checked) {
       this.colorCards = [];
       this.colorSelectedCards.splice(this.colorSelectedCards.indexOf(item), 1);
-      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      this.selectedFilterCards.splice(
+        this.selectedFilterCards.indexOf(value),
+        1
+      );
       console.log(this.colorSelectedCards);
     }
 
@@ -364,7 +352,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
       console.log(this.origin);
-
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
@@ -390,8 +377,11 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
     } else if (value.clase == 'subCategoria' && !value.checked) {
-      this.subCategoria = []
-      this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
+      this.subCategoria = [];
+      this.subCategoriaSelected.splice(
+        this.subCategoriaSelected.indexOf(item),
+        1
+      );
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
     }
@@ -419,76 +409,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
     }
-
-    //Filtro tabla 2
-    if (value.checked && value.clase === 'marca2') {
-      this.originSelected2.push(item);
-      this.selectedFilter2.push(value);
-      this.origin2 = this.originSelected2;
-      console.log(this.origin2);
-
-    } else if (value.clase == 'marca2' && !value.checked) {
-      this.origin2 = [];
-      this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
-      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
-      console.log(this.originSelected2);
-    }
-
-    if (value.checked && value.clase === 'categoria2') {
-      this.categoriaSelected2.push(item);
-      this.selectedFilter2.push(value);
-      this.categoria2 = this.categoriaSelected2;
-      console.log(this.categoria);
-    } else if (value.clase == 'categoria2' && !value.checked) {
-      this.categoria2 = [];
-      this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
-      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
-      console.log(this.categoriaSelected2);
-    }
-
-    if (value.checked && value.clase === 'subCategoria2') {
-      this.subCategoriaSelected2.push(item);
-      this.selectedFilter2.push(value);
-      this.subCategoria2 = this.subCategoriaSelected2;
-      console.log(this.subCategoria);
-    } else if (value.clase == 'subCategoria2' && !value.checked) {
-      this.subCategoria2 = []
-      this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
-      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
-      console.log(this.subCategoriaSelected2);
-    }
-
-    if (value.checked && value.clase === 'tipoPrenda2') {
-      this.tipoPrendaSelected2.push(item);
-      this.selectedFilter2.push(value);
-      this.tipoPrenda2 = this.tipoPrendaSelected2;
-      console.log(this.tipoPrenda2);
-    } else if (value.clase == 'tipoPrenda2' && !value.checked) {
-      this.tipoPrenda2 = [];
-      this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
-      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
-      console.log(this.tipoPrendaSelected2);
-    }
-
-    if (value.checked && value.clase === 'color2') {
-      this.colorSelected2.push(item);
-      this.selectedFilter2.push(value);
-      this.color2 = this.colorSelected2;
-      console.log(this.color2);
-    } else if (value.clase == 'color2' && !value.checked) {
-      this.color2 = [];
-      this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
-      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
-      console.log(this.colorSelected2);
-    }
-  }  
+    
+  }
 
   // metodos para aplicar los filtros
   applyFilterCards() {
     this.modalRefCards.hide();
 
     this.getInfoCards();
-    this.rerender();
   }
 
   applyFilter() {
@@ -498,12 +426,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.rerender();
   }
 
-  applyFilter2() {
-    this.modalRef2.hide();
-
-    this.getInfoTable2();
-    this.rerender();
-  }
 
   openModalCards(templateCards: TemplateRef<any>) {
     this.originCards = [];
@@ -514,12 +436,18 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
 
     this.originSelectedCards.splice(0, this.originSelectedCards.length);
     this.categoriaSelectedCards.splice(0, this.categoriaSelectedCards.length);
-    this.subCategoriaSelectedCards.splice(0, this.subCategoriaSelectedCards.length);
+    this.subCategoriaSelectedCards.splice(
+      0,
+      this.subCategoriaSelectedCards.length
+    );
     this.tipoPrendaSelectedCards.splice(0, this.tipoPrendaSelectedCards.length);
     this.colorSelectedCards.splice(0, this.colorSelectedCards.length);
     this.selectedFilterCards.splice(0, this.selectedFilterCards.length);
 
-    this.modalRefCards = this.modalServiceCards.show(templateCards, this.config);
+    this.modalRefCards = this.modalServiceCards.show(
+      templateCards,
+      this.config
+    );
   }
 
   openModal(template: TemplateRef<any>) {
@@ -539,29 +467,17 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.modalRef = this.modalService.show(template, this.config);
   }
 
-  openModal2(template2: TemplateRef<any>) {
-    this.origin2 = [];
-    this.categoria2 = [];
-    this.subCategoria2 = [];
-    this.tipoPrenda2 = [];
-    this.color2 = [];
-
-    this.originSelected2.splice(0, this.originSelected2.length);
-    this.categoriaSelected2.splice(0, this.categoriaSelected2.length);
-    this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
-    this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
-    this.colorSelected2.splice(0, this.colorSelected2.length);
-    this.selectedFilter2.splice(0, this.selectedFilter2.length);
-
-    this.modalRef2 = this.modalService2.show(template2, this.config);
-  }
+  
 
   closeModalCards() {
     this.modalRefCards.hide();
 
     this.originSelectedCards.splice(0, this.originSelectedCards.length);
     this.categoriaSelectedCards.splice(0, this.categoriaSelectedCards.length);
-    this.subCategoriaSelectedCards.splice(0, this.subCategoriaSelectedCards.length);
+    this.subCategoriaSelectedCards.splice(
+      0,
+      this.subCategoriaSelectedCards.length
+    );
     this.tipoPrendaSelectedCards.splice(0, this.tipoPrendaSelectedCards.length);
     this.colorSelectedCards.splice(0, this.colorSelectedCards.length);
     this.selectedFilterCards.splice(0, this.selectedFilterCards.length);
@@ -578,16 +494,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.selectedFilter.splice(0, this.selectedFilter.length);
   }
 
-  closeModal2() {
-    this.modalRef2.hide();
-
-    this.originSelected2.splice(0, this.originSelected2.length);
-    this.categoriaSelected2.splice(0, this.categoriaSelected2.length);
-    this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
-    this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
-    this.colorSelected2.splice(0, this.colorSelected2.length);
-    this.selectedFilter2.splice(0, this.selectedFilter2.length);
-  }  
 
   rerender(): void {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -596,16 +502,27 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.dtOptionsReload();
   }
 
+  
+
   dtOptionsReload() {
     this.dtOptions = {
       destroy: true,
       pagingType: 'full_numbers',
-      pageLength: 5,
+      pageLength: 10,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
       },
     };
   }
 
-  
+  dtOptionsReload2() {
+    this.dtOptions2 = {
+      destroy: true,
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
+    };
+  }
 }

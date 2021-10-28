@@ -50,6 +50,7 @@ import { InformeCategoriaComponent } from './components/informe-categoria/inform
 // Angular DataTables
 import { DataTablesModule } from "angular-datatables";
 import { ProductosComponent } from './components/productos/productos.component';
+import { Table2Component } from './components/informe-categoria/table2/table2.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ProductosComponent } from './components/productos/productos.component';
     CatMujerComponent,
     CatHombreComponent,
     CatKidsComponent,
-    ProductosComponent
+    ProductosComponent,
+    Table2Component
   ],
   imports: [
     BrowserModule,

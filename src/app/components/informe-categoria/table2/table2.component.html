@@ -1,0 +1,167 @@
+<!-- tabla productos -->
+      <div class="filterTable">
+        <h2>Tipo de prenda</h2>
+        <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal2(template2)" width="17" heigth="17"
+          xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
+          viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
+          aria-label="Illustration of a Funnel" class="filterSvgTable hoverSvgFilter">
+          <g id="__id33_ssutzzo1g">
+            <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
+              style="fill: inherit"></path>
+          </g>
+        </svg>
+        <br>
+        <ng-template #template2>
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">Filtro: </h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal2()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="list-unstyled components">
+
+              <li class="active">
+                <a href="#filterMArk" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Marca
+                </a>
+                <ul class="collapse list-unstyled" id="filterMArk">
+
+                  <li *ngFor="let origin of originData">
+                    <label class="control control--checkbox">
+                      <input class="marca2" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                        (change)="validateCheckFilter2($event.target.checked, origin, $event.target.className, $event.target)"
+                        id="{{origin.value}}" />
+                      {{origin.text}}
+                    </label>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterCategory" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Categoria
+                </a>
+                <ul class="collapse list-unstyled" id="filterCategory">
+                  <li *ngFor="let category of categoryData">
+                    <label class="control control--checkbox">
+                      <input class="categoria2" type="checkbox" value="{{category.value}}" name="{{category.value}}"
+                        (change)="validateCheckFilter2($event.target.checked, category, $event.target.className, $event.target)"
+                        id="{{category.value}}" />
+                      {{category.text}}
+                    </label>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterSubCategory" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Sub categoría
+                </a>
+                <ul class="collapse list-unstyled" id="filterSubCategory">
+                  <li *ngFor="let subcategory of subCategoryData">
+                    <label class="control control--checkbox">
+
+                      <input class="subCategoria2" type="checkbox" value="{{subcategory.value}}"
+                        name="{{subcategory.value}}"
+                        (change)="validateCheckFilter2($event.target.checked, subcategory, $event.target.className, $event.target)"
+                        id="{{subcategory.value}}" />
+                      {{subcategory.text}}
+                    </label>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterTipoPrenda" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Tipo de prenda
+                </a>
+                <ul class="collapse list-unstyled" id="filterTipoPrenda">
+                  <div class="overflow-auto container-scroll">
+                    <li *ngFor="let tipoprenda of tipoPrendaData">
+                      <label class="control control--checkbox">
+                        <input class="tipoPrenda2" type="checkbox" value="{{tipoprenda.value}}"
+                          name="{{tipoprenda.value}}"
+                          (change)="validateCheckFilter2($event.target.checked, tipoprenda, $event.target.className, $event.target)"
+                          id="{{tipoprenda.value}}" />
+                        {{tipoprenda.text}}
+                      </label>
+                    </li>
+                  </div>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterColor" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Color
+                </a>
+                <ul class="collapse list-unstyled" id="filterColor">
+                  <div class="overflow-auto container-scroll">
+                    <li *ngFor="let color of colorData">
+                      <label class="control control--checkbox">
+                        <input class="color2" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                          (change)="validateCheckFilter2($event.target.checked, color, $event.target.className, $event.target)"
+                          id="{{color.value}}" />
+                        {{color.text}}
+                      </label>
+                    </li>
+                  </div>
+                </ul>
+              </li>
+
+              <li class="active mt-2">
+                <a href="#filterMaterials" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Composición
+                </a>
+                <ul class="collapse list-unstyled" id="filterMaterials">
+                  <div class="overflow-auto container-scroll">
+                    <li *ngFor="let e of materials">
+                      <label class="control control--checkbox">
+                        <input type="checkbox" class="ml-2" /></label>
+                      {{e.materiales}}
+                    </li>
+                  </div>
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal2()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="applyFilter2()">Aplicar filtros</button>
+          </div>
+        </ng-template>
+      </div>
+      <div class="item-filters-top">
+        <div *ngFor="let filter2 of selectedFilter2" class="content-filter-item">
+          <p class="item-filter">{{filter2.item}}</p>
+        </div>
+      </div>
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger2" class="table table-striped row-border hover">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Tipo de prenda</th>
+            <th>Retail</th>
+            <th>Color</th>
+            <th>Talla</th>
+            <th>Tallas agotadas</th>
+            <th>Precio</th>
+            <th>Descuento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of photos">
+            <td data-label="Producto">
+              <img [src]="i.base64" class="prenda1" alt="imagen">
+            </td>
+            <td data-label="Tipo de prenda"> {{i.tipoPrenda}} </td>
+            <td data-label="Retail"> {{i.origin}} </td>
+            <td data-label="Color"> {{i.color}} </td>
+            <td data-label="Talla"> {{i.talla}} </td>
+            <td data-label="Talla"> {{i.tallasAgotadas}} </td>
+            <td data-label="Precio"> {{i.precio}} </td>
+            <td data-label="Descuento"> {{descuentoTable2}} </td>
+          </tr>
+        </tbody>
+      </table>
