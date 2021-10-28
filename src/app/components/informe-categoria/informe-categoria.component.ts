@@ -243,17 +243,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.filterItemsData(data);
   }
 
-  //Función para validar checked del filtro
-  validateCheckFilter2(checked, item, className) {
-    let data = {
-      checked,
-      clase: className,
-      item: item.value || '',
-    };
-
-    this.filterItemsData(data);
-  }
-
   //Recibe los datos seleccionados en el filtro
   filterItemsData(value) {
     const { item } = value;
