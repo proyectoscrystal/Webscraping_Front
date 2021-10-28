@@ -36,20 +36,6 @@
   border-bottom-right-radius: 10px;
 }
 
-.iconox {
-  font-size: 16px !important;
-}
-
-.menu-color {
-  color: #212121;
-  font-weight: bold;
-}
-
-.selectTop {
-  margin-top: -20px;
-  margin-right: 20px;
-}
-
 .material-icons{
   font-size: 30px;
 }
@@ -63,7 +49,7 @@
 }
 
 .sel2 {
-  font-size: 14px;
+  font-size: 16px;
   padding: 5px 0;
   display: block;
   color: rgba(0, 0, 0, 0.987);
@@ -89,10 +75,6 @@
 
 .itemlist {
   margin-left: 30px;
-}
-
-.container-scroll {
-  height: 250px;
 }
 
 #page-content-wrapper {
