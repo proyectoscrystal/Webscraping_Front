@@ -146,8 +146,6 @@
   height: auto;
   text-align: center;
   margin: 0 auto;
-  height: 250px;
-  padding-top: 125px;
   border-radius: 8px;
 }
 
@@ -283,3 +281,12 @@ tr:hover td {
   }
 }
 /* Fin Tablas */
+
+.chart-line {
+  width: 100%;
+}
+
+canvas {
+  width: 80%;
+  height: 100%;
+}

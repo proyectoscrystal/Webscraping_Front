@@ -1,4 +1,15 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+
+import {
+  Chart,
+  ChartConfiguration,
+  registerables,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+} from 'chart.js';
 
 import { BlackboxService } from '../../../services/blackbox.service';
 
@@ -48,10 +59,12 @@ export class CatHombreComponent implements OnInit {
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
     this.datos = new Datos();
+    Chart.register(...registerables);
   }
 
   ngOnInit(): void {
     this.showDataModal();
+    this.ng();
   }
 
   getPhotoList() {
@@ -202,4 +215,36 @@ export class CatHombreComponent implements OnInit {
   }
 
   //===============FIN FILTROS MODAL===============
+
+  @ViewChild('mychart') mychart: any;
+
+  ng = function ngAfterViewInit() {
+    // console.log(this.averagePriceZara9);
+    if (this.myChart) {
+      this.myChart.clear();
+      this.myChart.destroy();
+    }
+
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title
+    );
+    this.myChart = new Chart('myChart', {
+      type: 'bar',
+          data: {
+            labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
+            datasets: [{ 
+                data: [86,40],
+                label: "Colores",
+                borderColor: ["#1E90FF", "rgb(62,249,105)"],
+                backgroundColor: ["rgb(62,149,105,1)", "rgb(62,249,105)"],
+                borderWidth:1
+              }
+            ]
+          },
+    }); // fin chart 1
+  };
 }
