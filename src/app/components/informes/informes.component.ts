@@ -277,7 +277,6 @@ export class InformesComponent implements OnInit {
   closeModal() {
     this.modalRef.hide();
   }
-
   
   setCheck() {
     this.origenCheck = localStorage.getItem("Origen");
@@ -297,12 +296,6 @@ export class InformesComponent implements OnInit {
   localStorageAlert() {
     this.origenSeleccionado = localStorage.getItem("Origen");
     alert(this.origenSeleccionado);
-  }
-
-  applyFilter() {
-    this.modalRef.hide();
-
-    this.getInfoCards();
   }
 
   //===============FIN FILTROS MODAL===============

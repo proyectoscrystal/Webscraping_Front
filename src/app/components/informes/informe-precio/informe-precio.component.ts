@@ -192,8 +192,8 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     this.tipoPrendaData = this.datos.tipoprendas;
     this.colorData = this.datos.colores;
   }
-
-  //Función para validar checked del filtro
+ 
+  //Función para validar checked del filtro chart
   validateCheckFilter(checked, item, className) {
     let data = {
       checked,
@@ -204,7 +204,7 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     this.filterItemsData(data);
   }
 
-  //Función para validar checked del filtro
+  //Función para validar checked del filtro tabla
   validateCheckFilter2(checked, item, className) {
     let data = {
       checked,
@@ -212,10 +212,10 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       item: item.value || '',
     };
 
-    this.filterItemsData(data);
+    this.filterItemsData2(data);
   }
 
-  //Recibe los datos seleccionados en el filtro
+  //Recibe los datos seleccionados en el filtro chart
   filterItemsData(value) {
     const { item } = value;
 
@@ -225,12 +225,13 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
       console.log(this.origin);
-
+      this.getInfoPrice();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
+      this.getInfoPrice();
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -238,11 +239,13 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
       console.log(this.categoria);
+      this.getInfoPrice();
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.categoriaSelected);
+      this.getInfoPrice();
     }
 
     if (value.checked && value.clase === 'subCategoria') {
@@ -250,11 +253,13 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
+      this.getInfoPrice();
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
+      this.getInfoPrice();
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
@@ -262,11 +267,13 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
       console.log(this.tipoPrenda);
+      this.getInfoPrice();
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.tipoPrendaSelected);
+      this.getInfoPrice();
     }
 
     if (value.checked && value.clase === 'color') {
@@ -274,12 +281,19 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       console.log(this.color);
+      this.getInfoPrice();
     } else if (value.clase == 'color' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
+      this.getInfoPrice();
     }
+  }
+
+  //Recibe los datos seleccionados en el filtro tabla
+  filterItemsData2(value) {
+    const { item } = value;
 
     //Filtro tabla
     if (value.checked && value.clase === 'marca2') {
@@ -287,12 +301,15 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.origin2 = this.originSelected2;
       console.log(this.origin2);
-
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'marca2' && !value.checked) {
       this.origin2 = [];
       this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.originSelected2);
+      this.getInfoTable();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'categoria2') {
@@ -300,11 +317,15 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
+      this.getInfoTable();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -312,11 +333,15 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
+      this.getInfoTable();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -324,11 +349,15 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
+      this.getInfoTable();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'color2') {
@@ -336,28 +365,24 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.color2 = this.colorSelected2;
       console.log(this.color2);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'color2' && !value.checked) {
       this.color2 = [];
       this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.colorSelected2);
+      this.getInfoTable();
+      this.rerender();
     }
   }
 
-  applyFilter() {
-    this.modalRef.hide();
-
-    this.getInfoPrice();
-  }
-
-  applyFilter2() {
-    this.modalRef2.hide();
-
-    this.getInfoTable();
-    this.rerender();
-  }
-
+  // Modal Charts
   openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, this.config);
+  }
+
+  clearFilters() {
     this.origin = [];
     this.categoria = [];
     this.subCategoria = [];
@@ -371,10 +396,19 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     this.colorSelected.splice(0, this.colorSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
-    this.modalRef = this.modalService.show(template, this.config);
+    this.getInfoPrice();
   }
 
+  closeModal () {
+    this.modalRef.hide();
+  }
+
+  // Modal Tabla
   openModal2(template2: TemplateRef<any>) {
+    this.modalRef2 = this.modalService2.show(template2, this.config);
+  }
+
+  clearFilters2() {
     this.origin2 = [];
     this.categoria2 = [];
     this.subCategoria2 = [];
@@ -388,29 +422,12 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     this.colorSelected2.splice(0, this.colorSelected2.length);
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
-    this.modalRef2 = this.modalService2.show(template2, this.config);
+    this.getInfoTable();
+    this.rerender();
   }
 
-  closeModal() {
-    this.modalRef.hide();
-
-    this.originSelected.splice(0, this.originSelected.length);
-    this.categoriaSelected.splice(0, this.categoriaSelected.length);
-    this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
-    this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
-    this.colorSelected.splice(0, this.colorSelected.length);
-    this.selectedFilter.splice(0, this.selectedFilter.length);
-  }
-
-  closeModal2() {
+  closeModal2 () {
     this.modalRef2.hide();
-
-    this.originSelected2.splice(0, this.originSelected2.length);
-    this.categoriaSelected2.splice(0, this.categoriaSelected2.length);
-    this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
-    this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
-    this.colorSelected2.splice(0, this.colorSelected2.length);
-    this.selectedFilter2.splice(0, this.selectedFilter2.length);
   }
 
   // funcion para poner estilo a la tabla
