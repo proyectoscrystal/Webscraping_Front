@@ -67,6 +67,9 @@ export class CatHombreComponent implements OnInit {
     this.ng();
   }
 
+
+
+
   getPhotoList() {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
@@ -216,7 +219,7 @@ export class CatHombreComponent implements OnInit {
 
   //===============FIN FILTROS MODAL===============
 
-  @ViewChild('mychart') mychart: any;
+  @ViewChild('mychartHombre') mychart: any;
 
   ng = function ngAfterViewInit() {
     // console.log(this.averagePriceZara9);
@@ -232,15 +235,15 @@ export class CatHombreComponent implements OnInit {
       LinearScale,
       Title
     );
-    this.myChart = new Chart('myChart', {
+    this.myChart = new Chart('myChartHombre', {
       type: 'bar',
           data: {
             labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
             datasets: [{ 
-                data: [86,40],
+                data: [86,40,49,30,20,56],
                 label: "Colores",
-                borderColor: ["#1E90FF", "rgb(62,249,105)"],
-                backgroundColor: ["rgb(62,149,105,1)", "rgb(62,249,105)"],
+                borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+                backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
                 borderWidth:1
               }
             ]
