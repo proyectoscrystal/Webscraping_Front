@@ -57,12 +57,10 @@ export class Table2Component implements OnInit, OnDestroy {
   colorData: any;
 
 
-  constructor(private blackboxService: BlackboxService,
-              private modalService2: BsModalService
-              
-    ) { 
-      this.datos = new Datos();
-    }
+  constructor(private blackboxService: BlackboxService, private modalService2: BsModalService
+  ) {
+    this.datos = new Datos();
+  }
 
   ngOnInit(): void {
     this.getInfoTable2();
@@ -93,7 +91,6 @@ export class Table2Component implements OnInit, OnDestroy {
       color: this.colorSelected2,
     };
 
-    //Cambiar la ruta de get
     this.blackboxService.getTablePriceInfo(params).subscribe(
       (res) => {
         this.setInfoTable2(res);

@@ -389,5 +389,18 @@ export class Datos {
     { value: 'multicolor', text: 'Multicolor' }
   ];
 
+    //Datos para los filtros de productos
+    private skus: any[] = [
+      { value: 'sku', text: 'Sku' },
+    ];
+
+    private discounts: any[] = [
+      { value: 'discount', text: 'Descuento' },
+    ];
+
+    private news: any[] = [
+      { value: 'new', text: 'Nuevos' },
+    ];
+
   constructor() {}
 }
