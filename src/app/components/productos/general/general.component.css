@@ -85,7 +85,7 @@
 .grid-container-item1 {
   background-color: #dfdfdf;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 45% 55%;
 }
 
 .grid-container-item2 {
@@ -158,7 +158,7 @@
 
 .item2-2-img {
   display: inline-block;
-  margin: 15px 20px 5px 20px;
+  margin: 15px 10px 5px 20px;
 }
 
 .colorx {
