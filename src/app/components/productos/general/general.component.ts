@@ -30,18 +30,14 @@ export class GeneralComponent implements OnInit {
 
   //Modal categorias
   origin: any = '';
-  categoria: any = '';
-  subCategoria: any = '';
-  tipoPrenda: any = '';
-  color: any = '';
-
-  //Filtros seleccionados
+  sku: any = '';
+  discount: any = '';
+  new: any = '';
   selectedFilter = [];
   originSelected = [];
-  categoriaSelected = [];
-  subCategoriaSelected = [];
-  tipoPrendaSelected = [];
-  colorSelected = [];
+  skuSelected = [];
+  dicountSelected = [];
+  newSelected = [];
 
   //Datos index.ts
   datos: any;
@@ -50,7 +46,7 @@ export class GeneralComponent implements OnInit {
   discountsData: any;
   newsData: any;
 
-  constructor( private blackboxService: BlackboxService, private modalService: BsModalService ) {
+  constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
     this.datos = new Datos();
   }
 
@@ -133,50 +129,50 @@ export class GeneralComponent implements OnInit {
       //this.getInfoCards();
     }
 
-    if (value.checked && value.clase === 'categoria') {
-      this.categoriaSelected.push(item);
+    if (value.checked && value.clase === 'sku') {
+      this.skuSelected.push(item);
       this.selectedFilter.push(value);
-      this.categoria = this.categoriaSelected;
-      console.log(this.categoria);
+      this.sku = this.skuSelected;
+      console.log(this.sku);
 
       //this.getInfoCards();
-    } else if (value.clase == 'categoria' && !value.checked) {
-      this.categoria = [];
-      this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
+    } else if (value.clase == 'sku' && !value.checked) {
+      this.sku = [];
+      this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      console.log(this.categoriaSelected);
+      console.log(this.skuSelected);
 
       //this.getInfoCards();
     }
 
-    if (value.checked && value.clase === 'subCategoria') {
-      this.subCategoriaSelected.push(item);
+    if (value.checked && value.clase === 'discount') {
+      this.dicountSelected.push(item);
       this.selectedFilter.push(value);
-      this.subCategoria = this.subCategoriaSelected;
-      console.log(this.subCategoria);
+      this.discount = this.dicountSelected;
+      console.log(this.discount);
 
       //this.getInfoCards();
-    } else if (value.clase == 'subCategoria' && !value.checked) {
-      this.subCategoria = []
-      this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
+    } else if (value.clase == 'discount' && !value.checked) {
+      this.discount = []
+      this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      console.log(this.subCategoriaSelected);
+      console.log(this.dicountSelected);
 
       //this.getInfoCards();
     }
 
-    if (value.checked && value.clase === 'tipoPrenda') {
-      this.tipoPrendaSelected.push(item);
+    if (value.checked && value.clase === 'new') {
+      this.newSelected.push(item);
       this.selectedFilter.push(value);
-      this.tipoPrenda = this.tipoPrendaSelected;
-      console.log(this.tipoPrenda);
+      this.new = this.newSelected;
+      console.log(this.new);
 
       //this.getInfoCards();
-    } else if (value.clase == 'tipoPrenda' && !value.checked) {
-      this.tipoPrenda = [];
-      this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
+    } else if (value.clase == 'new' && !value.checked) {
+      this.new = [];
+      this.newSelected.splice(this.newSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      console.log(this.tipoPrendaSelected);
+      console.log(this.newSelected);
 
       //this.getInfoCards();
     }
@@ -186,19 +182,17 @@ export class GeneralComponent implements OnInit {
     this.modalRef = this.modalService.show(template, this.config);
   }
 
-  clearFilters () {
+  clearFilters() {
     this.origin = [];
-    this.categoria = [];
-    this.subCategoria = [];
-    this.tipoPrenda = [];
-    this.color = [];
+    this.sku = [];
+    this.discount = [];
+    this.new = [];
 
-    this.originSelected.splice(0, this.originSelected.length);
-    this.categoriaSelected.splice(0, this.categoriaSelected.length);
-    this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
-    this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
-    this.colorSelected.splice(0, this.colorSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
+    this.originSelected.splice(0, this.originSelected.length);
+    this.skuSelected.splice(0, this.skuSelected.length);
+    this.dicountSelected.splice(0, this.dicountSelected.length);
+    this.newSelected.splice(0, this.newSelected.length);
 
     //this.getInfoCards();
   }

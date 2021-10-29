@@ -37,7 +37,7 @@
                                         <input class="marca" type="checkbox" value="{{origin.value}}"
                                             name="{{origin.value}}"
                                             (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
-                                            id="marca" />
+                                            id="{{origin.value}}" />
                                         {{origin.text}}
                                     </label>
                                 </li>
@@ -49,7 +49,7 @@
                             <ul class="list-unstyled">
                                 <li *ngFor="let sku of skuData">
                                     <label class="control control--checkbox">
-                                        <input class="categoria" type="checkbox" value="{{sku.value}}"
+                                        <input class="sku" type="checkbox" value="{{sku.value}}"
                                             name="{{sku.value}}"
                                             (change)="validateCheckFilter($event.target.checked, sku, $event.target.className, $event.target)"
                                             id="{{sku.value}}" />
@@ -64,8 +64,7 @@
                             <ul class="list-unstyled">
                                 <li *ngFor="let discounts of discountsData">
                                     <label class="control control--checkbox">
-
-                                        <input class="subCategoria" type="checkbox" value="{{discounts.value}}"
+                                        <input class="discount" type="checkbox" value="{{discounts.value}}"
                                             name="{{discounts.value}}"
                                             (change)="validateCheckFilter($event.target.checked, discounts, $event.target.className, $event.target)"
                                             id="{{discounts.value}}" />
@@ -80,7 +79,7 @@
                             <ul class="list-unstyled">
                                 <li *ngFor="let news of newsData">
                                     <label class="control control--checkbox">
-                                        <input class="news" type="checkbox" value="{{news.value}}" name="{{news.value}}"
+                                        <input class="new" type="checkbox" value="{{news.value}}" name="{{news.value}}"
                                             (change)="validateCheckFilter($event.target.checked, news, $event.target.className, $event.target)"
                                             id="{{news.value}}" />
                                         {{news.text}}
@@ -96,6 +95,12 @@
                 </div>
             </ng-template>
         </div>
+    </div>
+</div>
+
+<div class="item-filters-top">
+    <div *ngFor="let filter of selectedFilter" class="content-filter-item">
+        <p class="item-filter">{{filter.item}}</p>
     </div>
 </div>
 
