@@ -1,4 +1,14 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Chart,
+  ChartConfiguration,
+  registerables,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+} from 'chart.js';
 
 import { BlackboxService } from '../../../services/blackbox.service';
 
@@ -48,10 +58,12 @@ export class GeneralComponent implements OnInit {
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService) {
     this.datos = new Datos();
+    Chart.register(...registerables);
   }
 
   ngOnInit(): void {
     this.showDataModal();
+    this.ng();
   }
 
   getPhotoList() {
@@ -202,4 +214,38 @@ export class GeneralComponent implements OnInit {
   }
 
   //===============FIN FILTROS MODAL===============
+
+  @ViewChild('mychartGeneral') mychart: any;
+
+  ng = function ngAfterViewInit() {
+    // console.log(this.averagePriceZara9);
+    if (this.myChart) {
+      this.myChart.clear();
+      this.myChart.destroy();
+    }
+
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title
+    );
+    this.myChart = new Chart('myChartGeneral', {
+      type: 'bar',
+          data: {
+            labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
+            datasets: [{ 
+                data: [92,76,129,100,89,47],
+                label: "Colores",
+                borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+                backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+                borderWidth:1
+              }
+            ]
+          },
+    }); // fin chart 1
+  };
+
+
 }
