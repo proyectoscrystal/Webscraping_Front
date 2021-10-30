@@ -30,6 +30,7 @@ export class BlackboxService {
     return this.http.get(this.url + '/getImage/' + data);
   }
 
+  // peticion para cards vista informes generales
   getInfoCards(params: any) {
     return this.http.get(this.url + '/m_infoCards/' ,{ params } );
   }
@@ -70,6 +71,10 @@ export class BlackboxService {
 
   getInfoSKU(params: any) {
     return this.http.get(this.url + '/m_averageSKU/' ,{ params } );
+  }
+
+  getInfoCategoryColors(params: any) {
+    return this.http.get(this.url + '/m_infoCategoryColors/' ,{ params } );
   }
 
   uploadPhoto(data: any) {

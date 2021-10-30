@@ -43,6 +43,9 @@ export class GeneralComponent implements OnInit {
   sku: any = '';
   discount: any = '';
   new: any = '';
+  inicio: any = '';
+  fin: any = '';
+
   selectedFilter = [];
   originSelected = [];
   skuSelected = [];
@@ -62,13 +65,24 @@ export class GeneralComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getInfoCategory();
     this.showDataModal();
     this.ng();
     this.ng2();
   }
 
-  getPhotoList() {
-    this.blackboxService.getPhotos().subscribe(
+  getInfoCategory() {
+    let params = {
+      origin: this.originSelected,
+      sku: this.sku,
+      discount: this.discount,
+      new: this.new,
+      inicio: this.inicio,
+      fin: this.fin,
+
+    };
+
+    this.blackboxService.getInfoCategoryColors(params).subscribe(
       (res) => {
         this.photos = res;
         return (this.photos = res);

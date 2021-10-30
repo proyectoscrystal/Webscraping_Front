@@ -6,8 +6,8 @@
         </div>
 
         <div class="input-grid1">
-            <input type="date">
-            <input type="date">
+            <input type="date" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()">
+            <input type="date" [(ngModel)]="fin" (ngModelChange)="fechaFin()">
 
             <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
                 xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
