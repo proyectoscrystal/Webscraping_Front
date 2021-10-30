@@ -64,6 +64,7 @@ export class GeneralComponent implements OnInit {
   ngOnInit(): void {
     this.showDataModal();
     this.ng();
+    this.ng2();
   }
 
   getPhotoList() {
@@ -233,6 +234,36 @@ export class GeneralComponent implements OnInit {
     );
     this.myChart = new Chart('myChartGeneral', {
       type: 'bar',
+          data: {
+            labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
+            datasets: [{ 
+                data: [92,76,129,100,89,47],
+                label: "Colores",
+                borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+                backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+                borderWidth:1
+              }
+            ]
+          },
+    }); // fin chart 1
+  };
+
+  ng2 = function ngAfterViewInit() {
+    // console.log(this.averagePriceZara9);
+    if (this.myChart2) {
+      this.myChart.clear();
+      this.myChart.destroy();
+    }
+
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title
+    );
+    this.myChart2 = new Chart('myChartPie', {
+      type: 'pie',
           data: {
             labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
             datasets: [{ 
