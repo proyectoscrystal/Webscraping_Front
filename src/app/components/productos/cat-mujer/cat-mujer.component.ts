@@ -171,17 +171,6 @@ export class CatMujerComponent implements OnInit {
     this.filterItemsData(data);
   }
 
-  //Función para validar checked del filtro tabla
-  validateCheckFilter2(checked, item, className) {
-    let data = {
-      checked,
-      clase: className,
-      item: item.value || '',
-    };
-
-    this.filterItemsData(data);
-  }
-
   //Recibe los datos seleccionados en el filtro categorias
   filterItemsData(value) {
     const { item } = value;
