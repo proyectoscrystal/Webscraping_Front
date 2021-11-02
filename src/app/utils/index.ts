@@ -123,15 +123,15 @@ export class Datos {
       label: 'MUJERES',
       options: [
         { value: 'mjovenes', text: 'JÓVENES' },
-        { value: 'mjunior', text: 'JUNIOR'},
-        { value: 'mniños', text: 'NIÑAS'},
-        { value: 'muniversitarios', text: 'UNIVERSITARIAS'},
+        { value: 'mjunior', text: 'JUNIOR' },
+        { value: 'mniños', text: 'NIÑAS' },
+        { value: 'muniversitarios', text: 'UNIVERSITARIAS' },
       ],
     },
     {
       label: 'UNISEX',
       options: [
-        { value: 'unisex', text: 'UNISEX'}
+        { value: 'unisex', text: 'UNISEX' }
       ]
     }
   ];
@@ -389,18 +389,90 @@ export class Datos {
     { value: 'multicolor', text: 'Multicolor' }
   ];
 
-    //Datos para los filtros de productos
-    private skus: any[] = [
-      { value: 'sku', text: 'Sku' },
-    ];
+  private composicion: any[] = [
+    { value: 'lana', text: 'Lana' },
+    { value: 'poliéster', text: 'Poliéster' },
+    { value: 'acrílico', text: 'Acrílico' },
+    { value: 'viscosa', text: 'Viscosa' },
+    { value: 'algodón', text: 'Algodón' },
+    { value: 'poliamida', text: 'Poliamida' },
+    { value: 'poliuretano', text: 'Poliuretano' },
+    { value: 'piel ovino', text: 'Piel ovino' },
+    { value: 'elastano', text: 'Elastano' },
+    { value: 'lino', text: 'Lino' },
+    { value: 'cachemira', text: 'Cachemira' },
+    { value: 'lyocell', text: 'Lyocell' },
+    { value: 'algodón orgánico', text: 'Algodón orgánico' },
+    { value: 'algodón reciclado', text: 'Algodón reciclado' },
+    { value: 'modal', text: 'Modal' },
+    { value: 'alpaca', text: 'Alpaca' },
+    { value: 'polyester coat', text: 'Polyester coat' },
+    { value: 'tereftalato de polietileno', text: 'Tereftalato de polietileno' },
+    { value: 'seda de mora', text: 'Seda de mora' },
+    { value: 'acetato', text: 'Acetato' },
+    { value: 'zinc', text: 'Zinc' },
+    { value: 'piel bovino', text: 'Piel bovino' },
+    { value: 'cobre', text: 'Cobre' },
+    { value: 'latón', text: 'Latón' },
+    { value: 'cristal', text: 'Cristal' },
+    { value: 'nailon', text: 'Nailon' },
+    { value: 'piel', text: 'Piel' },
+    { value: 'SECUNDARIO', text: 'Secundario' },
+    { value: 'PRINCIPAL', text: 'Principal' },
+    { value: 'BASE', text: 'Base' },
+    { value: 'seda', text: 'Seda' },
+    { value: 'liocel', text: 'Liocel' },
+    { value: 'triacetato', text: 'Triacetato' },
+    { value: 'fibra', text: 'Fibra' },
+    { value: 'cañamo', text: 'Cañamo' },
+    { value: 'SUPERIOR', text: 'Superior' },
+    { value: 'Pelo', text: 'Pelo' },
+    { value: 'camello', text: 'Camello' },
+    { value: 'elastano', text: 'Elastano' },
+    { value: 'ramio', text: 'Ramio' },
+    { value: 'cupro', text: 'Cupro' },
+    { value: 'elastomultiester', text: 'Elastomultiester' },
+    { value: 'aluminio', text: 'Aluminio' },
+    { value: 'caucho', text: 'Caucho' },
+    { value: 'nylon', text: 'Nylon' },
+    { value: 'rafia', text: 'Rafia' },
+    { value: 'zamac', text: 'Zamac' },
+    { value: 'papel', text: 'Papel' },
+    { value: 'vidrio', text: 'Vidrio' },
+    { value: 'acero', text: 'Acero' },
+    { value: 'piedra', text: 'Piedra' },
+    { value: 'hierro', text: 'Hierro' },
+    { value: 'plástico', text: 'Plástico' },
+    { value: 'plástico-acrílico', text: 'Plástico acrílico' },
+    { value: 'perla', text: 'Perla' },
+    { value: 'elastodieno', text: 'Elastodieno' },
+    { value: 'TRASERA', text: 'Trasera' },
+    { value: 'vidrio-cristal', text: 'Vidrio cristal' },
+    { value: 'resina', text: 'Resina' },
+    { value: 'CIRCONITA', text: 'Circonita' },
+    { value: 'titanio', text: 'Titanio' },
+    { value: 'arcilla', text: 'Arcilla' },
+    { value: 'agata', text: 'Agata' },
+    { value: 'pasta', text: 'Pasta' },
+    { value: 'silicona', text: 'Silicona' },
+    { value: 'madera', text: 'Madera' },
+    { value: 'cerámica', text: 'Cerámica' },
+    { value: 'INTERNA', text: 'Interna' },
+    { value: 'otras', text: 'Otras' }    
+  ];
 
-    private discounts: any[] = [
-      { value: 'discount', text: 'Descuento' },
-    ];
+  //Datos para los filtros de productos
+  private skus: any[] = [
+    { value: 'sku', text: 'Sku' },
+  ];
 
-    private news: any[] = [
-      { value: 'new', text: 'Nuevos' },
-    ];
+  private discounts: any[] = [
+    { value: 'discount', text: 'Descuento' },
+  ];
 
-  constructor() {}
+  private news: any[] = [
+    { value: 'new', text: 'Nuevos' },
+  ];
+
+  constructor() { }
 }

@@ -5,11 +5,6 @@ import { Chart, ChartConfiguration, registerables, LineController, LineElement, 
 import { BlackboxService } from '../../services/blackbox.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
-import { InformePrecioComponent } from './informe-precio/informe-precio.component';
-import { InformeDescuentoComponent } from './informe-descuento/informe-descuento.component';
-import { InformeNuevosComponent } from './informe-nuevos/informe-nuevos.component';
-import { InformeSKUComponent } from './informe-sku/informe-sku.component';
-
 import { Datos } from '../../utils/index';
 
 interface valueFilter {
@@ -24,9 +19,6 @@ interface valueFilter {
   styleUrls: ['./informes.component.css']
 })
 export class InformesComponent implements OnInit {
-  // @ViewChild(InformeDescuentoComponent) informeDescuento: InformeDescuentoComponent;
-  // @ViewChild(InformeNuevosComponent) informeNuevo: InformeNuevosComponent;
-  // @ViewChild(InformeSKUComponent) informeSKU: InformeSKUComponent;
 
   //Config modal filtros
   modalRef: BsModalRef;
@@ -43,7 +35,6 @@ export class InformesComponent implements OnInit {
   subcategorys: any;
   imagesnames: any;
   colors: any;
-  materials: any;
 
   // variables de los cards
   totalsku: any = '';
@@ -61,6 +52,7 @@ export class InformesComponent implements OnInit {
   subCategoria: any = '';
   tipoPrenda: any = '';
   color: any = '';
+  composicion: any = "";
   precioPromedio: any;
 
   //Datos index.ts
@@ -70,6 +62,7 @@ export class InformesComponent implements OnInit {
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+  composicionData: any;
 
   // filtros seleccionados
   selectedFilter = [];
@@ -78,6 +71,7 @@ export class InformesComponent implements OnInit {
   subCategoriaSelected = [];
   tipoPrendaSelected = [];
   colorSelected = [];
+  composicionSelected = [];
 
   inicio = '';
   fin = '';
@@ -129,6 +123,7 @@ export class InformesComponent implements OnInit {
       subCategoria: this.subCategoriaSelected,
       tipoPrenda: this.tipoPrendaSelected,
       color: this.colorSelected,
+      composicion: this.composicionSelected,
       fechaInicio: this.inicio,
       fechaFin: this.fin
     };
@@ -150,6 +145,7 @@ export class InformesComponent implements OnInit {
     this.subCategoryData = this.datos.subcategorias;
     this.tipoPrendaData = this.datos.tipoprendas;
     this.colorData = this.datos.colores;
+    this.composicionData = this.datos.composicion;
   }
 
   //Función para validar checked del filtro
@@ -251,6 +247,22 @@ export class InformesComponent implements OnInit {
 
       this.getInfoCards();
     }
+
+    if (value.checked && value.clase === 'composicion') {
+      this.composicionSelected.push(item);
+      this.selectedFilter.push(value);
+      this.color = this.composicionSelected;
+      console.log(this.color);
+
+      this.getInfoCards();
+    } else if (value.clase == 'composicion' && !value.checked) {
+      this.color = [];
+      this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.composicionSelected);
+
+      this.getInfoCards();
+    }    
   }
 
   openModal(template: TemplateRef<any>) {
@@ -265,12 +277,14 @@ export class InformesComponent implements OnInit {
     this.subCategoria = [];
     this.tipoPrenda = [];
     this.color = [];
+    this.composicion = [];
 
     this.originSelected.splice(0, this.originSelected.length);
     this.categoriaSelected.splice(0, this.categoriaSelected.length);
     this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
     this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
     this.colorSelected.splice(0, this.colorSelected.length);
+    this.composicionSelected.splice(0, this.composicionSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
     this.getInfoCards();
