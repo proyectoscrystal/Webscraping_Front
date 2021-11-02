@@ -1,8 +1,21 @@
-#date1 {
-  border: none;
-  border-radius: 5%;
-  background-color: #f1f1f1;
-  padding: 0 0 0.5rem 0.4rem;
+/* sistema grid para organizar la parte superior (resumen, select, date) */
+.grid {
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+
+.input-grid1 {
+  display: grid;
+  grid-template-columns: 45% 45% 10%;
+  gap: 3%;
+  align-items: start;
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 35% 65%;
+  }
 }
 
 /* Tablas */
