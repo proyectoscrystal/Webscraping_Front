@@ -87,7 +87,6 @@ export class InformesComponent implements OnInit {
   ngOnInit(): void {
     this.getInfoCards();
     this.showDataModal();
-    this.getPhotoList();
     this.toggleSidebar();
   }
 
@@ -100,17 +99,6 @@ export class InformesComponent implements OnInit {
     });
   }
 
-  getPhotoList() {
-    this.blackboxService.getPhotos().subscribe(
-      (res) => {
-        this.photos = res;
-        return (this.photos = res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
 
   //===============INICIO FILTROS MODAL===============
 
