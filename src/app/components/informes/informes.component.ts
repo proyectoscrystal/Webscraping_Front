@@ -251,12 +251,12 @@ export class InformesComponent implements OnInit {
     if (value.checked && value.clase === 'composicion') {
       this.composicionSelected.push(item);
       this.selectedFilter.push(value);
-      this.color = this.composicionSelected;
-      console.log(this.color);
+      this.composicion = this.composicionSelected;
+      console.log(this.composicion);
 
       this.getInfoCards();
     } else if (value.clase == 'composicion' && !value.checked) {
-      this.color = [];
+      this.composicion = [];
       this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.composicionSelected);

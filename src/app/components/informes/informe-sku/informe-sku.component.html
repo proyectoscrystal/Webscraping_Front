@@ -111,15 +111,18 @@
             </li>
 
             <li class="active mt-2">
-              <a href="#filterMaterials" data-toggle="collapse" aria-expanded="false"
+              <a href="#filterComposicion" data-toggle="collapse" aria-expanded="false"
                 class="dropdown-toggle menu-color">Composición
               </a>
-              <ul class="collapse list-unstyled" id="filterMaterials">
+              <ul class="collapse list-unstyled" id="filterComposicion">
                 <div class="overflow-auto container-scroll">
-                  <li *ngFor="let e of materials">
+                  <li *ngFor="let composicion of composicionData">
                     <label class="control control--checkbox">
-                      <input type="checkbox" class="ml-2" /></label>
-                    {{e.materiales}}
+                      <input class="composicion" type="checkbox" value="{{composicion.value}}" name="{{composicion.value}}"
+                        (change)="validateCheckFilter($event.target.checked, composicion, $event.target.className, $event.target)"
+                        id="{{composicion.value}}" />
+                      {{composicion.text}}
+                    </label>
                   </li>
                 </div>
               </ul>
@@ -256,15 +259,18 @@
           </li>
 
           <li class="active mt-2">
-            <a href="#filterMaterials" data-toggle="collapse" aria-expanded="false"
+            <a href="#filterComposicion" data-toggle="collapse" aria-expanded="false"
               class="dropdown-toggle menu-color">Composición
             </a>
-            <ul class="collapse list-unstyled" id="filterMaterials">
+            <ul class="collapse list-unstyled" id="filterComposicion">
               <div class="overflow-auto container-scroll">
-                <li *ngFor="let e of materials">
+                <li *ngFor="let composicion of composicionData">
                   <label class="control control--checkbox">
-                    <input type="checkbox" class="ml-2" /></label>
-                  {{e.materiales}}
+                    <input class="composicion2" type="checkbox" value="{{composicion.value}}" name="{{composicion.value}}"
+                      (change)="validateCheckFilter2($event.target.checked, composicion, $event.target.className, $event.target)"
+                      id="{{composicion.value}}" />
+                    {{composicion.text}}
+                  </label>
                 </li>
               </div>
             </ul>
