@@ -49,10 +49,10 @@ export class InformesComponent implements OnInit {
   totalsku: any = '';
   totalDiscount: number;
   currency1: any = '';
-  priceDifference: any[];
-  discountDifference: any[];
-  newsDifference: any[];
-  skuDifference: any[];
+  priceDifference: any[] = [0,0];
+  discountDifference: any[] = [0,0];
+  newsDifference: any[] = [0,0];
+  skuDifference: any[] = [0,0];
 
   infoCards: any;
   params: any;
@@ -79,8 +79,8 @@ export class InformesComponent implements OnInit {
   tipoPrendaSelected = [];
   colorSelected = [];
 
-  inicio = "";
-  fin = "";
+  inicio = '';
+  fin = '';
   origenSeleccionado: any;
   origenCheck: any;
 
@@ -258,6 +258,8 @@ export class InformesComponent implements OnInit {
   }
 
   clearFilters () {
+    this.inicio = '';
+    this.fin = '';
     this.origin = [];
     this.categoria = [];
     this.subCategoria = [];
@@ -322,11 +324,13 @@ export class InformesComponent implements OnInit {
 
   fechaInicio(){    
     console.log(this.inicio);
+    this.getInfoCards();
   }
 
   fechaFin(){
     // let date = new Date(this.fin);
     console.log(this.fin);
+    this.getInfoCards();
   }
 
   // metodos para setear la clase de las diferencias

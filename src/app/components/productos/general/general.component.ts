@@ -363,6 +363,16 @@ export class GeneralComponent implements OnInit {
   }
 
   //===============FIN FILTROS MODAL===============  
+  fechaInicio(){    
+    console.log(this.inicio);
+  }
+
+  fechaFin(){
+    // let date = new Date(this.fin);
+    console.log(this.fin);
+  }
+
+  //===============FIN FILTROS MODAL===============
 
   @ViewChild('mychartGeneral') mychart: any;
 
