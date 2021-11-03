@@ -321,13 +321,19 @@ export class GeneralComponent implements OnInit {
 
   // Modal Categorias 
   openModal(template: TemplateRef<any>) {
+    this.origin = [];
+    this.sku = '';
+    this.discount = '';
+    this.new = '';
+    this.inicio = '';
+    this.fin = '';
     this.modalRef = this.modalService.show(template, this.config);
   }
   clearFilters() {
     this.origin = [];
-    this.sku = [];
-    this.discount = [];
-    this.new = [];
+    this.sku = '';
+    this.discount = '';
+    this.new = '';
     this.inicio = '';
     this.fin = '';
 
