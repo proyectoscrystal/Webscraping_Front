@@ -505,28 +505,4 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       },
     };
   }
-<<<<<<< HEAD
-=======
-
-  dtOptionsReload2() {
-    this.dtOptions2 = {
-      destroy: true,
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-    };
-  }
-
-  fechaInicio(){    
-    console.log(this.inicio);
-  }
-
-  fechaFin(){
-    // let date = new Date(this.fin);
-    console.log(this.fin);
-  }
-
->>>>>>> 588ad1e (se organizan las fechas en prendas y vista general colores)
 }
