@@ -495,6 +495,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.dtOptionsReload();
   }
 
+  fechaInicio(){    
+    console.log(this.inicio);
+  }
+
+  fechaFin(){
+    // let date = new Date(this.fin);
+    console.log(this.fin);
+  }
+
   dtOptionsReload() {
     this.dtOptions = {
       destroy: true,
