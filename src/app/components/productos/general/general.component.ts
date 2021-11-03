@@ -113,7 +113,7 @@ export class GeneralComponent implements OnInit {
     this.blackboxService.getInfoCategoryColors(params).subscribe(
       (res) => {
         this.photos = res;
-        return (this.photos = res);
+        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -156,6 +156,7 @@ export class GeneralComponent implements OnInit {
       console.log(this.origin);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
@@ -163,6 +164,7 @@ export class GeneralComponent implements OnInit {
       console.log(this.originSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'sku') {
@@ -172,6 +174,7 @@ export class GeneralComponent implements OnInit {
       console.log(this.sku);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'sku' && !value.checked) {
       this.sku = [];
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
@@ -179,6 +182,7 @@ export class GeneralComponent implements OnInit {
       console.log(this.skuSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'discount') {
@@ -188,6 +192,7 @@ export class GeneralComponent implements OnInit {
       console.log(this.discount);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'discount' && !value.checked) {
       this.discount = []
       this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
@@ -195,6 +200,7 @@ export class GeneralComponent implements OnInit {
       console.log(this.dicountSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'new') {
@@ -204,6 +210,7 @@ export class GeneralComponent implements OnInit {
       console.log(this.new);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'new' && !value.checked) {
       this.new = [];
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
@@ -211,6 +218,7 @@ export class GeneralComponent implements OnInit {
       console.log(this.newSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     // Validación check chart colores
@@ -309,6 +317,8 @@ export class GeneralComponent implements OnInit {
     this.sku = [];
     this.discount = [];
     this.new = [];
+    this.inicio = '';
+    this.fin = '';
 
     this.selectedFilter.splice(0, this.selectedFilter.length);
     this.originSelected.splice(0, this.originSelected.length);
@@ -317,6 +327,7 @@ export class GeneralComponent implements OnInit {
     this.newSelected.splice(0, this.newSelected.length);
 
     // Metodo a ejecutar > this.getInfoCards();
+    this.getInfoCategory();
   }
   closeModal() {
     this.modalRef.hide();
