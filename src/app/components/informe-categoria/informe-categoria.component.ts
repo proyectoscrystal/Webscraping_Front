@@ -105,6 +105,9 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   tasaFrescura: any;
   tableAvgSKU: any;
   tableDifference: any;
+  inicio: any;
+  fin: any;
+
   
   constructor(
     private blackboxService: BlackboxService, private modalServiceCards: BsModalService, private modalService: BsModalService
@@ -151,13 +154,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelectedCards,
       tipoPrenda: this.tipoPrendaSelectedCards,
       color: this.colorSelectedCards,
-      composicion: this.composicionSelectedCards
+      // fechaInicio: this.inicio,
+      // fechaFin: this.fin
+      
     };
 
     this.blackboxService.getPrendasInfoCards(params).subscribe(
       (res) => {
         this.setPrendasInfoCards(res);
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         console.log(err);

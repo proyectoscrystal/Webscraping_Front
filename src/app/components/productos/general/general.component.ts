@@ -105,8 +105,8 @@ export class GeneralComponent implements OnInit {
       sku: this.sku,
       discount: this.discount,
       new: this.new,
-      inicio: this.inicio,
-      fin: this.fin,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
 
     };
 
