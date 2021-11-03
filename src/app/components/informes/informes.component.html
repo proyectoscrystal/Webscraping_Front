@@ -248,47 +248,47 @@
       <div class="card-container">
         <div class="column">
           <div class="card" routerLink="informePrecios" routerLinkActive="activo">
-            <img src="../../../assets/money.png" class="Capa_1" alt="money" />
+            <img src="../../../assets/money.png" class="IconCards" alt="money" />
             <!--todo hacer dinamico el precio y el porcentaje -->
-            <p class="card-p">Precio promedio</p>
-            <p>$ {{currency1}}</p>
-            <p [ngClass]="difference1()"> {{priceDifference[0] === 0 ? '-' : '+'}} {{priceDifference[1]}}%</p>
+            <p class="cardsTitles">Precio promedio</p>
+            <p class="cardsNumbers">$ {{currency1}}</p>
+            <p class="cardsDifferences" [ngClass]="difference1()"> {{priceDifference[0] === 0 ? '-' : '+'}} {{priceDifference[1]}}%</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
           <div class="card" routerLink="informeDescuentos" routerLinkActive="activo">
-            <img src="../../../assets/discount.png" class="Capa_1" alt="discount" />
-            <p class="card-p">Descuento promedio</p>
-            <p> {{totalDiscount}}% </p>
-            <p [ngClass]="difference2()"> {{discountDifference[0] === 0 ? '-' : '+'}} {{discountDifference[1]}}%</p>
+            <img src="../../../assets/discount.png" class="IconCards" alt="discount" />
+            <p class="cardsTitles">Descuento promedio</p>
+            <p class="cardsNumbers"> {{totalDiscount}}% </p>
+            <p class="cardsDifferences" [ngClass]="difference2()"> {{discountDifference[0] === 0 ? '-' : '+'}} {{discountDifference[1]}}%</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
           <div class="card" routerLink="informeNuevos" routerLinkActive="activo">
-            <img src="../../../assets/new.png" class="Capa_1" alt="new" />
-            <p class="">Recien llegados</p>
-            <p> {{totalNew}} </p>
-            <p [ngClass]="difference3()"> {{newsDifference[0] === 0 ? '-' : '+'}} {{newsDifference[1]}}</p>
+            <img src="../../../assets/new.png" class="IconCards" alt="new" />
+            <p class="cardsTitles">Recien llegados</p>
+            <p class="cardsNumbers"> {{totalNew}} </p>
+            <p class="cardsDifferences" [ngClass]="difference3()"> {{newsDifference[0] === 0 ? '-' : '+'}} {{newsDifference[1]}}</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
           <div class="card" routerLink="informeDescontinuados" routerLinkActive="activo">
-            <img src="../../../assets/remove.png" class="Capa_1" alt="remove" />
-            <p class="">Descontinuados</p>
-            <p>{{totalDescontinuados}}</p>
-            <p>10,55%</p>
+            <img src="../../../assets/remove.png" class="IconCards" alt="remove" />
+            <p class="cardsTitles">Descontinuados</p>
+            <p class="cardsNumbers">{{totalDescontinuados}}</p>
+            <p class="cardsDifferences">10,55%</p>
             <p>Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
           <div class="card" routerLink="informeSKU" routerLinkActive="activo">
-            <img src="../../../assets/sku.png" class="Capa_1" alt="sku" />
-            <p class="">Total SKU</p>
-            <p>{{totalsku}}</p>
-            <p [ngClass]="difference5()">{{skuDifference[0] === 0 ? '-' : '+'}} {{skuDifference[1]}}</p>
+            <img src="../../../assets/sku.png" class="IconCards" alt="sku" />
+            <p class="cardsTitles">Resumen de SKU</p>
+            <p class="cardsNumbers">{{totalsku}}</p>
+            <p class="cardsDifferences" [ngClass]="difference5()">{{skuDifference[0] === 0 ? '-' : '+'}} {{skuDifference[1]}}</p>
             <p>Que el mes pasado</p>
           </div>
         </div>

@@ -199,12 +199,26 @@
   padding: 0 10px;
 }
 
-.Capa_1 {
-  margin-left: 40%;
-  width: 40px;
+.IconCards {
+  margin: 0 auto;
+  width: 50px;
   margin-bottom: 1rem;
 }
 
+.cardsNumbers {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cardsTitles {
+  font-weight: bold;
+}
+
+
+.cardsDifferences {
+  font-size: 17px;
+  font-weight: bold;
+}
 
 /* sistema grid para organizar la parte superior (resumen, lista, date) */
 .grid {
@@ -285,20 +299,6 @@ ul.nav:hover {
     display: grid;
     grid-template-columns: 40% 30% 30%;
   }
-}
-
-
-.card-p {
-  text-align: center;
-}
-
-.column .card p {
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.card-precio {
-  font-size: 1rem;
 }
 
 .card-container {
