@@ -95,6 +95,7 @@ export class GeneralComponent implements OnInit {
   ngOnInit(): void {
     this.getInfoCategory();
     this.showDataModal();
+    this.onlyOne();
     this.ng();
     this.ng2();
   }
@@ -177,7 +178,7 @@ export class GeneralComponent implements OnInit {
       this.getInfoCategory();
     }
 
-    if (value.checked && value.clase === 'sku') {
+    if (value.checked && value.clase === 'sku check') {
       this.skuSelected.push(item);
       this.selectedFilter.push(value);
       this.sku = this.skuSelected;
@@ -185,7 +186,7 @@ export class GeneralComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
-    } else if (value.clase == 'sku' && !value.checked) {
+    } else if (value.clase == 'sku check' && !value.checked) {
       this.sku = [];
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
@@ -195,7 +196,7 @@ export class GeneralComponent implements OnInit {
       this.getInfoCategory();
     }
 
-    if (value.checked && value.clase === 'discount') {
+    if (value.checked && value.clase === 'discount check') {
       this.dicountSelected.push(item);
       this.selectedFilter.push(value);
       this.discount = this.dicountSelected;
@@ -203,7 +204,7 @@ export class GeneralComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
-    } else if (value.clase == 'discount' && !value.checked) {
+    } else if (value.clase == 'discount check' && !value.checked) {
       this.discount = []
       this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
@@ -213,7 +214,7 @@ export class GeneralComponent implements OnInit {
       this.getInfoCategory();
     }
 
-    if (value.checked && value.clase === 'new') {
+    if (value.checked && value.clase === 'new check') {
       this.newSelected.push(item);
       this.selectedFilter.push(value);
       this.new = this.newSelected;
@@ -221,7 +222,7 @@ export class GeneralComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
-    } else if (value.clase == 'new' && !value.checked) {
+    } else if (value.clase == 'new check' && !value.checked) {
       this.new = [];
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
@@ -461,7 +462,13 @@ export class GeneralComponent implements OnInit {
     }); // fin chart 1
   };
 
-
+  onlyOne() {
+    $(document).on("change", ".check", function() {
+      var $allCheckboxes = $(".check");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+  }
 }
 
 

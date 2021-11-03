@@ -77,6 +77,7 @@ export class CatMujerComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDataModal();
+    this.onlyOne();
     this.ng();
   }
 
@@ -192,14 +193,14 @@ export class CatMujerComponent implements OnInit {
       // Metodo a ejecutar >
     }
 
-    if (value.checked && value.clase === 'sku') {
+    if (value.checked && value.clase === 'sku check') {
       this.skuSelected.push(item);
       this.selectedFilter.push(value);
       this.sku = this.skuSelected;
       console.log(this.sku);
 
       // Metodo a ejecutar >
-    } else if (value.clase == 'sku' && !value.checked) {
+    } else if (value.clase == 'sku check' && !value.checked) {
       this.sku = [];
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
@@ -208,14 +209,14 @@ export class CatMujerComponent implements OnInit {
       // Metodo a ejecutar >
     }
 
-    if (value.checked && value.clase === 'discount') {
+    if (value.checked && value.clase === 'discount check') {
       this.dicountSelected.push(item);
       this.selectedFilter.push(value);
       this.discount = this.dicountSelected;
       console.log(this.discount);
 
       // Metodo a ejecutar >
-    } else if (value.clase == 'discount' && !value.checked) {
+    } else if (value.clase == 'discount check' && !value.checked) {
       this.discount = []
       this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
@@ -224,14 +225,14 @@ export class CatMujerComponent implements OnInit {
       // Metodo a ejecutar >
     }
 
-    if (value.checked && value.clase === 'new') {
+    if (value.checked && value.clase === 'new check') {
       this.newSelected.push(item);
       this.selectedFilter.push(value);
       this.new = this.newSelected;
       console.log(this.new);
 
       // Metodo a ejecutar >
-    } else if (value.clase == 'new' && !value.checked) {
+    } else if (value.clase == 'new check' && !value.checked) {
       this.new = [];
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
@@ -360,5 +361,12 @@ export class CatMujerComponent implements OnInit {
     }); // fin chart 1
   };
 
+  onlyOne() {
+    $(document).on("change", ".check", function() {
+      var $allCheckboxes = $(".check");
+      $allCheckboxes.prop("disabled", false);
+      this.checked && $allCheckboxes.not(this).prop("disabled", true);
+    });
+  }
 
 }

@@ -49,7 +49,7 @@
                             <ul class="list-unstyled">
                                 <li *ngFor="let sku of skuData">
                                     <label class="control control--checkbox">
-                                        <input class="sku" type="checkbox" value="{{sku.value}}"
+                                        <input class="sku check" type="checkbox" value="{{sku.value}}"
                                             name="{{sku.value}}"
                                             (change)="validateCheckFilter($event.target.checked, sku, $event.target.className, $event.target)"
                                             id="{{sku.value}}" />
@@ -64,7 +64,7 @@
                             <ul class="list-unstyled">
                                 <li *ngFor="let discounts of discountsData">
                                     <label class="control control--checkbox">
-                                        <input class="discount" type="checkbox" value="{{discounts.value}}"
+                                        <input class="discount check" type="checkbox" value="{{discounts.value}}"
                                             name="{{discounts.value}}"
                                             (change)="validateCheckFilter($event.target.checked, discounts, $event.target.className, $event.target)"
                                             id="{{discounts.value}}" />
@@ -79,7 +79,7 @@
                             <ul class="list-unstyled">
                                 <li *ngFor="let news of newsData">
                                     <label class="control control--checkbox">
-                                        <input class="new" type="checkbox" value="{{news.value}}" name="{{news.value}}"
+                                        <input class="new check" type="checkbox" value="{{news.value}}" name="{{news.value}}"
                                             (change)="validateCheckFilter($event.target.checked, news, $event.target.className, $event.target)"
                                             id="{{news.value}}" />
                                         {{news.text}}
