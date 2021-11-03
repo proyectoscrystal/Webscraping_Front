@@ -453,7 +453,7 @@ export class GeneralComponent implements OnInit {
       Title
     );
     this.myChart2 = new Chart('myChartPie', {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: this.categorias,
         datasets: [{
