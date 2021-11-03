@@ -79,6 +79,9 @@ export class GeneralComponent implements OnInit {
   subCategoryData: any;
   tipoPrendaData: any;
 
+  // responses categoryes
+  categorias = [];
+
   skuData: any;
   discountsData: any;
   newsData: any;
@@ -112,7 +115,9 @@ export class GeneralComponent implements OnInit {
 
     this.blackboxService.getInfoCategoryColors(params).subscribe(
       (res) => {
-        this.photos = res;
+        this.setInfoCategories(res);
+        this.ng2();
+        this.ng();
         console.log(res);
       },
       (err) => {
@@ -120,6 +125,11 @@ export class GeneralComponent implements OnInit {
       }
     );
   }
+
+  setInfoCategories(data) {
+    this.categorias = data.obj.categorias;
+  }
+
 
   //Obtener datos desde index.ts para mostrar en el modal
   showDataModal() {
@@ -376,17 +386,20 @@ export class GeneralComponent implements OnInit {
   //===============FIN FILTROS MODAL===============  
   fechaInicio(){    
     console.log(this.inicio);
+    this.getInfoCategory();
   }
 
   fechaFin(){
     // let date = new Date(this.fin);
     console.log(this.fin);
+    this.getInfoCategory();
   }
 
   //===============FIN FILTROS MODAL===============
 
   @ViewChild('mychartGeneral') mychart: any;
 
+  // grafico de barras
   ng = function ngAfterViewInit() {
     // console.log(this.averagePriceZara9);
     if (this.myChart) {
@@ -404,7 +417,7 @@ export class GeneralComponent implements OnInit {
     this.myChart = new Chart('myChartGeneral', {
       type: 'bar',
       data: {
-        labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
+        labels: this.categorias,
         datasets: [{
           data: [92, 76, 129, 100, 89, 47],
           label: "Colores",
@@ -417,11 +430,12 @@ export class GeneralComponent implements OnInit {
     }); // fin chart 1
   };
 
+  // torta de datos
   ng2 = function ngAfterViewInit() {
     // console.log(this.averagePriceZara9);
     if (this.myChart2) {
-      this.myChart.clear();
-      this.myChart.destroy();
+      this.myChart2.clear();
+      this.myChart2.destroy();
     }
 
     Chart.register(
@@ -434,12 +448,12 @@ export class GeneralComponent implements OnInit {
     this.myChart2 = new Chart('myChartPie', {
       type: 'pie',
       data: {
-        labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
+        labels: this.categorias,
         datasets: [{
-          data: [92, 76, 129, 100, 89, 47],
+          data: [92, 76, 129],
           label: "Colores",
-          borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
-          backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+          borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)"],
+          backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)"],
           borderWidth: 1
         }
         ]
@@ -449,3 +463,5 @@ export class GeneralComponent implements OnInit {
 
 
 }
+
+
