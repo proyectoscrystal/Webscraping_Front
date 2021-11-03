@@ -274,3 +274,26 @@ tr:hover td {
   margin-left: 10px;
   color: rgba(255, 255, 255, 0.8);
 }
+
+/* clases del routing */
+.activo {
+  background-color:#c4e3eb ;
+  color: black;
+  
+}
+
+a.sel2.activo {
+  background-color: transparent;
+  color: #358da3;
+}
+
+a.sel2.activo::before {
+  content: " "; 
+  position: absolute;
+  margin-top: 2.5px;
+  left: 30px;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: #358da3;
+}

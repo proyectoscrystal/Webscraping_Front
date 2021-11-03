@@ -39,6 +39,7 @@ export class Table2Component implements OnInit, OnDestroy {
   subCategoriaSelected2 = [];
   tipoPrendaSelected2 = [];
   colorSelected2 = [];
+  composicionSelected2 = [];
   descuentoTable2: any;
 
   //Tabla 2
@@ -47,6 +48,7 @@ export class Table2Component implements OnInit, OnDestroy {
   subCategoria2: any = '';
   tipoPrenda2: any = '';
   color2: any = '';
+  composicion2: any = "";
 
   //Datos index.ts
   datos: any;
@@ -55,6 +57,7 @@ export class Table2Component implements OnInit, OnDestroy {
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+  composicionData: any;
 
 
   constructor(private blackboxService: BlackboxService, private modalService2: BsModalService
@@ -74,7 +77,6 @@ export class Table2Component implements OnInit, OnDestroy {
       },
       destroy: true,
     };
-
   }
 
   ngOnDestroy(): void {
@@ -89,6 +91,7 @@ export class Table2Component implements OnInit, OnDestroy {
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
       color: this.colorSelected2,
+      composicion: this.composicionSelected2
     };
 
     this.blackboxService.getTablePriceInfo(params).subscribe(
@@ -113,6 +116,7 @@ export class Table2Component implements OnInit, OnDestroy {
     this.subCategoryData = this.datos.subcategorias;
     this.tipoPrendaData = this.datos.tipoprendas;
     this.colorData = this.datos.colores;
+    this.composicionData = this.datos.composicion;
   }
 
   //Función para validar checked del filtro
@@ -130,18 +134,21 @@ export class Table2Component implements OnInit, OnDestroy {
   filterItemsData(value) {
     const { item } = value;
 
-
     //Filtro tabla 2
     if (value.checked && value.clase === 'marca2') {
       this.originSelected2.push(item);
       this.selectedFilter2.push(value);
       this.origin2 = this.originSelected2;
       console.log(this.origin2);
+      this.getInfoTable2();
+      this.rerender();
     } else if (value.clase == 'marca2' && !value.checked) {
       this.origin2 = [];
       this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.originSelected2);
+      this.getInfoTable2();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'categoria2') {
@@ -149,11 +156,15 @@ export class Table2Component implements OnInit, OnDestroy {
       this.selectedFilter2.push(value);
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria2);
+      this.getInfoTable2();
+      this.rerender();
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
+      this.getInfoTable2();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -161,14 +172,16 @@ export class Table2Component implements OnInit, OnDestroy {
       this.selectedFilter2.push(value);
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria2);
+      this.getInfoTable2();
+      this.rerender();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = [];
-      this.subCategoriaSelected2.splice(
-        this.subCategoriaSelected2.indexOf(item),
-        1
+      this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1
       );
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
+      this.getInfoTable2();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -176,14 +189,15 @@ export class Table2Component implements OnInit, OnDestroy {
       this.selectedFilter2.push(value);
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
+      this.getInfoTable2();
+      this.rerender();
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
-      this.tipoPrendaSelected2.splice(
-        this.tipoPrendaSelected2.indexOf(item),
-        1
-      );
+      this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
+      this.getInfoTable2();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'color2') {
@@ -191,48 +205,61 @@ export class Table2Component implements OnInit, OnDestroy {
       this.selectedFilter2.push(value);
       this.color2 = this.colorSelected2;
       console.log(this.color2);
+      this.getInfoTable2();
+      this.rerender();
     } else if (value.clase == 'color2' && !value.checked) {
       this.color2 = [];
       this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.colorSelected2);
+      this.getInfoTable2();
+      this.rerender();
     }
+
+    if (value.checked && value.clase === 'composicion') {
+      this.composicionSelected2.push(item);
+      this.selectedFilter2.push(value);
+      this.composicion2 = this.composicionSelected2;
+      console.log(this.composicion2);
+      this.getInfoTable2();
+      this.rerender();
+    } else if (value.clase == 'composicion' && !value.checked) {
+      this.composicion2 = [];
+      this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      console.log(this.composicionSelected2);
+      this.getInfoTable2();
+      this.rerender();
+    }   
   }
 
-  applyFilter2() {
-    this.modalRef2.hide();
-
-    this.getInfoTable2();
-    this.rerender();
-  }
-
+  // Modal Tabla 2
   openModal2(template2: TemplateRef<any>) {
+    this.modalRef2 = this.modalService2.show(template2, this.config);
+  }
+
+  clearFilters2() {
     this.origin2 = [];
     this.categoria2 = [];
     this.subCategoria2 = [];
     this.tipoPrenda2 = [];
     this.color2 = [];
+    this.composicion2 = [];
 
     this.originSelected2.splice(0, this.originSelected2.length);
     this.categoriaSelected2.splice(0, this.categoriaSelected2.length);
     this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
     this.colorSelected2.splice(0, this.colorSelected2.length);
+    this.composicionSelected2.splice(0, this.composicionSelected2.length)
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
-    this.modalRef2 = this.modalService2.show(template2, this.config);
+    this.getInfoTable2();
+    this.rerender();
   }
-
 
   closeModal2() {
     this.modalRef2.hide();
-
-    this.originSelected2.splice(0, this.originSelected2.length);
-    this.categoriaSelected2.splice(0, this.categoriaSelected2.length);
-    this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
-    this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
-    this.colorSelected2.splice(0, this.colorSelected2.length);
-    this.selectedFilter2.splice(0, this.selectedFilter2.length);
   }
 
   rerender(): void {
@@ -252,13 +279,4 @@ export class Table2Component implements OnInit, OnDestroy {
       },
     };
   }
-
-
-
-
-
-
-
-
-
 }

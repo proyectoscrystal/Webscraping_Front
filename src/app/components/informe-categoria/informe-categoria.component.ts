@@ -35,9 +35,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
-  dtOptions2: DataTables.Settings = {};
   dtTrigger = new Subject();
-  dtTrigger2 = new Subject();
 
   photos: any;
 
@@ -63,6 +61,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   subCategoriaCards: any = '';
   tipoPrendaCards: any = '';
   colorCards: any = '';
+  composicionCards: any = "";
 
   //Tabla 1
   origin: any = '';
@@ -70,8 +69,8 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   subCategoria: any = '';
   tipoPrenda: any = '';
   color: any = '';
+  composicion: any = "";
 
-  
 
   //Datos index.ts
   datos: any;
@@ -80,6 +79,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+  composicionData: any;
 
   //Cards
   selectedFilterCards = [];
@@ -88,6 +88,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   subCategoriaSelectedCards = [];
   tipoPrendaSelectedCards = [];
   colorSelectedCards = [];
+  composicionSelectedCards = [];
 
   //Tabla 1
   selectedFilter = [];
@@ -96,19 +97,17 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   subCategoriaSelected = [];
   tipoPrendaSelected = [];
   colorSelected = [];
+  composicionSelected = [];
+
   averagePrice: any;
   averageNews2: any;
   averageDiscount2: any;
   tasaFrescura: any;
   tableAvgSKU: any;
   tableDifference: any;
-
   
-
   constructor(
-    private blackboxService: BlackboxService,
-    private modalService: BsModalService,
-    private modalServiceCards: BsModalService
+    private blackboxService: BlackboxService, private modalServiceCards: BsModalService, private modalService: BsModalService
   ) {
     this.datos = new Datos();
   }
@@ -127,13 +126,10 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       },
       destroy: true,
     };
-
-    
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
-    this.dtTrigger2.unsubscribe();
   }
 
   // Ocultar/Mostrar sidebar
@@ -155,6 +151,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelectedCards,
       tipoPrenda: this.tipoPrendaSelectedCards,
       color: this.colorSelectedCards,
+      composicion: this.composicionSelectedCards
     };
 
     this.blackboxService.getPrendasInfoCards(params).subscribe(
@@ -194,6 +191,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelected,
       tipoPrenda: this.tipoPrendaSelected,
       color: this.colorSelected,
+      composicion: this.composicionSelected
     };
 
     //Cambiar la ruta de get
@@ -219,8 +217,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.tasaFrescura = res.obj.tasaFrescura;
   }
 
-  
-
   //===============INICIO FILTROS MODAL===============
 
   //Obtener datos desde index.ts para mostrar en el modal
@@ -230,6 +226,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.subCategoryData = this.datos.subcategorias;
     this.tipoPrendaData = this.datos.tipoprendas;
     this.colorData = this.datos.colores;
+    this.composicionData = this.datos.composicion;
   }
 
   //Función para validar checked del filtro
@@ -253,17 +250,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilterCards.push(value);
       this.originCards = this.originSelectedCards;
       console.log(this.originCards);
+      this.getInfoCards();
     } else if (value.clase == 'marcaCards' && !value.checked) {
       this.originCards = [];
-      this.originSelectedCards.splice(
-        this.originSelectedCards.indexOf(item),
-        1
-      );
-      this.selectedFilterCards.splice(
-        this.selectedFilterCards.indexOf(value),
-        1
-      );
+      this.originSelectedCards.splice(this.originSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
       console.log(this.originSelectedCards);
+      this.getInfoCards();
     }
 
     if (value.checked && value.clase === 'categoriaCards') {
@@ -271,17 +264,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilterCards.push(value);
       this.categoriaCards = this.categoriaSelected;
       console.log(this.categoriaCards);
+      this.getInfoCards();
     } else if (value.clase == 'categoriaCards' && !value.checked) {
       this.categoriaCards = [];
-      this.categoriaSelectedCards.splice(
-        this.categoriaSelectedCards.indexOf(item),
-        1
-      );
-      this.selectedFilterCards.splice(
-        this.selectedFilterCards.indexOf(value),
-        1
-      );
+      this.categoriaSelectedCards.splice(this.categoriaSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
       console.log(this.categoriaSelectedCards);
+      this.getInfoCards();
     }
 
     if (value.checked && value.clase === 'subCategoriaCards') {
@@ -289,17 +278,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilterCards.push(value);
       this.subCategoriaCards = this.subCategoriaSelectedCards;
       console.log(this.subCategoriaCards);
+      this.getInfoCards();
     } else if (value.clase == 'subCategoriaCards' && !value.checked) {
       this.subCategoriaCards = [];
-      this.subCategoriaSelectedCards.splice(
-        this.subCategoriaSelectedCards.indexOf(item),
-        1
-      );
-      this.selectedFilterCards.splice(
-        this.selectedFilterCards.indexOf(value),
-        1
-      );
+      this.subCategoriaSelectedCards.splice(this.subCategoriaSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
       console.log(this.subCategoriaSelectedCards);
+      this.getInfoCards();
     }
 
     if (value.checked && value.clase === 'tipoPrendaCards') {
@@ -307,17 +292,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilterCards.push(value);
       this.tipoPrendaCards = this.tipoPrendaSelectedCards;
       console.log(this.tipoPrendaCards);
+      this.getInfoCards();
     } else if (value.clase == 'tipoPrendaCards' && !value.checked) {
       this.tipoPrendaCards = [];
-      this.tipoPrendaSelectedCards.splice(
-        this.tipoPrendaSelectedCards.indexOf(item),
-        1
-      );
-      this.selectedFilterCards.splice(
-        this.selectedFilterCards.indexOf(value),
-        1
-      );
+      this.tipoPrendaSelectedCards.splice(this.tipoPrendaSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
       console.log(this.tipoPrendaSelectedCards);
+      this.getInfoCards();
     }
 
     if (value.checked && value.clase === 'colorCards') {
@@ -325,15 +306,28 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilterCards.push(value);
       this.colorCards = this.colorSelectedCards;
       console.log(this.colorCards);
+      this.getInfoCards();
     } else if (value.clase == 'colorCards' && !value.checked) {
       this.colorCards = [];
       this.colorSelectedCards.splice(this.colorSelectedCards.indexOf(item), 1);
-      this.selectedFilterCards.splice(
-        this.selectedFilterCards.indexOf(value),
-        1
-      );
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
       console.log(this.colorSelectedCards);
+      this.getInfoCards();
     }
+
+    if (value.checked && value.clase === 'composicionCards') {
+      this.composicionSelectedCards.push(item);
+      this.selectedFilterCards.push(value);
+      this.composicionCards = this.composicionSelectedCards;
+      console.log(this.composicionCards);
+      this.getInfoCards();
+    } else if (value.clase == 'composicionCards' && !value.checked) {
+      this.composicionCards = [];
+      this.composicionSelectedCards.splice(this.composicionSelectedCards.indexOf(item), 1);
+      this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
+      console.log(this.composicionSelectedCards);
+      this.getInfoCards();
+    }     
 
     //Filtro tabla
     if (value.checked && value.clase === 'marca') {
@@ -341,11 +335,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
       console.log(this.origin);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
+      this.getInfoTable();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -353,11 +351,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
       console.log(this.categoria);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.categoriaSelected);
+      this.getInfoTable();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'subCategoria') {
@@ -365,14 +367,16 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = [];
       this.subCategoriaSelected.splice(
-        this.subCategoriaSelected.indexOf(item),
-        1
-      );
+      this.subCategoriaSelected.indexOf(item),1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
+      this.getInfoTable();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
@@ -380,11 +384,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
       console.log(this.tipoPrenda);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.tipoPrendaSelected);
+      this.getInfoTable();
+      this.rerender();
     }
 
     if (value.checked && value.clase === 'color') {
@@ -392,54 +400,67 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       console.log(this.color);
+      this.getInfoTable();
+      this.rerender();
     } else if (value.clase == 'color' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
+      this.getInfoTable();
+      this.rerender();
     }
-    
+
+    if (value.checked && value.clase === 'composicion') {
+      this.composicionSelected.push(item);
+      this.selectedFilter.push(value);
+      this.composicion = this.composicionSelected;
+      console.log(this.composicion);
+      this.getInfoTable();
+      this.rerender();
+    } else if (value.clase == 'composicion' && !value.checked) {
+      this.composicion = [];
+      this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.composicionSelected);
+      this.getInfoTable();
+      this.rerender();
+    }            
   }
 
-  // metodos para aplicar los filtros
-  applyFilterCards() {
-    this.modalRefCards.hide();
-
-    this.getInfoCards();
-  }
-
-  applyFilter() {
-    this.modalRef.hide();
-
-    this.getInfoTable();
-    this.rerender();
-  }
-
-
+  // Modal Cards
   openModalCards(templateCards: TemplateRef<any>) {
+    this.modalRefCards = this.modalServiceCards.show(templateCards, this.config);
+  }
+
+  clearFiltersCards() {
     this.originCards = [];
     this.categoriaCards = [];
     this.subCategoriaCards = [];
     this.tipoPrendaCards = [];
-    this.colorCards = [];
+    this.composicionCards = [];
 
     this.originSelectedCards.splice(0, this.originSelectedCards.length);
     this.categoriaSelectedCards.splice(0, this.categoriaSelectedCards.length);
-    this.subCategoriaSelectedCards.splice(
-      0,
-      this.subCategoriaSelectedCards.length
-    );
+    this.subCategoriaSelectedCards.splice(0, this.subCategoriaSelectedCards.length);
     this.tipoPrendaSelectedCards.splice(0, this.tipoPrendaSelectedCards.length);
     this.colorSelectedCards.splice(0, this.colorSelectedCards.length);
+    this.composicionSelectedCards.splice(0, this.composicionSelectedCards.length);
     this.selectedFilterCards.splice(0, this.selectedFilterCards.length);
 
-    this.modalRefCards = this.modalServiceCards.show(
-      templateCards,
-      this.config
-    );
+    this.getInfoCards();
   }
 
+  closeModalCards() {
+    this.modalRefCards.hide();
+  }
+
+  // Modal Tabla 1
   openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, this.config);
+  }
+
+  clearFilters() {
     this.origin = [];
     this.categoria = [];
     this.subCategoria = [];
@@ -451,38 +472,16 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
     this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
     this.colorSelected.splice(0, this.colorSelected.length);
+    this.composicionSelected.splice(0, this.composicionSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
-    this.modalRef = this.modalService.show(template, this.config);
-  }
-
-  
-
-  closeModalCards() {
-    this.modalRefCards.hide();
-
-    this.originSelectedCards.splice(0, this.originSelectedCards.length);
-    this.categoriaSelectedCards.splice(0, this.categoriaSelectedCards.length);
-    this.subCategoriaSelectedCards.splice(
-      0,
-      this.subCategoriaSelectedCards.length
-    );
-    this.tipoPrendaSelectedCards.splice(0, this.tipoPrendaSelectedCards.length);
-    this.colorSelectedCards.splice(0, this.colorSelectedCards.length);
-    this.selectedFilterCards.splice(0, this.selectedFilterCards.length);
+    this.getInfoTable();
+    this.rerender();
   }
 
   closeModal() {
     this.modalRef.hide();
-
-    this.originSelected.splice(0, this.originSelected.length);
-    this.categoriaSelected.splice(0, this.categoriaSelected.length);
-    this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
-    this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
-    this.colorSelected.splice(0, this.colorSelected.length);
-    this.selectedFilter.splice(0, this.selectedFilter.length);
   }
-
 
   rerender(): void {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -491,21 +490,8 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.dtOptionsReload();
   }
 
-  
-
   dtOptionsReload() {
     this.dtOptions = {
-      destroy: true,
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-    };
-  }
-
-  dtOptionsReload2() {
-    this.dtOptions2 = {
       destroy: true,
       pagingType: 'full_numbers',
       pageLength: 10,

@@ -58,6 +58,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   subCategoria: any = '';
   tipoPrenda: any = '';
   color: any = '';
+  composicion: any = "";
   months: any;
   averageSKU1: number[] = [];
   averageSKU2: number[] = [];
@@ -67,13 +68,16 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   subCategoria2: any = '';
   tipoPrenda2: any = '';
   color2: any = '';
+  composicion2: any = "";
 
+  //Datos index.ts
   datos: any;
   originData: any;
   categoryData: any;
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+  composicionData: any;
   tableAvgSKU: any;
   tableDifference: any;
 
@@ -83,6 +87,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   subCategoriaSelected = [];
   tipoPrendaSelected = [];
   colorSelected = [];
+  composicionSelected = [];
 
   selectedFilter2 = [];
   originSelected2 = [];
@@ -90,6 +95,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   subCategoriaSelected2 = [];
   tipoPrendaSelected2 = [];
   colorSelected2 = [];
+  composicionSelected2 = [];
   averagePrice: any;
   averageNews2: any;
   averageDiscount2: any;
@@ -131,12 +137,35 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
       color: this.colorSelected2,
+      composicion: this.composicionSelected2
     };
 
     this.blackboxService.getTableSKUInfo(params).subscribe(
       (res) => {
         this.setInfoTable(res);
         this.dtTrigger.next();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  // peticion para el chart
+  getInfoSKU() {
+    let params = {
+      origin: this.originSelected,
+      categoria: this.categoriaSelected,
+      subCategoria: this.subCategoriaSelected,
+      tipoPrenda: this.tipoPrendaSelected,
+      color: this.colorSelected,
+      composicion: this.composicionSelected
+    };
+
+    this.blackboxService.getInfoSKU(params).subscribe(
+      (res) => {
+        this.setInfoSKU(res);
+        this.ng();
       },
       (err) => {
         console.log(err);
@@ -155,27 +184,6 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.tasaFrescura = res.obj.tasaFrescura;
   }
 
-  // peticion para el chart
-  getInfoSKU() {
-    let params = {
-      origin: this.originSelected,
-      categoria: this.categoriaSelected,
-      subCategoria: this.subCategoriaSelected,
-      tipoPrenda: this.tipoPrendaSelected,
-      color: this.colorSelected,
-    };
-
-    this.blackboxService.getInfoSKU(params).subscribe(
-      (res) => {
-        this.setInfoSKU(res);
-        this.ng();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
   //===============INICIO FILTROS MODAL===============
 
   //Obtener datos desde index.ts para mostrar en el modal
@@ -185,6 +193,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.subCategoryData = this.datos.subcategorias;
     this.tipoPrendaData = this.datos.tipoprendas;
     this.colorData = this.datos.colores;
+    this.composicionData = this.datos.composicion;
   }
 
   //Función para validar checked del filtro chart
@@ -270,19 +279,19 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.getInfoSKU();
     }
 
-    if (value.checked && value.clase === 'color') {
-      this.colorSelected.push(item);
+    if (value.checked && value.clase === 'composicion') {
+      this.composicionSelected.push(item);
       this.selectedFilter.push(value);
-      this.color = this.colorSelected;
-      console.log(this.color);
+      this.composicion = this.composicionSelected;
+      console.log(this.composicion);
       this.getInfoSKU();
-    } else if (value.clase == 'color' && !value.checked) {
-      this.color = [];
-      this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
+    } else if (value.clase == 'composicion' && !value.checked) {
+      this.composicion = [];
+      this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      console.log(this.colorSelected);
+      console.log(this.composicionSelected);
       this.getInfoSKU();
-    }
+    }   
   }
 
   //Recibe los datos seleccionados en el filtro tabla
@@ -354,21 +363,21 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.rerender();
     }
 
-    if (value.checked && value.clase === 'color2') {
-      this.colorSelected2.push(item);
+    if (value.checked && value.clase === 'composicion2') {
+      this.composicionSelected2.push(item);
       this.selectedFilter2.push(value);
-      this.color2 = this.colorSelected2;
-      console.log(this.color2);
+      this.composicion2 = this.composicionSelected2;
+      console.log(this.composicion2);
       this.getInfotableSKU();
       this.rerender();
-    } else if (value.clase == 'color2' && !value.checked) {
-      this.color2 = [];
-      this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
+    } else if (value.clase == 'composicion2' && !value.checked) {
+      this.composicion2 = [];
+      this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
-      console.log(this.colorSelected2);
+      console.log(this.composicionSelected2);
       this.getInfotableSKU();
       this.rerender();
-    }
+    }   
   }
 
   // Modal Charts
@@ -388,6 +397,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
     this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
     this.colorSelected.splice(0, this.colorSelected.length);
+    this.composicionSelected.splice(0, this.composicionSelected.length);    
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
     this.getInfoSKU();
@@ -414,6 +424,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
     this.colorSelected2.splice(0, this.colorSelected2.length);
+    this.composicionSelected2.splice(0, this.composicionSelected2.length);    
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
     this.getInfotableSKU();

@@ -62,6 +62,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   subCategoria: any = '';
   tipoPrenda: any = '';
   color: any = '';
+  composicion: any = "";
   months: any;
 
   origin2: any = '';
@@ -69,6 +70,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   subCategoria2: any = '';
   tipoPrenda2: any = '';
   color2: any = '';
+  composicion2: any = "";
 
   averageNews1: number[] = [];
   averageNews2: number[] = [];
@@ -80,6 +82,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+  composicionData: any;
   tableAvgnuevos: any;
   tableDifference: any;
 
@@ -89,6 +92,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   subCategoriaSelected = [];
   tipoPrendaSelected = [];
   colorSelected = [];
+  composicionSelected = [];
 
   selectedFilter2 = [];
   originSelected2 = [];
@@ -96,6 +100,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   subCategoriaSelected2 = [];
   tipoPrendaSelected2 = [];
   colorSelected2 = [];
+  composicionSelected2 = [];
 
   constructor(
     private blackboxService: BlackboxService,
@@ -133,6 +138,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
       color: this.colorSelected2,
+      composicion: this.composicionSelected2
     };
 
     this.blackboxService.getTableNewsInfo(params).subscribe(
@@ -161,6 +167,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelected,
       tipoPrenda: this.tipoPrendaSelected,
       color: this.colorSelected,
+      composicion: this.composicionSelected
     };
 
     this.blackboxService.getInfoNews(params).subscribe(
@@ -184,6 +191,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     this.subCategoryData = this.datos.subcategorias;
     this.tipoPrendaData = this.datos.tipoprendas;
     this.colorData = this.datos.colores;
+    this.composicionData = this.datos.composicion;
   }
 
   //Función para validar checked del filtro chart
@@ -282,6 +290,20 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       console.log(this.colorSelected);
       this.getInfoNews();
     }
+
+    if (value.checked && value.clase === 'composicion') {
+      this.composicionSelected.push(item);
+      this.selectedFilter.push(value);
+      this.composicion = this.composicionSelected;
+      console.log(this.composicion);
+      this.getInfoNews();
+    } else if (value.clase == 'composicion' && !value.checked) {
+      this.composicion = [];
+      this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.composicionSelected);
+      this.getInfoNews();
+    }       
   }
 
   //Recibe los datos seleccionados en el filtro tabla
@@ -368,6 +390,22 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.getInfotableNews();
       this.rerender();
     }
+
+    if (value.checked && value.clase === 'composicion2') {
+      this.composicionSelected2.push(item);
+      this.selectedFilter2.push(value);
+      this.composicion2 = this.composicionSelected2;
+      console.log(this.composicion2);
+      this.getInfotableNews();
+      this.rerender();
+    } else if (value.clase == 'composicion2' && !value.checked) {
+      this.composicion2 = [];
+      this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      console.log(this.composicionSelected2);
+      this.getInfotableNews();
+      this.rerender();
+    }      
   }
 
   // Modal Charts
@@ -387,6 +425,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
     this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
     this.colorSelected.splice(0, this.colorSelected.length);
+    this.composicionSelected.splice(0, this.composicionSelected.length); 
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
     this.getInfoNews();
@@ -413,6 +452,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
     this.colorSelected2.splice(0, this.colorSelected2.length);
+    this.composicionSelected2.splice(0, this.composicionSelected2.length); 
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
     this.getInfotableNews();

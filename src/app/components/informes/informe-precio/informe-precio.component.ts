@@ -404,12 +404,14 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.composicion2 = this.composicionSelected2;
       console.log(this.composicion2);
       this.getInfoPrice();
+      this.rerender();
     } else if (value.clase == 'composicion2' && !value.checked) {
       this.composicion2 = [];
       this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.composicionSelected2);
       this.getInfoPrice();
+      this.rerender();
     }       
   }
 

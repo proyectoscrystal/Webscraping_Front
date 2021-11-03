@@ -47,7 +47,7 @@
             </a>
             <ul class="collapse list-unstyled firstitem itemlist" id="colectionSubmenu">
               <li class="list-items-container">
-                <a routerLink="/informeCategoria" class="sel2">Prendas</a>
+                <a class="sel2" routerLink="/informeCategoria" routerLinkActive="activo">Prendas</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled itemlist" id="colectionSubmenu">
@@ -112,7 +112,7 @@
         <ng-template #templateCards>
           <div class="modal-header">
             <h4 class="modal-title pull-left">Filtros</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalCards()">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -208,15 +208,18 @@
               </li>
 
               <li class="active mt-2">
-                <a href="#filterMaterials" data-toggle="collapse" aria-expanded="false"
+                <a href="#filterComposicion" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle menu-color">Composición
                 </a>
-                <ul class="collapse list-unstyled" id="filterMaterials">
+                <ul class="collapse list-unstyled" id="filterComposicion">
                   <div class="overflow-auto container-scroll">
-                    <li *ngFor="let e of materials">
+                    <li *ngFor="let composicion of composicionData">
                       <label class="control control--checkbox">
-                        <input type="checkbox" class="ml-2" /></label>
-                      {{e.materiales}}
+                        <input class="composicionCards" type="checkbox" value="{{composicion.value}}" name="{{composicion.value}}"
+                          (change)="validateCheckFilter($event.target.checked, composicion, $event.target.className, $event.target)"
+                          id="{{composicion.value}}" />
+                        {{composicion.text}}
+                      </label>
                     </li>
                   </div>
                 </ul>
@@ -225,8 +228,8 @@
             </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="closeModalCards()">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="applyFilterCards()">Aplicar filtros</button>
+            <button type="button" class="btn btn-danger" (click)="clearFiltersCards()">Limpiar filtros</button>
+            <button type="button" class="btn btn-primary" (click)="closeModalCards()">Cerrar</button>
           </div>
         </ng-template>
       </div>
@@ -437,15 +440,18 @@
               </li>
 
               <li class="active mt-2">
-                <a href="#filterMaterials" data-toggle="collapse" aria-expanded="false"
+                <a href="#filterComposicion" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle menu-color">Composición
                 </a>
-                <ul class="collapse list-unstyled" id="filterMaterials">
+                <ul class="collapse list-unstyled" id="filterComposicion">
                   <div class="overflow-auto container-scroll">
-                    <li *ngFor="let e of materials">
+                    <li *ngFor="let composicion of composicionData">
                       <label class="control control--checkbox">
-                        <input type="checkbox" class="ml-2" /></label>
-                      {{e.materiales}}
+                        <input class="composicion" type="checkbox" value="{{composicion.value}}" name="{{composicion.value}}"
+                          (change)="validateCheckFilter($event.target.checked, composicion, $event.target.className, $event.target)"
+                          id="{{composicion.value}}" />
+                        {{composicion.text}}
+                      </label>
                     </li>
                   </div>
                 </ul>
@@ -454,8 +460,8 @@
             </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="applyFilter()">Aplicar filtros</button>
+            <button type="button" class="btn btn-danger" (click)="clearFilters()">Limpiar filtros</button>
+            <button type="button" class="btn btn-primary" (click)="closeModal()">Cerrar</button>
           </div>
         </ng-template>
       </div>
