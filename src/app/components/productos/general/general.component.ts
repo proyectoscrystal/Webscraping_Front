@@ -81,6 +81,18 @@ export class GeneralComponent implements OnInit {
 
   // responses categoryes
   categorias = [];
+  hombre = 0;
+  mujer = 0;
+  kids = 0;
+  exterior = 0;
+  exteriorPorcentage = 0;
+  interior = 0;
+  interiorPorcentage = 0;
+  calzado = 0;
+  calzadoPorcentage = 0;
+  accesorios = 0;
+  accesoriosPorcentage = 0;
+
 
   skuData: any;
   discountsData: any;
@@ -128,7 +140,17 @@ export class GeneralComponent implements OnInit {
   }
 
   setInfoCategories(data) {
-    this.categorias = data.obj.categorias;
+    this.hombre = data.obj.porcentajesCategoriaColors.hombrePorcentageSKU;
+    this.mujer = data.obj.porcentajesCategoriaColors.mujerPorcentageSKU;
+    this.kids = data.obj.porcentajesCategoriaColors.kidsPorcentageSKU;
+    this.exterior = data.obj.porcentajesCategoriaColors.exterior;
+    this.exteriorPorcentage = data.obj.porcentajesCategoriaColors.exteriorPorcentaje;
+    this.interior = data.obj.porcentajesCategoriaColors.interior;
+    this.interiorPorcentage = data.obj.porcentajesCategoriaColors.interiorPorcentaje;
+    this.calzado = data.obj.porcentajesCategoriaColors.calzado;
+    this.calzadoPorcentage = data.obj.porcentajesCategoriaColors.calzadoPorcentaje;
+    this.accesorios = data.obj.porcentajesCategoriaColors.accesorios;
+    this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
   }
 
 
@@ -455,9 +477,9 @@ export class GeneralComponent implements OnInit {
     this.myChart2 = new Chart('myChartPie', {
       type: 'doughnut',
       data: {
-        labels: this.categorias,
+        labels: ["Hombre %","Mujer %","Kids %"],
         datasets: [{
-          data: [92, 76, 129],
+          data: [`${this.hombre}`, `${this.mujer}`, `${this.kids}`],
           label: "Colores",
           borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)"],
           backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)"],
