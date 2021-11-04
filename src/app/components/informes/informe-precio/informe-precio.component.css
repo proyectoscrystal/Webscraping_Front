@@ -2,23 +2,8 @@
   height: 250px;
 }
 
-.hoverSvgFilter:hover {
-  cursor: pointer;
-}
-
-.item-filters-top {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
 .titulo-chart {
   text-align: center;
-}
-
-.titulo-grid {
-  display: grid;
-  grid-template-columns: 95% 5%;
 }
 
 .marginTitle {
@@ -33,15 +18,14 @@
   margin-top: -10px;
 }
 
-@media screen and (max-width: 600px) {
-  .titulo-chart-grid {
-    display: grid;
-    grid-template-columns: 40% 60%;
-  }
+.hoverSvgFilter:hover {
+  cursor: pointer;
+}
 
-  .titulo-grid {
-    display: block;
-  }
+.item-filters-top {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
 .content-filter-item {
@@ -136,6 +120,16 @@ tr:hover td {
   grid-template-columns: 50% 50%;
 }
 
+.gridFiltersCharts {
+  display: grid;
+  grid-template-columns: 90% 10%;
+}
+
+.gridFiltersTable {
+  display: grid;
+  grid-template-columns: 90% 10%;
+}
+
 .diferencia {
   color: rgb(103 209 166);
 }
@@ -144,8 +138,25 @@ tr:hover td {
   color: rgb(255 92 96);
 }
 
-
 /* media queryes */
+@media (max-width: 600px) {
+
+  .gridFiltersCharts {
+    display: block;
+  }
+
+  .svgFilterChart {
+    display: flex;
+  }
+
+  .titulo-chart {
+    text-align: left;
+  }
+
+  .gridFiltersTable {
+    display: block;
+  }
+}
 
 @media (max-width: 1000px) {
   .grid-informs {

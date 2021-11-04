@@ -2,6 +2,10 @@
   height: 250px;
 }
 
+.titulo-chart {
+  text-align: center;
+}
+
 .marginTitle {
   margin-top: -20px;
 }
@@ -80,10 +84,6 @@
   .chart-line {
     width: 95%;
   }
-  
-  .titulo-chart {
-    text-align: center;
-  }
 
   /* fin chart */
 
@@ -103,14 +103,40 @@
     grid-template-columns: 90% 10%;
   }
 
-  /* media queryes */
   @media (max-width: 1000px) {
     .grid {
       display: block;
+      margin-top: 10%;
     }
+  }
+  
+  @media (max-width: 900px) {
+    .grid {
+      display: block;
+      margin-top: 20%;
+    }
+  }
+  
+  @media (max-width: 830px) {
+    .grid {
+      display: block;
+      margin-top: 30%;
+    }
+  }
+
+  /* media queryes */
+  @media (max-width: 600px) {
 
     .gridFiltersCharts {
       display: block;
+    }
+
+    .svgFilterChart {
+      display: flex;
+    }
+
+    .titulo-chart {
+      text-align: left;
     }
   
     .gridFiltersTable {
