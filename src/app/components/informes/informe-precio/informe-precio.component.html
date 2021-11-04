@@ -1,13 +1,15 @@
-<div class="grid">
+<div class="grid-informs">
   <div class="chart-container">
     <div class="titulo-grid">
-      <h2 class="titulo-chart">Precio promedio marcas </h2>
       <div>
-
+        <h2 class="titulo-chart">Precio promedio marcas </h2>
+      </div>
+      
+      <div>
         <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
           xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
           viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
-          aria-label="Illustration of a Funnel" class="hoverSvgFilter svgChart">
+          aria-label="Illustration of a Funnel" class="hoverSvgFilter">
           <g id="__id33_ssutzzo1g">
             <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
               style="fill: inherit"></path>
@@ -139,10 +141,10 @@
           </div>
         </ng-template>
       </div>
-      <div class="item-filters-top marginTitle">
-        <div *ngFor="let filter of selectedFilter" class="content-filter-item">
-          <p class="item-filter">{{filter.item}}</p>
-        </div>
+    </div>
+    <div class="item-filters-top marginTitle">
+      <div *ngFor="let filter of selectedFilter" class="content-filter-item">
+        <p class="item-filter">{{filter.item}}</p>
       </div>
     </div>
     <div class="chart-line marginCharts">

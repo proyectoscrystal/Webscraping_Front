@@ -33,18 +33,14 @@
   margin-top: -10px;
 }
 
-.svgChart {
-  margin-top: 7px;
-  margin-left: -60px;
-}
-
 @media screen and (max-width: 600px) {
   .titulo-chart-grid {
-    display: block;
+    display: grid;
+    grid-template-columns: 40% 60%;
   }
 
-  .svgChart {
-    margin-left: 20px;
+  .titulo-grid {
+    display: block;
   }
 }
 
@@ -123,21 +119,19 @@ tr:hover td {
 /* Fin Tablas */
 
 /* inicio estilos chart */
-
 .chart-container {
   width: 100%;
 }
 
 .chart-line {
-  width: 90%;
+  width: 95%;
 }
-
 /* fin chart */
 
 
 /* grid para poner las cosas en una sola fila */
 
-.grid {
+.grid-informs {
   display: grid;
   grid-template-columns: 50% 50%;
 }
@@ -154,7 +148,7 @@ tr:hover td {
 /* media queryes */
 
 @media (max-width: 1000px) {
-  .grid {
+  .grid-informs {
     display: block;
   }
 }

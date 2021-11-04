@@ -16,33 +16,29 @@
     display: grid;
     grid-template-columns: 35% 65%;
   }
+
+  .filterTable {
+    margin-top: 7px;
+    margin-right: 20px;
+  }
 }
 
 /* Tablas */
-.table-container {
-  width: 100%;
-  max-width: auto;
-  margin: auto;
-}
-
-.table-container-tipoP {
-  width: 100%;
-  max-width: auto;
-  margin: auto;
-}
-
 .container-scroll {
   height: 250px;
 }
 
 .filterTable {
-  display: flex;
-  width: auto;
+  display: grid;
+  grid-template-columns: 97% 3%;
 }
 
-.filterSvgCharts, .filterSvgTable {
-  margin-left: 20px;
-  margin-top: -10px;
+.tableContainer {
+  margin-top: -18px;
+}
+
+.itemsMargin {
+  margin-top: -18px;
 }
 
 .hoverSvgFilter:hover {

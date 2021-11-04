@@ -2,18 +2,19 @@
   height: 250px;
 }
 
-.filtersCharts {
-  display: flex;
-  width: 100%;
+.titulo-chart {
+  text-align: center;
 }
 
-.filterTable {
-  display: flex;
-  width: auto;
+.marginTitle {
+  margin-top: -20px;
 }
 
-.filterSvgCharts, .filterSvgTable {
-  margin-left: 20px;
+.marginCharts {
+  margin-top: -20px;
+}
+
+.marginTable {
   margin-top: -10px;
 }
 
@@ -100,34 +101,46 @@
   /* Fin Tablas */
 
   /* inicio estilos chart */
-
   .chart-container {
     width: 100%;
   }
   
   .chart-line {
-    width: 90%;
+    width: 95%;
   }
-  
+
   .titulo-chart {
     text-align: center;
   }
-
   /* fin chart */
   
-  /* grid para poner las cosas en una sola fila */
-
+  /* Grids */
   .grid {
     display: grid;
     grid-template-columns: 50% 50%;
   }
 
+  .gridFiltersCharts {
+    display: grid;
+    grid-template-columns: 90% 10%;
+  }
 
+  .gridFiltersTable {
+    display: grid;
+    grid-template-columns: 90% 10%;
+  }
 
   /* media queryes */
-
   @media (max-width: 1000px) {
     .grid {
+      display: block;
+    }
+
+    .gridFiltersCharts {
+      display: block;
+    }
+  
+    .gridFiltersTable {
       display: block;
     }
   }
