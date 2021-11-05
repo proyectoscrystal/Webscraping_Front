@@ -97,6 +97,11 @@ export class GeneralComponent implements OnInit {
   skuData: any;
   discountsData: any;
   newsData: any;
+  rgbColorsCategoria: any;
+  colorExterior: any = '';
+  colorInterior: any = '';
+  colorCalzado: any = '';
+  colorAccesorios: any = '';
 
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService, private modalService3: BsModalService) {
@@ -151,6 +156,12 @@ export class GeneralComponent implements OnInit {
     this.calzadoPorcentage = data.obj.porcentajesCategoriaColors.calzadoPorcentaje;
     this.accesorios = data.obj.porcentajesCategoriaColors.accesorios;
     this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
+    this.rgbColorsCategoria = data.obj.porcentajesCategoriaColors.rgbColoresCategoria;
+    // colores seccion subcategorias 
+    this.colorExterior = data.obj.porcentajesCategoria.colorExterior;
+    this.colorInterior = data.obj.porcentajesCategoria.colorInterior;
+    this.colorCalzado = data.obj.porcentajesCategoria.colorCalzado;
+    this.colorAccesorios = data.obj.porcentajesCategoria.colorAccesorios;
   }
 
 
@@ -446,12 +457,12 @@ export class GeneralComponent implements OnInit {
     this.myChart = new Chart('myChartGeneral', {
       type: 'bar',
       data: {
-        labels: this.categorias,
+        labels: ['color1','color2','color3','color4','color5'],
         datasets: [{
           data: [92, 76, 129, 100, 89, 47],
           label: "Colores",
           borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
-          backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+          backgroundColor: ["rgb(30, 140, 255)", "rgba(0, 240, 248,0.1)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
           borderWidth: 1
         }
         ]
@@ -481,8 +492,8 @@ export class GeneralComponent implements OnInit {
         datasets: [{
           data: [`${this.hombre}`, `${this.mujer}`, `${this.kids}`],
           label: "Colores",
-          borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)"],
-          backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)"],
+          borderColor: this.rgbColorsCategoria,
+          backgroundColor: this.rgbColorsCategoria,
           borderWidth: 1
         }
         ]
