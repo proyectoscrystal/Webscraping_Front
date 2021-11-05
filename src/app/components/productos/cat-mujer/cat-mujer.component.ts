@@ -66,9 +66,29 @@ export class CatMujerComponent implements OnInit {
   subCategoryData: any;
   tipoPrendaData: any;
 
+  // datos de la respuesta desde el backend
   skuData: any;
   discountsData: any;
   newsData: any;
+  fin: any = '';
+  inicio: any = '';
+  mujerSKU: any;
+  exterior: any;
+  exteriorPorcentage: any;
+  interior: any;
+  interiorPorcentage: any;
+  calzado: any;
+  calzadoPorcentage: any;
+  accesorios: any;
+  accesoriosPorcentage: any;
+  colorExteriorPalabra: any;
+  colorInteriorPalabra: any;
+  colorCalzadoPalabra: any;
+  colorAccesoriosPalabra: any;
+  colorExterior: any;
+  colorInterior: any;
+  colorCalzado: any;
+  colorAccesorios: any;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
@@ -76,6 +96,7 @@ export class CatMujerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getInfoCategory();
     this.showDataModal();
     this.onlyOne();
     this.ng();
@@ -84,70 +105,52 @@ export class CatMujerComponent implements OnInit {
   //===============INICIO FILTROS MODAL===============
 
   //Setear filtros obtenidos
-  /*
-  getInfoCats() {
-
+  getInfoCategory() {
     let params = {
       origin: this.originSelected,
-      categoria: this.categoriaSelected,
-      subCategoria: this.subCategoriaSelected,
-      tipoPrenda: this.tipoPrendaSelected,
-      color: this.colorSelected,
+      sku: this.sku,
+      discount: this.discount,
+      new: this.new,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
+
     };
 
-    this.blackboxService.getInfoCards(params).subscribe(
+    this.blackboxService.getInfoMujerCategoryColors(params).subscribe(
       (res) => {
-        this.setInfoCards(res);
+        this.setInfoCategories(res);
+        this.ng();
+        console.log(res);
       },
       (err) => {
         console.log(err);
       }
     );
   }
-  
-  /*
-  getInfoChart() {
 
-    let params = {
-      origin2: this.originSelected2,
-      categoria2: this.categoriaSelected2,
-      subCategoria2: this.subCategoriaSelected2,
-      tipoPrenda2: this.tipoPrendaSelected2,
-      color2: this.colorSelected2,
-    };
-
-    this.blackboxService.getInfoCards(params).subscribe(
-      (res) => {
-        this.setInfoCards(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+  setInfoCategories(data) {
+    this.mujerSKU = data.obj.porcentajesCategoriaColors.mujerPorcentageSKU;
+    this.exterior = data.obj.porcentajesCategoriaColors.exterior;
+    this.exteriorPorcentage = data.obj.porcentajesCategoriaColors.exteriorPorcentaje;
+    this.interior = data.obj.porcentajesCategoriaColors.interior;
+    this.interiorPorcentage = data.obj.porcentajesCategoriaColors.interiorPorcentaje;
+    this.calzado = data.obj.porcentajesCategoriaColors.calzado;
+    this.calzadoPorcentage = data.obj.porcentajesCategoriaColors.calzadoPorcentaje;
+    this.accesorios = data.obj.porcentajesCategoriaColors.accesorios;
+    this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
+    // this.rgbColorsCategoria = data.obj.porcentajesCategoriaColors.rgbColoresCategoria;
+    // // colores seccion subcategorias 
+    this.colorExterior = data.obj.porcentajesCategoriaColors.rgbExterior;
+    this.colorInterior = data.obj.porcentajesCategoriaColors.rgbInterior;
+    this.colorCalzado = data.obj.porcentajesCategoriaColors.rgbCalzado;
+    this.colorAccesorios = data.obj.porcentajesCategoriaColors.rgbAccesorios;
+    // colores seccion subcategorias en letras 
+    this.colorExteriorPalabra = data.obj.porcentajesCategoriaColors.colorExterior;
+    this.colorInteriorPalabra = data.obj.porcentajesCategoriaColors.colorInterior;
+    this.colorCalzadoPalabra = data.obj.porcentajesCategoriaColors.colorCalzado;
+    this.colorAccesoriosPalabra = data.obj.porcentajesCategoriaColors.colorAccesorios;
   }
-  */
 
-  /*
-  getInfoTable() {
-
-    let params = {
-      origin: this.originSelected,
-      categoria: this.categoriaSelected,
-      subCategoria: this.subCategoriaSelected,
-      tipoPrenda: this.tipoPrendaSelected,
-      color: this.colorSelected,
-    };
-
-    this.blackboxService.getInfoCards(params).subscribe(
-      (res) => {
-        this.setInfoCards(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-  */
 
   //Obtener datos desde index.ts para mostrar en el modal
   showDataModal() {
@@ -184,6 +187,7 @@ export class CatMujerComponent implements OnInit {
       console.log(this.origin);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
@@ -191,6 +195,7 @@ export class CatMujerComponent implements OnInit {
       console.log(this.originSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'sku check') {
@@ -200,6 +205,7 @@ export class CatMujerComponent implements OnInit {
       console.log(this.sku);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'sku check' && !value.checked) {
       this.sku = [];
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
@@ -207,6 +213,7 @@ export class CatMujerComponent implements OnInit {
       console.log(this.skuSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'discount check') {
@@ -216,6 +223,7 @@ export class CatMujerComponent implements OnInit {
       console.log(this.discount);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'discount check' && !value.checked) {
       this.discount = []
       this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
@@ -223,6 +231,7 @@ export class CatMujerComponent implements OnInit {
       console.log(this.dicountSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'new check') {
@@ -232,6 +241,7 @@ export class CatMujerComponent implements OnInit {
       console.log(this.new);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'new check' && !value.checked) {
       this.new = [];
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
@@ -239,6 +249,7 @@ export class CatMujerComponent implements OnInit {
       console.log(this.newSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     // Validación check chart colores
@@ -327,7 +338,16 @@ export class CatMujerComponent implements OnInit {
     this.modalRef2.hide();
   }
 
-  //===============FIN FILTROS MODAL===============  
+  //===============FIN FILTROS MODAL=============== 
+  fechaInicio(){    
+    this.getInfoCategory();
+  }
+
+  fechaFin(){
+    this.getInfoCategory();
+  }
+  
+  //=============== chart de colores
 
   @ViewChild('mychartMujer') mychart: any;
 

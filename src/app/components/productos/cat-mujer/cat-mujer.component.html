@@ -6,8 +6,8 @@
         </div>
 
         <div class="input-grid1">
-            <input type="date">
-            <input type="date">
+            <input type="date" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()">
+            <input type="date" [(ngModel)]="fin" (ngModelChange)="fechaFin()">
 
             <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
                 xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
@@ -124,30 +124,30 @@
                 <div class="item2-2-img">
                     <h3>Exterior</h3>
                     <img src="../../../../assets/productos/exterior.png" alt="Silueta Mujer" class="imgPrendas">
-                    <p>50</p>
-                    <p>50%</p>
-                    <div class="colorx mb-3"></div>
+                    <p>{{exterior}}</p>
+                    <p>{{exteriorPorcentage}}%</p>
+                    <div style="background-color:{{colorExterior}}" class="colorx mb-3"><abbr style=" cursor:pointer" title="{{colorExteriorPalabra}}">.</abbr></div>
                 </div>
                 <div class="item2-2-img">
                     <h3>Interior</h3>
                     <img src="../../../../assets/productos/interior.png" alt="Silueta Mujer" class="imgPrendas">
-                    <p>50</p>
-                    <p>50%</p>
-                    <div class="colorx mb-3"></div>
+                    <p>{{interior}}</p>
+                    <p>{{interiorPorcentage}}%</p>
+                    <div style="background-color:{{colorInterior}}" class="colorx mb-3"><abbr style=" cursor:pointer" title="{{colorInteriorPalabra}}">.</abbr></div>
                 </div>
                 <div class="item2-2-img">
                     <h3>Calzado</h3>
                     <img src="../../../../assets/productos/calzado.png" alt="Silueta Mujer" class="imgPrendas">
-                    <p>50</p>
-                    <p>50%</p>
-                    <div class="colorx mb-3"></div>
+                    <p>{{calzado}}</p>
+                    <p>{{calzadoPorcentage}}%</p>
+                    <div style="background-color:{{colorCalzado}}" class="colorx mb-3"><abbr style=" cursor:pointer" title="{{colorCalzadoPalabra}}">.</abbr></div>
                 </div>
                 <div class="item2-2-img">
                     <h3>Accesorios</h3>
                     <img src="../../../../assets/productos/accesorios.png" alt="Silueta Mujer" class="imgPrendas">
-                    <p>50</p>
-                    <p>50%</p>
-                    <div class="colorx mb-3"></div>
+                    <p>{{accesorios}}</p>
+                    <p>{{accesoriosPorcentage}}%</p>
+                    <div style="background-color:{{colorAccesorios}}" class="colorx mb-3"><abbr style=" cursor:pointer" title="{{colorAccesoriosPalabra}}">.</abbr></div>
                 </div>
             </div>
         </div>

@@ -77,6 +77,10 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_infoCategoryColors/' ,{ params } );
   }
 
+  getInfoMujerCategoryColors(params: any) {
+    return this.http.get(this.url + '/m_infoCategoryMujerColors/' ,{ params } );
+  }
+
   uploadPhoto(data: any) {
 
     const headerDict = {
