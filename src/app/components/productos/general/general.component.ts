@@ -102,6 +102,10 @@ export class GeneralComponent implements OnInit {
   colorInterior: any = '';
   colorCalzado: any = '';
   colorAccesorios: any = '';
+  colorExteriorPalabra: any = '';
+  colorInteriorPalabra: any = '';
+  colorCalzadoPalabra: any = '';
+  colorAccesoriosPalabra: any = '';
 
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService, private modalService3: BsModalService) {
@@ -158,10 +162,19 @@ export class GeneralComponent implements OnInit {
     this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
     this.rgbColorsCategoria = data.obj.porcentajesCategoriaColors.rgbColoresCategoria;
     // colores seccion subcategorias 
-    this.colorExterior = data.obj.porcentajesCategoria.colorExterior;
-    this.colorInterior = data.obj.porcentajesCategoria.colorInterior;
-    this.colorCalzado = data.obj.porcentajesCategoria.colorCalzado;
-    this.colorAccesorios = data.obj.porcentajesCategoria.colorAccesorios;
+    this.colorExterior = data.obj.porcentajesCategoriaColors.rgbExterior;
+    this.colorInterior = data.obj.porcentajesCategoriaColors.rgbInterior;
+    this.colorCalzado = data.obj.porcentajesCategoriaColors.rgbCalzado;
+    this.colorAccesorios = data.obj.porcentajesCategoriaColors.rgbAccesorios;
+    // colores seccion subcategorias en letras 
+    this.colorExteriorPalabra = data.obj.porcentajesCategoriaColors.colorExterior;
+    this.colorInteriorPalabra = data.obj.porcentajesCategoriaColors.colorInterior;
+    this.colorCalzadoPalabra = data.obj.porcentajesCategoriaColors.colorCalzado;
+    this.colorAccesoriosPalabra = data.obj.porcentajesCategoriaColors.colorAccesorios;
+  }
+
+  getCalzadoColor(){
+    return this.colorCalzado;
   }
 
 
