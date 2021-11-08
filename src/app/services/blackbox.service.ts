@@ -73,12 +73,17 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_averageSKU/' ,{ params } );
   }
 
+  // peticiones para las vistas de colores
   getInfoCategoryColors(params: any) {
     return this.http.get(this.url + '/m_infoCategoryColors/' ,{ params } );
   }
 
   getInfoMujerCategoryColors(params: any) {
     return this.http.get(this.url + '/m_infoCategoryMujerColors/' ,{ params } );
+  }
+
+  getInfoHombreCategoryColors(params: any) {
+    return this.http.get(this.url + '/m_infoCategoryHombreColors/' ,{ params } );
   }
 
   uploadPhoto(data: any) {

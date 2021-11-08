@@ -89,6 +89,9 @@ export class CatMujerComponent implements OnInit {
   colorInterior: any;
   colorCalzado: any;
   colorAccesorios: any;
+  colorMujerPalabra: any;
+  rgbMujer: any;
+  mujerTotalSKU: any;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
@@ -149,6 +152,10 @@ export class CatMujerComponent implements OnInit {
     this.colorInteriorPalabra = data.obj.porcentajesCategoriaColors.colorInterior;
     this.colorCalzadoPalabra = data.obj.porcentajesCategoriaColors.colorCalzado;
     this.colorAccesoriosPalabra = data.obj.porcentajesCategoriaColors.colorAccesorios;
+    // color predominante en mujer 
+    this.colorMujerPalabra = data.obj.porcentajesCategoriaColors.colorMujer;
+    this.rgbMujer = data.obj.porcentajesCategoriaColors.rgbMujer;
+    this.mujerTotalSKU = data.obj.porcentajesCategoriaColors.mujerTotalSKU;
   }
 
 
@@ -207,7 +214,7 @@ export class CatMujerComponent implements OnInit {
       // Metodo a ejecutar >
       this.getInfoCategory();
     } else if (value.clase == 'sku check' && !value.checked) {
-      this.sku = [];
+      this.sku = '';
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.skuSelected);
@@ -225,7 +232,7 @@ export class CatMujerComponent implements OnInit {
       // Metodo a ejecutar >
       this.getInfoCategory();
     } else if (value.clase == 'discount check' && !value.checked) {
-      this.discount = []
+      this.discount = '';
       this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.dicountSelected);
@@ -243,7 +250,7 @@ export class CatMujerComponent implements OnInit {
       // Metodo a ejecutar >
       this.getInfoCategory();
     } else if (value.clase == 'new check' && !value.checked) {
-      this.new = [];
+      this.new = '';
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.newSelected);
@@ -302,9 +309,11 @@ export class CatMujerComponent implements OnInit {
   }
   clearFilters() {
     this.origin = [];
-    this.sku = [];
-    this.discount = [];
-    this.new = [];
+    this.sku = '';
+    this.discount = '';
+    this.new = '';
+    this.inicio = '';
+    this.fin = '';
 
     this.selectedFilter.splice(0, this.selectedFilter.length);
     this.originSelected.splice(0, this.originSelected.length);
@@ -313,6 +322,7 @@ export class CatMujerComponent implements OnInit {
     this.newSelected.splice(0, this.newSelected.length);
 
     // Metodo a ejecutar > this.getInfoCards();
+    this.getInfoCategory();
   }
   closeModal() {
     this.modalRef.hide();

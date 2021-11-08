@@ -233,7 +233,7 @@ export class GeneralComponent implements OnInit {
       // Metodo a ejecutar >
       this.getInfoCategory();
     } else if (value.clase == 'sku check' && !value.checked) {
-      this.sku = [];
+      this.sku = '';
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.skuSelected);
@@ -251,7 +251,7 @@ export class GeneralComponent implements OnInit {
       // Metodo a ejecutar >
       this.getInfoCategory();
     } else if (value.clase == 'discount check' && !value.checked) {
-      this.discount = []
+      this.discount = '';
       this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.dicountSelected);
@@ -269,7 +269,7 @@ export class GeneralComponent implements OnInit {
       // Metodo a ejecutar >
       this.getInfoCategory();
     } else if (value.clase == 'new check' && !value.checked) {
-      this.new = [];
+      this.new = '';
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.newSelected);
