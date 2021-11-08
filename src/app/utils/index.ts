@@ -160,6 +160,7 @@ export class Datos {
   private mainColors: any[] = [
     {
       value: 'rojo',
+      text: 'Rojo',
       hexa: '#fd0000',
       rgb: '(253, 0, 0)',
       hsl: '(0, 100%, 50%)',
@@ -362,31 +363,30 @@ export class Datos {
   ]
 
   private colores: any[] = [
-    { value: 'amarillo', text: 'Amarillo' },
-    { value: 'beige', text: 'Beige' },
-    { value: 'azul', text: 'Azul' },
-    { value: 'blanco', text: 'Blanco' },
-    { value: 'vinotinto', text: 'Vinotinto' },
-    { value: 'café', text: 'Café' },
-    { value: 'cobre', text: 'Cobre' },
-    { value: 'negro', text: 'Negro' },
-    { value: 'verde', text: 'Verde' },
-    { value: 'rosado', text: 'Rosado' },
-    { value: 'gris', text: 'Gris' },
-    { value: 'morado', text: 'Morado' },
-    { value: 'naranja', text: 'Naranja' },
-    { value: 'piel', text: 'Piel' },
-    { value: 'ocre', text: 'Ocre' },
-    { value: 'oro', text: 'Oro' },
-    { value: 'rojo', text: 'Rojo' },
-    { value: 'plata', text: 'Plata' },
-    { value: 'acero', text: 'Acero' },
-    { value: 'transparente', text: 'Transparente' },
-    { value: 'dorado', text: 'Dorado' },
-    { value: 'otros', text: 'Otros' },
-    { value: 'naranja', text: 'Naranja' },
-    { value: 'plomo', text: 'Plomo' },
-    { value: 'multicolor', text: 'Multicolor' }
+    { value: 'amarillo', text: 'Amarillo', hexa: '#FFFF00' },
+    { value: 'beige', text: 'Beige', hexa: '#F5F5DC' },
+    { value: 'azul', text: 'Azul', hexa: '#290C96' },
+    { value: 'blanco', text: 'Blanco', hexa: '#FFFFFE' },
+    { value: 'vinotinto', text: 'Vinotinto', hexa: '#820000' },
+    { value: 'café', text: 'Café', hexa: '#815140' },
+    { value: 'cobre', text: 'Cobre', hexa: '#CB6D51' },
+    { value: 'negro', text: 'Negro', hexa: '#000000' },
+    { value: 'verde', text: 'Verde', hexa: '#56A435' },
+    { value: 'rosado', text: 'Rosado', hexa: '#FF0080' },
+    { value: 'gris', text: 'Gris', hexa: '#9B9B9B' },
+    { value: 'morado', text: 'Morado', hexa: '#7E0C96' },
+    { value: 'naranja', text: 'Naranja', hexa: '#FFA500' },
+    { value: 'piel', text: 'Piel', hexa: '#FDDDCA' },
+    { value: 'ocre', text: 'Ocre', hexa: '#B9935A' },
+    { value: 'oro', text: 'Oro', hexa: '#FFD700' },
+    { value: 'rojo', text: 'Rojo', hexa: '#FF0000' },
+    { value: 'plata', text: 'Plata', hexa: '#BEBEBE' },
+    { value: 'acero', text: 'Acero', hexa: '#231A24 ' },
+    { value: 'transparente', text: 'Transparente', hexa: '#00FFFFFF' },
+    { value: 'dorado', text: 'Dorado', hexa: '#EFB810' },
+    { value: 'plomo', text: 'Plomo', hexa: '#9B9B9B' },
+    { value: 'multicolor', text: 'Multicolor', hexa: '#C29043' },
+    { value: 'otros', text: 'Otros', hexa: '#48D1CC' }
   ];
 
   private composicion: any[] = [

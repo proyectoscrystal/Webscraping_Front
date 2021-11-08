@@ -363,6 +363,20 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.rerender();
     }
 
+    if (value.checked && value.clase === 'color2') {
+      this.colorSelected2.push(item);
+      this.selectedFilter2.push(value);
+      this.color2 = this.colorSelected2;
+      this.getInfotableDiscount();
+      this.rerender();
+    } else if (value.clase == 'color2' && !value.checked) {
+      this.color2 = [];
+      this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      this.getInfotableDiscount();
+      this.rerender();
+    }
+
     if (value.checked && value.clase === 'composicion2') {
       this.composicionSelected2.push(item);
       this.selectedFilter2.push(value);

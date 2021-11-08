@@ -279,6 +279,18 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.getInfoSKU();
     }
 
+    if (value.checked && value.clase === 'color') {
+      this.colorSelected.push(item);
+      this.selectedFilter.push(value);
+      this.color = this.colorSelected;
+      this.getInfoSKU();
+    } else if (value.clase == 'color' && !value.checked) {
+      this.color = [];
+      this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      this.getInfoSKU();
+    }
+
     if (value.checked && value.clase === 'composicion') {
       this.composicionSelected.push(item);
       this.selectedFilter.push(value);
@@ -359,6 +371,20 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
+      this.getInfotableSKU();
+      this.rerender();
+    }
+
+    if (value.checked && value.clase === 'color2') {
+      this.colorSelected2.push(item);
+      this.selectedFilter2.push(value);
+      this.color2 = this.colorSelected2;
+      this.getInfotableSKU();
+      this.rerender();
+    } else if (value.clase == 'color2' && !value.checked) {
+      this.color2 = [];
+      this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       this.getInfotableSKU();
       this.rerender();
     }

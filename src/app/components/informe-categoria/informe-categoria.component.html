@@ -190,19 +190,21 @@
               </li>
 
               <li class="active mt-2">
-                <a href="#filterColor" data-toggle="collapse" aria-expanded="false"
-                  class="dropdown-toggle menu-color">Color
+                <a href="#filterColor" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle menu-color">Color
                 </a>
                 <ul class="collapse list-unstyled" id="filterColor">
                   <div class="overflow-auto container-scroll">
-                    <li *ngFor="let colores of colorData">
+                    <div *ngFor="let color of colorData">
                       <label class="control control--checkbox">
-                        <input class="colorCards" type="checkbox" value="{{colores.value}}" name="{{colores.value}}"
-                          (change)="validateCheckFilter($event.target.checked, colores, $event.target.className, $event.target)"
-                          id="{{colores.value}}" />
-                        {{colores.text}}
+                        <input class="colorCards" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                          (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
+                          id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
+  
+                        <div class="btn ml-2 mr-1" [ngStyle]="{'background': color.hexa}"></div>
+  
+                        {{color.text}}
                       </label>
-                    </li>
+                    </div>
                   </div>
                 </ul>
               </li>
@@ -427,19 +429,21 @@
                 </li>
 
                 <li class="active mt-2">
-                  <a href="#filterColor" data-toggle="collapse" aria-expanded="false"
-                    class="dropdown-toggle menu-color">Color
+                  <a href="#filterColor" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle menu-color">Color
                   </a>
                   <ul class="collapse list-unstyled" id="filterColor">
                     <div class="overflow-auto container-scroll">
-                      <li *ngFor="let colores of colorData">
+                      <div *ngFor="let color of colorData">
                         <label class="control control--checkbox">
-                          <input class="color" type="checkbox" value="{{colores.value}}" name="{{colores.value}}"
-                            (change)="validateCheckFilter($event.target.checked, colores, $event.target.className, $event.target)"
-                            id="{{colores.value}}" />
-                          {{colores.text}}
+                          <input class="color" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                            (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
+                            id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
+    
+                          <div class="btn ml-2 mr-1" [ngStyle]="{'background': color.hexa}"></div>
+    
+                          {{color.text}}
                         </label>
-                      </li>
+                      </div>
                     </div>
                   </ul>
                 </li>
