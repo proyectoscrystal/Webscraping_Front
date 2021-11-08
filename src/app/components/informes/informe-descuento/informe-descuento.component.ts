@@ -120,6 +120,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.getInfoDiscount();
     this.getInfotableDiscount();
     this.showDataModal();
+    
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -148,9 +149,10 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableDiscountInfo(params).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
+        this.ng();
       },
       (err) => {
         console.log(err);
@@ -172,7 +174,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.blackboxService.getInfoDiscount(params).subscribe(
       (res) => {
         this.setInfoDiscount(res);
-        // console.log(res);
+        console.log(res);
         this.ng();
       },
       (err) => {

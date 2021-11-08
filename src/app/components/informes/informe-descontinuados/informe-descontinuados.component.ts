@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Chart, ChartConfiguration, registerables, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js'
 
 import { BlackboxService } from '../../../services/blackbox.service';
@@ -6,9 +6,9 @@ import { BlackboxService } from '../../../services/blackbox.service';
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 //Filtro modal
-/*
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Datos } from '../../../utils/index';
 
@@ -17,7 +17,6 @@ interface valueFilter {
   clase: string;
   item: string;
 }
-*/
 
 @Component({
   selector: 'app-informe-descontinuados',
@@ -27,14 +26,15 @@ interface valueFilter {
 export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
 
   //Config modal filtros
-  /*
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   config = {
     backdrop: true,
     ignoreBackdropClick: true,
   };
-  */
+
+  @ViewChild(DataTableDirective, { static: false })
+  datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
@@ -48,23 +48,65 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
   subCategoryData: any;
   tipoPrendaData: any;
   colorData: any;
+  composicionData: any;
 
-  constructor(private blackboxService: BlackboxService, /*private modalService: BsModalService, private modalService2: BsModalService*/) {
+  label1: any;
+  label2: any;
+  myChart: Chart;
+  months: any;
+
+  origin: any = '';
+  categoria: any = '';
+  subCategoria: any = '';
+  tipoPrenda: any = '';
+  color: any = '';
+  composicion: any = "";
+
+  origin2: any = '';
+  categoria2: any = '';
+  subCategoria2: any = '';
+  tipoPrenda2: any = '';
+  color2: any = '';
+  composicion2: any = "";
+
+  selectedFilter2 = [];
+  originSelected2 = [];
+  categoriaSelected2 = [];
+  subCategoriaSelected2 = [];
+  tipoPrendaSelected2 = [];
+  colorSelected2 = [];
+  composicionSelected2 = [];
+
+  selectedFilter = [];
+  originSelected = [];
+  categoriaSelected = [];
+  subCategoriaSelected = [];
+  tipoPrendaSelected = [];
+  colorSelected = [];
+  composicionSelected = [];
+
+  // responses from backend
+  tableAvgDescontinuados: any;
+  tableDifference: any;
+
+  constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     Chart.register(...registerables);
-    //this.datos = new Datos();
+    this.datos = new Datos();
   }
 
   ngOnInit(): void {
-    this.getPhotoList();
-    //this.showDataModal();
-    //this.onlyOne();
+    this.getInfotableDiscountinued();
+    this.showDataModal();
+    this.onlyOne();
+    this.ng();
 
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-      }
+      },
+      destroy: true,
     };
   }
 
@@ -72,12 +114,22 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  getPhotoList() {
-    this.blackboxService.getPhotos().subscribe(
+  // peticion para la tabla
+  getInfotableDiscountinued() {
+    let params = {
+      origin: this.originSelected2,
+      categoria: this.categoriaSelected2,
+      subCategoria: this.subCategoriaSelected2,
+      tipoPrenda: this.tipoPrendaSelected2,
+      color: this.colorSelected2,
+      composicion: this.composicionSelected2
+    };
+
+    this.blackboxService.getTableDiscountinuedInfo(params).subscribe(
       (res) => {
-        this.photos = res;
+        console.log(res);
+        this.setInfoTable(res);
         this.dtTrigger.next();
-        return (this.photos = res);
       },
       (err) => {
         console.log(err);
@@ -85,8 +137,15 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     );
   }
 
+  // set info table
+  setInfoTable(res) {
+    this.photos = res.obj.arr;
+    this.tableAvgDescontinuados = res.obj.descuentoPromedio;
+    this.tableDifference = res.obj.differences;
+  }
+
   //===============INICIO FILTROS MODAL===============
-  /*
+
   //Obtener datos desde index.ts para mostrar en el modal
   showDataModal() {
     this.originData = this.datos.origins;
@@ -123,110 +182,181 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     const { item } = value;
 
     //Filtro chart
-    if (value.checked && value.clase === 'marca check') {
-      this.origin = item;
+    if (value.checked && value.clase === 'marca') {
+      this.originSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'marca check' && !value.checked) {
-      this.origin = '';
-      console.log(this.origin);
+      this.origin = this.originSelected;
+      this.getInfotableDiscountinued();
+    } else if (value.clase == 'marca' && !value.checked) {
+      this.origin = [];
+      this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      this.getInfotableDiscountinued();
     }
 
-    if (value.checked && value.clase === 'categoria check2') {
-      this.categoria = item;
+    if (value.checked && value.clase === 'categoria') {
+      this.categoriaSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'categoria check2' && !value.checked) {
-      this.categoria = '';
+      this.categoria = this.categoriaSelected;
+      this.getInfotableDiscountinued();
+    } else if (value.clase == 'categoria' && !value.checked) {
+      this.categoria = [];
+      this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      this.getInfotableDiscountinued();
     }
 
-    if (value.checked && value.clase === 'subCategoria check3') {
-      this.subCategoria = item;
+    if (value.checked && value.clase === 'categoria') {
+      this.categoriaSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'subCategoria check3' && !value.checked) {
-      this.subCategoria = '';
+      this.categoria = this.categoriaSelected;
+      this.getInfotableDiscountinued();
+    } else if (value.clase == 'categoria' && !value.checked) {
+      this.categoria = [];
+      this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      this.getInfotableDiscountinued();
     }
 
-    if (value.checked && value.clase === 'tipoPrenda check4') {
-      this.tipoPrenda = item;
+    if (value.checked && value.clase === 'subCategoria') {
+      this.subCategoriaSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'tipoPrenda check4' && !value.checked) {
-      this.tipoPrenda = '';
+      this.subCategoria = this.subCategoriaSelected;
+      this.getInfotableDiscountinued();
+    } else if (value.clase == 'subCategoria' && !value.checked) {
+      this.subCategoria = []
+      this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      this.getInfotableDiscountinued();
     }
 
-    if (value.checked && value.clase === 'color check5') {
-      this.color = item;
+    if (value.checked && value.clase === 'tipoPrenda') {
+      this.tipoPrendaSelected.push(item);
       this.selectedFilter.push(value);
-      console.log(item);
-    } else if (value.clase == 'color check5' && !value.checked) {
-      this.color = '';
+      this.tipoPrenda = this.tipoPrendaSelected;
+      this.getInfotableDiscountinued();
+    } else if (value.clase == 'tipoPrenda' && !value.checked) {
+      this.tipoPrenda = [];
+      this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      this.getInfotableDiscountinued();
     }
 
+    if (value.checked && value.clase === 'color') {
+      this.colorSelected.push(item);
+      this.selectedFilter.push(value);
+      this.color = this.colorSelected;
+      this.getInfotableDiscountinued();
+    } else if (value.clase == 'color' && !value.checked) {
+      this.color = [];
+      this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      this.getInfotableDiscountinued();
+    }
+
+    if (value.checked && value.clase === 'composicion') {
+      this.composicionSelected.push(item);
+      this.selectedFilter.push(value);
+      this.composicion = this.composicionSelected;
+      console.log(this.composicion);
+      this.getInfotableDiscountinued();
+    } else if (value.clase == 'composicion' && !value.checked) {
+      this.composicion = [];
+      this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
+      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.composicionSelected);
+      this.getInfotableDiscountinued();
+    }
+
+  }  
+
+  filterItemsData2(value) {
+    const { item } = value;
     //Filtro tabla
-    if (value.checked && value.clase === 'marca2 check') {
-      this.origin2 = item;
+    if (value.checked && value.clase === 'marca2') {
+      this.originSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'marca2 check' && !value.checked) {
-      this.origin2 = '';
-      console.log(this.origin2);
+      this.origin2 = this.originSelected2;
+      this.getInfotableDiscountinued();
+      this.rerender();
+    } else if (value.clase == 'marca2' && !value.checked) {
+      this.origin2 = [];
+      this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      this.getInfotableDiscountinued();
+      this.rerender();
     }
 
-    if (value.checked && value.clase === 'categoria2 check2') {
-      this.categoria2 = item;
+    if (value.checked && value.clase === 'categoria2') {
+      this.categoriaSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'categoria2 check2' && !value.checked) {
-      this.categoria2 = '';
+      this.categoria2 = this.categoriaSelected2;
+      this.getInfotableDiscountinued();
+      this.rerender();
+    } else if (value.clase == 'categoria2' && !value.checked) {
+      this.categoria2 = [];
+      this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      this.getInfotableDiscountinued();
+      this.rerender();
     }
 
-    if (value.checked && value.clase === 'subCategoria2 check3') {
-      this.subCategoria2 = item;
+    if (value.checked && value.clase === 'subCategoria2') {
+      this.subCategoriaSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'subCategoria2 check3' && !value.checked) {
-      this.subCategoria2 = '';
+      this.subCategoria2 = this.subCategoriaSelected2;
+      this.getInfotableDiscountinued();
+      this.rerender();
+    } else if (value.clase == 'subCategoria2' && !value.checked) {
+      this.subCategoria2 = []
+      this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      this.getInfotableDiscountinued();
+      this.rerender();
     }
 
-    if (value.checked && value.clase === 'tipoPrenda2 check4') {
-      this.tipoPrenda2 = item;
+    if (value.checked && value.clase === 'tipoPrenda2') {
+      this.tipoPrendaSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'tipoPrenda2 check4' && !value.checked) {
-      this.tipoPrenda2 = '';
+      this.tipoPrenda2 = this.tipoPrendaSelected2;
+      this.getInfotableDiscountinued();
+      this.rerender();
+    } else if (value.clase == 'tipoPrenda2' && !value.checked) {
+      this.tipoPrenda2 = [];
+      this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      this.getInfotableDiscountinued();
+      this.rerender();
     }
 
-    if (value.checked && value.clase === 'color2 check5') {
-      this.color2 = item;
+    if (value.checked && value.clase === 'composicion2') {
+      this.composicionSelected2.push(item);
       this.selectedFilter2.push(value);
-      console.log(item);
-    } else if (value.clase == 'color2 check5' && !value.checked) {
-      this.color2 = '';
+      this.composicion2 = this.composicionSelected2;
+      console.log(this.composicion2);
+      this.getInfotableDiscountinued();
+      this.rerender();
+    } else if (value.clase == 'composicion2' && !value.checked) {
+      this.composicion2 = [];
+      this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      console.log(this.composicionSelected2);
+      this.getInfotableDiscountinued();
+      this.rerender();
     }
   }
 
   applyFilter() {
     this.modalRef.hide();
 
-    this.getInfoPrice();
+    this.getInfotableDiscountinued
+    ();
   }
 
   applyFilter2() {
     this.modalRef2.hide();
 
-    this.getInfoTable();
+    this.getInfotableDiscountinued();
     this.rerender();
   }
 
@@ -305,36 +435,67 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.checked && $allCheckboxes.not(this).prop('disabled', true);
     });
   }
-  */
-  //===============FIN FILTROS MODAL===============  
+  //===============FIN FILTROS MODAL=============== 
+
+  rerender(): void {
+    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+    });
+    this.dtOptionsReload();
+  }
+
+  dtOptionsReload() {
+    this.dtOptions = {
+      destroy: true,
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
+      },
+    };
+  } 
 
   canvas: any;
   ctx: any;
   @ViewChild('mychart') mychart: any;
 
-  ngAfterViewInit() {
-    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
-    this.canvas = this.mychart.nativeElement;
-    this.ctx = this.canvas.getContext('2d');
+  ng = function ngAfterViewInit() {
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
 
-    new Chart(this.ctx, {
+    if (this.myChart) {
+      this.myChart.clear();
+      this.myChart.destroy();
+    }
+
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title
+    );
+    this.myChart = new Chart('myChart', {
       type: 'line',
       data: {
-        datasets: [{
-          label: 'Mango',
-          data: [0, 30, 20, 40, 60, 40, 10, 80, 30, 10, 64, 53],
-          borderColor: "#007ee7",
-          fill: true,
-        },
-        {
-          label: 'Zara',
-          data: [0, 20, 40, 60, 80, 20, 40, 60, 80, 100, 34, 23],
-          borderColor: "#bd0e0e",
-          fill: true,
-        }],
-        labels: ['January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021', 'June 2021', 'July 2021', 'August 2021', 'September 2021', 'October 2021', 'November 2021', 'December 2021']
+        datasets: [
+          {
+            label: this.label1,
+            data: this.averageDiscount1,
+            borderColor: '#007ee7',
+            fill: true,
+          },
+          {
+            label: this.label2,
+            data: this.averageDiscount2,
+            borderColor: '#bd0e0e',
+            fill: true,
+          },
+        ],
+        labels: this.months,
       },
     }); // fin chart 1
-  }
+  };
 
 }
