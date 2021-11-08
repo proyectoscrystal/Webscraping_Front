@@ -69,6 +69,28 @@ export class CatKidsComponent implements OnInit {
   skuData: any;
   discountsData: any;
   newsData: any;
+  fin: any = '';
+  inicio: any = '';
+  kidsSKU: any;
+  exterior: any;
+  exteriorPorcentage: any;
+  interior: any;
+  interiorPorcentage: any;
+  calzado: any;
+  calzadoPorcentage: any;
+  accesorios: any;
+  accesoriosPorcentage: any;
+  colorExterior: any;
+  colorInterior: any;
+  colorCalzado: any;
+  colorAccesorios: any;
+  colorExteriorPalabra: any;
+  colorInteriorPalabra: any;
+  colorCalzadoPalabra: any;
+  colorAccesoriosPalabra: any;
+  colorKidsPalabra: any;
+  rgbKids: any;
+  kidsTotalSKU: any;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
@@ -76,12 +98,63 @@ export class CatKidsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getInfoCategory();
     this.showDataModal();
     this.ng();
     this.onlyOne();
   }
 
   //===============INICIO FILTROS MODAL===============
+
+  getInfoCategory() {
+    let params = {
+      origin: this.originSelected,
+      sku: this.sku,
+      discount: this.discount,
+      new: this.new,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
+
+    };
+
+    this.blackboxService.getInfoKidsCategoryColors(params).subscribe(
+      (res) => {
+        this.setInfoCategories(res);
+        this.ng();
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  
+  setInfoCategories(data) {
+    this.kidsSKU = data.obj.porcentajesCategoriaColors.kidsPorcentageSKU;
+    this.exterior = data.obj.porcentajesCategoriaColors.exterior;
+    this.exteriorPorcentage = data.obj.porcentajesCategoriaColors.exteriorPorcentaje;
+    this.interior = data.obj.porcentajesCategoriaColors.interior;
+    this.interiorPorcentage = data.obj.porcentajesCategoriaColors.interiorPorcentaje;
+    this.calzado = data.obj.porcentajesCategoriaColors.calzado;
+    this.calzadoPorcentage = data.obj.porcentajesCategoriaColors.calzadoPorcentaje;
+    this.accesorios = data.obj.porcentajesCategoriaColors.accesorios;
+    this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
+    // this.rgbColorsCategoria = data.obj.porcentajesCategoriaColors.rgbColoresCategoria;
+    // // colores seccion subcategorias 
+    this.colorExterior = data.obj.porcentajesCategoriaColors.rgbExterior;
+    this.colorInterior = data.obj.porcentajesCategoriaColors.rgbInterior;
+    this.colorCalzado = data.obj.porcentajesCategoriaColors.rgbCalzado;
+    this.colorAccesorios = data.obj.porcentajesCategoriaColors.rgbAccesorios;
+    // colores seccion subcategorias en letras 
+    this.colorExteriorPalabra = data.obj.porcentajesCategoriaColors.colorExterior;
+    this.colorInteriorPalabra = data.obj.porcentajesCategoriaColors.colorInterior;
+    this.colorCalzadoPalabra = data.obj.porcentajesCategoriaColors.colorCalzado;
+    this.colorAccesoriosPalabra = data.obj.porcentajesCategoriaColors.colorAccesorios;
+    // color predominante en mujer 
+    this.colorKidsPalabra = data.obj.porcentajesCategoriaColors.colorKids;
+    this.rgbKids = data.obj.porcentajesCategoriaColors.rgbKids;
+    this.kidsTotalSKU = data.obj.porcentajesCategoriaColors.kidsTotalSKU;
+  }
 
   //Setear filtros obtenidos
   /*
@@ -184,6 +257,7 @@ export class CatKidsComponent implements OnInit {
       console.log(this.origin);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
@@ -191,6 +265,7 @@ export class CatKidsComponent implements OnInit {
       console.log(this.originSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'sku check') {
@@ -200,13 +275,15 @@ export class CatKidsComponent implements OnInit {
       console.log(this.sku);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'sku check' && !value.checked) {
-      this.sku = [];
+      this.sku = '';
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.skuSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'discount check') {
@@ -216,13 +293,15 @@ export class CatKidsComponent implements OnInit {
       console.log(this.discount);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'discount check' && !value.checked) {
-      this.discount = []
+      this.discount = '';
       this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.dicountSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'new check') {
@@ -232,13 +311,15 @@ export class CatKidsComponent implements OnInit {
       console.log(this.new);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     } else if (value.clase == 'new check' && !value.checked) {
-      this.new = [];
+      this.new = '';
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.newSelected);
 
       // Metodo a ejecutar >
+      this.getInfoCategory();
     }
 
     // Validación check chart colores
@@ -328,6 +409,16 @@ export class CatKidsComponent implements OnInit {
   }
 
   //===============FIN FILTROS MODAL===============  
+  fechaInicio(){    
+    console.log(this.inicio);
+    this.getInfoCategory();
+  }
+
+  fechaFin(){
+    // let date = new Date(this.fin);
+    console.log(this.fin);
+    this.getInfoCategory();
+  }
 
   @ViewChild('mychart') mychart: any;
 

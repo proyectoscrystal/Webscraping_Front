@@ -86,6 +86,10 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_infoCategoryHombreColors/' ,{ params } );
   }
 
+  getInfoKidsCategoryColors(params: any) {
+    return this.http.get(this.url + '/m_infoCategoryKidsColors/' ,{ params } );
+  }
+
   uploadPhoto(data: any) {
 
     const headerDict = {
