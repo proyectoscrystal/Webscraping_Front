@@ -197,7 +197,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableDiscountinuedInfo(params).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
       },
