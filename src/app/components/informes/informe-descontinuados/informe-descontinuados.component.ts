@@ -86,6 +86,8 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
   composicionSelected = [];
 
   // responses from backend
+  averageDiscountinued1:number[] = [];
+  averageDiscountinued2:number[] = [];
   tableAvgDescontinuados: any;
   tableDifference: any;
 
@@ -96,9 +98,9 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.getInfotableDiscountinued();
+    this.getInfoDiscountinued();
     this.showDataModal();
     this.onlyOne();
-    this.ng();
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -113,6 +115,74 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
+
+   // peticion para el chart
+   getInfoDiscountinued() {
+    let params = {
+      origin: this.originSelected,
+      categoria: this.categoriaSelected,
+      subCategoria: this.subCategoriaSelected,
+      tipoPrenda: this.tipoPrendaSelected,
+      color: this.colorSelected,
+      composicion: this.composicionSelected
+    };
+
+    this.blackboxService.getInfoDiscountinued(params).subscribe(
+      (res) => {
+        this.setInfoDiscountinued(res);
+        console.log(res);
+        this.ng();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  setInfoDiscountinued(res) {
+    this.months = res.obj.months;
+
+    let date = new Date();
+    let year = date.getFullYear();
+    if (res.obj.origin === 'general') {
+      this.label1 = 'Zara';
+      this.label2 = 'Mango';
+      for (let index = 0; index < res.obj.values.length; index++) {
+        if (index <= 11) {
+          this.averageDiscountinued1[index] = res.obj.values[index];
+        } else if (index >= 24 && index <= 35) {
+          this.averageDiscountinued2[index - 24] = res.obj.values[index];
+        }
+      }
+
+    } else if (res.obj.origin === 'Mango') {
+      this.label1 = `${res.obj.origin} ${year}`;
+      this.label2 = `${res.obj.origin} ${year - 1}`;
+      for (let index = 0; index < res.obj.values.length; index++) {
+        if (index <= 11) {
+          this.averageDiscountinued1[index] = res.obj.values[index];
+        } else if (index >= 12 && index <= 23) {
+          this.averageDiscountinued2[index - 12] = res.obj.values[index];
+        }
+      }
+
+    } else if (res.obj.origin === 'Zara') {
+      this.label1 = `${res.obj.origin} ${year}`;
+      this.label2 = `${res.obj.origin} ${year - 1}`;
+      for (let index = 0; index < res.obj.values.length; index++) {
+        if (index <= 11) {
+          this.averageDiscountinued1[index] = res.obj.values[index];
+        } else if (index >= 12 && index <= 23) {
+          this.averageDiscountinued2[index - 12] = res.obj.values[index];
+        }
+      }
+
+    }
+
+  }
+
+
+  
 
   // peticion para la tabla
   getInfotableDiscountinued() {
@@ -174,7 +244,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       item: item.value || '',
     };
 
-    this.filterItemsData(data);
+    this.filterItemsData2(data);
   }
 
   //Recibe los datos seleccionados en el filtro
@@ -186,72 +256,72 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.originSelected.push(item);
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     }
 
     if (value.checked && value.clase === 'categoria') {
       this.categoriaSelected.push(item);
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     }
 
     if (value.checked && value.clase === 'categoria') {
       this.categoriaSelected.push(item);
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     }
 
     if (value.checked && value.clase === 'subCategoria') {
       this.subCategoriaSelected.push(item);
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
       this.tipoPrendaSelected.push(item);
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     }
 
     if (value.checked && value.clase === 'color') {
       this.colorSelected.push(item);
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     } else if (value.clase == 'color' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     }
 
     if (value.checked && value.clase === 'composicion') {
@@ -259,13 +329,13 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.composicion = this.composicionSelected;
       console.log(this.composicion);
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     } else if (value.clase == 'composicion' && !value.checked) {
       this.composicion = [];
       this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.composicionSelected);
-      this.getInfotableDiscountinued();
+      this.getInfoDiscountinued();
     }
 
   }  
@@ -346,54 +416,61 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     }
   }
 
-  applyFilter() {
-    this.modalRef.hide();
 
-    this.getInfotableDiscountinued
-    ();
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, this.config);
   }
 
-  applyFilter2() {
-    this.modalRef2.hide();
+  clearFilters() {
+    this.origin = [];
+    this.categoria = [];
+    this.subCategoria = [];
+    this.tipoPrenda = [];
+    this.color = [];
+
+    this.originSelected.splice(0, this.originSelected.length);
+    this.categoriaSelected.splice(0, this.categoriaSelected.length);
+    this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
+    this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
+    this.colorSelected.splice(0, this.colorSelected.length);
+    this.composicionSelected.splice(0, this.composicionSelected.length); 
+    this.selectedFilter.splice(0, this.selectedFilter.length);
+
+    this.getInfoDiscountinued();
+  }
+
+  closeModal () {
+    this.modalRef.hide();
+  }
+
+
+  // modal table
+  openModal2(template2: TemplateRef<any>) {
+    this.modalRef2 = this.modalService2.show(template2, this.config);
+  }
+
+  clearFilters2() {
+    this.origin2 = [];
+    this.categoria2 = [];
+    this.subCategoria2 = [];
+    this.tipoPrenda2 = [];
+    this.color2 = [];
+
+    this.originSelected2.splice(0, this.originSelected2.length);
+    this.categoriaSelected2.splice(0, this.categoriaSelected2.length);
+    this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
+    this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
+    this.colorSelected2.splice(0, this.colorSelected2.length);
+    this.composicionSelected2.splice(0, this.composicionSelected2.length); 
+    this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
     this.getInfotableDiscountinued();
     this.rerender();
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.origin = '';
-    this.categoria = '';
-    this.subCategoria = '';
-    this.tipoPrenda = '';
-    this.color = '';
-
-    this.selectedFilter.splice(0, this.selectedFilter.length);
-
-    this.modalRef = this.modalService.show(template, this.config);
-  }
-
-  openModal2(template2: TemplateRef<any>) {
-    this.origin2 = '';
-    this.categoria2 = '';
-    this.subCategoria2 = '';
-    this.tipoPrenda2 = '';
-    this.color2 = '';
-
-    this.selectedFilter2.splice(0, this.selectedFilter2.length);
-
-    this.modalRef2 = this.modalService2.show(template2, this.config);
-  }
-
-  closeModal() {
-    this.modalRef.hide();
-
-    this.selectedFilter.splice(0, this.selectedFilter.length);
-  }
-
-  closeModal2() {
+  closeModal2 () {
     this.modalRef2.hide();
-
-    this.selectedFilter2.splice(0, this.selectedFilter2.length);
   }
 
   // funcion para poner estilo a la tabla
@@ -482,14 +559,14 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
         datasets: [
           {
             label: this.label1,
-            data: this.averageDiscount1,
-            borderColor: '#007ee7',
+            data: this.averageDiscountinued1,
+            borderColor: '#c95b10',
             fill: true,
           },
           {
             label: this.label2,
-            data: this.averageDiscount2,
-            borderColor: '#bd0e0e',
+            data: this.averageDiscountinued2,
+            borderColor: '#e5a67c',
             fill: true,
           },
         ],

@@ -281,7 +281,7 @@
             <img src="../../../assets/remove.png" class="IconCards" alt="remove" />
             <p class="cardsTitles">Descontinuados</p>
             <p class="cardsNumbers">{{totalDescontinuados}}</p>
-            <p class="cardsDifferences">10,55%</p>
+            <p class="cardsDifferences" [ngClass]="difference4()">{{discontinuedDifference[0] === 0 ? '-' : '+'}} {{discontinuedDifference[1]}}</p>
             <p>Que el mes pasado</p>
           </div>
         </div>

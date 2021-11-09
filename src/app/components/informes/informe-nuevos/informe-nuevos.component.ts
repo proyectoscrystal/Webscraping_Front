@@ -556,13 +556,13 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
           {
             label: this.label1,
             data: this.averageNews1,
-            borderColor: '#007ee7',
+            borderColor: '#c95b10',
             fill: true,
           },
           {
             label: this.label2,
             data: this.averageNews2,
-            borderColor: '#bd0e0e',
+            borderColor: '#e5a67c',
             fill: true,
           },
         ],

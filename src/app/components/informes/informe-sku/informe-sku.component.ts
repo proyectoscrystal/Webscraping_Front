@@ -555,13 +555,13 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
           {
             label: this.label1,
             data: this.averageSKU1,
-            borderColor: '#007ee7',
+            borderColor: '#c95b10',
             fill: true,
           },
           {
             label: this.label2,
             data: this.averageSKU2,
-            borderColor: '#bd0e0e',
+            borderColor: '#e5a67c',
             fill: true,
           },
         ],

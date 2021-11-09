@@ -69,6 +69,10 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_averageDiscount/' ,{ params } );
   }
 
+  getInfoDiscountinued(params: any) {
+    return this.http.get(this.url + '/m_averageDiscountinued/' ,{ params } );
+  }
+
   getInfoNews(params: any) {
     return this.http.get(this.url + '/m_averageNews/' ,{ params } );
   }

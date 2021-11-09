@@ -44,6 +44,7 @@ export class InformesComponent implements OnInit {
   discountDifference: any[] = [0,0];
   newsDifference: any[] = [0,0];
   skuDifference: any[] = [0,0];
+  discontinuedDifference: any[] = [0,0];
 
   infoCards: any;
   params: any;
@@ -119,6 +120,7 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
         this.setInfoCards(res);
+        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -315,13 +317,14 @@ export class InformesComponent implements OnInit {
 
     this.totalDiscount = info.obj.discount;
     this.totalNew = info.obj.nuevos;
-    this.totalDescontinuados = info.obj.descontinuados;
+    this.totalDescontinuados = info.obj.discontinueds;
     this.totalsku = info.obj.sku
 
     this.priceDifference = info.obj.differencePrice;
     this.discountDifference = info.obj.differencePorcentage;
     this.skuDifference = info.obj.differenceSKU;
     this.newsDifference = info.obj.differenceNew;
+    this.discontinuedDifference = info.obj.differenceDiscontinued;
   }
 
   fechaInicio(){    
@@ -357,6 +360,12 @@ export class InformesComponent implements OnInit {
     return 'porcentaje';
   }
 
+  difference4() {
+    if (this.discontinuedDifference[0] === 0) {
+      return 'porcentaje2';
+    }
+    return 'porcentaje';
+  }
 
   difference5() {
     if (this.skuDifference[0] === 0) {
