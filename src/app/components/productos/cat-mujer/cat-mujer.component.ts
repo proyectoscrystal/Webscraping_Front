@@ -40,7 +40,7 @@ export class CatMujerComponent implements OnInit {
   photos: any;
 
   //Modal categorias
-  origin: any = 'Mujer';
+  origin: any = '';
   sku: any = '';
   discount: any = '';
   new: any = '';
@@ -165,7 +165,6 @@ export class CatMujerComponent implements OnInit {
   //info seccion barchart 
   getInfoBarChart() {
     let params = {
-      origin: this.origin,
       categoria: this.categoriaSelected2,
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
