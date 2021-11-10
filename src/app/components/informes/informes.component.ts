@@ -222,14 +222,14 @@ export class InformesComponent implements OnInit {
       this.getInfoCards();
     }
 
-    if (value.checked && value.clase === 'color') {
+    if (value.checked && value.clase === 'color colorStyles') {
       this.colorSelected.push(item);
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       console.log(this.color);
 
       this.getInfoCards();
-    } else if (value.clase == 'color' && !value.checked) {
+    } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);

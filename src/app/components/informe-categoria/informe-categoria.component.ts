@@ -306,13 +306,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.getInfoCards();
     }
 
-    if (value.checked && value.clase === 'colorCards') {
+    if (value.checked && value.clase === 'colorCards colorStyles') {
       this.colorSelectedCards.push(item);
       this.selectedFilterCards.push(value);
       this.colorCards = this.colorSelectedCards;
       console.log(this.colorCards);
       this.getInfoCards();
-    } else if (value.clase == 'colorCards' && !value.checked) {
+    } else if (value.clase == 'colorCards colorStyles' && !value.checked) {
       this.colorCards = [];
       this.colorSelectedCards.splice(this.colorSelectedCards.indexOf(item), 1);
       this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
@@ -400,14 +400,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.rerender();
     }
 
-    if (value.checked && value.clase === 'color') {
+    if (value.checked && value.clase === 'color colorStyles') {
       this.colorSelected.push(item);
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       console.log(this.color);
       this.getInfoTable();
       this.rerender();
-    } else if (value.clase == 'color' && !value.checked) {
+    } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);

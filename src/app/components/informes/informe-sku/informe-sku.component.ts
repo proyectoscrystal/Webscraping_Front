@@ -279,12 +279,12 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.getInfoSKU();
     }
 
-    if (value.checked && value.clase === 'color') {
+    if (value.checked && value.clase === 'color colorStyles') {
       this.colorSelected.push(item);
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       this.getInfoSKU();
-    } else if (value.clase == 'color' && !value.checked) {
+    } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
@@ -375,13 +375,13 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.rerender();
     }
 
-    if (value.checked && value.clase === 'color2') {
+    if (value.checked && value.clase === 'color2 colorStyles') {
       this.colorSelected2.push(item);
       this.selectedFilter2.push(value);
       this.color2 = this.colorSelected2;
       this.getInfotableSKU();
       this.rerender();
-    } else if (value.clase == 'color2' && !value.checked) {
+    } else if (value.clase == 'color2 colorStyles' && !value.checked) {
       this.color2 = [];
       this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);

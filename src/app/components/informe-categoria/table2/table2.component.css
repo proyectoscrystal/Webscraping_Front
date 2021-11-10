@@ -52,6 +52,37 @@
   color: white;
 }
 
+.checkboxAlign {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2%;
+}
+
+.colorStyles{
+  width: 30px !important;
+  height: 30px !important;
+  margin: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: none;
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.colorStyles:hover {
+  cursor: pointer; 
+}
+
+.colorStyles:checked:after {
+  content: '✔';
+  color: white;
+}
+
 table {
   width: 100%;
   background-color: white;
@@ -88,6 +119,7 @@ tr:hover td {
 .prenda1 {
   width: 120px;
   height: 150px;
+  border-radius: 5%;
 }
 
 .imgCards {

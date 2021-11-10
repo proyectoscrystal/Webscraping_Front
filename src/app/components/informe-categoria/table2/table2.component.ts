@@ -200,14 +200,14 @@ export class Table2Component implements OnInit, OnDestroy {
       this.rerender();
     }
 
-    if (value.checked && value.clase === 'color2') {
+    if (value.checked && value.clase === 'color2 colorStyles') {
       this.colorSelected2.push(item);
       this.selectedFilter2.push(value);
       this.color2 = this.colorSelected2;
       console.log(this.color2);
       this.getInfoTable2();
       this.rerender();
-    } else if (value.clase == 'color2' && !value.checked) {
+    } else if (value.clase == 'color2 colorStyles' && !value.checked) {
       this.color2 = [];
       this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);

@@ -6,7 +6,7 @@
 
       <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
         xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
-        viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
+        viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#000000 " role="img"
         aria-label="Illustration of a Funnel" class="hoverSvgFilter svgFilterChart">
         <g id="__id33_ssutzzo1g">
           <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
@@ -98,15 +98,12 @@
                 class="dropdown-toggle menu-color">Color
               </a>
               <ul class="collapse list-unstyled" id="filterColor">
-                <div class="overflow-auto container-scroll">
-                  <li *ngFor="let color of colorData">
-                    <label class="control control--checkbox">
-                      <input class="color" type="checkbox" value="{{color.value}}" name="{{color.value}}"
-                        (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
-                        id="{{color.value}}" />
-                      {{color.text}}
-                    </label>
-                  </li>
+                <div class="overflow-auto checkboxAlign">
+                  <div *ngFor="let color of colorData">
+                    <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}" title="{{color.text}}"
+                      (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
+                      id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
+                  </div>
                 </div>
               </ul>
             </li>
@@ -139,8 +136,8 @@
       </ng-template>
     </div>
     <div class="item-filters-top marginTitle">
-      <div class="content-filter-item">
-        <p class="item-filter"></p>
+      <div *ngFor="let filter of selectedFilter" class="content-filter-item">
+        <p class="item-filter">{{filter.item}}</p>
       </div>
     </div>
     <div class="chart-line marginCharts">
@@ -159,7 +156,7 @@
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal2(template2)" width="17" heigth="17"
           xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
-          viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
+          viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#000000 " role="img"
           aria-label="Illustration of a Funnel" class="hoverSvgFilter svgFilterChart">
           <g id="__id33_ssutzzo1g">
             <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
@@ -251,15 +248,12 @@
                   class="dropdown-toggle menu-color">Color
                 </a>
                 <ul class="collapse list-unstyled" id="filterColor">
-                  <div class="overflow-auto container-scroll">
-                    <li *ngFor="let color of colorData">
-                      <label class="control2 control--checkbox">
-                        <input class="color2" type="checkbox" value="{{color.value}}" name="{{color.value}}"
-                          (change)="validateCheckFilter2($event.target.checked, color, $event.target.className, $event.target)"
-                          id="{{color.value}}" />
-                        {{color.text}}
-                      </label>
-                    </li>
+                  <div class="overflow-auto checkboxAlign">
+                    <div *ngFor="let color of colorData">
+                      <input class="color2 colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}" title="{{color.text}}"
+                        (change)="validateCheckFilter2($event.target.checked, color, $event.target.className, $event.target)"
+                        id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
+                    </div>
                   </div>
                 </ul>
               </li>
@@ -293,8 +287,8 @@
       </div>
     </div>
     <div class="item-filters-top marginTitle">
-      <div class="content-filter-item">
-        <p class="item-filter"></p>
+      <div *ngFor="let filter2 of selectedFilter2" class="content-filter-item">
+        <p class="item-filter">{{filter2.item}}</p>
       </div>
     </div>
 

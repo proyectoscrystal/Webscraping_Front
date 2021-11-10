@@ -76,7 +76,7 @@
   <div class="contenedor-labels">
     <div class="button-sidebar">
       <button class="btn-sidebar" id="menu-toggle-sidebar">
-        <span class="material-icons">navigate_before</span>
+        <span class="flecha izquierda"></span>
       </button>
     </div>
   </div>
@@ -101,7 +101,7 @@
 
         <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
           xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
-          viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#358da3 " role="img"
+          viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#000000 " role="img"
           aria-label="Illustration of a Funnel" class="hoverSvgFilter">
           <g id="__id33_ssutzzo1g">
             <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
@@ -191,20 +191,15 @@
               </li>
 
               <li class="active mt-2">
-                <a href="#filterColor" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle menu-color">Color
+                <a href="#filterColor" data-toggle="collapse" aria-expanded="false"
+                  class="dropdown-toggle menu-color">Color
                 </a>
                 <ul class="collapse list-unstyled" id="filterColor">
-                  <div class="overflow-auto container-scroll">
+                  <div class="overflow-auto checkboxAlign">
                     <div *ngFor="let color of colorData">
-                      <label class="control control--checkbox">
-                        <input class="color" type="checkbox" value="{{color.value}}" name="{{color.value}}"
-                          (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
-                          id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
-
-                        <div class="btn ml-2 mr-1" [ngStyle]="{'background': color.hexa}"></div>
-
-                        {{color.text}}
-                      </label>
+                      <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}" title="{{color.text}}"
+                        (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
+                        id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
                     </div>
                   </div>
                 </ul>

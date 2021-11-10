@@ -312,12 +312,12 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.getInfoDiscountinued();
     }
 
-    if (value.checked && value.clase === 'color') {
+    if (value.checked && value.clase === 'color colorStyles') {
       this.colorSelected.push(item);
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       this.getInfoDiscountinued();
-    } else if (value.clase == 'color' && !value.checked) {
+    } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
@@ -398,6 +398,20 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.getInfotableDiscountinued();
       this.rerender();
     }
+
+    if (value.checked && value.clase === 'color2 colorStyles') {
+      this.colorSelected2.push(item);
+      this.selectedFilter2.push(value);
+      this.color2 = this.colorSelected2;
+      this.getInfotableDiscountinued();
+      this.rerender();
+    } else if (value.clase == 'color2 colorStyles' && !value.checked) {
+      this.color2 = [];
+      this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
+      this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
+      this.getInfotableDiscountinued();
+      this.rerender();
+    }    
 
     if (value.checked && value.clase === 'composicion2') {
       this.composicionSelected2.push(item);
