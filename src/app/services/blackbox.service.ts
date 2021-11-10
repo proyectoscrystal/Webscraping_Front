@@ -98,6 +98,13 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_infoCategoryKidsColors/' ,{ params } );
   }
 
+  // peticiones para los barcharts en vista colores
+  getInfoGeneralColors(params: any) {
+    return this.http.get(this.url + '/m_infoGeneralColors/' ,{ params } );
+  }
+
+
+
   uploadPhoto(data: any) {
 
     const headerDict = {

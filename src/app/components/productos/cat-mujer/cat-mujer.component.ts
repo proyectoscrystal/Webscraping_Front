@@ -40,7 +40,7 @@ export class CatMujerComponent implements OnInit {
   photos: any;
 
   //Modal categorias
-  origin: any = '';
+  origin: any = 'Mujer';
   sku: any = '';
   discount: any = '';
   new: any = '';
@@ -92,6 +92,9 @@ export class CatMujerComponent implements OnInit {
   colorMujerPalabra: any;
   rgbMujer: any;
   mujerTotalSKU: any;
+  colores: any;
+  coloresCount: any;
+  coloresRGB: any;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
@@ -100,6 +103,7 @@ export class CatMujerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInfoCategory();
+    this.getInfoBarChart();
     this.showDataModal();
     this.onlyOne();
     this.ng();
@@ -156,6 +160,36 @@ export class CatMujerComponent implements OnInit {
     this.colorMujerPalabra = data.obj.porcentajesCategoriaColors.colorMujer;
     this.rgbMujer = data.obj.porcentajesCategoriaColors.rgbMujer;
     this.mujerTotalSKU = data.obj.porcentajesCategoriaColors.mujerTotalSKU;
+  }
+
+  //info seccion barchart 
+  getInfoBarChart() {
+    let params = {
+      origin: this.origin,
+      categoria: this.categoriaSelected2,
+      subCategoria: this.subCategoriaSelected2,
+      tipoPrenda: this.tipoPrendaSelected2,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
+
+    };
+
+    this.blackboxService.getInfoGeneralColors(params).subscribe(
+      (res) => {
+        console.log(res);
+        this.setInfoBarChart(res);
+        this.ng();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  setInfoBarChart(data) {
+    this.colores = data.obj.porcentajesCategoriaColors.colores;
+    this.coloresCount = data.obj.porcentajesCategoriaColors.coloresCount;
+    this.coloresRGB = data.obj.porcentajesCategoriaColors.coloresRGB;
   }
 
 
@@ -266,12 +300,14 @@ export class CatMujerComponent implements OnInit {
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -280,12 +316,14 @@ export class CatMujerComponent implements OnInit {
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -294,12 +332,14 @@ export class CatMujerComponent implements OnInit {
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
   }
 
@@ -343,6 +383,7 @@ export class CatMujerComponent implements OnInit {
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
 
     // Metodo a ejecutar > this.getInfotableDiscount();
+    this.getInfoBarChart();
   }
   closeModal2() {
     this.modalRef2.hide();
@@ -351,10 +392,12 @@ export class CatMujerComponent implements OnInit {
   //===============FIN FILTROS MODAL=============== 
   fechaInicio(){    
     this.getInfoCategory();
+    this.getInfoBarChart();
   }
 
   fechaFin(){
     this.getInfoCategory();
+    this.getInfoBarChart();
   }
   
   //=============== chart de colores
@@ -378,12 +421,12 @@ export class CatMujerComponent implements OnInit {
     this.myChart = new Chart('myChartMujer', {
       type: 'bar',
       data: {
-        labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
+        labels: this.colores,
         datasets: [{
-          data: [46, 20, 19, 60, 50, 26],
+          data: this.coloresCount,
           label: "Colores",
-          borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
-          backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+          borderColor: this.coloresRGB,
+          backgroundColor: this.coloresRGB,
           borderWidth: 1
         }
         ]
