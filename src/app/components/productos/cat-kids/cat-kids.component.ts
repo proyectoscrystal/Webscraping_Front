@@ -91,6 +91,9 @@ export class CatKidsComponent implements OnInit {
   colorKidsPalabra: any;
   rgbKids: any;
   kidsTotalSKU: any;
+  colores: any;
+  coloresCount: any;
+  coloresRGB: any;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
@@ -99,6 +102,7 @@ export class CatKidsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInfoCategory();
+    this.getInfoBarChart();
     this.showDataModal();
     this.ng();
     this.onlyOne();
@@ -156,71 +160,38 @@ export class CatKidsComponent implements OnInit {
     this.kidsTotalSKU = data.obj.porcentajesCategoriaColors.kidsTotalSKU;
   }
 
-  //Setear filtros obtenidos
-  /*
-  getInfoCats() {
-
+  
+   //info seccion barchart 
+   getInfoBarChart() {
     let params = {
-      origin: this.originSelected,
-      categoria: this.categoriaSelected,
-      subCategoria: this.subCategoriaSelected,
-      tipoPrenda: this.tipoPrendaSelected,
-      color: this.colorSelected,
+      categoria: this.categoriaSelected2,
+      subCategoria: this.subCategoriaSelected2,
+      tipoPrenda: this.tipoPrendaSelected2,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
+
     };
 
-    this.blackboxService.getInfoCards(params).subscribe(
+    this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
-        this.setInfoCards(res);
+        console.log(res);
+        this.setInfoBarChart(res);
+        this.ng();
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  setInfoBarChart(data) {
+    this.colores = data.obj.porcentajesCategoriaColors.colores;
+    this.coloresCount = data.obj.porcentajesCategoriaColors.coloresCount;
+    this.coloresRGB = data.obj.porcentajesCategoriaColors.coloresRGB;
   }
   
-  /*
-  getInfoChart() {
-
-    let params = {
-      origin2: this.originSelected2,
-      categoria2: this.categoriaSelected2,
-      subCategoria2: this.subCategoriaSelected2,
-      tipoPrenda2: this.tipoPrendaSelected2,
-      color2: this.colorSelected2,
-    };
-
-    this.blackboxService.getInfoCards(params).subscribe(
-      (res) => {
-        this.setInfoCards(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-  */
-
-  /*
-  getInfoTable() {
-
-    let params = {
-      origin: this.originSelected,
-      categoria: this.categoriaSelected,
-      subCategoria: this.subCategoriaSelected,
-      tipoPrenda: this.tipoPrendaSelected,
-      color: this.colorSelected,
-    };
-
-    this.blackboxService.getInfoCards(params).subscribe(
-      (res) => {
-        this.setInfoCards(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-  */
+  
+ 
 
   //Obtener datos desde index.ts para mostrar en el modal
   showDataModal() {
@@ -329,12 +300,14 @@ export class CatKidsComponent implements OnInit {
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -343,12 +316,14 @@ export class CatKidsComponent implements OnInit {
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -357,12 +332,14 @@ export class CatKidsComponent implements OnInit {
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
   }
 
@@ -372,9 +349,9 @@ export class CatKidsComponent implements OnInit {
   }
   clearFilters() {
     this.origin = [];
-    this.sku = [];
-    this.discount = [];
-    this.new = [];
+    this.sku = '';
+    this.discount = '';
+    this.new = '';
 
     this.selectedFilter.splice(0, this.selectedFilter.length);
     this.originSelected.splice(0, this.originSelected.length);
@@ -383,6 +360,7 @@ export class CatKidsComponent implements OnInit {
     this.newSelected.splice(0, this.newSelected.length);
 
     // Metodo a ejecutar > this.getInfoCards();
+    this.getInfoCategory();
   }
   closeModal() {
     this.modalRef.hide();
@@ -403,6 +381,8 @@ export class CatKidsComponent implements OnInit {
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
 
     // Metodo a ejecutar > this.getInfotableDiscount();
+    this.getInfoBarChart();
+    
   }
   closeModal2() {
     this.modalRef2.hide();
@@ -439,12 +419,12 @@ export class CatKidsComponent implements OnInit {
     this.myChart = new Chart('myChart', {
       type: 'bar',
       data: {
-        labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
+        labels: this.colores,
         datasets: [{
-          data: [18, 10, 63, 70, 55, 47],
+          data: this.coloresCount,
           label: "Colores",
-          borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
-          backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+          borderColor: this.coloresRGB,
+          backgroundColor: this.coloresRGB,
           borderWidth: 1
         }
         ]

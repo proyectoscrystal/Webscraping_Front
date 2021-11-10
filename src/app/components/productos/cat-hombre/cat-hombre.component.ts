@@ -93,6 +93,9 @@ export class CatHombreComponent implements OnInit {
   colorHombrePalabra: any;
   rgbHombre: any;
   hombreTotalSKU: any;
+  colores: any;
+  coloresCount: any;
+  coloresRGB: any;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
@@ -101,6 +104,7 @@ export class CatHombreComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInfoCategory()
+    this.getInfoBarChart();
     this.showDataModal();
     this.ng();
     this.onlyOne();
@@ -157,6 +161,35 @@ export class CatHombreComponent implements OnInit {
     this.colorHombrePalabra = data.obj.porcentajesCategoriaColors.colorHombre;
     this.rgbHombre = data.obj.porcentajesCategoriaColors.rgbHombre;
     this.hombreTotalSKU = data.obj.porcentajesCategoriaColors.hombreTotalSKU;
+  }
+
+   //info seccion barchart 
+   getInfoBarChart() {
+    let params = {
+      categoria: this.categoriaSelected2,
+      subCategoria: this.subCategoriaSelected2,
+      tipoPrenda: this.tipoPrendaSelected2,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
+
+    };
+
+    this.blackboxService.getInfoGeneralColors(params).subscribe(
+      (res) => {
+        console.log(res);
+        this.setInfoBarChart(res);
+        this.ng();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  setInfoBarChart(data) {
+    this.colores = data.obj.porcentajesCategoriaColors.colores;
+    this.coloresCount = data.obj.porcentajesCategoriaColors.coloresCount;
+    this.coloresRGB = data.obj.porcentajesCategoriaColors.coloresRGB;
   }
 
   //Obtener datos desde index.ts para mostrar en el modal
@@ -266,12 +299,14 @@ export class CatHombreComponent implements OnInit {
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -280,12 +315,14 @@ export class CatHombreComponent implements OnInit {
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
-      this.subCategoria2 = []
+      this.subCategoria2 = [];
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -294,12 +331,14 @@ export class CatHombreComponent implements OnInit {
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
       // Metodo a ejecutar >
+      this.getInfoBarChart();
     }
   }
 
@@ -309,9 +348,9 @@ export class CatHombreComponent implements OnInit {
   }
   clearFilters() {
     this.origin = [];
-    this.sku = [];
-    this.discount = [];
-    this.new = [];
+    this.sku = '';
+    this.discount = '';
+    this.new = '';
 
     this.selectedFilter.splice(0, this.selectedFilter.length);
     this.originSelected.splice(0, this.originSelected.length);
@@ -320,6 +359,7 @@ export class CatHombreComponent implements OnInit {
     this.newSelected.splice(0, this.newSelected.length);
 
     // Metodo a ejecutar > this.getInfoCards();
+    this.getInfoCategory();
   }
   closeModal() {
     this.modalRef.hide();
@@ -340,6 +380,7 @@ export class CatHombreComponent implements OnInit {
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
 
     // Metodo a ejecutar > this.getInfotableDiscount();
+    this.getInfoBarChart();
   }
   closeModal2() {
     this.modalRef2.hide();
@@ -376,12 +417,12 @@ export class CatHombreComponent implements OnInit {
     this.myChart = new Chart('myChartHombre', {
       type: 'bar',
           data: {
-            labels: ["Azul", "Morado", "rojo", "blanco", "amarillo", "vinotinto"],
+            labels: this.colores,
             datasets: [{ 
-                data: [86,40,49,30,20,56],
+                data: this.coloresCount,
                 label: "Colores",
-                borderColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0, 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
-                backgroundColor: ["rgb(30, 140, 255)", "rgb(102, 51, 153)", "rgb(255, 0 , 0)", "rgb(255, 255, 255)", "rgb(255, 255, 0)", "rgb(130, 0, 0)"],
+                borderColor: this.coloresRGB,
+                backgroundColor: this.coloresRGB,
                 borderWidth:1
               }
             ]
