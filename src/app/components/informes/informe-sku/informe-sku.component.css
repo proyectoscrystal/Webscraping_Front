@@ -87,13 +87,11 @@
 .table-container {
   width: 100%;
   max-width: auto;
-  margin: auto;
 }
 
 .table-container-sku {
   width: 100%;
   max-width: auto;
-  margin: auto;
 }
 
 tr:hover td {

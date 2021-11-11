@@ -19,14 +19,20 @@
 
 @media screen and (max-width: 600px) {
   .grid {
-    display: grid;
-    grid-template-columns: 35% 65%;
+    display: block;
   }
 
   .filterTable {
     margin-top: 7px;
     margin-right: 20px;
   }
+}
+
+.cardAlign {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: left;
+  justify-content: center;
 }
 
 /* Tablas */
@@ -332,7 +338,7 @@ a.sel2.activo::before {
   content: " "; 
   position: absolute;
   margin-top: 2.5px;
-  left: 30px;
+  left: 25px;
   width: 0.9rem;
   height: 0.9rem;
   border-radius: 50%;

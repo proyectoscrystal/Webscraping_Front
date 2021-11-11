@@ -53,12 +53,14 @@
             </ul>
             <ul class="collapse list-unstyled itemlist" id="colectionSubmenu">
               <li class="list-items-container">
-                <a class="sel2" routerLink="../productos/informeCatMujer" routerLinkActive="activo">Categoria mujeres</a>
+                <a class="sel2" routerLink="../productos/informeCatMujer" routerLinkActive="activo">Categoria
+                  mujeres</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled itemlist" id="colectionSubmenu">
               <li class="list-items-container">
-                <a class="sel2" routerLink="../productos/informeCatHombre" routerLinkActive="activo">Categoria hombres</a>
+                <a class="sel2" routerLink="../productos/informeCatHombre" routerLinkActive="activo">Categoria
+                  hombres</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled itemlist" id="colectionSubmenu">
@@ -102,7 +104,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
           xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
           viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#000000 " role="img"
-          aria-label="Illustration of a Funnel" class="hoverSvgFilter">
+          aria-label="Illustration of a Funnel" class="hoverSvgFilter svgAlign">
           <g id="__id33_ssutzzo1g">
             <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
               style="fill: inherit"></path>
@@ -143,8 +145,7 @@
                 <ul class="collapse list-unstyled" id="filterCategory">
                   <li *ngFor="let category of categoryData">
                     <label class="control control--checkbox">
-                      <input class="categoria" type="checkbox" value="{{category.value}}"
-                        name="{{category.value}}"
+                      <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                         (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
                         id="{{category.value}}" />
                       {{category.text}}
@@ -197,7 +198,8 @@
                 <ul class="collapse list-unstyled" id="filterColor">
                   <div class="overflow-auto checkboxAlign">
                     <div *ngFor="let color of colorData">
-                      <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}" title="{{color.text}}"
+                      <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                        title="{{color.text}}"
                         (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
                         id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
                     </div>
@@ -213,7 +215,8 @@
                   <div class="overflow-auto container-scroll">
                     <li *ngFor="let composicion of composicionData">
                       <label class="control control--checkbox">
-                        <input class="composicion" type="checkbox" value="{{composicion.value}}" name="{{composicion.value}}"
+                        <input class="composicion" type="checkbox" value="{{composicion.value}}"
+                          name="{{composicion.value}}"
                           (change)="validateCheckFilter($event.target.checked, composicion, $event.target.className, $event.target)"
                           id="{{composicion.value}}" />
                         {{composicion.text}}
@@ -238,7 +241,7 @@
     <!-- inicio cards resumen -->
     <div class="item-filters-top">
       <div *ngFor="let filter of selectedFilter" class="content-filter-item">
-          <p class="item-filter">{{filter.item}}</p>
+        <p class="item-filter">{{filter.item}}</p>
       </div>
     </div>
     <div class="container-cards">
@@ -249,7 +252,8 @@
             <!--todo hacer dinamico el precio y el porcentaje -->
             <p class="cardsTitles">Precio promedio</p>
             <p class="cardsNumbers">$ {{currency1}}</p>
-            <p class="cardsDifferences" [ngClass]="difference1()"> {{priceDifference[0] === 0 ? '-' : '+'}} {{priceDifference[1]}}%</p>
+            <p class="cardsDifferences" [ngClass]="difference1()"> {{priceDifference[0] === 0 ? '-' : '+'}}
+              {{priceDifference[1]}}%</p>
             <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
@@ -258,7 +262,8 @@
             <img src="../../../assets/discount.png" class="IconCards" alt="discount" />
             <p class="cardsTitles">Descuento promedio</p>
             <p class="cardsNumbers"> {{totalDiscount}}% </p>
-            <p class="cardsDifferences" [ngClass]="difference2()"> {{discountDifference[0] === 0 ? '-' : '+'}} {{discountDifference[1]}}%</p>
+            <p class="cardsDifferences" [ngClass]="difference2()"> {{discountDifference[0] === 0 ? '-' : '+'}}
+              {{discountDifference[1]}}%</p>
             <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
@@ -267,7 +272,8 @@
             <img src="../../../assets/new.png" class="IconCards" alt="new" />
             <p class="cardsTitles">Recien llegados</p>
             <p class="cardsNumbers"> {{totalNew}} </p>
-            <p class="cardsDifferences" [ngClass]="difference3()"> {{newsDifference[0] === 0 ? '-' : '+'}} {{newsDifference[1]}}</p>
+            <p class="cardsDifferences" [ngClass]="difference3()"> {{newsDifference[0] === 0 ? '-' : '+'}}
+              {{newsDifference[1]}}</p>
             <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
@@ -276,7 +282,8 @@
             <img src="../../../assets/remove.png" class="IconCards" alt="remove" />
             <p class="cardsTitles">Descontinuados</p>
             <p class="cardsNumbers">{{totalDescontinuados}}</p>
-            <p class="cardsDifferences" [ngClass]="difference4()">{{discontinuedDifference[0] === 0 ? '-' : '+'}} {{discontinuedDifference[1]}}</p>
+            <p class="cardsDifferences" [ngClass]="difference4()">{{discontinuedDifference[0] === 0 ? '-' : '+'}}
+              {{discontinuedDifference[1]}}</p>
             <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
@@ -285,7 +292,8 @@
             <img src="../../../assets/sku.png" class="IconCards" alt="sku" />
             <p class="cardsTitles">Resumen de SKU</p>
             <p class="cardsNumbers">{{totalsku}}</p>
-            <p class="cardsDifferences" [ngClass]="difference5()">{{skuDifference[0] === 0 ? '-' : '+'}} {{skuDifference[1]}}</p>
+            <p class="cardsDifferences" [ngClass]="difference5()">{{skuDifference[0] === 0 ? '-' : '+'}}
+              {{skuDifference[1]}}</p>
             <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
@@ -295,8 +303,8 @@
 
     <!-- routing a los componentes hijos -->
     <div class="container-fluid">
-    <router-outlet></router-outlet>
-  </div>
+      <router-outlet></router-outlet>
+    </div>
     <br>
 
   </div>

@@ -336,8 +336,16 @@ ul.nav:hover {
 
 @media screen and (max-width: 600px) {
   .grid {
-    display: grid;
-    grid-template-columns: 40% 30% 30%;
+    display: block;
+    margin-left: 20px;
+  }
+
+  .titulo-h1 {
+    text-align: center;
+  }
+
+  .selectTop {
+    margin-bottom: 15px;
   }
 }
 
@@ -391,7 +399,7 @@ a.sel2.activo::before {
   content: " "; 
   position: absolute;
   margin-top: 2.5px;
-  left: 30px;
+  left: 25px;
   width: 0.9rem;
   height: 0.9rem;
   border-radius: 50%;
