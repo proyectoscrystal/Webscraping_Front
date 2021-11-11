@@ -556,6 +556,13 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
         ],
         labels: this.months,
       },
+      options: {
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        }
+      }
     }); // fin chart 1
   };
 }
