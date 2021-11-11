@@ -143,7 +143,7 @@ export class GeneralComponent implements OnInit {
       (res) => {
         this.setInfoCategories(res);
         this.ng2();
-        // console.log(res);
+        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -190,7 +190,7 @@ export class GeneralComponent implements OnInit {
 
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.setInfoBarChart(res);
         this.ng();
       },
