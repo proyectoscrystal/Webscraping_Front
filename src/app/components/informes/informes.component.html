@@ -250,7 +250,7 @@
             <p class="cardsTitles">Precio promedio</p>
             <p class="cardsNumbers">$ {{currency1}}</p>
             <p class="cardsDifferences" [ngClass]="difference1()"> {{priceDifference[0] === 0 ? '-' : '+'}} {{priceDifference[1]}}%</p>
-            <p>Que el mes pasado</p>
+            <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
@@ -259,7 +259,7 @@
             <p class="cardsTitles">Descuento promedio</p>
             <p class="cardsNumbers"> {{totalDiscount}}% </p>
             <p class="cardsDifferences" [ngClass]="difference2()"> {{discountDifference[0] === 0 ? '-' : '+'}} {{discountDifference[1]}}%</p>
-            <p>Que el mes pasado</p>
+            <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
@@ -268,7 +268,7 @@
             <p class="cardsTitles">Recien llegados</p>
             <p class="cardsNumbers"> {{totalNew}} </p>
             <p class="cardsDifferences" [ngClass]="difference3()"> {{newsDifference[0] === 0 ? '-' : '+'}} {{newsDifference[1]}}</p>
-            <p>Que el mes pasado</p>
+            <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
@@ -277,7 +277,7 @@
             <p class="cardsTitles">Descontinuados</p>
             <p class="cardsNumbers">{{totalDescontinuados}}</p>
             <p class="cardsDifferences" [ngClass]="difference4()">{{discontinuedDifference[0] === 0 ? '-' : '+'}} {{discontinuedDifference[1]}}</p>
-            <p>Que el mes pasado</p>
+            <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
         <div class="column">
@@ -286,7 +286,7 @@
             <p class="cardsTitles">Resumen de SKU</p>
             <p class="cardsNumbers">{{totalsku}}</p>
             <p class="cardsDifferences" [ngClass]="difference5()">{{skuDifference[0] === 0 ? '-' : '+'}} {{skuDifference[1]}}</p>
-            <p>Que el mes pasado</p>
+            <p class="cardsMes">Que el mes pasado</p>
           </div>
         </div>
       </div>
@@ -294,7 +294,9 @@
     </div>
 
     <!-- routing a los componentes hijos -->
+    <div class="container-fluid">
     <router-outlet></router-outlet>
+  </div>
     <br>
 
   </div>

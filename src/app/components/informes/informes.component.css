@@ -242,18 +242,22 @@
 }
 
 .cardsNumbers {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: bold;
 }
 
 .cardsTitles {
+  font-size: 16px;
   font-weight: bold;
 }
 
-
 .cardsDifferences {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: bold;
+}
+
+.cardsMes {
+  font-size: 12px;
 }
 
 /* sistema grid para organizar la parte superior (resumen, lista, date) */
