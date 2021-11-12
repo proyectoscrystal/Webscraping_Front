@@ -236,7 +236,7 @@ export class Datos {
   //Datos para los filtros de informes
   private origins: any[] = [
     { value: 'Zara', text: 'Zara' },
-    { value: 'Mango', text: 'Mango' },
+    { value: 'Mango', text: 'Mango' }
   ];
 
   private categorias: any[] = [
@@ -256,8 +256,8 @@ export class Datos {
   private tipoprendas: any[] = [
     { value: 'camisas', text: 'Camisas' },
     { value: 'camisetas', text: 'Camisetas' },
-    { value: 'polos', text: 'polos' },
-    { value: 'jeans', text: 'jeans' },
+    { value: 'polos', text: 'Polos' },
+    { value: 'jeans', text: 'Jeans' },
     { value: 'pantalones', text: 'Pantalones' },
     { value: 'joggers', text: 'Joggers' },
     { value: 'shorts', text: 'Shorts' },
@@ -358,7 +358,10 @@ export class Datos {
       categoria: '',
       subCategoria: '',
       tipoPrenda: '',
-      color: ''
+      color: '',
+      composicion: '',
+      fechaInicio: '',
+      fechaFin: ''
     }
   ]
 

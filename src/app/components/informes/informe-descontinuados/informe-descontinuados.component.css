@@ -148,15 +148,17 @@ tr:hover td {
   grid-template-columns: 50% 50%;
 }
 
-.gridFiltersCharts {
-  display: grid;
-  grid-template-columns: 90% 10%;
+.alignFilter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.gridFiltersTable {
-  display: grid;
-  grid-template-columns: 90% 10%;
+.svgFilter {
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
+
 
 @media (max-width: 1000px) {
   .grid {
@@ -179,22 +181,9 @@ tr:hover td {
   }
 }
 
-/* media queryes */
-@media (max-width: 600px) {
-
-  .gridFiltersCharts {
+@media screen and (max-width: 600px) {
+  .grid {
     display: block;
-  }
-
-  .svgFilterChart {
-    display: flex;
-  }
-
-  .titulo-chart {
-    text-align: left;
-  }
-
-  .gridFiltersTable {
-    display: block;
+    margin-top: 100%;
   }
 }

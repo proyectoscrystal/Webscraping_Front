@@ -373,7 +373,4 @@ export class InformesComponent implements OnInit {
     }
     return 'porcentaje';
   }
-
-
-
 }
