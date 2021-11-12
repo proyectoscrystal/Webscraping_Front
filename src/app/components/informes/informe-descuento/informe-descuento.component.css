@@ -156,7 +156,7 @@ tr:hover td {
 
 .alignFilterChart {
   display: grid;
-  grid-template-columns: 99% 1%;
+  grid-template-columns: 70% 30%;
   text-align: center;
 }
 
@@ -172,7 +172,7 @@ tr:hover td {
 }
 
 .svgFilterChart {
-  margin-top: 10px;
+  margin-bottom: 35px;
   margin-left: -100px;
 }
 
@@ -200,14 +200,29 @@ tr:hover td {
 /* media queryes */
 @media (max-width: 600px) {
 
-  .alignFilterTable {
-    display: block;
-    text-align: center;
+  .alignFilterChart {
+    display: inline-grid;
+    grid-template-columns: 70% 30%;
+    width: 100%;
+    align-items: center;
   }
 
-  .svgFilter {
-    margin-top: -15px;
-    margin-bottom: 20px;
+  .svgFilterChart {
+    margin-bottom: 35px;
+    margin-left: -100px;
+  }
+
+  .gridFiltersCharts {
+    display: block;
+  }
+
+
+  .titulo-chart {
+    text-align: left;
+  }
+
+  .gridFiltersTable {
+    display: block;
   }
 }
 
