@@ -145,28 +145,28 @@
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger2" class="table table-striped row-border hover">
     <thead>
       <tr>
-        <th>Producto</th>
-        <th>Tipo de prenda</th>
-        <th>Retail</th>
-        <th>Color</th>
-        <th>Talla</th>
-        <th>Tallas agotadas</th>
-        <th>Precio</th>
-        <th>Descuento</th>
+        <th class="alignTableTitles">Producto</th>
+        <th class="alignTableTitles">Tipo de prenda</th>
+        <th class="alignTableTitles">Retail</th>
+        <th class="alignTableTitles">Color</th>
+        <th class="alignTableTitles">Talla</th>
+        <th class="alignTableTitles">Tallas agotadas</th>
+        <th class="alignTableTitles">Precio</th>
+        <th class="alignTableTitles">Descuento</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let i of photos">
-        <td data-label="Producto">
+        <td data-label="Producto" class="alignTableImage">
           <img [src]="i.base64" class="prenda1" alt="imagen">
         </td>
-        <td data-label="Tipo de prenda"> {{i.tipoPrenda}} </td>
-        <td data-label="Retail"> {{i.origin}} </td>
-        <td data-label="Color"> {{i.color}} </td>
-        <td data-label="Talla"> {{i.talla}} </td>
-        <td data-label="Talla"> {{i.tallasAgotadas}} </td>
-        <td data-label="Precio"> {{i.precio}} </td>
-        <td data-label="Descuento"> {{descuentoTable2}} </td>
+        <td data-label="Tipo de prenda" class="alignTableItems"> {{i.tipoPrenda}} </td>
+        <td data-label="Retail" class="alignTableItems"> {{i.origin}} </td>
+        <td data-label="Color" class="alignTableItems"> {{i.color}} </td>
+        <td data-label="Talla" class="alignTableItems"> {{i.talla}} </td>
+        <td data-label="Talla" class="alignTableItems"> {{i.tallasAgotadas}} </td>
+        <td data-label="Precio" class="alignTableItems"> {{i.precio}} </td>
+        <td data-label="Descuento" class="alignTableItems"> {{descuentoTable2}} </td>
       </tr>
     </tbody>
   </table>

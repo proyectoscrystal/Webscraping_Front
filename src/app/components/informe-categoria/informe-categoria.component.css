@@ -146,6 +146,14 @@ tr:hover td {
   color: green;
 }
 
+.alignTableTitles {
+  text-align: center;
+}
+
+.alignTableItems {
+  text-align: center;
+}
+
 .prenda1 {
   width: 120px;
   height: 150px;
@@ -184,6 +192,10 @@ tr:hover td {
     content: attr(data-label);
     font-weight: bold;
     float: left;
+  }
+
+  .alignTableItems {
+    text-align: right;
   }
 }
 /* Fin Tablas */

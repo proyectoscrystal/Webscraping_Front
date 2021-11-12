@@ -263,7 +263,7 @@
 /* sistema grid para organizar la parte superior (resumen, lista, date) */
 .grid {
   display: grid;
-  grid-template-columns: 40% 15% 45%;
+  grid-template-columns: 42% 15% 45%;
 }
 
 .input-grid1 {

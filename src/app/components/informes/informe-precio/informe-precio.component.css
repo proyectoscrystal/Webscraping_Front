@@ -100,6 +100,14 @@ tr:hover td {
   color: white;
 }
 
+.alignTableTitles {
+  text-align: center;
+}
+
+.alignTableItems {
+  text-align: center;
+}
+
 /* Responsive tables*/
 @media screen and (max-width: 600px) {
   table {
@@ -129,6 +137,10 @@ tr:hover td {
     font-weight: bold;
     float: left;
   }
+
+  .alignTableItems {
+    text-align: right;
+  }
 }
 /* Fin Tablas */
 
@@ -150,15 +162,28 @@ tr:hover td {
   grid-template-columns: 50% 50%;
 }
 
-.gridFiltersCharts {
+.alignFilterChart {
   display: grid;
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 99% 1%;
+  text-align: center;
 }
 
-.gridFiltersTable {
+.alignFilterTable {
   display: grid;
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 99% 1%;
+  text-align: center;
 }
+
+.svgFilter {
+  margin-top: 10px;
+  margin-left: -25px;
+}
+
+.svgFilterChart {
+  margin-bottom: 35px;
+  margin-left: -100px;
+}
+
 
 .diferencia {
   color: rgb(103 209 166);
@@ -171,20 +196,27 @@ tr:hover td {
 /* media queryes */
 @media (max-width: 600px) {
 
-  .gridFiltersCharts {
-    display: block;
+  .alignFilterChart {
+    display: inline-grid;
+    grid-template-columns: 90% 10%;
+    width: 100%;
+    align-items: center;
+  }
+
+  .alignFilterTable {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    text-align: center;
   }
 
   .svgFilterChart {
-    display: flex;
+    margin-bottom: 7px;
+    margin-left: 0px;
   }
 
-  .titulo-chart {
-    text-align: left;
-  }
-
-  .gridFiltersTable {
-    display: block;
+  .svgFilter {
+    margin-bottom: 7px;
+    margin-left: 0px;
   }
 }
 

@@ -200,14 +200,28 @@ tr:hover td {
 /* media queryes */
 @media (max-width: 600px) {
 
+  .alignFilterChart {
+    display: inline-grid;
+    grid-template-columns: 90% 10%;
+    width: 100%;
+    align-items: center;
+  }
+
   .alignFilterTable {
-    display: block;
+    display: grid;
+    grid-template-columns: 90% 10%;
     text-align: center;
   }
 
+  .svgFilterChart {
+    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+
   .svgFilter {
-    margin-top: -15px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    margin-left: 0px;
   }
 }
 
