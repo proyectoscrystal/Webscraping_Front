@@ -421,11 +421,5 @@ a.sel2.activo::before {
   }
 }
 
-@media (max-width: 600px) {
-  .container-cards {
-    margin-bottom: 80%;
-  }
-}
-
 /* fin media querys */
   
