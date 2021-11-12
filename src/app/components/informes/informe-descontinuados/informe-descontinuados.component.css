@@ -2,10 +2,6 @@
   height: 250px;
 }
 
-.titulo-chart {
-  text-align: center;
-}
-
 .marginTitle {
   margin-top: -20px;
 }
@@ -98,6 +94,14 @@ tr:hover td {
   color: green;
 }
 
+.alignTableTitles {
+  text-align: center;
+}
+
+.alignTableItems {
+  text-align: center;
+}
+
 /* Responsive tables*/
 @media screen and (max-width: 600px) {
   table {
@@ -127,6 +131,10 @@ tr:hover td {
     font-weight: bold;
     float: left;
   }
+
+  .alignTableItems {
+    text-align: right;
+  }
 }
 /* Fin Tablas */
 
@@ -148,15 +156,26 @@ tr:hover td {
   grid-template-columns: 50% 50%;
 }
 
-.alignFilter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.alignFilterChart {
+  display: grid;
+  grid-template-columns: 99% 1%;
+  text-align: center;
+}
+
+.alignFilterTable {
+  display: grid;
+  grid-template-columns: 99% 1%;
+  text-align: center;
 }
 
 .svgFilter {
-  margin-bottom: 10px;
-  margin-left: 10px;
+  margin-top: 10px;
+  margin-left: -25px;
+}
+
+.svgFilterChart {
+  margin-top: 10px;
+  margin-left: -55px;
 }
 
 
@@ -178,5 +197,18 @@ tr:hover td {
   .grid {
     display: block;
     margin-top: 30%;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .alignFilterTable {
+    display: block;
+    text-align: center;
+  }
+
+  .svgFilter {
+    margin-top: -15px;
+    margin-bottom: 20px;
   }
 }

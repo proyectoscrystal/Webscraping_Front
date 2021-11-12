@@ -2,10 +2,6 @@
   height: 250px;
 }
 
-.titulo-chart {
-  text-align: center;
-}
-
 .marginTitle {
   margin-top: -20px;
 }
@@ -98,6 +94,14 @@ tr:hover td {
   color: green;
 }
 
+.alignTableTitles {
+  text-align: center;
+}
+
+.alignTableItems {
+  text-align: center;
+}
+
 /* Responsive tables*/
 @media screen and (max-width: 600px) {
   table {
@@ -127,6 +131,10 @@ tr:hover td {
     font-weight: bold;
     float: left;
   }
+
+  .alignTableItems {
+    text-align: right;
+  }
 }
 /* Fin Tablas */
 
@@ -146,14 +154,26 @@ tr:hover td {
   grid-template-columns: 50% 50%;
 }
 
-.gridFiltersCharts {
+.alignFilterChart {
   display: grid;
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 99% 1%;
+  text-align: center;
 }
 
-.gridFiltersTable {
+.alignFilterTable {
   display: grid;
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 99% 1%;
+  text-align: center;
+}
+
+.svgFilter {
+  margin-top: 10px;
+  margin-left: -25px;
+}
+
+.svgFilterChart {
+  margin-top: 10px;
+  margin-left: -55px;
 }
 
 @media (max-width: 1000px) {
@@ -180,20 +200,14 @@ tr:hover td {
 /* media queryes */
 @media (max-width: 600px) {
 
-  .gridFiltersCharts {
+  .alignFilterTable {
     display: block;
+    text-align: center;
   }
 
-  .svgFilterChart {
-    display: flex;
-  }
-
-  .titulo-chart {
-    text-align: left;
-  }
-
-  .gridFiltersTable {
-    display: block;
+  .svgFilter {
+    margin-top: -15px;
+    margin-bottom: 20px;
   }
 }
 

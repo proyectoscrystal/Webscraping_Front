@@ -1,6 +1,6 @@
 <!-- chart -->
 <div class="chart-container">
-  <div class="gridFiltersCharts">
+  <div class="alignFilterChart">
     <div>
       <h2 class="titulo-chart">Total SKU marcas</h2>
     </div>
@@ -9,7 +9,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
         xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
         viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#000000 " role="img"
-        aria-label="Illustration of a Funnel" class="svgFilterChart hoverSvgFilter">
+        aria-label="Illustration of a Funnel" class="hoverSvgFilter svgFilterChart">
         <g id="__id33_ssutzzo1g">
           <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
             style="fill: inherit"></path>
@@ -149,8 +149,8 @@
 <!-- fin chart -->
 
 <!-- tabla SKU -->
-<div class="table-container-sku">
-  <div class="gridFiltersTable">
+<div class="table-container-sku mt-4">
+  <div class="alignFilterTable">
     <div>
       <h2>Resumen mes SKU</h2>
     </div>
@@ -159,7 +159,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal2(template2)" width="17" heigth="17"
         xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
         viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#000000 " role="img"
-        aria-label="Illustration of a Funnel" class="hoverSvgFilter svgFilterChart">
+        aria-label="Illustration of a Funnel" class="hoverSvgFilter svgFilter">
         <g id="__id33_ssutzzo1g">
           <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
             style="fill: inherit"></path>
@@ -297,26 +297,26 @@
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped row-border hover">
     <thead>
       <tr>
-        <th>Categoría</th>
-        <th>Subcategoría</th>
-        <th>Tipo de prenda</th>
-        <th>SKU</th>
-        <th>Precio promedio</th>
-        <th>Nueva llegada</th>
-        <th>Tasa de frescura</th>
-        <th>Descuento promedio</th>
+        <th class="alignTableTitles">Categoría</th>
+        <th class="alignTableTitles">Subcategoría</th>
+        <th class="alignTableTitles">Tipo de prenda</th>
+        <th class="alignTableTitles">SKU</th>
+        <th class="alignTableTitles">Precio promedio</th>
+        <th class="alignTableTitles">Nueva llegada</th>
+        <th class="alignTableTitles">Tasa de frescura</th>
+        <th class="alignTableTitles">Descuento promedio</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let e of photos">
-        <td data-label="Categoría"> {{e.categoria}} </td>
-        <td data-label="Subcategoría"> {{e.subCategoria}} </td>
-        <td data-label="Tipo de prenda"> {{e.tipoPrenda}} </td>
-        <td data-label="SKU"> {{tableAvgSKU}} </td>
-        <td data-label="Precio promedio">$ {{averagePrice}} </td>
-        <td data-label="Nueva llegada"> {{averageNews2}} </td>
-        <td data-label="Tasa de frescura"> {{tasaFrescura}} </td>
-        <td data-label="Descuento promedio"> {{averageDiscount2}} % </td>
+        <td data-label="Categoría" class="alignTableItems"> {{e.categoria}} </td>
+        <td data-label="Subcategoría" class="alignTableItems"> {{e.subCategoria}} </td>
+        <td data-label="Tipo de prenda" class="alignTableItems"> {{e.tipoPrenda}} </td>
+        <td data-label="SKU" class="alignTableItems"> {{tableAvgSKU}} </td>
+        <td data-label="Precio promedio" class="alignTableItems">$ {{averagePrice}} </td>
+        <td data-label="Nueva llegada" class="alignTableItems"> {{averageNews2}} </td>
+        <td data-label="Tasa de frescura" class="alignTableItems"> {{tasaFrescura}} </td>
+        <td data-label="Descuento promedio" class="alignTableItems"> {{averageDiscount2}} % </td>
       </tr>
     </tbody>
   </table>
