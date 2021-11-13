@@ -172,6 +172,12 @@
   margin: 0 auto;
 }
 
+#myChartPie {
+  height:200px;
+  width: 200px;
+}
+
+
 
 @media screen and (max-width: 1000px) {
   .grid-container {
@@ -181,6 +187,7 @@
   .grid-container-item1 {
     display: block;
   }
+
 }
 
 @media screen and (min-width: 1440px) {

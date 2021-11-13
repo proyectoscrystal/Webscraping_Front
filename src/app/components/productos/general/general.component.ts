@@ -506,6 +506,10 @@ export class GeneralComponent implements OnInit {
         }
         ]
       },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
     }); // fin chart 1
   };
 
