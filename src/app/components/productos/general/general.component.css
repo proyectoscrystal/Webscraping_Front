@@ -172,11 +172,6 @@
   margin: 0 auto;
 }
 
-#myChartPie {
-  height:200px;
-  width: 200px;
-}
-
 
 
 @media screen and (max-width: 1000px) {

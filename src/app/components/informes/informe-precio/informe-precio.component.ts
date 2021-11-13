@@ -184,8 +184,11 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
   }
 
   setInfoTable(res) {
+    // formatear numero a monedades
+    let precioPromedio = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
+
     this.photos = res.obj.arr;
-    this.tableAvgPrice = res.obj.precioPromedio;
+    this.tableAvgPrice = precioPromedio;
     this.tableDifference = res.obj.differences;
   }
 

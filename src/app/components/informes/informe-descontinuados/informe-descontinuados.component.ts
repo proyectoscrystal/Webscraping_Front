@@ -130,7 +130,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     this.blackboxService.getInfoDiscountinued(params).subscribe(
       (res) => {
         this.setInfoDiscountinued(res);
-        console.log(res);
+        // console.log(res);
         this.ng();
       },
       (err) => {
@@ -197,7 +197,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableDiscountinuedInfo(params).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
       },

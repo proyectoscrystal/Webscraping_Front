@@ -500,7 +500,6 @@ export class GeneralComponent implements OnInit {
         datasets: [{
           data: [`${this.hombre}`, `${this.mujer}`, `${this.kids}`],
           label: "Colores",
-          borderColor: this.rgbColorsCategoria,
           backgroundColor: this.rgbColorsCategoria,
           borderWidth: 1
         }
