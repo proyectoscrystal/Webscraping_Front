@@ -110,6 +110,10 @@ export class Table2Component implements OnInit, OnDestroy {
     this.descuentoTable2 = res.obj.descuentoPromedio;
   }
 
+  setPrice(price) {
+    return new Intl.NumberFormat('es-CO').format(price);
+  }
+
   showDataModal() {
     this.originData = this.datos.origins;
     this.categoryData = this.datos.categorias;

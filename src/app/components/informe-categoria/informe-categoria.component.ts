@@ -40,20 +40,20 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   photos: any;
 
   // variables para las cards
-  womenNew: number = 0;
-  womendiscontinued: number = 0;
-  womenPromotion: number = 0;
-  womensku: number = 0;
+  womenNew: any = 0;
+  womendiscontinued: any = 0;
+  womenPromotion: any = 0;
+  womensku: any = 0;
 
-  menNew: number = 0;
-  mendiscontinued: number = 0;
-  menPromotion: number = 0;
-  mensku: number = 0;
+  menNew: any = 0;
+  mendiscontinued: any = 0;
+  menPromotion: any = 0;
+  mensku: any = 0;
 
-  kidsNew: number = 0;
-  kidsdiscontinued: number = 0;
-  kidsPromotion: number = 0;
-  kidssku: number = 0;
+  kidsNew: any = 0;
+  kidsdiscontinued: any = 0;
+  kidsPromotion: any = 0;
+  kidssku: any = 0;
 
   //Cards
   originCards: any = '';
@@ -172,20 +172,20 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
 
   // setteo de datos en las cards
   setPrendasInfoCards(res) {
-    this.womenNew = res.obj.newWomen;
-    this.womendiscontinued = res.obj.discontinuedWomen;
-    this.womenPromotion = res.obj.promotionWomen;
-    this.womensku = res.obj.totalskuWomen;
+    this.womenNew = new Intl.NumberFormat('es-CO').format(res.obj.newWomen);
+    this.womendiscontinued = new Intl.NumberFormat('es-CO').format(res.obj.discontinuedWomen);
+    this.womenPromotion = new Intl.NumberFormat('es-CO').format(res.obj.promotionWomen);
+    this.womensku = new Intl.NumberFormat('es-CO').format(res.obj.totalskuWomen);
 
-    this.menNew = res.obj.newMen;
-    this.mendiscontinued = res.obj.discontinuedMen;
-    this.menPromotion = res.obj.promotionMen;
-    this.mensku = res.obj.totalskuMen;
+    this.menNew = new Intl.NumberFormat('es-CO').format(res.obj.newMen);
+    this.mendiscontinued = new Intl.NumberFormat('es-CO').format(res.obj.discontinuedMen);
+    this.menPromotion = new Intl.NumberFormat('es-CO').format(res.obj.promotionMen);
+    this.mensku = new Intl.NumberFormat('es-CO').format(res.obj.totalskuMen);
 
-    this.kidsNew = res.obj.newKids;
-    this.kidsdiscontinued = res.obj.discontinuedKids;
-    this.kidsPromotion = res.obj.promotionKids;
-    this.kidssku = res.obj.totalskuKids;
+    this.kidsNew = new Intl.NumberFormat('es-CO').format(res.obj.newKids);
+    this.kidsdiscontinued = new Intl.NumberFormat('es-CO').format(res.obj.discontinuedKids);
+    this.kidsPromotion = new Intl.NumberFormat('es-CO').format(res.obj.promotionKids);
+    this.kidssku = new Intl.NumberFormat('es-CO').format(res.obj.totalskuKids);
   }
 
   // Peticion a la tabla 1
@@ -214,10 +214,10 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   // set info table
   setInfoTable(res) {
     this.photos = res.obj.arr;
-    this.tableAvgSKU = res.obj.SKU;
+    this.tableAvgSKU = new Intl.NumberFormat('es-CO').format(res.obj.SKU);
     this.tableDifference = res.obj.differences;
-    this.averagePrice = res.obj.precioPromedio;
-    this.averageNews2 = res.obj.nuevosPromedio;
+    this.averagePrice = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
+    this.averageNews2 = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
     this.averageDiscount2 = res.obj.descuentoPromedio;
     this.tasaFrescura = res.obj.tasaFrescura;
   }

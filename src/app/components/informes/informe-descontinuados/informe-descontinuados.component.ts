@@ -197,7 +197,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableDiscountinuedInfo(params).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
       },
@@ -210,7 +210,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
   // set info table
   setInfoTable(res) {
     this.photos = res.obj.arr;
-    this.tableAvgDescontinuados = res.obj.descuentoPromedio;
+    this.tableAvgDescontinuados = new Intl.NumberFormat('es-CO').format(res.obj.descuentoPromedio);
     this.tableDifference = res.obj.differences;
   }
 

@@ -155,7 +155,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   // set info table
   setInfoTable(res) {
     this.photos = res.obj.arr;
-    this.tableAvgnuevos = res.obj.nuevosPromedio;
+    this.tableAvgnuevos = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
     this.tableDifference = res.obj.differences;
   }
 

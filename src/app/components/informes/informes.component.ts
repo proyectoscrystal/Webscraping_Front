@@ -307,23 +307,21 @@ export class InformesComponent implements OnInit {
   //===============FIN FILTROS MODAL===============
 
   setInfoCards(info: any) {
-    this.precioPromedio = info.obj.precioPromedio;
-    this.currency1 = formatCurrency(this.precioPromedio, this.locale, '$ ');
-    this.currency1 = this.currency1.split(' ').splice(1, 1);
-    this.currency1 = this.currency1[0].split('.');
-    this.currency1 = this.currency1.splice(0, 1);
-    this.currency1 = this.currency1[0];
-    this.currency1 = this.currency1.split(',').join('.');
+    this.precioPromedio = new Intl.NumberFormat('es-CO').format(info.obj.precioPromedio);
 
-    this.totalDiscount = info.obj.discount;
-    this.totalNew = info.obj.nuevos;
-    this.totalDescontinuados = info.obj.discontinueds;
-    this.totalsku = info.obj.sku
+    this.currency1 = new Intl.NumberFormat('es-CO').format(info.obj.precioPromedio);
+    this.totalDiscount =  info.obj.discount;
+    this.totalNew = new Intl.NumberFormat('es-CO').format(info.obj.nuevos);
+    this.totalDescontinuados = new Intl.NumberFormat('es-CO').format( info.obj.discontinueds);
+    this.totalsku = new Intl.NumberFormat('es-CO').format(info.obj.sku);
 
     this.priceDifference = info.obj.differencePrice;
     this.discountDifference = info.obj.differencePorcentage;
-    this.skuDifference = info.obj.differenceSKU;
-    this.newsDifference = info.obj.differenceNew;
+
+    this.skuDifference[1] = new Intl.NumberFormat('es-CO').format( info.obj.differenceSKU[1]);
+    this.skuDifference[0] = info.obj.differenceSKU[0];
+    this.newsDifference[1] = new Intl.NumberFormat('es-CO').format(  info.obj.differenceNew[1]);
+    this.newsDifference[0] = info.obj.differenceNew[0];
     this.discontinuedDifference = info.obj.differenceDiscontinued;
   }
 

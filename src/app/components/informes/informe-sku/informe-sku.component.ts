@@ -176,11 +176,12 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   // set info table
   setInfoTable(res) {
     this.photos = res.obj.arr;
-    this.tableAvgSKU = res.obj.SKU;
+    
+    this.tableAvgSKU = new Intl.NumberFormat('es-CO').format( res.obj.SKU);
     this.tableDifference = res.obj.differences;
-    this.averagePrice = res.obj.precioPromedio;
-    this.averageNews2 = res.obj.nuevosPromedio;
-    this.averageDiscount2 = res.obj.descuentoPromedio;
+    this.averagePrice = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
+    this.averageNews2 = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
+    this.averageDiscount2 = new Intl.NumberFormat('es-CO').format(res.obj.descuentoPromedio);
     this.tasaFrescura = res.obj.tasaFrescura;
   }
 

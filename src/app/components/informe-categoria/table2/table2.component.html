@@ -165,8 +165,8 @@
         <td data-label="Color" class="alignTableItems"> {{i.color}} </td>
         <td data-label="Talla" class="alignTableItems"> {{i.talla}} </td>
         <td data-label="Talla" class="alignTableItems"> {{i.tallasAgotadas}} </td>
-        <td data-label="Precio" class="alignTableItems"> {{i.precio}} </td>
-        <td data-label="Descuento" class="alignTableItems"> {{descuentoTable2}} </td>
+        <td data-label="Precio" class="alignTableItems">$ {{setPrice(i.precio)}} </td>
+        <td data-label="Descuento" class="alignTableItems"> {{descuentoTable2}} % </td>
       </tr>
     </tbody>
   </table>
