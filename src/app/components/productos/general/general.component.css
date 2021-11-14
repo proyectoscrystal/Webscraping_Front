@@ -172,6 +172,10 @@
   margin: 0 auto;
 }
 
+/* canvas */
+canvas {
+  height: 200px;
+}
 
 
 @media screen and (max-width: 1000px) {

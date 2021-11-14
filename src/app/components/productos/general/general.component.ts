@@ -84,13 +84,13 @@ export class GeneralComponent implements OnInit {
   hombre = 0;
   mujer = 0;
   kids = 0;
-  exterior = 0;
+  exterior:any = 0;
   exteriorPorcentage = 0;
-  interior = 0;
+  interior:any = 0;
   interiorPorcentage = 0;
-  calzado = 0;
+  calzado:any = 0;
   calzadoPorcentage = 0;
-  accesorios = 0;
+  accesorios:any = 0;
   accesoriosPorcentage = 0;
 
 
@@ -155,13 +155,13 @@ export class GeneralComponent implements OnInit {
     this.hombre = data.obj.porcentajesCategoriaColors.hombrePorcentageSKU;
     this.mujer = data.obj.porcentajesCategoriaColors.mujerPorcentageSKU;
     this.kids = data.obj.porcentajesCategoriaColors.kidsPorcentageSKU;
-    this.exterior = data.obj.porcentajesCategoriaColors.exterior;
+    this.exterior = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.exterior);
     this.exteriorPorcentage = data.obj.porcentajesCategoriaColors.exteriorPorcentaje;
-    this.interior = data.obj.porcentajesCategoriaColors.interior;
+    this.interior = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.interior);
     this.interiorPorcentage = data.obj.porcentajesCategoriaColors.interiorPorcentaje;
-    this.calzado = data.obj.porcentajesCategoriaColors.calzado;
+    this.calzado = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.calzado);
     this.calzadoPorcentage = data.obj.porcentajesCategoriaColors.calzadoPorcentaje;
-    this.accesorios = data.obj.porcentajesCategoriaColors.accesorios;
+    this.accesorios = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.accesorios);
     this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
     this.rgbColorsCategoria = data.obj.porcentajesCategoriaColors.rgbColoresCategoria;
     // colores seccion subcategorias 
