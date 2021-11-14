@@ -128,7 +128,7 @@ export class CatHombreComponent implements OnInit {
       (res) => {
         this.setInfoCategories(res);
         this.ng();
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         console.log(err);
@@ -138,13 +138,13 @@ export class CatHombreComponent implements OnInit {
   
   setInfoCategories(data) {
     this.hombreSKU = data.obj.porcentajesCategoriaColors.hombrePorcentageSKU;
-    this.exterior = data.obj.porcentajesCategoriaColors.exterior;
+    this.exterior = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.exterior);
     this.exteriorPorcentage = data.obj.porcentajesCategoriaColors.exteriorPorcentaje;
-    this.interior = data.obj.porcentajesCategoriaColors.interior;
+    this.interior = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.interior);
     this.interiorPorcentage = data.obj.porcentajesCategoriaColors.interiorPorcentaje;
-    this.calzado = data.obj.porcentajesCategoriaColors.calzado;
+    this.calzado = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.calzado);
     this.calzadoPorcentage = data.obj.porcentajesCategoriaColors.calzadoPorcentaje;
-    this.accesorios = data.obj.porcentajesCategoriaColors.accesorios;
+    this.accesorios = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.accesorios);
     this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
     // this.rgbColorsCategoria = data.obj.porcentajesCategoriaColors.rgbColoresCategoria;
     // // colores seccion subcategorias 
@@ -160,7 +160,7 @@ export class CatHombreComponent implements OnInit {
     // color predominante en mujer 
     this.colorHombrePalabra = data.obj.porcentajesCategoriaColors.colorHombre;
     this.rgbHombre = data.obj.porcentajesCategoriaColors.rgbHombre;
-    this.hombreTotalSKU = data.obj.porcentajesCategoriaColors.hombreTotalSKU;
+    this.hombreTotalSKU = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.hombreTotalSKU);
   }
 
    //info seccion barchart 

@@ -127,7 +127,7 @@ export class CatMujerComponent implements OnInit {
       (res) => {
         this.setInfoCategories(res);
         this.ng();
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         console.log(err);
@@ -137,13 +137,13 @@ export class CatMujerComponent implements OnInit {
 
   setInfoCategories(data) {
     this.mujerSKU = data.obj.porcentajesCategoriaColors.mujerPorcentageSKU;
-    this.exterior = data.obj.porcentajesCategoriaColors.exterior;
+    this.exterior = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.exterior);
     this.exteriorPorcentage = data.obj.porcentajesCategoriaColors.exteriorPorcentaje;
-    this.interior = data.obj.porcentajesCategoriaColors.interior;
+    this.interior = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.interior);
     this.interiorPorcentage = data.obj.porcentajesCategoriaColors.interiorPorcentaje;
-    this.calzado = data.obj.porcentajesCategoriaColors.calzado;
+    this.calzado = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.calzado);
     this.calzadoPorcentage = data.obj.porcentajesCategoriaColors.calzadoPorcentaje;
-    this.accesorios = data.obj.porcentajesCategoriaColors.accesorios;
+    this.accesorios = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.accesorios);
     this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
     // this.rgbColorsCategoria = data.obj.porcentajesCategoriaColors.rgbColoresCategoria;
     // // colores seccion subcategorias 
@@ -159,7 +159,7 @@ export class CatMujerComponent implements OnInit {
     // color predominante en mujer 
     this.colorMujerPalabra = data.obj.porcentajesCategoriaColors.colorMujer;
     this.rgbMujer = data.obj.porcentajesCategoriaColors.rgbMujer;
-    this.mujerTotalSKU = data.obj.porcentajesCategoriaColors.mujerTotalSKU;
+    this.mujerTotalSKU = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.mujerTotalSKU);
   }
 
   //info seccion barchart 

@@ -135,13 +135,13 @@ export class CatKidsComponent implements OnInit {
   
   setInfoCategories(data) {
     this.kidsSKU = data.obj.porcentajesCategoriaColors.kidsPorcentageSKU;
-    this.exterior = data.obj.porcentajesCategoriaColors.exterior;
+    this.exterior = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.exterior);
     this.exteriorPorcentage = data.obj.porcentajesCategoriaColors.exteriorPorcentaje;
-    this.interior = data.obj.porcentajesCategoriaColors.interior;
+    this.interior = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.interior);
     this.interiorPorcentage = data.obj.porcentajesCategoriaColors.interiorPorcentaje;
-    this.calzado = data.obj.porcentajesCategoriaColors.calzado;
+    this.calzado = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.calzado);
     this.calzadoPorcentage = data.obj.porcentajesCategoriaColors.calzadoPorcentaje;
-    this.accesorios = data.obj.porcentajesCategoriaColors.accesorios;
+    this.accesorios = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.accesorios);
     this.accesoriosPorcentage = data.obj.porcentajesCategoriaColors.accesoriosPorcentaje;
     // this.rgbColorsCategoria = data.obj.porcentajesCategoriaColors.rgbColoresCategoria;
     // // colores seccion subcategorias 
@@ -157,7 +157,7 @@ export class CatKidsComponent implements OnInit {
     // color predominante en mujer 
     this.colorKidsPalabra = data.obj.porcentajesCategoriaColors.colorKids;
     this.rgbKids = data.obj.porcentajesCategoriaColors.rgbKids;
-    this.kidsTotalSKU = data.obj.porcentajesCategoriaColors.kidsTotalSKU;
+    this.kidsTotalSKU = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.kidsTotalSKU);
   }
 
   
