@@ -6,8 +6,8 @@
         </div>
 
         <div class="input-grid1">
-            <input type="date" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()">
-            <input type="date" [(ngModel)]="fin" (ngModelChange)="fechaFin()">
+            <!-- <input type="date" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()">
+            <input type="date" [(ngModel)]="fin" (ngModelChange)="fechaFin()"> -->
 
             <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
                 xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
@@ -352,74 +352,74 @@
 
                 <tbody>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/calzado.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">85</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[0]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[0]}}</td>
+                        <td>{{topTenPorcentajeSKU[0]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[0]}}"><div style="background-color:{{topTenColoresRGB[0]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/exterior.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">75</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[1]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[1]}}</td>
+                        <td>{{topTenPorcentajeSKU[1]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[1]}}"><div style="background-color:{{topTenColoresRGB[1]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/interior.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">80</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[2]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[2]}}</td>
+                        <td>{{topTenPorcentajeSKU[2]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[2]}}"><div style="background-color:{{topTenColoresRGB[2]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/accesorios.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">60</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[3]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[3]}}</td>
+                        <td>{{topTenPorcentajeSKU[3]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[3]}}"><div style="background-color:{{topTenColoresRGB[3]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/calzado.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">85</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[4]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[4]}}</td>
+                        <td>{{topTenPorcentajeSKU[4]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[4]}}"><div style="background-color:{{topTenColoresRGB[4]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/exterior.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">75</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[5]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[5]}}</td>
+                        <td>{{topTenPorcentajeSKU[5]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[5]}}"><div style="background-color:{{topTenColoresRGB[5]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/interior.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">80</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[6]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[6]}}</td>
+                        <td>{{topTenPorcentajeSKU[6]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[6]}}"><div style="background-color:{{topTenColoresRGB[6]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/accesorios.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">60</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[7]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                                class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[7]}}</td>
+                        <td>{{topTenPorcentajeSKU[7]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[7]}}"><div style="background-color:{{topTenColoresRGB[7]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/calzado.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">85</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[8]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[8]}}</td>
+                        <td>{{topTenPorcentajeSKU[8]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[8]}}"><div style="background-color:{{topTenColoresRGB[8]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>
                     <tr>
-                        <td data-label="Tipo"><img src="../../../../assets/productos/exterior.png" alt=""
-                                class="imgPrendasTabla" /></td>
-                        <td data-label="Total SKU">75</td>
-                        <td data-label="%">60%</td>
-                        <td data-label="Color TOP"><div class="colorx mb-3"></div></td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[9]}}"><img src="../../../../assets/productos/accesorios.png" alt=""
+                            class="imgPrendasTabla" /></abbr></td>
+                        <td>{{topTenTotalSKU[9]}}</td>
+                        <td>{{topTenPorcentajeSKU[9]}}%</td>
+                        <td><abbr style=" cursor:pointer" title="{{topTenColoresLetra[9]}}"><div style="background-color:{{topTenColoresRGB[9]}}" class="colorx mb-3"></div></abbr></td>
                     </tr>                    
                 </tbody>
             </table>
