@@ -17,14 +17,23 @@
   justify-content: center;
 }
 
+.filterTable {
+  display: grid;
+  grid-template-columns: 98% 2%;
+}
+
+.svgFilter {
+  margin-top: 7px;
+}
+
 @media screen and (max-width: 600px) {
   .grid {
     display: block;
   }
 
   .filterTable {
-    margin-top: 7px;
-    margin-right: 20px;
+    display: grid;
+    grid-template-columns: 90% 10%;
   }
 }
 
@@ -38,11 +47,6 @@
 /* Tablas */
 .container-scroll {
   height: 250px;
-}
-
-.filterTable {
-  display: grid;
-  grid-template-columns: 97% 3%;
 }
 
 .tableContainer {

@@ -73,12 +73,6 @@
   margin-right: 20px;
 }
 
-@media screen and (max-width: 600px) {
-  .grid {
-    display: block;
-  }
-}
-
 /*CSS GRID*/
 .grid-container {
   display: grid;
@@ -104,6 +98,27 @@
   grid-template-columns: 99% 1%;
 }
 
+@media screen and (max-width: 600px) {
+  .grid {
+    display: block;
+  }
+
+  .grid-container-item2 {
+    display: grid;
+    grid-template-columns: 95% 5%;
+  }
+
+  .grid-container-item3 {
+    display: grid;
+    grid-template-columns: 95% 5%;
+  }
+
+  .input-grid1 {
+    display: grid;
+    grid-template-columns: 45% 45% 10%;
+  }
+}
+
 .item1 {
   border-radius: 8px;
 }
@@ -114,7 +129,6 @@
 
 .item3 {
   border-radius: 8px;
-  margin-right: 12px;
 }
 
 .item4 {
