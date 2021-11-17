@@ -109,6 +109,12 @@ export class GeneralComponent implements OnInit {
   colores: any;
   coloresCount: any;
   coloresRGB: any;
+  // variables para la tabla topTen
+  topTenTipoPrenda: any = ['','','','','','','','','',''];
+  topTenColoresLetra: any = ['','','','','','','','','',''];
+  topTenColoresRGB: any = ['','','','','','','','','',''];
+  topTenPorcentajeSKU: any = [0,0,0,0,0,0,0,0,0,0];
+  topTenTotalSKU: any = [0,0,0,0,0,0,0,0,0,0];
 
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService, private modalService3: BsModalService) {
@@ -174,6 +180,13 @@ export class GeneralComponent implements OnInit {
     this.colorInteriorPalabra = data.obj.porcentajesCategoriaColors.colorInterior;
     this.colorCalzadoPalabra = data.obj.porcentajesCategoriaColors.colorCalzado;
     this.colorAccesoriosPalabra = data.obj.porcentajesCategoriaColors.colorAccesorios;
+    // seccion de la tabla topTen
+    this.topTenTipoPrenda = data.obj.topTen.tipoPrenda;
+    this.topTenColoresLetra = data.obj.topTen.coloresLetra;
+    this.topTenColoresRGB = data.obj.topTen.coloresRGB;
+    this.topTenPorcentajeSKU = data.obj.topTen.porcentajeSKU; 
+    this.topTenTotalSKU = data.obj.topTen.totalSKU;
+
   }
 
 
