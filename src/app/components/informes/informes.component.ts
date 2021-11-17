@@ -159,8 +159,9 @@ export class InformesComponent implements OnInit {
       this.origin = this.originSelected;
       console.log(this.origin);
 
-      localStorage.setItem("Origen", JSON.stringify(this.originSelected));
+      // localStorage.setItem("Origen", JSON.stringify(this.originSelected));
 
+      // this.setCheck();
       this.getInfoCards();
 
     } else if (value.clase == 'marca' && !value.checked) {
@@ -169,8 +170,9 @@ export class InformesComponent implements OnInit {
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
 
-      localStorage.removeItem("Origen");
+      // localStorage.removeItem("Origen");
 
+      
       this.getInfoCards();
     }
 
@@ -284,15 +286,29 @@ export class InformesComponent implements OnInit {
     this.modalRef.hide();
   }
   
-  setCheck() {
-    this.origenCheck = localStorage.getItem("Origen");
-    this.origenCheck = JSON.parse(this.origenCheck);
-    console.log("Marca almacenada: " + this.origenCheck);
+  // setCheck() {
+  //   this.origenCheck = localStorage.getItem("Origen");
+  //   this.origenCheck = JSON.parse(this.origenCheck);
+  //   console.log("Marca almacenada: " + this.origenCheck);
 
-    if (this.origenCheck !== null) {
-      var chequear = document.getElementById("marca");
-      chequear.setAttribute('checked', 'checked');
+  //   if (this.origenCheck !== null) {
+  //     var chequear = document.getElementById("marca");
+  //     chequear.setAttribute('checked', 'checked');
+  //   }
+  // }
+
+  validarCampos(value:any,index: any) {
+    
+    // console.log(`este es el index ${index}`);
+    let validar = false;
+    validar = this.categoriaSelected.some(element => element === value)
+    if(validar) {
+          let chequear = document.getElementById(`${index}`);
+          chequear.setAttribute('checked', 'checked');
+          console.log(index);
+          console.log(chequear);
     }
+    // console.log(validar);
   }
 
   clearLocalStorage() {

@@ -128,11 +128,11 @@
                   </a>
                   <ul class="collapse list-unstyled" id="filterMArk">
 
-                    <li *ngFor="let origin of originData">
+                    <li *ngFor="let origin of originData; index as i">
                       <label class="control control--checkbox">
-                        <input class="marca" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                        <input class="marca" type="checkbox"  name="{{origin.value}}"
                           (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
-                          id="marca" />
+                          id="{{marca}}" value="{{origin.value !== '' ? validarCampos(origin.value,i) : origin.value}}"/>
                         {{origin.text}}
                       </label>
                     </li>
@@ -144,11 +144,11 @@
                     class="dropdown-toggle menu-color">Categoria
                   </a>
                   <ul class="collapse list-unstyled" id="filterCategory">
-                    <li *ngFor="let category of categoryData">
+                    <li *ngFor="let category of categoryData; index as i">
                       <label class="control control--checkbox">
                         <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                           (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
-                          id="{{category.value}}" />
+                          id="{{i}}" value="{{origin.value !== '' ? validarCampos(origin.value, i) : origin.value}}"/>
                         {{category.text}}
                       </label>
                     </li>
@@ -230,10 +230,10 @@
               </ul>
             </div>
             <div class="modal-footer">
-              <!--
-                <button type="button" class="btn btn-secondary" (click)="localStorageAlert()">Mostrar datos</button>
-                <button type="button" class="btn btn-secondary" (click)="setCheck()">Setear filtro anterior</button>
-              -->
+              
+                <!-- <button type="button" class="btn btn-secondary" (click)="localStorageAlert()">Mostrar datos</button> -->
+                <!-- <button type="button" class="btn btn-secondary" (click)="setCheck()">Setear filtro anterior</button> -->
+             
               <button type="button" class="btn btn-danger" (click)="clearFilters()">Limpiar filtros</button>
               <button type="button" class="btn btn-primary" (click)="closeModal()">Aplicar filtros</button>
             </div>

@@ -95,6 +95,12 @@ export class CatMujerComponent implements OnInit {
   colores: any;
   coloresCount: any;
   coloresRGB: any;
+  // variables para la tabla topTen
+  topTenTipoPrenda: any = ['','','','','','','','','',''];
+  topTenColoresLetra: any = ['','','','','','','','','',''];
+  topTenColoresRGB: any = ['','','','','','','','','',''];
+  topTenPorcentajeSKU: any = [0,0,0,0,0,0,0,0,0,0];
+  topTenTotalSKU: any = [0,0,0,0,0,0,0,0,0,0];
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
@@ -160,6 +166,12 @@ export class CatMujerComponent implements OnInit {
     this.colorMujerPalabra = data.obj.porcentajesCategoriaColors.colorMujer;
     this.rgbMujer = data.obj.porcentajesCategoriaColors.rgbMujer;
     this.mujerTotalSKU = new Intl.NumberFormat('es-CO').format(data.obj.porcentajesCategoriaColors.mujerTotalSKU);
+    // seccion de la tabla topTen
+    this.topTenTipoPrenda = data.obj.topTen.tipoPrenda;
+    this.topTenColoresLetra = data.obj.topTen.coloresLetra;
+    this.topTenColoresRGB = data.obj.topTen.coloresRGB;
+    this.topTenPorcentajeSKU = data.obj.topTen.porcentajeSKU; 
+    this.topTenTotalSKU = data.obj.topTen.totalSKU;
   }
 
   //info seccion barchart 
