@@ -70,6 +70,7 @@ import { Table2Component } from './components/informe-categoria/table2/table2.co
     InformeDescontinuadosComponent,
     InformeSKUComponent,
     InformeCategoriaComponent,
+    GeneralComponent,
     CatMujerComponent,
     CatHombreComponent,
     CatKidsComponent,
