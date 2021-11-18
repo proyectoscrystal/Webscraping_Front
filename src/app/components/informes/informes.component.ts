@@ -345,18 +345,6 @@ export class InformesComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-  validateCheckCategory(value: any, categoriaCheck: any) {
-
-    // console.log(`este es el index ${index}`);
-    let validar2 = false;
-    validar2 = this.categoriaSelected.some(element => element === value)
-    if (validar2) {
-      let chequear2 = document.getElementById(`categoria${categoriaCheck}`);
-      chequear2.setAttribute('checked', 'checked');
-      console.log(categoriaCheck);
-      console.log(chequear2);
-=======
   validateCheckSubCategory(value: any, subCategoriaCheck: any) {
     let validarSubCategoria = false;
     validarSubCategoria = this.subCategoriaSelected.some(element => element === value)
@@ -372,7 +360,6 @@ export class InformesComponent implements OnInit {
     if (validarTipoPrenda) {
       let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
       chequearTipoPrenda.setAttribute('checked', 'checked');
->>>>>>> 0c139616e6bd254e59d3328a75edc2a7aa9df70f
     }
   }
 
