@@ -309,8 +309,8 @@
           <td data-label="Categoría" class="alignTableItems"> {{e.categoria}} </td>
           <td data-label="Subcategoría" class="alignTableItems"> {{e.subCategoria}} </td>
           <td data-label="Tipo de prenda" class="alignTableItems"> {{e.tipoPrenda}} </td>
-          <td data-label="Descontinuados" class="alignTableItems"> {{e.x}} </td>
-          <td data-label="Diferencia" class="alignTableItems"> {{e.x}} </td>
+          <td data-label="Descontinuados" class="alignTableItems"> {{tableAvgDescontinuados}} </td>
+          <td data-label="Diferencia" [ngClass]="diferencia()" class="alignTableItems"> {{tableDifference[1]}} </td>
         </tr>
       </tbody>
     </table>

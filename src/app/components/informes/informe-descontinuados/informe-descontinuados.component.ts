@@ -88,7 +88,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
   // responses from backend
   averageDiscountinued1:number[] = [];
   averageDiscountinued2:number[] = [];
-  tableAvgDescontinuados: any;
+  tableAvgDescontinuados: any = 0;
   tableDifference: any;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
@@ -210,7 +210,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
   // set info table
   setInfoTable(res) {
     this.photos = res.obj.arr;
-    this.tableAvgDescontinuados = new Intl.NumberFormat('es-CO').format(res.obj.descuentoPromedio);
+    this.tableAvgDescontinuados = new Intl.NumberFormat('es-CO').format(res.obj.descontinuados);
     this.tableDifference = res.obj.differences;
   }
 
