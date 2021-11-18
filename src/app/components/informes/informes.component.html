@@ -88,13 +88,13 @@
     <div class="container-cards">
       <div class="grid">
         <div class="titulo-grid1">
-          <h1 class="titulo-h1">Resumen Mes</h1>
+          <h1 class="titulo-h1">{{tituloResumen}}</h1>
         </div>
 
         <div class="selectTop">
-          <select class="form-control">
-            <option value="">Mes</option>
-            <option value="">Semana</option>
+          <select [(ngModel)]="valorSeleccionado" (change)="cambioSemanaMes()" class="form-control">
+            <option value="Mes">Mes</option>
+            <option value="Semana">Semana</option>
           </select>
         </div>
 
@@ -257,7 +257,7 @@
               <p class="cardsNumbers">$ {{currency1}}</p>
               <p class="cardsDifferences" [ngClass]="difference1()"> {{priceDifference[0] === 0 ? '-' : '+'}}
                 {{priceDifference[1]}}%</p>
-              <p class="cardsMes">Que el mes pasado</p>
+              <p class="cardsMes">{{tituloCardActual}}</p>
             </div>
           </div>
           <div class="column">
@@ -267,7 +267,7 @@
               <p class="cardsNumbers"> {{totalDiscount}}% </p>
               <p class="cardsDifferences" [ngClass]="difference2()"> {{discountDifference[0] === 0 ? '-' : '+'}}
                 {{discountDifference[1]}}%</p>
-              <p class="cardsMes">Que el mes pasado</p>
+              <p class="cardsMes">{{tituloCardActual}}</p>
             </div>
           </div>
           <div class="column">
@@ -277,7 +277,7 @@
               <p class="cardsNumbers"> {{totalNew}} </p>
               <p class="cardsDifferences" [ngClass]="difference3()"> {{newsDifference[0] === 0 ? '-' : '+'}}
                 {{newsDifference[1]}}</p>
-              <p class="cardsMes">Que el mes pasado</p>
+              <p class="cardsMes">{{tituloCardActual}}</p>
             </div>
           </div>
           <div class="column">
@@ -287,7 +287,7 @@
               <p class="cardsNumbers">{{totalDescontinuados}}</p>
               <p class="cardsDifferences" [ngClass]="difference4()">{{discontinuedDifference[0] === 0 ? '-' : '+'}}
                 {{discontinuedDifference[1]}}</p>
-              <p class="cardsMes">Que el mes pasado</p>
+              <p class="cardsMes">{{tituloCardActual}}</p>
             </div>
           </div>
           <div class="column">
@@ -297,7 +297,7 @@
               <p class="cardsNumbers">{{totalsku}}</p>
               <p class="cardsDifferences" [ngClass]="difference5()">{{skuDifference[0] === 0 ? '-' : '+'}}
                 {{skuDifference[1]}}</p>
-              <p class="cardsMes">Que el mes pasado</p>
+              <p class="cardsMes">{{tituloCardActual}}</p>
             </div>
           </div>
         </div>

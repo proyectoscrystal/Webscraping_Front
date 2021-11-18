@@ -27,6 +27,14 @@ export class InformesComponent implements OnInit {
     ignoreBackdropClick: true
   };
 
+  // variable cambio mes a semana 
+  valorSeleccionado: any = '';
+  semana: any = '';
+  mes: any = '';
+  tituloResumen: any = '';
+  tituloCardActual: any = '';
+
+
   photos: any;
   averagePrice: number;
   totalNew: any;
@@ -73,7 +81,7 @@ export class InformesComponent implements OnInit {
   tipoPrendaSelected = [];
   colorSelected = [];
   composicionSelected = [];
-
+  // variables para fecha y marca
   inicio = '';
   fin = '';
   origenSeleccionado: any;
@@ -82,6 +90,9 @@ export class InformesComponent implements OnInit {
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
     Chart.register(...registerables);
     this.datos = new Datos();
+    this.valorSeleccionado = "Mes";
+    this.tituloResumen = "Resumen Mes";
+    this.tituloCardActual = "Que el mes pasado";
     // metodo para obtener todos los documentos de tipo images
   }
 
@@ -126,6 +137,17 @@ export class InformesComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  // funciones para implementar funcion de semanas
+  cambioSemanaMes() {
+    if(this.valorSeleccionado === "Semana") {
+      this.tituloResumen = "Resumen Semana";
+      this.tituloCardActual = "Que la semana pasada";
+    } else if (this.valorSeleccionado === "Mes") {
+      this.tituloResumen = "Resumen Mes";
+      this.tituloCardActual = "Que el mes pasado";
+    }
   }
 
   //Obtener datos desde index.ts para mostrar en el modal
