@@ -7,6 +7,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { Datos } from '../../utils/index';
 
+// importing the children components
+import  { InformePrecioComponent } from './informe-precio/informe-precio.component';
+
 interface valueFilter {
   checked: boolean;
   clase: string;
@@ -19,6 +22,7 @@ interface valueFilter {
   styleUrls: ['./informes.component.css']
 })
 export class InformesComponent implements OnInit {
+  @ViewChild(InformePrecioComponent) precioComponent: InformePrecioComponent;
 
   //Config modal filtros
   modalRef: BsModalRef;
@@ -97,7 +101,11 @@ export class InformesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getInfoCards();
+    if(this.valorSeleccionado === 'Mes'){
+      this.getInfoCards();
+      //TODO: enviar el valor de mes a los charts de los informes hijos    
+
+    }
     this.showDataModal();
     this.toggleSidebar();
   }
@@ -144,9 +152,18 @@ export class InformesComponent implements OnInit {
     if(this.valorSeleccionado === "Semana") {
       this.tituloResumen = "Resumen Semana";
       this.tituloCardActual = "Que la semana pasada";
+      // metodo para volver a cargar valores por semana TODO
+
+      // envio del valor a los componente hijos
+      this.precioComponent.valorSeleccionado(this.valorSeleccionado);
     } else if (this.valorSeleccionado === "Mes") {
       this.tituloResumen = "Resumen Mes";
       this.tituloCardActual = "Que el mes pasado";
+      // metodo para volver a cargar los valores por mes en los cards
+      // this.getInfoCards();
+
+      // envio del valor a los componente hijos
+      this.precioComponent.valorSeleccionado(this.valorSeleccionado);
     }
   }
 
@@ -333,15 +350,15 @@ export class InformesComponent implements OnInit {
     // console.log(validar);
   }
 
-  validateCheckCategory(value: any, cat: any) {
+  validateCheckCategory(value: any, categoriaCheck: any) {
 
     // console.log(`este es el index ${index}`);
     let validar2 = false;
     validar2 = this.categoriaSelected.some(element => element === value)
     if (validar2) {
-      let chequear2 = document.getElementById(`${cat}`);
+      let chequear2 = document.getElementById(`categoria${categoriaCheck}`);
       chequear2.setAttribute('checked', 'checked');
-      console.log(cat);
+      console.log(categoriaCheck);
       console.log(chequear2);
     }
     // console.log(validar);

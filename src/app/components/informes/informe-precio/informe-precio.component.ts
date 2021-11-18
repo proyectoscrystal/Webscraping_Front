@@ -69,6 +69,8 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
   subcategorys: any;
   imagesNames: any;
 
+  Seleccionado: any = 'Mes';
+
   origin: any = '';
   categoria: any = '';
   subCategoria: any = '';
@@ -136,6 +138,16 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
+
+  // recibiendo el valor seleccionado de mes o semana desde el padre
+  valorSeleccionado(valor:any) {
+    this.Seleccionado = valor;
+    if(this.Seleccionado === "Semana") {
+      console.log(`recibiendo desde el padre a ${valor}`);
+    } else if (this.Seleccionado === "Mes") {
+      console.log(`recibiendo desde el padre a ${valor}`);
+    }
+  } 
 
   // peticion para el chart
   getInfoPrice() {

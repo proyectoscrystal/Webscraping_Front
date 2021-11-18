@@ -148,7 +148,7 @@
                       <label class="control control--checkbox">
                         <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                           (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
-                          id="{{categoriaCheck}}" value="{{category.value !== '' ? validateCheckCategory(category.value, categoriaCheck) : category.value}}"/>
+                          id="{{'categoria' + categoriaCheck}}" value="{{category.value !== '' ? validateCheckCategory(category.value, categoriaCheck) : category.value}}"/>
                         {{category.text}}
                       </label>
                     </li>
