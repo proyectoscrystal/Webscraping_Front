@@ -192,6 +192,10 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     this.tableDifference = res.obj.differences;
   }
 
+  TrackByFn(index: number, item: any): number {
+    return index;
+  }
+
   //===============INICIO FILTROS MODAL===============
 
   //Obtener datos desde index.ts para mostrar en el modal

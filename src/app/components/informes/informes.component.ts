@@ -40,11 +40,11 @@ export class InformesComponent implements OnInit {
   totalsku: any = '';
   totalDiscount: number;
   currency1: any = '';
-  priceDifference: any[] = [0,0];
-  discountDifference: any[] = [0,0];
-  newsDifference: any[] = [0,0];
-  skuDifference: any[] = [0,0];
-  discontinuedDifference: any[] = [0,0];
+  priceDifference: any[] = [0, 0];
+  discountDifference: any[] = [0, 0];
+  newsDifference: any[] = [0, 0];
+  skuDifference: any[] = [0, 0];
+  discontinuedDifference: any[] = [0, 0];
 
   infoCards: any;
   params: any;
@@ -172,7 +172,7 @@ export class InformesComponent implements OnInit {
 
       // localStorage.removeItem("Origen");
 
-      
+
       this.getInfoCards();
     }
 
@@ -254,14 +254,14 @@ export class InformesComponent implements OnInit {
       console.log(this.composicionSelected);
 
       this.getInfoCards();
-    }    
+    }
   }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, this.config);
   }
 
-  clearFilters () {
+  clearFilters() {
     this.inicio = '';
     this.fin = '';
     this.origin = [];
@@ -285,7 +285,7 @@ export class InformesComponent implements OnInit {
   closeModal() {
     this.modalRef.hide();
   }
-  
+
   // setCheck() {
   //   this.origenCheck = localStorage.getItem("Origen");
   //   this.origenCheck = JSON.parse(this.origenCheck);
@@ -297,16 +297,30 @@ export class InformesComponent implements OnInit {
   //   }
   // }
 
-  validarCampos(value:any,index: any) {
-    
+  validateCheckOrigin(value: any, marcaCheck: any) {
+
     // console.log(`este es el index ${index}`);
     let validar = false;
-    validar = this.categoriaSelected.some(element => element === value)
-    if(validar) {
-          let chequear = document.getElementById(`${index}`);
-          chequear.setAttribute('checked', 'checked');
-          console.log(index);
-          console.log(chequear);
+    validar = this.originSelected.some(element => element === value)
+    if (validar) {
+      let chequear = document.getElementById(`${marcaCheck}`);
+      chequear.setAttribute('checked', 'checked');
+      console.log(marcaCheck);
+      console.log(chequear);
+    }
+    // console.log(validar);
+  }
+
+  validateCheckCategory(value: any, cat: any) {
+
+    // console.log(`este es el index ${index}`);
+    let validar2 = false;
+    validar2 = this.categoriaSelected.some(element => element === value)
+    if (validar2) {
+      let chequear2 = document.getElementById(`${cat}`);
+      chequear2.setAttribute('checked', 'checked');
+      console.log(cat);
+      console.log(chequear2);
     }
     // console.log(validar);
   }
@@ -326,27 +340,27 @@ export class InformesComponent implements OnInit {
     this.precioPromedio = new Intl.NumberFormat('es-CO').format(info.obj.precioPromedio);
 
     this.currency1 = new Intl.NumberFormat('es-CO').format(info.obj.precioPromedio);
-    this.totalDiscount =  info.obj.discount;
+    this.totalDiscount = info.obj.discount;
     this.totalNew = new Intl.NumberFormat('es-CO').format(info.obj.nuevos);
-    this.totalDescontinuados = new Intl.NumberFormat('es-CO').format( info.obj.discontinueds);
+    this.totalDescontinuados = new Intl.NumberFormat('es-CO').format(info.obj.discontinueds);
     this.totalsku = new Intl.NumberFormat('es-CO').format(info.obj.sku);
 
     this.priceDifference = info.obj.differencePrice;
     this.discountDifference = info.obj.differencePorcentage;
 
-    this.skuDifference[1] = new Intl.NumberFormat('es-CO').format( info.obj.differenceSKU[1]);
+    this.skuDifference[1] = new Intl.NumberFormat('es-CO').format(info.obj.differenceSKU[1]);
     this.skuDifference[0] = info.obj.differenceSKU[0];
-    this.newsDifference[1] = new Intl.NumberFormat('es-CO').format(  info.obj.differenceNew[1]);
+    this.newsDifference[1] = new Intl.NumberFormat('es-CO').format(info.obj.differenceNew[1]);
     this.newsDifference[0] = info.obj.differenceNew[0];
     this.discontinuedDifference = info.obj.differenceDiscontinued;
   }
 
-  fechaInicio(){    
+  fechaInicio() {
     console.log(this.inicio);
     this.getInfoCards();
   }
 
-  fechaFin(){
+  fechaFin() {
     // let date = new Date(this.fin);
     console.log(this.fin);
     this.getInfoCards();

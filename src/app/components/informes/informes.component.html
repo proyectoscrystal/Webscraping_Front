@@ -128,11 +128,11 @@
                   </a>
                   <ul class="collapse list-unstyled" id="filterMArk">
 
-                    <li *ngFor="let origin of originData; index as i">
+                    <li *ngFor="let origin of originData; let marcaCheck = index">
                       <label class="control control--checkbox">
                         <input class="marca" type="checkbox"  name="{{origin.value}}"
                           (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
-                          id="{{marca}}" value="{{origin.value !== '' ? validarCampos(origin.value,i) : origin.value}}"/>
+                          id="{{marcaCheck}}" value="{{origin.value !== '' ? validateCheckOrigin(origin.value, marcaCheck) : origin.value}}"/>
                         {{origin.text}}
                       </label>
                     </li>
@@ -144,11 +144,11 @@
                     class="dropdown-toggle menu-color">Categoria
                   </a>
                   <ul class="collapse list-unstyled" id="filterCategory">
-                    <li *ngFor="let category of categoryData; index as i">
+                    <li *ngFor="let category of categoryData; let categoriaCheck = index">
                       <label class="control control--checkbox">
                         <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                           (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
-                          id="{{i}}" value="{{origin.value !== '' ? validarCampos(origin.value, i) : origin.value}}"/>
+                          id="{{categoriaCheck}}" value="{{category.value !== '' ? validateCheckCategory(category.value, categoriaCheck) : category.value}}"/>
                         {{category.text}}
                       </label>
                     </li>
