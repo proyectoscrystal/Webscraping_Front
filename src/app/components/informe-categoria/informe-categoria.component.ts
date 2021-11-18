@@ -453,6 +453,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.composicionSelectedCards.splice(0, this.composicionSelectedCards.length);
     this.selectedFilterCards.splice(0, this.selectedFilterCards.length);
 
+    $(".marcaCards").prop("checked", false);
+    $(".categoriaCards").prop("checked", false);
+    $(".subCategoriaCards").prop("checked", false);
+    $(".tipoPrendaCards").prop("checked", false);
+    $(".colorCards").prop("checked", false);
+    $(".composicionCards").prop("checked", false);
+
     this.getInfoCards();
   }
 
@@ -480,6 +487,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.composicionSelected.splice(0, this.composicionSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
+    $(".marca").prop("checked", false);
+    $(".categoria").prop("checked", false);
+    $(".subCategoria").prop("checked", false);
+    $(".tipoPrenda").prop("checked", false);
+    $(".color").prop("checked", false);
+    $(".composicion").prop("checked", false);
+
     this.getInfoTable();
     this.rerender();
   }
@@ -487,6 +501,116 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   closeModal() {
     this.modalRef.hide();
   }
+
+  //Validar checks filtros al cerrar modal cards
+  validateCheckOriginCards(value: any, marcaCheckCards: any) {
+    let validarMarcaCards = false;
+    validarMarcaCards = this.originSelectedCards.some(element => element === value)
+    if (validarMarcaCards) {
+      let chequearMarcaCards = document.getElementById(`marca${marcaCheckCards}`);
+      chequearMarcaCards.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckCategoryCards(value: any, categoriaCheckCards: any) {
+    let validarCategoriaCards = false;
+    validarCategoriaCards = this.categoriaSelectedCards.some(element => element === value)
+    if (validarCategoriaCards) {
+      let chequearCategoriaCards = document.getElementById(`categoria${categoriaCheckCards}`);
+      chequearCategoriaCards.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckSubCategoryCards(value: any, subCategoriaCheckCards: any) {
+    let validarSubCategoriaCards = false;
+    validarSubCategoriaCards = this.subCategoriaSelectedCards.some(element => element === value)
+    if (validarSubCategoriaCards) {
+      let chequearSubCategoriaCards = document.getElementById(`subcategoria${subCategoriaCheckCards}`);
+      chequearSubCategoriaCards.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckTipoPrendaCards(value: any, tipoPrendaCheckCards: any) {
+    let validarTipoPrendaCards = false;
+    validarTipoPrendaCards = this.tipoPrendaSelectedCards.some(element => element === value)
+    if (validarTipoPrendaCards) {
+      let chequearTipoPrendaCards = document.getElementById(`tipoprenda${tipoPrendaCheckCards}`);
+      chequearTipoPrendaCards.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckColoCards(value: any, colorCheckCards: any) {
+    let validarColorCards = false;
+    validarColorCards = this.colorSelectedCards.some(element => element === value)
+    if (validarColorCards) {
+      let chequearColorCards = document.getElementById(`color${colorCheckCards}`);
+      chequearColorCards.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckComposicionCards(value: any, composicionCheckCards: any) {
+    let validarComposicionCards = false;
+    validarComposicionCards = this.composicionSelectedCards.some(element => element === value)
+    if (validarComposicionCards) {
+      let chequearComposicionCards = document.getElementById(`composicion${composicionCheckCards}`);
+      chequearComposicionCards.setAttribute('checked', 'checked');
+    }
+  }   
+
+  //Validar checks filtros al cerrar modal tabla
+  validateCheckOrigin(value: any, marcaCheck: any) {
+    let validarMarca = false;
+    validarMarca = this.originSelected.some(element => element === value)
+    if (validarMarca) {
+      let chequearMarca = document.getElementById(`marca${marcaCheck}`);
+      chequearMarca.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckCategory(value: any, categoriaCheck: any) {
+    let validarCategoria = false;
+    validarCategoria = this.categoriaSelected.some(element => element === value)
+    if (validarCategoria) {
+      let chequearCategoria = document.getElementById(`categoria${categoriaCheck}`);
+      chequearCategoria.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckSubCategory(value: any, subCategoriaCheck: any) {
+    let validarSubCategoria = false;
+    validarSubCategoria = this.subCategoriaSelected.some(element => element === value)
+    if (validarSubCategoria) {
+      let chequearSubCategoria = document.getElementById(`subcategoria${subCategoriaCheck}`);
+      chequearSubCategoria.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckTipoPrenda(value: any, tipoPrendaCheck: any) {
+    let validarTipoPrenda = false;
+    validarTipoPrenda = this.tipoPrendaSelected.some(element => element === value)
+    if (validarTipoPrenda) {
+      let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
+      chequearTipoPrenda.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckColor(value: any, colorCheck: any) {
+    let validarColor = false;
+    validarColor = this.colorSelected.some(element => element === value)
+    if (validarColor) {
+      let chequearColor = document.getElementById(`color${colorCheck}`);
+      chequearColor.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckComposicion(value: any, composicionCheck: any) {
+    let validarComposicion = false;
+    validarComposicion = this.composicionSelected.some(element => element === value)
+    if (validarComposicion) {
+      let chequearComposicion = document.getElementById(`composicion${composicionCheck}`);
+      chequearComposicion.setAttribute('checked', 'checked');
+    }
+  } 
 
   rerender(): void {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
