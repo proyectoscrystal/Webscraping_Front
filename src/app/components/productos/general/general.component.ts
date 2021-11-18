@@ -78,6 +78,7 @@ export class GeneralComponent implements OnInit {
   categoryData: any;
   subCategoryData: any;
   tipoPrendaData: any;
+  default: any = 'default.png';
 
   // responses categoryes
   categorias = [];

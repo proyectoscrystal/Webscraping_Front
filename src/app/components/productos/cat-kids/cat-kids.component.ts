@@ -65,6 +65,8 @@ export class CatKidsComponent implements OnInit {
   categoryData: any;
   subCategoryData: any;
   tipoPrendaData: any;
+  // default image
+  default: any = 'default.png';
 
   skuData: any;
   discountsData: any;

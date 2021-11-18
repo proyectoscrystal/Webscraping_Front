@@ -67,6 +67,7 @@ export class CatHombreComponent implements OnInit {
   categoryData: any;
   subCategoryData: any;
   tipoPrendaData: any;
+  default: any = 'default.png';
 
   skuData: any;
   discountsData: any;

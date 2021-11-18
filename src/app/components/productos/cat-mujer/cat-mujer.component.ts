@@ -65,6 +65,7 @@ export class CatMujerComponent implements OnInit {
   categoryData: any;
   subCategoryData: any;
   tipoPrendaData: any;
+  default: any = 'default.png';
 
   // datos de la respuesta desde el backend
   skuData: any;
