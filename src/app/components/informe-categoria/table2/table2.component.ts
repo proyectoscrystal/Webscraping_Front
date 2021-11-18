@@ -138,7 +138,7 @@ export class Table2Component implements OnInit, OnDestroy {
   filterItemsData(value) {
     const { item } = value;
 
-    //Filtro tabla 2
+    //Filtro tabla
     if (value.checked && value.clase === 'marca2') {
       this.originSelected2.push(item);
       this.selectedFilter2.push(value);
@@ -179,9 +179,8 @@ export class Table2Component implements OnInit, OnDestroy {
       this.getInfoTable2();
       this.rerender();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
-      this.subCategoria2 = [];
-      this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1
-      );
+      this.subCategoria2 = []
+      this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
       this.getInfoTable2();
@@ -220,21 +219,21 @@ export class Table2Component implements OnInit, OnDestroy {
       this.rerender();
     }
 
-    if (value.checked && value.clase === 'composicion') {
+    if (value.checked && value.clase === 'composicion2') {
       this.composicionSelected2.push(item);
       this.selectedFilter2.push(value);
       this.composicion2 = this.composicionSelected2;
       console.log(this.composicion2);
       this.getInfoTable2();
       this.rerender();
-    } else if (value.clase == 'composicion' && !value.checked) {
+    } else if (value.clase == 'composicion2' && !value.checked) {
       this.composicion2 = [];
       this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.composicionSelected2);
       this.getInfoTable2();
       this.rerender();
-    }   
+    }     
   }
 
   // Modal Tabla 2
@@ -258,12 +257,74 @@ export class Table2Component implements OnInit, OnDestroy {
     this.composicionSelected2.splice(0, this.composicionSelected2.length)
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
 
+    $(".marca2").prop("checked", false);
+    $(".categoria2").prop("checked", false);
+    $(".subCategoria2").prop("checked", false);
+    $(".tipoPrenda2").prop("checked", false);
+    $(".color2").prop("checked", false);
+    $(".composicion2").prop("checked", false);
+
     this.getInfoTable2();
     this.rerender();
   }
 
   closeModal2() {
     this.modalRef2.hide();
+  }
+
+  //Validar checks filtros al cerrar modal tabla
+  validateCheckOrigin2(value: any, marcaCheck2: any) {
+    let validarMarca2 = false;
+    validarMarca2 = this.originSelected2.some(element => element === value)
+    if (validarMarca2) {
+      let chequearMarca2 = document.getElementById(`marca2${marcaCheck2}`);
+      chequearMarca2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckCategory2(value: any, categoriaCheck2: any) {
+    let validarCategoria2 = false;
+    validarCategoria2 = this.categoriaSelected2.some(element => element === value)
+    if (validarCategoria2) {
+      let chequearCategoria2 = document.getElementById(`categoria2${categoriaCheck2}`);
+      chequearCategoria2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckSubCategory2(value: any, subCategoriaCheck2: any) {
+    let validarSubCategoria2 = false;
+    validarSubCategoria2 = this.subCategoriaSelected2.some(element => element === value)
+    if (validarSubCategoria2) {
+      let chequearSubCategoria2 = document.getElementById(`subcategoria2${subCategoriaCheck2}`);
+      chequearSubCategoria2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckTipoPrenda2(value: any, tipoPrendaCheck2: any) {
+    let validarTipoPrenda2 = false;
+    validarTipoPrenda2 = this.tipoPrendaSelected2.some(element => element === value)
+    if (validarTipoPrenda2) {
+      let chequearTipoPrenda2 = document.getElementById(`tipoprenda2${tipoPrendaCheck2}`);
+      chequearTipoPrenda2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckColor2(value: any, colorCheck2: any) {
+    let validarColor2 = false;
+    validarColor2 = this.colorSelected2.some(element => element === value)
+    if (validarColor2) {
+      let chequearColor2 = document.getElementById(`color2${colorCheck2}`);
+      chequearColor2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckComposicion2(value: any, composicionCheck2: any) {
+    let validarComposicion2 = false;
+    validarComposicion2 = this.composicionSelected2.some(element => element === value)
+    if (validarComposicion2) {
+      let chequearComposicion2 = document.getElementById(`composicion2${composicionCheck2}`);
+      chequearComposicion2.setAttribute('checked', 'checked');
+    }
   }
 
   rerender(): void {

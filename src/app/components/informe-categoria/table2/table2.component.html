@@ -26,15 +26,16 @@
         <ul class="list-unstyled components">
 
           <li class="active">
-            <a href="#filterMArk" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle menu-color">Marca
+            <a href="#filterMArk" data-toggle="collapse" aria-expanded="false"
+              class="dropdown-toggle menu-color">Marca
             </a>
             <ul class="collapse list-unstyled" id="filterMArk">
-
-              <li *ngFor="let origin of originData">
+              <li *ngFor="let origin of originData; let marcaCheck = index">
                 <label class="control control--checkbox">
-                  <input class="marca2" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                  <input class="marca2" type="checkbox" name="{{origin.value}}"
                     (change)="validateCheckFilter2($event.target.checked, origin, $event.target.className, $event.target)"
-                    id="{{origin.value}}" />
+                    id="{{'marca2'+marcaCheck}}"
+                    value="{{origin.value !== '' ? validateCheckOrigin2(origin.value, marcaCheck) : origin.value}}" />
                   {{origin.text}}
                 </label>
               </li>
@@ -46,11 +47,12 @@
               class="dropdown-toggle menu-color">Categoria
             </a>
             <ul class="collapse list-unstyled" id="filterCategory">
-              <li *ngFor="let category of categoryData">
+              <li *ngFor="let category of categoryData; let categoriaCheck2 = index">
                 <label class="control control--checkbox">
                   <input class="categoria2" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                     (change)="validateCheckFilter2($event.target.checked, category, $event.target.className, $event.target)"
-                    id="{{category.value}}" />
+                    id="{{'categoria2'+categoriaCheck2}}"
+                    value="{{category.value !== '' ? validateCheckCategory2(category.value, categoriaCheck2) : category.value}}" />
                   {{category.text}}
                 </label>
               </li>
@@ -62,13 +64,13 @@
               class="dropdown-toggle menu-color">Sub categoría
             </a>
             <ul class="collapse list-unstyled" id="filterSubCategory">
-              <li *ngFor="let subcategory of subCategoryData">
+              <li *ngFor="let subcategory of subCategoryData; let subCategoriaCheck2 = index">
                 <label class="control control--checkbox">
-
                   <input class="subCategoria2" type="checkbox" value="{{subcategory.value}}"
                     name="{{subcategory.value}}"
                     (change)="validateCheckFilter2($event.target.checked, subcategory, $event.target.className, $event.target)"
-                    id="{{subcategory.value}}" />
+                    id="{{'subcategoria2'+subCategoriaCheck2}}"
+                    value="{{subcategory.value !== '' ? validateCheckSubCategory2(subcategory.value, subCategoriaCheck2) : subcategory.value}}" />
                   {{subcategory.text}}
                 </label>
               </li>
@@ -81,11 +83,13 @@
             </a>
             <ul class="collapse list-unstyled" id="filterTipoPrenda">
               <div class="overflow-auto container-scroll">
-                <li *ngFor="let tipoprenda of tipoPrendaData">
+                <li *ngFor="let tipoprenda of tipoPrendaData; let tipoPrendaCheck2 = index">
                   <label class="control control--checkbox">
-                    <input class="tipoPrenda2" type="checkbox" value="{{tipoprenda.value}}" name="{{tipoprenda.value}}"
+                    <input class="tipoPrenda2" type="checkbox" value="{{tipoprenda.value}}"
+                      name="{{tipoprenda.value}}"
                       (change)="validateCheckFilter2($event.target.checked, tipoprenda, $event.target.className, $event.target)"
-                      id="{{tipoprenda.value}}" />
+                      id="{{'tipoprenda2'+tipoPrendaCheck2}}"
+                      value="{{tipoprenda.value !== '' ? validateCheckTipoPrenda2(tipoprenda.value, tipoPrendaCheck2) : tipoprenda.value}}" />
                     {{tipoprenda.text}}
                   </label>
                 </li>
@@ -99,10 +103,12 @@
             </a>
             <ul class="collapse list-unstyled" id="filterColor">
               <div class="overflow-auto checkboxAlign">
-                <div *ngFor="let color of colorData">
-                  <input class="color2 colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}" title="{{color.text}}"
+                <div *ngFor="let color of colorData; let colorCheck2 = index">
+                  <input class="color2 colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                    title="{{color.text}}"
                     (change)="validateCheckFilter2($event.target.checked, color, $event.target.className, $event.target)"
-                    id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
+                    id="{{'color2'+colorCheck2}}" [ngStyle]="{'background': color.hexa}"
+                    value="{{color.value !== '' ? validateCheckColor2(color.value, colorCheck2) : color.value}}" />
                 </div>
               </div>
             </ul>
@@ -114,12 +120,13 @@
             </a>
             <ul class="collapse list-unstyled" id="filterComposicion">
               <div class="overflow-auto container-scroll">
-                <li *ngFor="let composicion of composicionData">
+                <li *ngFor="let composicion of composicionData; let composicionCheck2 = index">
                   <label class="control control--checkbox">
-                    <input class="composicion" type="checkbox" value="{{composicion.value}}"
+                    <input class="composicion2" type="checkbox" value="{{composicion.value}}"
                       name="{{composicion.value}}"
                       (change)="validateCheckFilter2($event.target.checked, composicion, $event.target.className, $event.target)"
-                      id="{{composicion.value}}" />
+                      id="{{'composicion2'+composicionCheck2}}"
+                      value="{{composicion.value !== '' ? validateCheckComposicion2(composicion.value, composicionCheck2) : composicion.value}}" />
                     {{composicion.text}}
                   </label>
                 </li>

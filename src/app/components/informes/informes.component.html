@@ -127,12 +127,12 @@
                     class="dropdown-toggle menu-color">Marca
                   </a>
                   <ul class="collapse list-unstyled" id="filterMArk">
-
                     <li *ngFor="let origin of originData; let marcaCheck = index">
                       <label class="control control--checkbox">
-                        <input class="marca" type="checkbox"  name="{{origin.value}}"
+                        <input class="marca" type="checkbox" name="{{origin.value}}"
                           (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
-                          id="{{marcaCheck}}" value="{{origin.value !== '' ? validateCheckOrigin(origin.value, marcaCheck) : origin.value}}"/>
+                          id="{{'marca'+marcaCheck}}"
+                          value="{{origin.value !== '' ? validateCheckOrigin(origin.value, marcaCheck) : origin.value}}" />
                         {{origin.text}}
                       </label>
                     </li>
@@ -148,7 +148,8 @@
                       <label class="control control--checkbox">
                         <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                           (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
-                          id="{{categoriaCheck}}" value="{{category.value !== '' ? validateCheckCategory(category.value, categoriaCheck) : category.value}}"/>
+                          id="{{'categoria'+categoriaCheck}}"
+                          value="{{category.value !== '' ? validateCheckCategory(category.value, categoriaCheck) : category.value}}" />
                         {{category.text}}
                       </label>
                     </li>
@@ -160,13 +161,13 @@
                     class="dropdown-toggle menu-color">Sub categoría
                   </a>
                   <ul class="collapse list-unstyled" id="filterSubCategory">
-                    <li *ngFor="let subcategory of subCategoryData">
+                    <li *ngFor="let subcategory of subCategoryData; let subCategoriaCheck = index">
                       <label class="control control--checkbox">
-
                         <input class="subCategoria" type="checkbox" value="{{subcategory.value}}"
                           name="{{subcategory.value}}"
                           (change)="validateCheckFilter($event.target.checked, subcategory, $event.target.className, $event.target)"
-                          id="{{subcategory.value}}" />
+                          id="{{'subcategoria'+subCategoriaCheck}}"
+                          value="{{subcategory.value !== '' ? validateCheckSubCategory(subcategory.value, subCategoriaCheck) : subcategory.value}}" />
                         {{subcategory.text}}
                       </label>
                     </li>
@@ -179,12 +180,13 @@
                   </a>
                   <ul class="collapse list-unstyled" id="filterTipoPrenda">
                     <div class="overflow-auto container-scroll">
-                      <li *ngFor="let tipoprenda of tipoPrendaData">
+                      <li *ngFor="let tipoprenda of tipoPrendaData; let tipoPrendaCheck = index">
                         <label class="control control--checkbox">
                           <input class="tipoPrenda" type="checkbox" value="{{tipoprenda.value}}"
                             name="{{tipoprenda.value}}"
                             (change)="validateCheckFilter($event.target.checked, tipoprenda, $event.target.className, $event.target)"
-                            id="{{tipoprenda.value}}" />
+                            id="{{'tipoprenda'+tipoPrendaCheck}}"
+                            value="{{tipoprenda.value !== '' ? validateCheckTipoPrenda(tipoprenda.value, tipoPrendaCheck) : tipoprenda.value}}" />
                           {{tipoprenda.text}}
                         </label>
                       </li>
@@ -198,11 +200,12 @@
                   </a>
                   <ul class="collapse list-unstyled" id="filterColor">
                     <div class="overflow-auto checkboxAlign">
-                      <div *ngFor="let color of colorData">
+                      <div *ngFor="let color of colorData; let colorCheck = index">
                         <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}"
                           title="{{color.text}}"
                           (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
-                          id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
+                          id="{{'color'+colorCheck}}" [ngStyle]="{'background': color.hexa}"
+                          value="{{color.value !== '' ? validateCheckColor(color.value, colorCheck) : color.value}}" />
                       </div>
                     </div>
                   </ul>
@@ -214,12 +217,13 @@
                   </a>
                   <ul class="collapse list-unstyled" id="filterComposicion">
                     <div class="overflow-auto container-scroll">
-                      <li *ngFor="let composicion of composicionData">
+                      <li *ngFor="let composicion of composicionData; let composicionCheck = index">
                         <label class="control control--checkbox">
                           <input class="composicion" type="checkbox" value="{{composicion.value}}"
                             name="{{composicion.value}}"
                             (change)="validateCheckFilter($event.target.checked, composicion, $event.target.className, $event.target)"
-                            id="{{composicion.value}}" />
+                            id="{{'composicion'+composicionCheck}}"
+                            value="{{composicion.value !== '' ? validateCheckComposicion(composicion.value, composicionCheck) : composicion.value}}" />
                           {{composicion.text}}
                         </label>
                       </li>
@@ -230,10 +234,6 @@
               </ul>
             </div>
             <div class="modal-footer">
-              
-                <!-- <button type="button" class="btn btn-secondary" (click)="localStorageAlert()">Mostrar datos</button> -->
-                <!-- <button type="button" class="btn btn-secondary" (click)="setCheck()">Setear filtro anterior</button> -->
-             
               <button type="button" class="btn btn-danger" (click)="clearFilters()">Limpiar filtros</button>
               <button type="button" class="btn btn-primary" (click)="closeModal()">Aplicar filtros</button>
             </div>

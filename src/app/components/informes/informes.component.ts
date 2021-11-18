@@ -181,9 +181,6 @@ export class InformesComponent implements OnInit {
       this.origin = this.originSelected;
       console.log(this.origin);
 
-      // localStorage.setItem("Origen", JSON.stringify(this.originSelected));
-
-      // this.setCheck();
       this.getInfoCards();
 
     } else if (value.clase == 'marca' && !value.checked) {
@@ -191,9 +188,6 @@ export class InformesComponent implements OnInit {
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
-
-      // localStorage.removeItem("Origen");
-
 
       this.getInfoCards();
     }
@@ -301,6 +295,13 @@ export class InformesComponent implements OnInit {
     this.composicionSelected.splice(0, this.composicionSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
 
+    $(".marca").prop("checked", false);
+    $(".categoria").prop("checked", false);
+    $(".subCategoria").prop("checked", false);
+    $(".tipoPrenda").prop("checked", false);
+    $(".color").prop("checked", false);
+    $(".composicion").prop("checked", false);
+
     this.getInfoCards();
   }
 
@@ -308,52 +309,59 @@ export class InformesComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  // setCheck() {
-  //   this.origenCheck = localStorage.getItem("Origen");
-  //   this.origenCheck = JSON.parse(this.origenCheck);
-  //   console.log("Marca almacenada: " + this.origenCheck);
-
-  //   if (this.origenCheck !== null) {
-  //     var chequear = document.getElementById("marca");
-  //     chequear.setAttribute('checked', 'checked');
-  //   }
-  // }
-
+  //Validar checks filtros al cerrar modal
   validateCheckOrigin(value: any, marcaCheck: any) {
-
-    // console.log(`este es el index ${index}`);
-    let validar = false;
-    validar = this.originSelected.some(element => element === value)
-    if (validar) {
-      let chequear = document.getElementById(`${marcaCheck}`);
-      chequear.setAttribute('checked', 'checked');
-      console.log(marcaCheck);
-      console.log(chequear);
+    let validarMarca = false;
+    validarMarca = this.originSelected.some(element => element === value)
+    if (validarMarca) {
+      let chequearMarca = document.getElementById(`marca${marcaCheck}`);
+      chequearMarca.setAttribute('checked', 'checked');
     }
-    // console.log(validar);
   }
 
-  validateCheckCategory(value: any, cat: any) {
-
-    // console.log(`este es el index ${index}`);
-    let validar2 = false;
-    validar2 = this.categoriaSelected.some(element => element === value)
-    if (validar2) {
-      let chequear2 = document.getElementById(`${cat}`);
-      chequear2.setAttribute('checked', 'checked');
-      console.log(cat);
-      console.log(chequear2);
+  validateCheckCategory(value: any, categoriaCheck: any) {
+    let validarCategoria = false;
+    validarCategoria = this.categoriaSelected.some(element => element === value)
+    if (validarCategoria) {
+      let chequearCategoria = document.getElementById(`categoria${categoriaCheck}`);
+      chequearCategoria.setAttribute('checked', 'checked');
     }
-    // console.log(validar);
   }
 
-  clearLocalStorage() {
-    //localStorage.clear();
+  validateCheckSubCategory(value: any, subCategoriaCheck: any) {
+    let validarSubCategoria = false;
+    validarSubCategoria = this.subCategoriaSelected.some(element => element === value)
+    if (validarSubCategoria) {
+      let chequearSubCategoria = document.getElementById(`subcategoria${subCategoriaCheck}`);
+      chequearSubCategoria.setAttribute('checked', 'checked');
+    }
   }
 
-  localStorageAlert() {
-    this.origenSeleccionado = localStorage.getItem("Origen");
-    alert(this.origenSeleccionado);
+  validateCheckTipoPrenda(value: any, tipoPrendaCheck: any) {
+    let validarTipoPrenda = false;
+    validarTipoPrenda = this.tipoPrendaSelected.some(element => element === value)
+    if (validarTipoPrenda) {
+      let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
+      chequearTipoPrenda.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckColor(value: any, colorCheck: any) {
+    let validarColor = false;
+    validarColor = this.colorSelected.some(element => element === value)
+    if (validarColor) {
+      let chequearColor = document.getElementById(`color${colorCheck}`);
+      chequearColor.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckComposicion(value: any, composicionCheck: any) {
+    let validarComposicion = false;
+    validarComposicion = this.composicionSelected.some(element => element === value)
+    if (validarComposicion) {
+      let chequearComposicion = document.getElementById(`composicion${composicionCheck}`);
+      chequearComposicion.setAttribute('checked', 'checked');
+    }
   }
 
   //===============FIN FILTROS MODAL===============

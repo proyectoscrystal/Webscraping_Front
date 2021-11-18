@@ -124,104 +124,109 @@
                   class="dropdown-toggle menu-color">Marca
                 </a>
                 <ul class="collapse list-unstyled" id="filterMArk">
-
-                  <li *ngFor="let origin of originData">
+                  <li *ngFor="let origin of originData; let marcaCheckCards = index">
                     <label class="control control--checkbox">
-                      <input class="marcaCards" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                      <input class="marcaCards" type="checkbox" name="{{origin.value}}"
                         (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
-                        id="marca" />
+                        id="{{'marca'+marcaCheckCards}}"
+                        value="{{origin.value !== '' ? validateCheckOriginCards(origin.value, marcaCheckCards) : origin.value}}" />
                       {{origin.text}}
                     </label>
                   </li>
                 </ul>
               </li>
-
+  
               <li class="active mt-2">
                 <a href="#filterCategory" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle menu-color">Categoria
                 </a>
                 <ul class="collapse list-unstyled" id="filterCategory">
-                  <li *ngFor="let category of categoryData">
+                  <li *ngFor="let category of categoryData; let categoriaCheckCards = index">
                     <label class="control control--checkbox">
                       <input class="categoriaCards" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                         (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
-                        id="{{category.value}}" />
+                        id="{{'categoria'+categoriaCheckCards}}"
+                        value="{{category.value !== '' ? validateCheckCategoryCards(category.value, categoriaCheckCards) : category.value}}" />
                       {{category.text}}
                     </label>
                   </li>
                 </ul>
               </li>
-
+  
               <li class="active mt-2">
                 <a href="#filterSubCategory" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle menu-color">Sub categoría
                 </a>
                 <ul class="collapse list-unstyled" id="filterSubCategory">
-                  <li *ngFor="let subcategory of subCategoryData">
+                  <li *ngFor="let subcategory of subCategoryData; let subCategoriaCheckCards = index">
                     <label class="control control--checkbox">
-
                       <input class="subCategoriaCards" type="checkbox" value="{{subcategory.value}}"
                         name="{{subcategory.value}}"
                         (change)="validateCheckFilter($event.target.checked, subcategory, $event.target.className, $event.target)"
-                        id="{{subcategory.value}}" />
+                        id="{{'subcategoria'+subCategoriaCheckCards}}"
+                        value="{{subcategory.value !== '' ? validateCheckSubCategoryCards(subcategory.value, subCategoriaCheckCards) : subcategory.value}}" />
                       {{subcategory.text}}
                     </label>
                   </li>
                 </ul>
               </li>
-
+  
               <li class="active mt-2">
                 <a href="#filterTipoPrenda" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle menu-color">Tipo de prenda
                 </a>
                 <ul class="collapse list-unstyled" id="filterTipoPrenda">
                   <div class="overflow-auto container-scroll">
-                    <li *ngFor="let tipoprenda of tipoPrendaData">
+                    <li *ngFor="let tipoprenda of tipoPrendaData; let tipoPrendaCheckCards = index">
                       <label class="control control--checkbox">
                         <input class="tipoPrendaCards" type="checkbox" value="{{tipoprenda.value}}"
                           name="{{tipoprenda.value}}"
                           (change)="validateCheckFilter($event.target.checked, tipoprenda, $event.target.className, $event.target)"
-                          id="{{tipoprenda.value}}" />
+                          id="{{'tipoprenda'+tipoPrendaCheckCards}}"
+                          value="{{tipoprenda.value !== '' ? validateCheckTipoPrendaCards(tipoprenda.value, tipoPrendaCheckCards) : tipoprenda.value}}" />
                         {{tipoprenda.text}}
                       </label>
                     </li>
                   </div>
                 </ul>
               </li>
-
+  
               <li class="active mt-2">
                 <a href="#filterColor" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle menu-color">Color
                 </a>
                 <ul class="collapse list-unstyled" id="filterColor">
                   <div class="overflow-auto checkboxAlign">
-                    <div *ngFor="let color of colorData">
-                      <input class="colorCards colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}" title="{{color.text}}"
+                    <div *ngFor="let color of colorData; let colorCheckCards = index">
+                      <input class="colorCards colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                        title="{{color.text}}"
                         (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
-                        id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
+                        id="{{'color'+colorCheckCards}}" [ngStyle]="{'background': color.hexa}"
+                        value="{{color.value !== '' ? validateCheckColoCards(color.value, colorCheckCards) : color.value}}" />
                     </div>
                   </div>
                 </ul>
               </li>
-
+  
               <li class="active mt-2">
                 <a href="#filterComposicion" data-toggle="collapse" aria-expanded="false"
                   class="dropdown-toggle menu-color">Composición
                 </a>
                 <ul class="collapse list-unstyled" id="filterComposicion">
                   <div class="overflow-auto container-scroll">
-                    <li *ngFor="let composicion of composicionData">
+                    <li *ngFor="let composicion of composicionData; let composicionCheckCards = index">
                       <label class="control control--checkbox">
                         <input class="composicionCards" type="checkbox" value="{{composicion.value}}"
                           name="{{composicion.value}}"
                           (change)="validateCheckFilter($event.target.checked, composicion, $event.target.className, $event.target)"
-                          id="{{composicion.value}}" />
+                          id="{{'composicion'+composicionCheckCards}}"
+                          value="{{composicion.value !== '' ? validateCheckComposicionCards(composicion.value, composicionCheckCards) : composicion.value}}" />
                         {{composicion.text}}
                       </label>
                     </li>
                   </div>
                 </ul>
-              </li>
+              </li>              
 
             </ul>
           </div>
@@ -364,105 +369,109 @@
                     class="dropdown-toggle menu-color">Marca
                   </a>
                   <ul class="collapse list-unstyled" id="filterMArk">
-
-                    <li *ngFor="let origin of originData">
+                    <li *ngFor="let origin of originData; let marcaCheck = index">
                       <label class="control control--checkbox">
-                        <input class="marca" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                        <input class="marca" type="checkbox" name="{{origin.value}}"
                           (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
-                          id="{{origin.value}}" />
+                          id="{{'marca'+marcaCheck}}"
+                          value="{{origin.value !== '' ? validateCheckOrigin(origin.value, marcaCheck) : origin.value}}" />
                         {{origin.text}}
                       </label>
                     </li>
                   </ul>
                 </li>
-
+    
                 <li class="active mt-2">
                   <a href="#filterCategory" data-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle menu-color">Categoria
                   </a>
                   <ul class="collapse list-unstyled" id="filterCategory">
-                    <li *ngFor="let category of categoryData">
+                    <li *ngFor="let category of categoryData; let categoriaCheck = index">
                       <label class="control control--checkbox">
                         <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                           (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
-                          id="{{category.value}}" />
+                          id="{{'categoria'+categoriaCheck}}"
+                          value="{{category.value !== '' ? validateCheckCategory(category.value, categoriaCheck) : category.value}}" />
                         {{category.text}}
                       </label>
                     </li>
                   </ul>
                 </li>
-
+    
                 <li class="active mt-2">
                   <a href="#filterSubCategory" data-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle menu-color">Sub categoría
                   </a>
                   <ul class="collapse list-unstyled" id="filterSubCategory">
-                    <li *ngFor="let subcategory of subCategoryData">
+                    <li *ngFor="let subcategory of subCategoryData; let subCategoriaCheck = index">
                       <label class="control control--checkbox">
-
                         <input class="subCategoria" type="checkbox" value="{{subcategory.value}}"
                           name="{{subcategory.value}}"
                           (change)="validateCheckFilter($event.target.checked, subcategory, $event.target.className, $event.target)"
-                          id="{{subcategory.value}}" />
+                          id="{{'subcategoria'+subCategoriaCheck}}"
+                          value="{{subcategory.value !== '' ? validateCheckSubCategory(subcategory.value, subCategoriaCheck) : subcategory.value}}" />
                         {{subcategory.text}}
                       </label>
                     </li>
                   </ul>
                 </li>
-
+    
                 <li class="active mt-2">
                   <a href="#filterTipoPrenda" data-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle menu-color">Tipo de prenda
                   </a>
                   <ul class="collapse list-unstyled" id="filterTipoPrenda">
                     <div class="overflow-auto container-scroll">
-                      <li *ngFor="let tipoprenda of tipoPrendaData">
+                      <li *ngFor="let tipoprenda of tipoPrendaData; let tipoPrendaCheck = index">
                         <label class="control control--checkbox">
                           <input class="tipoPrenda" type="checkbox" value="{{tipoprenda.value}}"
                             name="{{tipoprenda.value}}"
                             (change)="validateCheckFilter($event.target.checked, tipoprenda, $event.target.className, $event.target)"
-                            id="{{tipoprenda.value}}" />
+                            id="{{'tipoprenda'+tipoPrendaCheck}}"
+                            value="{{tipoprenda.value !== '' ? validateCheckTipoPrenda(tipoprenda.value, tipoPrendaCheck) : tipoprenda.value}}" />
                           {{tipoprenda.text}}
                         </label>
                       </li>
                     </div>
                   </ul>
                 </li>
-
+    
                 <li class="active mt-2">
                   <a href="#filterColor" data-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle menu-color">Color
                   </a>
                   <ul class="collapse list-unstyled" id="filterColor">
                     <div class="overflow-auto checkboxAlign">
-                      <div *ngFor="let color of colorData">
-                        <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}" title="{{color.text}}"
+                      <div *ngFor="let color of colorData; let colorCheck = index">
+                        <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                          title="{{color.text}}"
                           (change)="validateCheckFilter($event.target.checked, color, $event.target.className, $event.target)"
-                          id="{{color.value}}" [ngStyle]="{'background': color.hexa}" />
+                          id="{{'color'+colorCheck}}" [ngStyle]="{'background': color.hexa}"
+                          value="{{color.value !== '' ? validateCheckColor(color.value, colorCheck) : color.value}}" />
                       </div>
                     </div>
                   </ul>
                 </li>
-
+    
                 <li class="active mt-2">
                   <a href="#filterComposicion" data-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle menu-color">Composición
                   </a>
                   <ul class="collapse list-unstyled" id="filterComposicion">
                     <div class="overflow-auto container-scroll">
-                      <li *ngFor="let composicion of composicionData">
+                      <li *ngFor="let composicion of composicionData; let composicionCheck = index">
                         <label class="control control--checkbox">
                           <input class="composicion" type="checkbox" value="{{composicion.value}}"
                             name="{{composicion.value}}"
                             (change)="validateCheckFilter($event.target.checked, composicion, $event.target.className, $event.target)"
-                            id="{{composicion.value}}" />
+                            id="{{'composicion'+composicionCheck}}"
+                            value="{{composicion.value !== '' ? validateCheckComposicion(composicion.value, composicionCheck) : composicion.value}}" />
                           {{composicion.text}}
                         </label>
                       </li>
                     </div>
                   </ul>
                 </li>
-
               </ul>
             </div>
             <div class="modal-footer">

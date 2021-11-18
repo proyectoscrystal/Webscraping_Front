@@ -86,8 +86,8 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
   composicionSelected = [];
 
   // responses from backend
-  averageDiscountinued1:number[] = [];
-  averageDiscountinued2:number[] = [];
+  averageDiscountinued1: number[] = [];
+  averageDiscountinued2: number[] = [];
   tableAvgDescontinuados: any = 0;
   tableDifference: any;
 
@@ -100,7 +100,6 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     this.getInfotableDiscountinued();
     this.getInfoDiscountinued();
     this.showDataModal();
-    this.onlyOne();
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -116,8 +115,8 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-   // peticion para el chart
-   getInfoDiscountinued() {
+  // peticion para el chart
+  getInfoDiscountinued() {
     let params = {
       origin: this.originSelected,
       categoria: this.categoriaSelected,
@@ -182,7 +181,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
   }
 
 
-  
+
 
   // peticion para la tabla
   getInfotableDiscountinued() {
@@ -256,11 +255,13 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.originSelected.push(item);
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
+      console.log(this.origin);
       this.getInfoDiscountinued();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.originSelected);
       this.getInfoDiscountinued();
     }
 
@@ -268,23 +269,13 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.categoriaSelected.push(item);
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
+      console.log(this.categoria);
       this.getInfoDiscountinued();
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfoDiscountinued();
-    }
-
-    if (value.checked && value.clase === 'categoria') {
-      this.categoriaSelected.push(item);
-      this.selectedFilter.push(value);
-      this.categoria = this.categoriaSelected;
-      this.getInfoDiscountinued();
-    } else if (value.clase == 'categoria' && !value.checked) {
-      this.categoria = [];
-      this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
-      this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.categoriaSelected);
       this.getInfoDiscountinued();
     }
 
@@ -292,11 +283,13 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.subCategoriaSelected.push(item);
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
+      console.log(this.subCategoria);
       this.getInfoDiscountinued();
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.subCategoriaSelected);
       this.getInfoDiscountinued();
     }
 
@@ -304,11 +297,13 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.tipoPrendaSelected.push(item);
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
+      console.log(this.tipoPrenda);
       this.getInfoDiscountinued();
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.tipoPrendaSelected);
       this.getInfoDiscountinued();
     }
 
@@ -316,11 +311,13 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.colorSelected.push(item);
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
+      console.log(this.color);
       this.getInfoDiscountinued();
     } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
+      console.log(this.colorSelected);
       this.getInfoDiscountinued();
     }
 
@@ -337,8 +334,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       console.log(this.composicionSelected);
       this.getInfoDiscountinued();
     }
-
-  }  
+  }
 
   filterItemsData2(value) {
     const { item } = value;
@@ -411,7 +407,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       this.getInfotableDiscountinued();
       this.rerender();
-    }    
+    }
 
     if (value.checked && value.clase === 'composicion2') {
       this.composicionSelected2.push(item);
@@ -448,13 +444,20 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     this.subCategoriaSelected.splice(0, this.subCategoriaSelected.length);
     this.tipoPrendaSelected.splice(0, this.tipoPrendaSelected.length);
     this.colorSelected.splice(0, this.colorSelected.length);
-    this.composicionSelected.splice(0, this.composicionSelected.length); 
+    this.composicionSelected.splice(0, this.composicionSelected.length);
     this.selectedFilter.splice(0, this.selectedFilter.length);
+
+    $(".marca").prop("checked", false);
+    $(".categoria").prop("checked", false);
+    $(".subCategoria").prop("checked", false);
+    $(".tipoPrenda").prop("checked", false);
+    $(".color").prop("checked", false);
+    $(".composicion").prop("checked", false);
 
     this.getInfoDiscountinued();
   }
 
-  closeModal () {
+  closeModal() {
     this.modalRef.hide();
   }
 
@@ -476,15 +479,133 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
     this.colorSelected2.splice(0, this.colorSelected2.length);
-    this.composicionSelected2.splice(0, this.composicionSelected2.length); 
+    this.composicionSelected2.splice(0, this.composicionSelected2.length);
     this.selectedFilter2.splice(0, this.selectedFilter2.length);
+
+    $(".marca2").prop("checked", false);
+    $(".categoria2").prop("checked", false);
+    $(".subCategoria2").prop("checked", false);
+    $(".tipoPrenda2").prop("checked", false);
+    $(".color2").prop("checked", false);
+    $(".composicion2").prop("checked", false);
 
     this.getInfotableDiscountinued();
     this.rerender();
   }
 
-  closeModal2 () {
+  closeModal2() {
     this.modalRef2.hide();
+  }
+
+  //Validar checks filtros al cerrar modal chart
+  validateCheckOrigin(value: any, marcaCheck: any) {
+    let validarMarca = false;
+    validarMarca = this.originSelected.some(element => element === value)
+    if (validarMarca) {
+      let chequearMarca = document.getElementById(`marca${marcaCheck}`);
+      chequearMarca.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckCategory(value: any, categoriaCheck: any) {
+    let validarCategoria = false;
+    validarCategoria = this.categoriaSelected.some(element => element === value)
+    if (validarCategoria) {
+      let chequearCategoria = document.getElementById(`categoria${categoriaCheck}`);
+      chequearCategoria.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckSubCategory(value: any, subCategoriaCheck: any) {
+    let validarSubCategoria = false;
+    validarSubCategoria = this.subCategoriaSelected.some(element => element === value)
+    if (validarSubCategoria) {
+      let chequearSubCategoria = document.getElementById(`subcategoria${subCategoriaCheck}`);
+      chequearSubCategoria.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckTipoPrenda(value: any, tipoPrendaCheck: any) {
+    let validarTipoPrenda = false;
+    validarTipoPrenda = this.tipoPrendaSelected.some(element => element === value)
+    if (validarTipoPrenda) {
+      let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
+      chequearTipoPrenda.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckColor(value: any, colorCheck: any) {
+    let validarColor = false;
+    validarColor = this.colorSelected.some(element => element === value)
+    if (validarColor) {
+      let chequearColor = document.getElementById(`color${colorCheck}`);
+      chequearColor.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckComposicion(value: any, composicionCheck: any) {
+    let validarComposicion = false;
+    validarComposicion = this.composicionSelected.some(element => element === value)
+    if (validarComposicion) {
+      let chequearComposicion = document.getElementById(`composicion${composicionCheck}`);
+      chequearComposicion.setAttribute('checked', 'checked');
+    }
+  }
+
+
+  //Validar checks filtros al cerrar modal tabla
+  validateCheckOrigin2(value: any, marcaCheck2: any) {
+    let validarMarca2 = false;
+    validarMarca2 = this.originSelected2.some(element => element === value)
+    if (validarMarca2) {
+      let chequearMarca2 = document.getElementById(`marca2${marcaCheck2}`);
+      chequearMarca2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckCategory2(value: any, categoriaCheck2: any) {
+    let validarCategoria2 = false;
+    validarCategoria2 = this.categoriaSelected2.some(element => element === value)
+    if (validarCategoria2) {
+      let chequearCategoria2 = document.getElementById(`categoria2${categoriaCheck2}`);
+      chequearCategoria2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckSubCategory2(value: any, subCategoriaCheck2: any) {
+    let validarSubCategoria2 = false;
+    validarSubCategoria2 = this.subCategoriaSelected2.some(element => element === value)
+    if (validarSubCategoria2) {
+      let chequearSubCategoria2 = document.getElementById(`subcategoria2${subCategoriaCheck2}`);
+      chequearSubCategoria2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckTipoPrenda2(value: any, tipoPrendaCheck2: any) {
+    let validarTipoPrenda2 = false;
+    validarTipoPrenda2 = this.tipoPrendaSelected2.some(element => element === value)
+    if (validarTipoPrenda2) {
+      let chequearTipoPrenda2 = document.getElementById(`tipoprenda2${tipoPrendaCheck2}`);
+      chequearTipoPrenda2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckColor2(value: any, colorCheck2: any) {
+    let validarColor2 = false;
+    validarColor2 = this.colorSelected2.some(element => element === value)
+    if (validarColor2) {
+      let chequearColor2 = document.getElementById(`color2${colorCheck2}`);
+      chequearColor2.setAttribute('checked', 'checked');
+    }
+  }
+
+  validateCheckComposicion2(value: any, composicionCheck2: any) {
+    let validarComposicion2 = false;
+    validarComposicion2 = this.composicionSelected2.some(element => element === value)
+    if (validarComposicion2) {
+      let chequearComposicion2 = document.getElementById(`composicion2${composicionCheck2}`);
+      chequearComposicion2.setAttribute('checked', 'checked');
+    }
   }
 
   // funcion para poner estilo a la tabla
@@ -493,38 +614,6 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
       return 'diferencia2';
     }
     return 'diferencia';
-  }
-
-  onlyOne() {
-    $(document).on('change', '.check', function () {
-      var $allCheckboxes = $('.check');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
-
-    $(document).on('change', '.check2', function () {
-      var $allCheckboxes = $('.check2');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
-
-    $(document).on('change', '.check3', function () {
-      var $allCheckboxes = $('.check3');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
-
-    $(document).on('change', '.check4', function () {
-      var $allCheckboxes = $('.check4');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
-
-    $(document).on('change', '.check5', function () {
-      var $allCheckboxes = $('.check5');
-      $allCheckboxes.prop('disabled', false);
-      this.checked && $allCheckboxes.not(this).prop('disabled', true);
-    });
   }
   //===============FIN FILTROS MODAL=============== 
 
@@ -545,7 +634,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
         url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
       },
     };
-  } 
+  }
 
   canvas: any;
   ctx: any;
