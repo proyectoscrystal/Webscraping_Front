@@ -157,7 +157,7 @@ export class InformesComponent implements OnInit {
 
       // envio del valor a los componente hijos
       console.log(this.valorSeleccionado);
-      this.precioComponent.valorSeleccionado(valor);
+      // this.precioComponent.Seleccionado = this.valorSeleccionado;
     } else if (this.valorSeleccionado === "Mes") {
       let valor = this.valorSeleccionado;
       this.tituloResumen = "Resumen Mes";
@@ -166,7 +166,7 @@ export class InformesComponent implements OnInit {
       // this.getInfoCards();
 
       // envio del valor a los componente hijos
-      this.precioComponent.valorSeleccionado(valor);
+      // this.precioComponent.valorSeleccionado();
     }
   }
 

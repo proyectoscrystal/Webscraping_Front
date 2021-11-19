@@ -199,14 +199,14 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
   }
 
   // recibiendo el valor seleccionado de mes o semana desde el padre
-  valorSeleccionado(valor) {
-    this.Seleccionado = valor;
-    if(this.Seleccionado === "Semana") {
-      console.log(`recibiendo desde el padre a ${valor}`);
-    } else if (this.Seleccionado === "Mes") {
-      console.log(`recibiendo desde el padre a ${valor}`);
-    }
-  } 
+  // valorSeleccionado() {
+  //   this.Seleccionado = "Semana";
+  //   if(this.Seleccionado === "Semana") {
+  //     console.log(`recibiendo desde el padre a ${this.Seleccionado}`);
+  //   } else if (this.Seleccionado === "Mes") {
+  //     console.log(`recibiendo desde el padre a ${this.Seleccionado}`);
+  //   }
+  // } 
 
   //===============INICIO FILTROS MODAL===============
 

@@ -148,12 +148,8 @@
                       <label class="control control--checkbox">
                         <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
                           (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
-<<<<<<< HEAD
-                          id="{{'categoria' + categoriaCheck}}" value="{{category.value !== '' ? validateCheckCategory(category.value, categoriaCheck) : category.value}}"/>
-=======
                           id="{{'categoria'+categoriaCheck}}"
                           value="{{category.value !== '' ? validateCheckCategory(category.value, categoriaCheck) : category.value}}" />
->>>>>>> 0c139616e6bd254e59d3328a75edc2a7aa9df70f
                         {{category.text}}
                       </label>
                     </li>
