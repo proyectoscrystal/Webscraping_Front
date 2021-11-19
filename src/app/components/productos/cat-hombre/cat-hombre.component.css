@@ -230,7 +230,7 @@ thead{
   color: #000000;
 }
 
-tr:nth-child(even){
+tr{
   background-color: #ddd;
 }
 

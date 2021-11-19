@@ -49,7 +49,7 @@ export class CatHombreComponent implements OnInit {
   selectedFilter = [];
   originSelected = [];
   skuSelected = [];
-  dicountSelected = [];
+  discountSelected = [];
   newSelected = [];
 
   //Modal chart colores
@@ -114,7 +114,7 @@ export class CatHombreComponent implements OnInit {
     this.getInfoBarChart();
     this.showDataModal();
     this.ng();
-    this.onlyOne();
+    //this.onlyOne();
   }
 
   //===============INICIO FILTROS MODAL===============
@@ -270,18 +270,18 @@ export class CatHombreComponent implements OnInit {
     }
 
     if (value.checked && value.clase === 'discount check') {
-      this.dicountSelected.push(item);
+      this.discountSelected.push(item);
       this.selectedFilter.push(value);
-      this.discount = this.dicountSelected;
+      this.discount = this.discountSelected;
       console.log(this.discount);
 
       // Metodo a ejecutar >
       this.getInfoCategory();
     } else if (value.clase == 'discount check' && !value.checked) {
       this.discount = '';
-      this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
+      this.discountSelected.splice(this.discountSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      console.log(this.dicountSelected);
+      console.log(this.discountSelected);
 
       // Metodo a ejecutar >
       this.getInfoCategory();
@@ -368,10 +368,14 @@ export class CatHombreComponent implements OnInit {
     this.selectedFilter.splice(0, this.selectedFilter.length);
     this.originSelected.splice(0, this.originSelected.length);
     this.skuSelected.splice(0, this.skuSelected.length);
-    this.dicountSelected.splice(0, this.dicountSelected.length);
+    this.discountSelected.splice(0, this.discountSelected.length);
     this.newSelected.splice(0, this.newSelected.length);
 
-    // Metodo a ejecutar > this.getInfoCards();
+    $(".marca").prop("checked", false);
+    $(".sku").prop("checked", false);
+    $(".discount").prop("checked", false);
+    $(".new").prop("checked", false);
+
     this.getInfoCategory();
   }
   closeModal() {
@@ -392,12 +396,78 @@ export class CatHombreComponent implements OnInit {
     this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
 
-    // Metodo a ejecutar > this.getInfotableDiscount();
+    $(".categoria2").prop("checked", false);
+    $(".subCategoria2").prop("checked", false);
+    $(".tipoPrenda2").prop("checked", false);
+
     this.getInfoBarChart();
   }
   closeModal2() {
     this.modalRef2.hide();
   }
+
+  //Validar checks filtros al cerrar modal categorias
+  validateCheckOrigin(value: any, marcaCheck: any) {
+    let validarMarca = false;
+    validarMarca = this.originSelected.some(element => element === value)
+    if (validarMarca) {
+      let chequearMarca = document.getElementById(`marca${marcaCheck}`);
+      chequearMarca.setAttribute('checked', 'checked');
+    }
+  }  
+  validateCheckSku(value: any, skuCheck: any) {
+    let validarSku = false;
+    validarSku = this.skuSelected.some(element => element === value)
+    if (validarSku) {
+      let chequearSku = document.getElementById(`sku${skuCheck}`);
+      chequearSku.setAttribute('checked', 'checked');
+    }
+  } 
+  validateCheckDiscounts(value: any, discountsCheck: any) {
+    let validarDiscounts = false;
+    validarDiscounts = this.discountSelected.some(element => element === value)
+    if (validarDiscounts) {
+      let chequearDiscounts = document.getElementById(`discounts${discountsCheck}`);
+      chequearDiscounts.setAttribute('checked', 'checked');
+    }
+  } 
+  validateCheckNews(value: any, newsCheck: any) {
+    let validarNews = false;
+    validarNews = this.newSelected.some(element => element === value)
+    if (validarNews) {
+      let chequearNews = document.getElementById(`news${newsCheck}`);
+      chequearNews.setAttribute('checked', 'checked');
+    }
+  } 
+  //Validar checks filtros al cerrar modal categorias
+    
+    
+  //Validar checks filtros al cerrar modal colores
+  validateCheckCategory2(value: any, categoriaCheck2: any) {
+    let validarCategoria2 = false;
+    validarCategoria2 = this.categoriaSelected2.some(element => element === value)
+    if (validarCategoria2) {
+      let chequearCategoria2 = document.getElementById(`categoria2${categoriaCheck2}`);
+      chequearCategoria2.setAttribute('checked', 'checked');
+    }
+  }
+  validateCheckSubCategory2(value: any, subCategoriaCheck2: any) {
+    let validarSubCategoria2 = false;
+    validarSubCategoria2 = this.subCategoriaSelected2.some(element => element === value)
+    if (validarSubCategoria2) {
+      let chequearSubCategoria2 = document.getElementById(`subcategoria2${subCategoriaCheck2}`);
+      chequearSubCategoria2.setAttribute('checked', 'checked');
+    }
+  }
+  validateCheckTipoPrenda2(value: any, tipoPrendaCheck2: any) {
+    let validarTipoPrenda2 = false;
+    validarTipoPrenda2 = this.tipoPrendaSelected2.some(element => element === value)
+    if (validarTipoPrenda2) {
+      let chequearTipoPrenda2 = document.getElementById(`tipoprenda2${tipoPrendaCheck2}`);
+      chequearTipoPrenda2.setAttribute('checked', 'checked');
+    }
+  }
+  //Validar checks filtros al cerrar modal colores
 
   //===============FIN FILTROS MODAL===============  
   fechaInicio(){    
@@ -443,6 +513,7 @@ export class CatHombreComponent implements OnInit {
     }); // fin chart 1
   };
 
+  /*
   onlyOne() {
     $(document).on("change", ".check", function() {
       var $allCheckboxes = $(".check");
@@ -450,4 +521,5 @@ export class CatHombreComponent implements OnInit {
       this.checked && $allCheckboxes.not(this).prop("disabled", true);
     });
   }
+  */
 }

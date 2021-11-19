@@ -31,79 +31,65 @@
             <li class="active">
               <p class="itemsModal">Marca</p>
               <ul class="list-unstyled">
-                <li *ngFor="let origin of originData">
-                  <label class="control control--checkbox">
-                    <input class="marca" type="checkbox" value="{{ origin.value }}" name="{{ origin.value }}" (change)="
-                        validateCheckFilter(
-                          $event.target.checked,
-                          origin,
-                          $event.target.className,
-                          $event.target
-                        )
-                      " id="{{ origin.value }}" />
-                    {{ origin.text }}
-                  </label>
-                </li>
+                  <li *ngFor="let origin of originData; let marcaCheck = index">
+                      <label class="control control--checkbox">
+                          <input class="marca" type="checkbox" value="{{origin.value}}"
+                              name="{{origin.value}}"
+                              (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
+                              id="{{'marca'+marcaCheck}}"
+                              value="{{origin.value !== '' ? validateCheckOrigin(origin.value, marcaCheck) : origin.value}}" />
+                          {{origin.text}}
+                      </label>
+                  </li>
               </ul>
-            </li>
+          </li>
 
-            <li class="active mt-2">
+          <li class="active mt-2">
               <p class="itemsModal">Sku</p>
               <ul class="list-unstyled">
-                <li *ngFor="let sku of skuData">
-                  <label class="control control--checkbox">
-                    <input class="sku check" type="checkbox" value="{{ sku.value }}" name="{{ sku.value }}" (change)="
-                        validateCheckFilter(
-                          $event.target.checked,
-                          sku,
-                          $event.target.className,
-                          $event.target
-                        )
-                      " id="{{ sku.value }}" />
-                    {{ sku.text }}
-                  </label>
-                </li>
+                  <li *ngFor="let sku of skuData; let skuCheck = index">
+                      <label class="control control--checkbox">
+                          <input class="sku check" type="checkbox" value="{{sku.value}}"
+                              name="{{sku.value}}"
+                              (change)="validateCheckFilter($event.target.checked, sku, $event.target.className, $event.target)"
+                              id="{{'sku'+skuCheck}}"
+                              value="{{sku.value !== '' ? validateCheckSku(sku.value, skuCheck) : sku.value}}" />
+                          {{sku.text}}
+                      </label>
+                  </li>
               </ul>
-            </li>
+          </li>
 
-            <li class="active mt-2">
+          <li class="active mt-2">
               <p class="itemsModal">Descuento</p>
               <ul class="list-unstyled">
-                <li *ngFor="let discounts of discountsData">
-                  <label class="control control--checkbox">
-                    <input class="discount check" type="checkbox" value="{{ discounts.value }}" name="{{ discounts.value }}"
-                      (change)="
-                        validateCheckFilter(
-                          $event.target.checked,
-                          discounts,
-                          $event.target.className,
-                          $event.target
-                        )
-                      " id="{{ discounts.value }}" />
-                    {{ discounts.text }}
-                  </label>
-                </li>
+                  <li *ngFor="let discounts of discountsData; let discountsCheck = index">
+                      <label class="control control--checkbox">
+                          <input class="discount check" type="checkbox" value="{{discounts.value}}"
+                              name="{{discounts.value}}"
+                              (change)="validateCheckFilter($event.target.checked, discounts, $event.target.className, $event.target)"
+                              id="{{'discounts'+discountsCheck}}"
+                              value="{{discounts.value !== '' ? validateCheckDiscounts(discounts.value, discountsCheck) : discounts.value}}" />
+                          {{discounts.text}}
+                      </label>
+                  </li>
               </ul>
-            </li>
+          </li>
 
-            <li class="active mt-2">
+          <li class="active mt-2">
               <p class="itemsModal">Nuevos</p>
               <ul class="list-unstyled">
-                <li *ngFor="let news of newsData">
-                  <label class="control control--checkbox">
-                    <input class="new check" type="checkbox" value="{{ news.value }}" name="{{ news.value }}" (change)="
-                        validateCheckFilter(
-                          $event.target.checked,
-                          news,
-                          $event.target.className,
-                          $event.target
-                        )
-                      " id="{{ news.value }}" />
-                    {{ news.text }}
-                  </label>
-                </li>
+                  <li *ngFor="let news of newsData; let newsCheck = index">
+                      <label class="control control--checkbox">
+                          <input class="new check" type="checkbox" value="{{news.value}}" name="{{news.value}}"
+                              (change)="validateCheckFilter($event.target.checked, news, $event.target.className, $event.target)"
+                              id="{{'news'+newsCheck}}"
+                              value="{{news.value !== '' ? validateCheckNews(news.value, newsCheck) : news.value}}" />
+                          {{news.text}}
+                      </label>
+                  </li>
               </ul>
-            </li>
+          </li>
           </ul>
         </div>
         <div class="modal-footer">
@@ -196,58 +182,61 @@
         </div>
         <div class="modal-body">
           <ul class="list-unstyled components">
-            <li class="active">
+            <li class="active mt-2">
               <a href="#filterCategory" data-toggle="collapse" aria-expanded="false"
-                class="dropdown-toggle menu-color">Categoria
+                  class="dropdown-toggle menu-color">Categoria
               </a>
               <ul class="collapse list-unstyled" id="filterCategory">
-                <li *ngFor="let category of categoryData">
-                  <label class="control control--checkbox">
-                    <input class="categoria2" type="checkbox" value="{{category.value}}" name="{{category.value}}"
-                      (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
-                      id="{{category.value}}" />
-                    {{category.text}}
-                  </label>
-                </li>
+                  <li *ngFor="let category of categoryData; let categoriaCheck2 = index">
+                      <label class="control control--checkbox">
+                          <input class="categoria2" type="checkbox" value="{{category.value}}"
+                              name="{{category.value}}"
+                              (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
+                              id="{{'categoria2'+categoriaCheck2}}"
+                              value="{{category.value !== '' ? validateCheckCategory2(category.value, categoriaCheck2) : category.value}}" />
+                          {{category.text}}
+                      </label>
+                  </li>
               </ul>
-            </li>
+          </li>
 
-            <li class="active mt-2">
+          <li class="active mt-2">
               <a href="#filterSubCategory" data-toggle="collapse" aria-expanded="false"
-                class="dropdown-toggle menu-color">Sub categoría
+                  class="dropdown-toggle menu-color">Sub categoría
               </a>
               <ul class="collapse list-unstyled" id="filterSubCategory">
-                <li *ngFor="let subcategory of subCategoryData">
-                  <label class="control control--checkbox">
-
-                    <input class="subCategoria2" type="checkbox" value="{{subcategory.value}}"
-                      name="{{subcategory.value}}"
-                      (change)="validateCheckFilter($event.target.checked, subcategory, $event.target.className, $event.target)"
-                      id="{{subcategory.value}}" />
-                    {{subcategory.text}}
-                  </label>
-                </li>
+                  <li *ngFor="let subcategory of subCategoryData; let subCategoriaCheck2 = index">
+                      <label class="control control--checkbox">
+                          <input class="subCategoria2" type="checkbox" value="{{subcategory.value}}"
+                              name="{{subcategory.value}}"
+                              (change)="validateCheckFilter($event.target.checked, subcategory, $event.target.className, $event.target)"
+                              id="{{'subcategoria2'+subCategoriaCheck2}}"
+                              value="{{subcategory.value !== '' ? validateCheckSubCategory2(subcategory.value, subCategoriaCheck2) : subcategory.value}}" />
+                          {{subcategory.text}}
+                      </label>
+                  </li>
               </ul>
-            </li>
+          </li>
 
-            <li class="active mt-2">
+          <li class="active mt-2">
               <a href="#filterTipoPrenda" data-toggle="collapse" aria-expanded="false"
-                class="dropdown-toggle menu-color">Tipo de prenda
+                  class="dropdown-toggle menu-color">Tipo de prenda
               </a>
               <ul class="collapse list-unstyled" id="filterTipoPrenda">
-                <div class="overflow-auto container-scroll">
-                  <li *ngFor="let tipoprenda of tipoPrendaData">
-                    <label class="control control--checkbox">
-                      <input class="tipoPrenda2" type="checkbox" value="{{tipoprenda.value}}"
-                        name="{{tipoprenda.value}}"
-                        (change)="validateCheckFilter($event.target.checked, tipoprenda, $event.target.className, $event.target)"
-                        id="{{tipoprenda.value}}" />
-                      {{tipoprenda.text}}
-                    </label>
-                  </li>
-                </div>
+                  <div class="overflow-auto container-scroll">
+                      <li *ngFor="let tipoprenda of tipoPrendaData; let tipoPrendaCheck2 = index">
+                          <label class="control control--checkbox">
+                              <input class="tipoPrenda2" type="checkbox" value="{{tipoprenda.value}}"
+                                  name="{{tipoprenda.value}}"
+                                  (change)="validateCheckFilter($event.target.checked, tipoprenda, $event.target.className, $event.target)"
+                                  id="{{'tipoprenda2'+tipoPrendaCheck2}}"
+                                  value="{{tipoprenda.value !== '' ? validateCheckTipoPrenda2(tipoprenda.value, tipoPrendaCheck2) : tipoprenda.value}}" />
+                              {{tipoprenda.text}}
+                          </label>
+                      </li>
+                  </div>
               </ul>
-            </li>
+          </li>
           </ul>
         </div>
         <div class="modal-footer">
