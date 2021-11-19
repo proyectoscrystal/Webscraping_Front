@@ -133,11 +133,11 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
         console.log(`recibiendo valor semana data: ${data}`,);        
       } else if (data === 'Mes') {
         console.log(`recibiendo valor mes data: ${data}`,);        
-        this.getInfoPrice();
       }
     })
-
+    
     this.dataSubscription = data;
+    this.getInfoPrice();
     this.getInfoTable();
     this.showDataModal();
 

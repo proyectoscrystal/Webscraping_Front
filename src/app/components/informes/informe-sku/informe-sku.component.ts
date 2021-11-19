@@ -14,12 +14,13 @@ import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 //Filtro modal
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Datos } from '../../../utils/index';
 import { DataTableDirective } from 'angular-datatables';
+import { ServicioEnvioDataService } from '../servicio-envio-data.service';
 
 interface valueFilter {
   checked: boolean;
@@ -47,6 +48,8 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
+
+  dataSubscription: Subscription;
 
   photos: any;
   total: any;
@@ -104,13 +107,25 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   constructor(
     private blackboxService: BlackboxService,
     private modalService: BsModalService,
-    private modalService2: BsModalService
+    private modalService2: BsModalService,
+    private servicioEnvioData: ServicioEnvioDataService
   ) {
     Chart.register(...registerables);
     this.datos = new Datos();
   }
 
   ngOnInit(): void {
+    let data = this.servicioEnvioData.disparador.subscribe(data => {
+      if (data === 'Semana') {
+        console.log(`recibiendo valor semana data: ${data}`,);        
+      } else if (data === 'Mes') {
+        console.log(`recibiendo valor mes data: ${data}`,);        
+      }
+    })
+    
+    this.dataSubscription = data;
+
+
     this.getInfotableSKU()
     this.getInfoSKU();
     this.showDataModal();
@@ -127,6 +142,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+    this.dataSubscription.unsubscribe();
   }
 
   // peticion para la tabla
