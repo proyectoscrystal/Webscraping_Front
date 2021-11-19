@@ -9,6 +9,7 @@ import { Datos } from '../../utils/index';
 
 // importing the children components
 import  { InformePrecioComponent } from './informe-precio/informe-precio.component';
+import { ServicioEnvioDataService } from './servicio-envio-data.service';
 
 interface valueFilter {
   checked: boolean;
@@ -91,7 +92,7 @@ export class InformesComponent implements OnInit {
   origenSeleccionado: any;
   origenCheck: any;
 
-  constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService) {
+  constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService, private servicioEnvioData: ServicioEnvioDataService) {
     Chart.register(...registerables);
     this.datos = new Datos();
     this.valorSeleccionado = "Mes";
@@ -104,7 +105,7 @@ export class InformesComponent implements OnInit {
     if(this.valorSeleccionado === 'Mes'){
       this.getInfoCards();
       //TODO: enviar el valor de mes a los charts de los informes hijos    
-
+      this.cambioSemanaMes();
     }
     this.showDataModal();
     this.toggleSidebar();
@@ -156,8 +157,7 @@ export class InformesComponent implements OnInit {
       // metodo para volver a cargar valores por semana TODO
 
       // envio del valor a los componente hijos
-      console.log(this.valorSeleccionado);
-      // this.precioComponent.Seleccionado = this.valorSeleccionado;
+      this.servicioEnvioData.disparador.emit(this.valorSeleccionado);
     } else if (this.valorSeleccionado === "Mes") {
       let valor = this.valorSeleccionado;
       this.tituloResumen = "Resumen Mes";
@@ -166,7 +166,7 @@ export class InformesComponent implements OnInit {
       // this.getInfoCards();
 
       // envio del valor a los componente hijos
-      // this.precioComponent.valorSeleccionado();
+      this.servicioEnvioData.disparador.emit(this.valorSeleccionado);
     }
   }
 

@@ -25,6 +25,7 @@ import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Datos } from '../../../utils/index';
 import { DataTableDirective } from 'angular-datatables';
+import { ServicioEnvioDataService } from '../servicio-envio-data.service';
 
 interface valueFilter {
   checked: boolean;
@@ -105,15 +106,23 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   constructor(
     private blackboxService: BlackboxService,
     private modalService: BsModalService,
-    private modalService2: BsModalService
+    private modalService2: BsModalService,
+    private servicioEnvioData: ServicioEnvioDataService
   ) {
     Chart.register(...registerables);
     this.datos = new Datos();
   }
 
   ngOnInit(): void {
+    this.servicioEnvioData.disparador.subscribe(data => {
+      if (data === 'Semana') {
+        console.log(`recibiendo valor semana data: ${data}`,);        
+      } else if (data === 'Mes') {
+        console.log(`recibiendo valor mes data: ${data}`,);        
+        this.getInfoNews();
+      }
+    })
     this.getInfotableNews();
-    this.getInfoNews();
     this.showDataModal();
 
     this.dtOptions = {

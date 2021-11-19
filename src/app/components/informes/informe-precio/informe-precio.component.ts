@@ -15,6 +15,9 @@ import {
   LinearScale,
   Title,
 } from 'chart.js';
+
+import { Subscription } from 'rxjs';
+
 import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
@@ -25,6 +28,7 @@ import { DataTableDirective } from 'angular-datatables';
 //Filtro modal
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Datos } from '../../../utils/index';
+import { ServicioEnvioDataService } from '../servicio-envio-data.service';
 
 interface valueFilter {
   checked: boolean;
@@ -38,7 +42,7 @@ interface valueFilter {
   styleUrls: ['./informe-precio.component.css'],
 })
 export class InformePrecioComponent implements OnDestroy, OnInit {
-
+  @Input() dataRecibida:any;
   //Config modal filtros
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
@@ -52,6 +56,8 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
+
+  dataSubscription: Subscription;
 
   photos: any;
   tableAvgPrice: any;
@@ -114,14 +120,24 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
   constructor(
     private blackboxService: BlackboxService,
     private modalService: BsModalService,
-    private modalService2: BsModalService
+    private modalService2: BsModalService,
+    private servicioEnvioData: ServicioEnvioDataService
   ) {
     Chart.register(...registerables);
     this.datos = new Datos();
   }
 
   ngOnInit(): void {
-    this.getInfoPrice();
+    let data = this.servicioEnvioData.disparador.subscribe(data => {
+      if (data === 'Semana') {
+        console.log(`recibiendo valor semana data: ${data}`,);        
+      } else if (data === 'Mes') {
+        console.log(`recibiendo valor mes data: ${data}`,);        
+        this.getInfoPrice();
+      }
+    })
+
+    this.dataSubscription = data;
     this.getInfoTable();
     this.showDataModal();
 
@@ -137,6 +153,7 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+    this.dataSubscription.unsubscribe();
   }
 
   // peticion para el chart
