@@ -82,7 +82,7 @@
 /*CSS GRID*/
 .grid-container {
   display: grid;
-  gap: 5px;
+  gap: 20px;
   width: 100%;
   grid-template-columns: 75% 25%;
   margin-bottom: 20px;
@@ -151,6 +151,13 @@
   margin: 15px 10px 5px 20px;
 }
 
+.colorSub {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
 .colorx {
   width: 30px;
   height: 30px;
@@ -166,6 +173,11 @@
 
   .grid-container-item1 {
     display: block;
+  }
+
+  .grid-container-item2 {
+    display: grid;
+    grid-template-columns: 90% 10%;
   }
 }
 
