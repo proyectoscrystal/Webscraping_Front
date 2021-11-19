@@ -152,6 +152,8 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.dataSubscription.unsubscribe();
   }
 
+  
+
   // peticion para la tabla
   getInfotableDiscount() {
     let params = {
@@ -165,7 +167,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableDiscountInfo(params).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
         this.ng();
@@ -190,7 +192,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.blackboxService.getInfoDiscount(params).subscribe(
       (res) => {
         this.setInfoDiscount(res);
-        console.log(res);
+        // console.log(res);
         this.ng();
       },
       (err) => {

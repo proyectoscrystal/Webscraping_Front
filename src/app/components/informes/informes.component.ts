@@ -120,6 +120,9 @@ export class InformesComponent implements OnInit {
     });
   }
 
+  prueba() {
+    console.log("esta el linkRoute activo");
+  }
 
   //===============INICIO FILTROS MODAL===============
 
