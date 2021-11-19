@@ -150,20 +150,23 @@ export class InformesComponent implements OnInit {
   // funciones para implementar funcion de semanas
   cambioSemanaMes() {
     if(this.valorSeleccionado === "Semana") {
+      let valor = this.valorSeleccionado;
       this.tituloResumen = "Resumen Semana";
       this.tituloCardActual = "Que la semana pasada";
       // metodo para volver a cargar valores por semana TODO
 
       // envio del valor a los componente hijos
-      this.precioComponent.valorSeleccionado(this.valorSeleccionado);
+      console.log(this.valorSeleccionado);
+      this.precioComponent.valorSeleccionado(valor);
     } else if (this.valorSeleccionado === "Mes") {
+      let valor = this.valorSeleccionado;
       this.tituloResumen = "Resumen Mes";
       this.tituloCardActual = "Que el mes pasado";
       // metodo para volver a cargar los valores por mes en los cards
       // this.getInfoCards();
 
       // envio del valor a los componente hijos
-      this.precioComponent.valorSeleccionado(this.valorSeleccionado);
+      this.precioComponent.valorSeleccionado(valor);
     }
   }
 
