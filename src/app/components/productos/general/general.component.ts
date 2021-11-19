@@ -48,7 +48,7 @@ export class GeneralComponent implements OnInit {
   selectedFilter = [];
   originSelected = [];
   skuSelected = [];
-  dicountSelected = [];
+  discountSelected = [];
   newSelected = [];
 
   inicio: any = '';
@@ -127,7 +127,7 @@ export class GeneralComponent implements OnInit {
     this.getInfoCategory();
     this.getInfoBarChart();
     this.showDataModal();
-    this.onlyOne();
+    //this.onlyOne();
     this.ng();
     this.ng2();
   }
@@ -255,7 +255,6 @@ export class GeneralComponent implements OnInit {
       this.origin = this.originSelected;
       console.log(this.origin);
 
-      // Metodo a ejecutar >
       this.getInfoCategory();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
@@ -263,7 +262,6 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
 
-      // Metodo a ejecutar >
       this.getInfoCategory();
     }
 
@@ -273,7 +271,7 @@ export class GeneralComponent implements OnInit {
       this.sku = this.skuSelected;
       console.log(this.sku);
 
-      // Metodo a ejecutar >
+  
       this.getInfoCategory();
     } else if (value.clase == 'sku check' && !value.checked) {
       this.sku = '';
@@ -281,25 +279,25 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.skuSelected);
 
-      // Metodo a ejecutar >
+  
       this.getInfoCategory();
     }
 
     if (value.checked && value.clase === 'discount check') {
-      this.dicountSelected.push(item);
+      this.discountSelected.push(item);
       this.selectedFilter.push(value);
-      this.discount = this.dicountSelected;
+      this.discount = this.discountSelected;
       console.log(this.discount);
 
-      // Metodo a ejecutar >
+  
       this.getInfoCategory();
     } else if (value.clase == 'discount check' && !value.checked) {
       this.discount = '';
-      this.dicountSelected.splice(this.dicountSelected.indexOf(item), 1);
+      this.discountSelected.splice(this.discountSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      console.log(this.dicountSelected);
+      console.log(this.discountSelected);
 
-      // Metodo a ejecutar >
+  
       this.getInfoCategory();
     }
 
@@ -309,7 +307,7 @@ export class GeneralComponent implements OnInit {
       this.new = this.newSelected;
       console.log(this.new);
 
-      // Metodo a ejecutar >
+  
       this.getInfoCategory();
     } else if (value.clase == 'new check' && !value.checked) {
       this.new = '';
@@ -317,7 +315,7 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.newSelected);
 
-      // Metodo a ejecutar >
+  
       this.getInfoCategory();
     }
 
@@ -327,15 +325,13 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter2.push(value);
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria2);
-      // Metodo a ejecutar >
-      this.getInfoBarChart();
+  
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
-      // Metodo a ejecutar >
-      this.getInfoBarChart();
+  
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -343,15 +339,13 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter2.push(value);
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria2);
-      // Metodo a ejecutar >
-      this.getInfoBarChart();
+  
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
-      // Metodo a ejecutar >
-      this.getInfoBarChart();
+  
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -359,16 +353,57 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter2.push(value);
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
-      // Metodo a ejecutar >
-      this.getInfoBarChart();
+  
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
-      // Metodo a ejecutar >
-      this.getInfoBarChart();
+  
     }
+
+    // Validación filtro materiales
+    if (value.checked && value.clase === 'categoria3') {
+      this.categoriaSelected3.push(item);
+      this.selectedFilter3.push(value);
+      this.categoria3 = this.categoriaSelected3;
+      console.log(this.categoria3);
+  
+    } else if (value.clase == 'categoria3' && !value.checked) {
+      this.categoria3 = [];
+      this.categoriaSelected3.splice(this.categoriaSelected3.indexOf(item), 1);
+      this.selectedFilter3.splice(this.selectedFilter3.indexOf(value), 1);
+      console.log(this.categoriaSelected3);
+  
+    }
+
+    if (value.checked && value.clase === 'subCategoria3') {
+      this.subCategoriaSelected3.push(item);
+      this.selectedFilter3.push(value);
+      this.subCategoria3 = this.subCategoriaSelected3;
+      console.log(this.subCategoria3);
+  
+    } else if (value.clase == 'subCategoria3' && !value.checked) {
+      this.subCategoria3 = []
+      this.subCategoriaSelected3.splice(this.subCategoriaSelected3.indexOf(item), 1);
+      this.selectedFilter3.splice(this.selectedFilter3.indexOf(value), 1);
+      console.log(this.subCategoriaSelected3);
+  
+    }
+
+    if (value.checked && value.clase === 'tipoPrenda3') {
+      this.tipoPrendaSelected3.push(item);
+      this.selectedFilter3.push(value);
+      this.tipoPrenda3 = this.tipoPrendaSelected3;
+      console.log(this.tipoPrenda3);
+  
+    } else if (value.clase == 'tipoPrenda3' && !value.checked) {
+      this.tipoPrenda3 = [];
+      this.tipoPrendaSelected3.splice(this.tipoPrendaSelected3.indexOf(item), 1);
+      this.selectedFilter3.splice(this.selectedFilter3.indexOf(value), 1);
+      console.log(this.tipoPrendaSelected3);
+  
+    }    
   }
 
   // Modal Categorias 
@@ -392,10 +427,14 @@ export class GeneralComponent implements OnInit {
     this.selectedFilter.splice(0, this.selectedFilter.length);
     this.originSelected.splice(0, this.originSelected.length);
     this.skuSelected.splice(0, this.skuSelected.length);
-    this.dicountSelected.splice(0, this.dicountSelected.length);
+    this.discountSelected.splice(0, this.discountSelected.length);
     this.newSelected.splice(0, this.newSelected.length);
 
-    // Metodo a ejecutar > this.getInfoCards();
+    $(".marca").prop("checked", false);
+    $(".sku").prop("checked", false);
+    $(".discount").prop("checked", false);
+    $(".new").prop("checked", false);
+
     this.getInfoCategory();
   }
   closeModal() {
@@ -416,8 +455,11 @@ export class GeneralComponent implements OnInit {
     this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
 
-    // Metodo a ejecutar > this.getInfotableDiscount();
-    this. getInfoBarChart();
+    $(".categori2a").prop("checked", false);
+    $(".subCategoria2").prop("checked", false);
+    $(".tipoPrenda2").prop("checked", false);
+
+    this.getInfoBarChart();
   }
   closeModal2() {
     this.modalRef2.hide();
@@ -437,11 +479,105 @@ export class GeneralComponent implements OnInit {
     this.subCategoriaSelected3.splice(0, this.subCategoriaSelected3.length);
     this.tipoPrendaSelected3.splice(0, this.tipoPrendaSelected3.length);
 
-    // Metodo a ejecutar > this.getInfotableDiscount();
+    $(".categoria3").prop("checked", false);
+    $(".subCategoria3").prop("checked", false);
+    $(".tipoPrenda3").prop("checked", false);
   }
   closeModal3() {
     this.modalRef3.hide();
   }
+
+  //Validar checks filtros al cerrar modal categorias
+  validateCheckOrigin(value: any, marcaCheck: any) {
+    let validarMarca = false;
+    validarMarca = this.originSelected.some(element => element === value)
+    if (validarMarca) {
+      let chequearMarca = document.getElementById(`marca${marcaCheck}`);
+      chequearMarca.setAttribute('checked', 'checked');
+    }
+  }  
+  validateCheckSku(value: any, skuCheck: any) {
+    let validarSku = false;
+    validarSku = this.skuSelected.some(element => element === value)
+    if (validarSku) {
+      let chequearSku = document.getElementById(`sku${skuCheck}`);
+      chequearSku.setAttribute('checked', 'checked');
+    }
+  } 
+  validateCheckDiscounts(value: any, discountsCheck: any) {
+    let validarDiscounts = false;
+    validarDiscounts = this.discountSelected.some(element => element === value)
+    if (validarDiscounts) {
+      let chequearDiscounts = document.getElementById(`discounts${discountsCheck}`);
+      chequearDiscounts.setAttribute('checked', 'checked');
+    }
+  } 
+  validateCheckNews(value: any, newsCheck: any) {
+    let validarNews = false;
+    validarNews = this.newSelected.some(element => element === value)
+    if (validarNews) {
+      let chequearNews = document.getElementById(`news${newsCheck}`);
+      chequearNews.setAttribute('checked', 'checked');
+    }
+  } 
+  //Validar checks filtros al cerrar modal categorias
+
+
+  //Validar checks filtros al cerrar modal colores
+  validateCheckCategory2(value: any, categoriaCheck2: any) {
+    let validarCategoria2 = false;
+    validarCategoria2 = this.categoriaSelected2.some(element => element === value)
+    if (validarCategoria2) {
+      let chequearCategoria2 = document.getElementById(`categoria2${categoriaCheck2}`);
+      chequearCategoria2.setAttribute('checked', 'checked');
+    }
+  }
+  validateCheckSubCategory2(value: any, subCategoriaCheck2: any) {
+    let validarSubCategoria2 = false;
+    validarSubCategoria2 = this.subCategoriaSelected2.some(element => element === value)
+    if (validarSubCategoria2) {
+      let chequearSubCategoria2 = document.getElementById(`subcategoria2${subCategoriaCheck2}`);
+      chequearSubCategoria2.setAttribute('checked', 'checked');
+    }
+  }
+  validateCheckTipoPrenda2(value: any, tipoPrendaCheck2: any) {
+    let validarTipoPrenda2 = false;
+    validarTipoPrenda2 = this.tipoPrendaSelected2.some(element => element === value)
+    if (validarTipoPrenda2) {
+      let chequearTipoPrenda2 = document.getElementById(`tipoprenda2${tipoPrendaCheck2}`);
+      chequearTipoPrenda2.setAttribute('checked', 'checked');
+    }
+  }
+  //Validar checks filtros al cerrar modal colores
+
+
+  //Validar checks filtros al cerrar modal materiales
+  validateCheckCategory3(value: any, categoriaCheck3: any) {
+    let validarCategoria3 = false;
+    validarCategoria3 = this.categoriaSelected3.some(element => element === value)
+    if (validarCategoria3) {
+      let chequearCategoria3 = document.getElementById(`categoria3${categoriaCheck3}`);
+      chequearCategoria3.setAttribute('checked', 'checked');
+    }
+  }
+  validateCheckSubCategory3(value: any, subCategoriaCheck3: any) {
+    let validarSubCategoria3 = false;
+    validarSubCategoria3 = this.subCategoriaSelected3.some(element => element === value)
+    if (validarSubCategoria3) {
+      let chequearSubCategoria3 = document.getElementById(`subcategoria3${subCategoriaCheck3}`);
+      chequearSubCategoria3.setAttribute('checked', 'checked');
+    }
+  }
+  validateCheckTipoPrenda3(value: any, tipoPrendaCheck3: any) {
+    let validarTipoPrenda3 = false;
+    validarTipoPrenda3 = this.tipoPrendaSelected3.some(element => element === value)
+    if (validarTipoPrenda3) {
+      let chequearTipoPrenda3 = document.getElementById(`tipoprenda3${tipoPrendaCheck3}`);
+      chequearTipoPrenda3.setAttribute('checked', 'checked');
+    }
+  }
+  //Validar checks filtros al cerrar modal materiales
+
 
   //===============FIN FILTROS MODAL===============  
   fechaInicio(){    
@@ -526,6 +662,7 @@ export class GeneralComponent implements OnInit {
     }); // fin chart 1
   };
 
+  /*
   onlyOne() {
     $(document).on("change", ".check", function() {
       var $allCheckboxes = $(".check");
@@ -533,6 +670,7 @@ export class GeneralComponent implements OnInit {
       this.checked && $allCheckboxes.not(this).prop("disabled", true);
     });
   }
+  */
 }
 
 
