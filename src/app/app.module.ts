@@ -52,6 +52,12 @@ import { DataTablesModule } from "angular-datatables";
 import { ProductosComponent } from './components/productos/productos.component';
 import { Table2Component } from './components/informe-categoria/table2/table2.component';
 
+//Datepicker
+import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +98,8 @@ import { Table2Component } from './components/informe-categoria/table2/table2.co
     ModalModule.forRoot(),
     DataTablesModule,
     CollapseModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     AuthGuard,
@@ -105,4 +112,8 @@ import { Table2Component } from './components/informe-categoria/table2/table2.co
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor( private bsLocaleService: BsLocaleService){
+    this.bsLocaleService.use('es');//fecha en español, datepicker
+  }
+}

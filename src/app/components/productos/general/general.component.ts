@@ -412,8 +412,6 @@ export class GeneralComponent implements OnInit {
     this.sku = '';
     this.discount = '';
     this.new = '';
-    this.inicio = '';
-    this.fin = '';
     this.modalRef = this.modalService.show(template, this.config);
   }
   clearFilters() {

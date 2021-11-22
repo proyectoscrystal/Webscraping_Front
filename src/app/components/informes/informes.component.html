@@ -11,17 +11,18 @@
             </a>
             <ul class="collapse list-unstyled firstitem itemlist" id="homeSubmenu">
               <li class="list-items-container">
-                <a class="sel2" routerLink="informePrecios" routerLinkActive="activo" >Precio promedio</a>
+                <a class="sel2" routerLink="informePrecios" routerLinkActive="activo">Precio promedio</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
               <li class="list-items-container">
-                <a class="sel2" routerLink="informeDescuentos" routerLinkActive="activo" (isActiveChange)="prueba()">Descuento promedio</a>
+                <a class="sel2" routerLink="informeDescuentos" routerLinkActive="activo"
+                  (isActiveChange)="prueba()">Descuento promedio</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
               <li class="list-items-container">
-                <a class="sel2" routerLink="informeNuevos" routerLinkActive="activo" >Recien llegados</a>
+                <a class="sel2" routerLink="informeNuevos" routerLinkActive="activo">Recien llegados</a>
               </li>
             </ul>
             <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
@@ -99,8 +100,16 @@
         </div>
 
         <div class="input-grid1">
+          <input type="text" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()" placeholder="Fecha inicial"
+            class="form-control datepickerMargin" bsDatepicker
+            [bsConfig]="{ isAnimated: true, showClearButton: true, clearButtonLabel: 'Limpiar fecha inicial', clearPosition: 'center', adaptivePosition: true }">
+          <input type="text" [(ngModel)]="fin" (ngModelChange)="fechaFin()" placeholder="Fecha final"
+            class="form-control datepickerMargin" bsDatepicker
+            [bsConfig]="{ isAnimated: true, showClearButton: true, clearButtonLabel: 'Limpiar fecha final',  clearPosition: 'center', adaptivePosition: true }">
+          <!--  
           <input type="date" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()">
           <input type="date" [(ngModel)]="fin" (ngModelChange)="fechaFin()">
+          -->
 
           <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
             xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
