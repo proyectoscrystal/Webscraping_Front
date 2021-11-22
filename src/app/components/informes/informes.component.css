@@ -260,6 +260,10 @@
   font-size: 12px;
 }
 
+.datepickerMargin {
+  margin-top: -20px;
+}
+
 /* sistema grid para organizar la parte superior (resumen, lista, date) */
 .grid {
   display: grid;
