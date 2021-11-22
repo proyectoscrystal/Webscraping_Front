@@ -10,6 +10,7 @@ import { Datos } from '../../utils/index';
 // importing the children components
 import  { InformePrecioComponent } from './informe-precio/informe-precio.component';
 import { ServicioEnvioDataService } from './servicio-envio-data.service';
+import moment from 'moment';
 
 interface valueFilter {
   checked: boolean;
@@ -89,6 +90,8 @@ export class InformesComponent implements OnInit {
   // variables para fecha y marca
   inicio = '';
   fin = '';
+  inicio2 = '';
+  fin2 = '';
   origenSeleccionado: any;
   origenCheck: any;
 
@@ -409,13 +412,16 @@ export class InformesComponent implements OnInit {
   }
 
   fechaInicio() {
-    console.log(this.inicio);
+    // console.log(this.inicio2);
+    this.inicio = moment(this.inicio2).format('yyyy-MM-DD');
+    // console.log(this.inicio);
     this.getInfoCards();
   }
 
   fechaFin() {
     // let date = new Date(this.fin);
     console.log(this.fin);
+    this.fin = moment(this.fin2).format('yyyy-MM-DD');
     this.getInfoCards();
   }
 

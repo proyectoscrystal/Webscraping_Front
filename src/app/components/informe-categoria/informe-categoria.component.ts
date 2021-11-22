@@ -105,8 +105,8 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   tasaFrescura: any;
   tableAvgSKU: any;
   tableDifference: any;
-  inicio: any;
-  fin: any;
+  inicio: '';
+  fin: '';
 
   
   constructor(
@@ -154,15 +154,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelectedCards,
       tipoPrenda: this.tipoPrendaSelectedCards,
       color: this.colorSelectedCards,
-      // fechaInicio: this.inicio,
-      // fechaFin: this.fin
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
       
     };
 
     this.blackboxService.getPrendasInfoCards(params).subscribe(
       (res) => {
         this.setPrendasInfoCards(res);
-        // console.log(res);
+        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -202,6 +202,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     //Cambiar la ruta de get
     this.blackboxService.getTableSKUInfo(params).subscribe(
       (res) => {
+        // console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
       },
@@ -620,12 +621,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   }
 
   fechaInicio(){    
-    console.log(this.inicio);
+    // console.log(this.inicio);
+    this.getInfoCards();
   }
 
   fechaFin(){
     // let date = new Date(this.fin);
-    console.log(this.fin);
+    // console.log(this.fin);
+    this.getInfoCards();
   }
 
   dtOptionsReload() {

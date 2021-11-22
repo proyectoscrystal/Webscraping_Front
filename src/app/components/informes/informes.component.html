@@ -100,10 +100,10 @@
         </div>
 
         <div class="input-grid1">
-          <input type="text" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()" placeholder="Fecha inicial"
+          <input  [(ngModel)]="inicio2" (ngModelChange)="fechaInicio()" placeholder="Fecha inicial"
             class="form-control datepickerMargin" bsDatepicker
             [bsConfig]="{ isAnimated: true, showClearButton: true, clearButtonLabel: 'Limpiar fecha inicial', clearPosition: 'center', adaptivePosition: true }">
-          <input type="text" [(ngModel)]="fin" (ngModelChange)="fechaFin()" placeholder="Fecha final"
+          <input  [(ngModel)]="fin2" (ngModelChange)="fechaFin()" placeholder="Fecha final"
             class="form-control datepickerMargin" bsDatepicker
             [bsConfig]="{ isAnimated: true, showClearButton: true, clearButtonLabel: 'Limpiar fecha final',  clearPosition: 'center', adaptivePosition: true }">
           <!--  
