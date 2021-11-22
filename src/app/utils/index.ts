@@ -328,11 +328,11 @@ export class Datos {
   ];
 
   private composicion: any[] = [
+    { value: 'algodón', text: 'Algodón' },
     { value: 'lana', text: 'Lana' },
     { value: 'poliéster', text: 'Poliéster' },
     { value: 'acrílico', text: 'Acrílico' },
     { value: 'viscosa', text: 'Viscosa' },
-    { value: 'algodón', text: 'Algodón' },
     { value: 'poliamida', text: 'Poliamida' },
     { value: 'poliuretano', text: 'Poliuretano' },
     { value: 'piel ovino', text: 'Piel ovino' },

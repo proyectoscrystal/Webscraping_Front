@@ -237,6 +237,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
     this.subCategoryData = this.datos.subcategorias;
     this.tipoPrendaData = this.datos.tipoprendas;
     this.colorData = this.datos.colores;
+    this.composicionData = this.datos.composicion;
   }
 
   //Función para validar checked del filtro
