@@ -193,6 +193,14 @@
   margin: 0 auto;
 }
 
+.itemsFilters {
+  margin-top: -15px;
+}
+
+.chartColor {
+  margin-top: -15px;
+}
+
 /* canvas */
 canvas {
   height: 200px;

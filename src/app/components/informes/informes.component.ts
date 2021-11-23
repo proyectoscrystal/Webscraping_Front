@@ -94,6 +94,7 @@ export class InformesComponent implements OnInit {
   fin2 = '';
   origenSeleccionado: any;
   origenCheck: any;
+  selected: any;
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService, private servicioEnvioData: ServicioEnvioDataService) {
     Chart.register(...registerables);

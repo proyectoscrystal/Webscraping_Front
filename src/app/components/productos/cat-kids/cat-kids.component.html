@@ -119,8 +119,10 @@
                 <h3>Kids</h3>
                 <p>Total SKU: {{kidsTotalSKU}}</p>
                 <p>% de participación: {{kidsSKU}}%</p>
-                <p>Color predominante: </p>
-                <abbr style=" cursor:pointer"  title="{{colorKidsPalabra}}"><div [ngStyle]="{'background-color': rgbKids }" class="colorSub mb-3"></div></abbr>
+                <div class="d-flex">
+                    <p>Color predominante: </p>
+                    <div [ngStyle]="{'background-color': rgbKids }" class="colorCat" title="{{colorKidsPalabra}}"></div>
+                </div>
             </div>
         </div>
         <div>
@@ -242,12 +244,12 @@
                 </div>
             </ng-template>
         </div>
-        <div class="item-filters-top">
+        <div class="item-filters-top itemsFilters">
             <div *ngFor="let filterx of selectedFilter2" class="content-filter-item">
                 <p class="item-filter">{{filterx.item}}</p>
             </div>
         </div>
-        <div class="item2-content">
+        <div class="item2-content chartColor">
             <div class="chart-line">
                 <canvas id="myChart"></canvas>
             </div>
