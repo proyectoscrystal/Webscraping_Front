@@ -44,6 +44,10 @@
   justify-content: center;
 }
 
+.datepickerMargin {
+  margin-top: -20px;
+}
+
 /* Tablas */
 .container-scroll {
   height: 250px;

@@ -95,8 +95,9 @@
       </div>
 
       <div class="input-grid1">
-        <input type="date" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()">
-        <input type="date" [(ngModel)]="fin" (ngModelChange)="fechaFin()">
+        
+        <input type="text" class="form-control datepickerMargin" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()" placeholder="Fecha inicial" onfocus="(this.type='date')" onblur="(this.type='text')">
+        <input type="text" class="form-control datepickerMargin" [(ngModel)]="fin" (ngModelChange)="fechaFin()" placeholder="Fecha final" onfocus="(this.type='date')" onblur="(this.type='text')">
 
         <!-- filtro de las cards -->
         <svg xmlns="http://www.w3.org/2000/svg" (click)="openModalCards(templateCards)" width="17" heigth="17"

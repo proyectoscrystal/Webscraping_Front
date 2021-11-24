@@ -101,19 +101,18 @@
 
         <div class="input-grid1">
 
-          <input type="text" [(ngModel)]="inicio2" (ngModelChange)="fechaInicio()" placeholder="Fecha inicial"
-            class="form-control datepickerMargin" bsDatepicker
-            [bsConfig]="{ isAnimated: true, showClearButton: true, clearButtonLabel: 'Limpiar fecha inicial', clearPosition: 'center', adaptivePosition: true }">
+          <!--
+            <input type="text" [(ngModel)]="inicio2" (ngModelChange)="fechaInicio()" placeholder="Fecha inicial"
+              class="form-control datepickerMargin" bsDatepicker
+              [bsConfig]="{ isAnimated: true, showClearButton: true, clearButtonLabel: 'Limpiar fecha inicial', clearPosition: 'center', adaptivePosition: true }">
 
-          <input [(ngModel)]="fin2" (ngModelChange)="fechaFin()" placeholder="Fecha final"
-            class="form-control datepickerMargin" bsDatepicker
-            [bsConfig]="{ isAnimated: true, showClearButton: true, clearButtonLabel: 'Limpiar fecha final',  clearPosition: 'center', adaptivePosition: true }">
-
-
-          <!--  
-          <input type="date" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()">
-          <input type="date" [(ngModel)]="fin" (ngModelChange)="fechaFin()">
+            <input [(ngModel)]="fin2" (ngModelChange)="fechaFin()" placeholder="Fecha final"
+              class="form-control datepickerMargin" bsDatepicker
+              [bsConfig]="{ isAnimated: true, showClearButton: true, clearButtonLabel: 'Limpiar fecha final',  clearPosition: 'center', adaptivePosition: true }">
           -->
+
+          <input type="text" class="form-control datepickerMargin" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()" placeholder="Fecha inicial" onfocus="(this.type='date')" onblur="(this.type='text')">
+          <input type="text" class="form-control datepickerMargin" [(ngModel)]="fin" (ngModelChange)="fechaFin()" placeholder="Fecha final" onfocus="(this.type='date')" onblur="(this.type='text')">
 
           <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
             xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"

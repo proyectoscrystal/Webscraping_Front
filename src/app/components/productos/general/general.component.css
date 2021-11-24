@@ -201,6 +201,10 @@
   margin-top: -15px;
 }
 
+.datepickerMargin {
+  margin-top: -20px;
+}
+
 /* canvas */
 canvas {
   height: 200px;
