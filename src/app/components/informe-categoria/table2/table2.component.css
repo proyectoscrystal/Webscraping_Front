@@ -80,7 +80,7 @@
 }
 
 .colorStyles:hover {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .colorStyles:checked:after {
@@ -145,7 +145,7 @@ tr:hover td {
 }
 
 /* Responsive tables*/
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1024px) {
   table {
     border: 0px;
   }

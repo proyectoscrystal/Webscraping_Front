@@ -60,7 +60,7 @@
 }
 
 .colorStyles:hover {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .colorStyles:checked:after {
@@ -108,7 +108,7 @@ tr:hover td {
 }
 
 /* Responsive tables*/
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1024px) {
   table {
     border: 0px;
   }
@@ -168,7 +168,7 @@ tr:hover td {
 }
 
 /* media queryes */
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
 
   .alignFilterChart {
     display: inline-grid;
@@ -194,22 +194,21 @@ tr:hover td {
   }
 }
 
-@media (max-width: 1000px) {
-  .chart-container {
+@media screen and (max-width: 1024px) {
+  .grid-informs {
     display: block;
-    margin-top: 10%;
   }
 }
 
-@media (max-width: 900px) {
-  .chart-container {
+@media screen and (max-width: 768px) {
+  .grid-informs {
     display: block;
     margin-top: 20%;
   }
 }
 
-@media (max-width: 830px) {
-  .chart-container {
+@media screen and (max-width: 600px) {
+  .grid-informs {
     display: block;
     margin-top: 30%;
   }

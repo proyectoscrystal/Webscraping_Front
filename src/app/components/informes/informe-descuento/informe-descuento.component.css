@@ -60,7 +60,7 @@
 }
 
 .colorStyles:hover {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .colorStyles:checked:after {
@@ -84,7 +84,7 @@
   width: 100%;
   max-width: auto;
 }
-  
+
 tr:hover td {
   background-color:#358da3;
   color: white;
@@ -103,7 +103,7 @@ tr:hover td {
 }
 
 /* Responsive tables*/
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1024px) {
   table {
     border: 0px;
   }
@@ -176,29 +176,28 @@ tr:hover td {
   margin-left: -100px;
 }
 
-@media (max-width: 1000px) {
-  .grid {
+@media screen and (max-width: 1024px) {
+  .grid-informs {
     display: block;
-    margin-top: 10%;
   }
 }
 
-@media (max-width: 900px) {
-  .grid {
+@media screen and (max-width: 768px) {
+  .grid-informs {
     display: block;
     margin-top: 20%;
   }
 }
 
-@media (max-width: 830px) {
-  .grid {
+@media screen and (max-width: 600px) {
+  .grid-informs {
     display: block;
     margin-top: 30%;
   }
 }
 
 /* media queryes */
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
 
   .alignFilterChart {
     display: inline-grid;
