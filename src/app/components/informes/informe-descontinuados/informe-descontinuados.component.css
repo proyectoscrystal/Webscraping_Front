@@ -2,6 +2,10 @@
   height: 250px;
 }
 
+.titulo-chart {
+  text-align: center;
+}
+
 .marginTitle {
   margin-top: -20px;
 }
@@ -12,6 +16,10 @@
 
 .marginTable {
   margin-top: -10px;
+}
+
+.hoverSvgFilter:hover {
+  cursor: pointer;
 }
 
 .item-filters-top {
@@ -31,12 +39,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.item-filter {
-  margin: 0;
-  font-weight: bold;
-  color: white;
 }
 
 .checkboxAlign {
@@ -70,8 +72,10 @@
   color: white;
 }
 
-.hoverSvgFilter:hover {
-  cursor: pointer;
+.item-filter {
+  margin: 0;
+  font-weight: bold;
+  color: white;
 }
 
 .menu-color {
@@ -80,6 +84,12 @@
 }
 
 /* Tablas */
+.mat-form-field {
+  width: 100%;
+  font-size: 14px;
+  margin: 0 auto;
+}
+
 .table-container {
   width: 100%;
   max-width: auto;
@@ -88,10 +98,6 @@
 tr:hover td {
   background-color:#358da3;
   color: white;
-}
-
-.dif {
-  color: green;
 }
 
 .alignTableTitles {
@@ -108,7 +114,7 @@ tr:hover td {
     border: 0px;
   }
 
-  thead {
+  th {
     display: none;
   }
 
@@ -139,7 +145,6 @@ tr:hover td {
 /* Fin Tablas */
 
 /* inicio estilos chart */
-
 .chart-container {
   width: 100%;
 }
@@ -147,11 +152,12 @@ tr:hover td {
 .chart-line {
   width: 95%;
 }
-
 /* fin chart */
 
-/* Grids */
-.grid {
+
+/* grid para poner las cosas en una sola fila */
+
+.grid-informs {
   display: grid;
   grid-template-columns: 50% 50%;
 }
@@ -174,10 +180,45 @@ tr:hover td {
 }
 
 .svgFilterChart {
-  margin-top: 10px;
-  margin-left: -55px;
+  margin-bottom: 35px;
+  margin-left: -100px;
 }
 
+
+.diferencia {
+  color: rgb(103 209 166);
+}
+
+.diferencia2 {
+  color: rgb(255 92 96);
+}
+
+/* media queryes */
+@media (max-width: 1024px) {
+
+  .alignFilterChart {
+    display: inline-grid;
+    grid-template-columns: 90% 10%;
+    width: 100%;
+    align-items: center;
+  }
+
+  .alignFilterTable {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    text-align: center;
+  }
+
+  .svgFilterChart {
+    margin-bottom: 7px;
+    margin-left: 0px;
+  }
+
+  .svgFilter {
+    margin-bottom: 7px;
+    margin-left: 0px;
+  }
+}
 
 @media screen and (max-width: 1024px) {
   .grid-informs {
@@ -197,38 +238,4 @@ tr:hover td {
     display: block;
     margin-top: 30%;
   }
-}
-
-@media (max-width: 1024px) {
-
-  .alignFilterChart {
-    display: inline-grid;
-    grid-template-columns: 90% 10%;
-    width: 100%;
-    align-items: center;
-  }
-
-  .alignFilterTable {
-    display: grid;
-    grid-template-columns: 90% 10%;
-    text-align: center;
-  }
-
-  .svgFilterChart {
-    margin-bottom: 20px;
-    margin-left: 0px;
-  }
-
-  .svgFilter {
-    margin-bottom: 7px;
-    margin-left: 0px;
-  }
-}
-
-.diferencia {
-  color: rgb(103 209 166);
-}
-
-.diferencia2 {
-  color: rgb(255 92 96);
 }

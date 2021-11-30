@@ -2,6 +2,10 @@
   height: 250px;
 }
 
+.titulo-chart {
+  text-align: center;
+}
+
 .marginTitle {
   margin-top: -20px;
 }
@@ -80,6 +84,12 @@
 }
 
 /* Tablas */
+.mat-form-field {
+  width: 100%;
+  font-size: 14px;
+  margin: 0 auto;
+}
+
 .table-container {
   width: 100%;
   max-width: auto;
@@ -88,10 +98,6 @@
 tr:hover td {
   background-color:#358da3;
   color: white;
-}
-
-.dif {
-  color: green;
 }
 
 .alignTableTitles {
@@ -108,7 +114,7 @@ tr:hover td {
     border: 0px;
   }
 
-  thead {
+  th {
     display: none;
   }
 
@@ -148,8 +154,10 @@ tr:hover td {
 }
 /* fin chart */
 
-/* Grids */
-.grid {
+
+/* grid para poner las cosas en una sola fila */
+
+.grid-informs {
   display: grid;
   grid-template-columns: 50% 50%;
 }
@@ -176,24 +184,13 @@ tr:hover td {
   margin-left: -100px;
 }
 
-@media screen and (max-width: 1024px) {
-  .grid-informs {
-    display: block;
-  }
+
+.diferencia {
+  color: rgb(103 209 166);
 }
 
-@media screen and (max-width: 768px) {
-  .grid-informs {
-    display: block;
-    margin-top: 20%;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .grid-informs {
-    display: block;
-    margin-top: 30%;
-  }
+.diferencia2 {
+  color: rgb(255 92 96);
 }
 
 /* media queryes */
@@ -223,10 +220,22 @@ tr:hover td {
   }
 }
 
-.diferencia {
-  color: rgb(103 209 166);
+@media screen and (max-width: 1024px) {
+  .grid-informs {
+    display: block;
+  }
 }
 
-.diferencia2 {
-  color: rgb(255 92 96);
+@media screen and (max-width: 768px) {
+  .grid-informs {
+    display: block;
+    margin-top: 20%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid-informs {
+    display: block;
+    margin-top: 30%;
+  }
 }
