@@ -130,6 +130,7 @@ export class GeneralComponent implements OnInit {
     //this.onlyOne();
     this.ng();
     this.ng2();
+    this.ng3();
   }
 
   //===============INICIO FILTROS MODAL===============
@@ -649,6 +650,41 @@ export class GeneralComponent implements OnInit {
           data: [`${this.hombre}`, `${this.mujer}`, `${this.kids}`],
           label: "Colores",
           backgroundColor: this.rgbColorsCategoria,
+          borderWidth: 1
+        }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    }); // fin chart 1
+  };
+
+  // chart de barras, materiales de datos
+  ng3 = function ngAfterViewInit() {
+    // console.log(this.averagePriceZara9);
+    if (this.myChart3) {
+      this.myChart3.clear();
+      this.myChart3.destroy();
+    }
+
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title
+    );
+    this.myChart3 = new Chart('myChartMateriales', {
+      type: 'bar',
+      data: {
+        labels: ["material1","material2","material3"],
+        datasets: [{
+          data: [54, 23, 76],
+          label: "Materiales",
+          borderColor: ['rgb(58, 115, 184)'],
+          backgroundColor: ['rgb(58, 115, 184)'],
           borderWidth: 1
         }
         ]
