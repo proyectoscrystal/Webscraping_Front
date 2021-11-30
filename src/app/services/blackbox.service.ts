@@ -103,6 +103,11 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_infoGeneralColors/' ,{ params } );
   }
 
+  // peticiones para los barcharts en vista colores
+  getInfoGeneralColorsMateriales(params: any) {
+    return this.http.get(this.url + '/m_infoGeneralColorsMateriales/' ,{ params } );
+  }
+
 
 
   uploadPhoto(data: any) {

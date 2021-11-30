@@ -116,6 +116,8 @@ export class GeneralComponent implements OnInit {
   topTenColoresRGB: any = ['','','','','','','','','',''];
   topTenPorcentajeSKU: any = [0,0,0,0,0,0,0,0,0,0];
   topTenTotalSKU: any = [0,0,0,0,0,0,0,0,0,0];
+  materiales: any;
+  materialesCount: any;
 
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService, private modalService3: BsModalService) {
@@ -126,6 +128,7 @@ export class GeneralComponent implements OnInit {
   ngOnInit(): void {
     this.getInfoCategory();
     this.getInfoBarChart();
+    // this.getInfoBarChartMateriales();
     this.showDataModal();
     //this.onlyOne();
     this.ng();
@@ -205,7 +208,7 @@ export class GeneralComponent implements OnInit {
 
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
         this.setInfoBarChart(res);
         this.ng();
       },
@@ -221,6 +224,33 @@ export class GeneralComponent implements OnInit {
     this.coloresRGB = data.obj.porcentajesCategoriaColors.coloresRGB;
   }
 
+  //info seccion barchart 
+  getInfoBarChartMateriales() {
+    let params = {
+      categoria: this.categoriaSelected2,
+      subCategoria: this.subCategoriaSelected2,
+      tipoPrenda: this.tipoPrendaSelected2,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin
+
+    };
+
+    this.blackboxService.getInfoGeneralColorsMateriales(params).subscribe(
+      (res) => {
+        // console.log(res);
+        this.setInfoBarChartMateriales(res);
+        this.ng3();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  setInfoBarChartMateriales(data) {
+    this.materiales = data.obj.porcentajesCategoriaColors.colores;
+    this.materialesCount = data.obj.porcentajesCategoriaColors.coloresCount;
+  }
 
   //Obtener datos desde index.ts para mostrar en el modal
   showDataModal() {
@@ -326,12 +356,16 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter2.push(value);
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria2);
+
+      this.getInfoBarChart();
   
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
+
+      this.getInfoBarChart();
   
     }
 
@@ -340,13 +374,16 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter2.push(value);
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria2);
+
+      this.getInfoBarChart();
   
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
-  
+
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -354,12 +391,16 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter2.push(value);
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
+
+      this.getInfoBarChart();
   
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
+
+      this.getInfoBarChart();
   
     }
 
@@ -369,12 +410,16 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter3.push(value);
       this.categoria3 = this.categoriaSelected3;
       console.log(this.categoria3);
+
+      this.getInfoBarChartMateriales();
   
     } else if (value.clase == 'categoria3' && !value.checked) {
       this.categoria3 = [];
       this.categoriaSelected3.splice(this.categoriaSelected3.indexOf(item), 1);
       this.selectedFilter3.splice(this.selectedFilter3.indexOf(value), 1);
       console.log(this.categoriaSelected3);
+
+      this.getInfoBarChartMateriales();
   
     }
 
@@ -383,12 +428,16 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter3.push(value);
       this.subCategoria3 = this.subCategoriaSelected3;
       console.log(this.subCategoria3);
+
+      this.getInfoBarChartMateriales();
   
     } else if (value.clase == 'subCategoria3' && !value.checked) {
       this.subCategoria3 = []
       this.subCategoriaSelected3.splice(this.subCategoriaSelected3.indexOf(item), 1);
       this.selectedFilter3.splice(this.selectedFilter3.indexOf(value), 1);
       console.log(this.subCategoriaSelected3);
+
+      this.getInfoBarChartMateriales();
   
     }
 
@@ -397,12 +446,16 @@ export class GeneralComponent implements OnInit {
       this.selectedFilter3.push(value);
       this.tipoPrenda3 = this.tipoPrendaSelected3;
       console.log(this.tipoPrenda3);
+
+      this.getInfoBarChartMateriales();
   
     } else if (value.clase == 'tipoPrenda3' && !value.checked) {
       this.tipoPrenda3 = [];
       this.tipoPrendaSelected3.splice(this.tipoPrendaSelected3.indexOf(item), 1);
       this.selectedFilter3.splice(this.selectedFilter3.indexOf(value), 1);
       console.log(this.tipoPrendaSelected3);
+
+      this.getInfoBarChartMateriales();
   
     }    
   }
@@ -481,6 +534,8 @@ export class GeneralComponent implements OnInit {
     $(".categoria3").prop("checked", false);
     $(".subCategoria3").prop("checked", false);
     $(".tipoPrenda3").prop("checked", false);
+
+    this.getInfoBarChartMateriales();
   }
   closeModal3() {
     this.modalRef3.hide();
