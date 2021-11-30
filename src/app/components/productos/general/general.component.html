@@ -340,135 +340,143 @@
           <button type="button" class="btn btn-danger" (click)="clearFilters3()">Limpiar filtros</button>
           <button type="button" class="btn btn-primary" (click)="closeModal3()">Aplicar filtros</button>
         </div>
+        <div class="item3-content">
+          <!-- aca va el chart -->
+          <div class="chart-line">
+            <canvas id="myChartMateriales">
+
+            </canvas>
+          </div>
+
+          <div class="item-filters-top">
+            <div *ngFor="let filter3 of selectedFilter3" class="content-filter-item">
+              <p class="item-filter">{{filter3.item}}</p>
+            </div>
+          </div>
+          <div class="item3-content">
+
+          </div>
+        </div>
+
+        <div class="item4">
+          <h2>TOP 10 tipos de prenda</h2>
+          <div>
+            <table class="tipoP">
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Total SKU</th>
+                  <th>%</th>
+                  <th>Color TOP</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[0]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[0] !== '' ? topTenTipoPrenda[0] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[0]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[0]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[0]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[0] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[1]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[1] !== '' ? topTenTipoPrenda[1] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[1]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[1]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[1]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[1] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[2]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[2] !== '' ? topTenTipoPrenda[2] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[2]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[2]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[2]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[2] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[3]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[3] !== '' ? topTenTipoPrenda[3] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[3]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[3]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[3]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[3] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[4]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[4] !== '' ? topTenTipoPrenda[4] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[4]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[4]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[4]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[4] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[5]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[5] !== '' ? topTenTipoPrenda[5] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[5]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[5]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[5]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[5] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[6]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[6] !== '' ? topTenTipoPrenda[6] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[6]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[6]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[6]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[6] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[7]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[7] !== '' ? topTenTipoPrenda[7] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[7]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[7]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[7]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[7] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[8]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[8] !== '' ? topTenTipoPrenda[8] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[8]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[8]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[8]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[8] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+                <tr>
+                  <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[9]}}"><img
+                        src="../../../../assets/productos/{{topTenTipoPrenda[9] !== '' ? topTenTipoPrenda[9] +'.png' : default.png}}"
+                        alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[9]}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[9]}}%</td>
+                  <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[9]}}">
+                      <div [ngStyle]="{'background-color': topTenColoresRGB[9] }" class="colorx mb-3"></div>
+                    </abbr></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </ng-template>
-    </div>
-
-    <div class="item-filters-top">
-      <div *ngFor="let filter3 of selectedFilter3" class="content-filter-item">
-        <p class="item-filter">{{filter3.item}}</p>
-      </div>
-    </div>
-    <div class="item3-content">
-
-    </div>
-  </div>
-
-  <div class="item4">
-    <h2>TOP 10 tipos de prenda</h2>
-    <div>
-      <table class="tipoP">
-        <thead>
-          <tr>
-            <th>Tipo</th>
-            <th>Total SKU</th>
-            <th>%</th>
-            <th>Color TOP</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[0]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[0] !== '' ? topTenTipoPrenda[0] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[0]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[0]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[0]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[0] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[1]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[1] !== '' ? topTenTipoPrenda[1] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[1]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[1]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[1]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[1] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[2]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[2] !== '' ? topTenTipoPrenda[2] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[2]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[2]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[2]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[2] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[3]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[3] !== '' ? topTenTipoPrenda[3] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[3]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[3]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[3]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[3] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[4]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[4] !== '' ? topTenTipoPrenda[4] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[4]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[4]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[4]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[4] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[5]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[5] !== '' ? topTenTipoPrenda[5] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[5]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[5]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[5]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[5] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[6]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[6] !== '' ? topTenTipoPrenda[6] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[6]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[6]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[6]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[6] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[7]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[7] !== '' ? topTenTipoPrenda[7] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[7]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[7]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[7]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[7] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[8]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[8] !== '' ? topTenTipoPrenda[8] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[8]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[8]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[8]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[8] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-          <tr>
-            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{topTenTipoPrenda[9]}}"><img
-                  src="../../../../assets/productos/{{topTenTipoPrenda[9] !== '' ? topTenTipoPrenda[9] +'.png' : default.png}}"
-                  alt="" class="imgPrendasTabla" /></abbr></td>
-            <td data-label="Total SKU">{{topTenTotalSKU[9]}}</td>
-            <td data-label="%">{{topTenPorcentajeSKU[9]}}%</td>
-            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[9]}}">
-                <div [ngStyle]="{'background-color': topTenColoresRGB[9] }" class="colorx mb-3"></div>
-              </abbr></td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 </div>
