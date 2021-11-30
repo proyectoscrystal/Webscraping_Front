@@ -141,6 +141,10 @@
   grid-area: 1 / 2 / 4 / 4;
 }
 
+.marginTop {
+  margin-top: -15px;
+}
+
 .imgPrendas {
   width: 32px;
   height: 32px;
