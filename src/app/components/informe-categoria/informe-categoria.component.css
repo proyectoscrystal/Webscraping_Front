@@ -35,6 +35,10 @@
     display: grid;
     grid-template-columns: 90% 10%;
   }
+
+  .titulo1 {
+    text-align: center;
+  }
 }
 
 .cardAlign {
@@ -314,7 +318,7 @@ tr:hover td {
   margin-left: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   #sidebar-wrapper {
     margin-left: 0;
   }

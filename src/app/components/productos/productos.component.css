@@ -93,7 +93,7 @@
   margin-left: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   #sidebar-wrapper {
     margin-left: 0;
   }
@@ -171,7 +171,7 @@ ul.nav:hover {
 .activo {
   background-color:#c4e3eb ;
   color: black;
-  
+
 }
 
 a.sel2.activo {
@@ -180,7 +180,7 @@ a.sel2.activo {
 }
 
 a.sel2.activo::before {
-  content: " "; 
+  content: " ";
   position: absolute;
   margin-top: 2.5px;
   left: 25px;

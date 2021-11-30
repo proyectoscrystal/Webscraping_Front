@@ -81,6 +81,10 @@
   .grid {
     display: block;
   }
+
+  .titulo1 {
+    text-align: center;
+  }
 }
 
 /*CSS GRID*/
@@ -190,7 +194,7 @@
 }
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1024px) {
   .grid-container {
     display: block;
   }
@@ -202,6 +206,10 @@
   .grid-container-item2 {
     display: grid;
     grid-template-columns: 90% 10%;
+  }
+
+  .item3 {
+    margin-top: 5%;
   }
 }
 
