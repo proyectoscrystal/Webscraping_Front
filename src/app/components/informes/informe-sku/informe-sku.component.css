@@ -158,12 +158,12 @@ tr:hover td {
 }
 
 .svgFilter {
-  margin-top: 10px;
+  margin-bottom: -10px;
   margin-left: -20px;
 }
 
 .svgFilterChart {
-  margin-top: 10px;
+  margin-bottom: -10px;
   margin-left: -20px;
 }
 

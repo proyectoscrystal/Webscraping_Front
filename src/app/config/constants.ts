@@ -7,7 +7,8 @@ export class AppSettings {
 
   // Variables desarrollo local
   public static Captcha: string = '6LcWmhAaAAAAAANjKl0-wVi86F_MCNqgZ490x7Sc';
-  public static Api: string = 'http://localhost:4000';
+  //public static Api: string = 'http://localhost:4000';
+  public static Api: string = 'https://app.pm2.io/#/r/4e8p9darqtqt1t6';
   public static Model: string = 'http://localhost:4000/sendImgsModel';
   public static Filter: string = 'http://localhost:4000/filtroImagen';
 

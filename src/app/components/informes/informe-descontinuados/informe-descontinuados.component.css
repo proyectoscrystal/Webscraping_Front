@@ -175,12 +175,13 @@ tr:hover td {
 }
 
 .svgFilter {
-  margin-top: 10px;
+  margin-bottom: -10px;
   margin-left: -25px;
 }
 
 .svgFilterChart {
-  margin-bottom: 35px;
+  margin-bottom: -10px;
+  margin-top: 6px;
   margin-left: -100px;
 }
 
