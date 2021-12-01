@@ -128,7 +128,7 @@ export class GeneralComponent implements OnInit {
   ngOnInit(): void {
     this.getInfoCategory();
     this.getInfoBarChart();
-    // this.getInfoBarChartMateriales();
+    this.getInfoBarChartMateriales();
     this.showDataModal();
     //this.onlyOne();
     this.ng();
@@ -208,7 +208,7 @@ export class GeneralComponent implements OnInit {
 
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.setInfoBarChart(res);
         this.ng();
       },
@@ -227,9 +227,9 @@ export class GeneralComponent implements OnInit {
   //info seccion barchart 
   getInfoBarChartMateriales() {
     let params = {
-      categoria: this.categoriaSelected2,
-      subCategoria: this.subCategoriaSelected2,
-      tipoPrenda: this.tipoPrendaSelected2,
+      categoria: this.categoriaSelected3,
+      subCategoria: this.subCategoriaSelected3,
+      tipoPrenda: this.tipoPrendaSelected3,
       fechaInicio: this.inicio,
       fechaFin: this.fin
 
@@ -237,7 +237,7 @@ export class GeneralComponent implements OnInit {
 
     this.blackboxService.getInfoGeneralColorsMateriales(params).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
         this.setInfoBarChartMateriales(res);
         this.ng3();
       },
@@ -248,8 +248,8 @@ export class GeneralComponent implements OnInit {
   }
 
   setInfoBarChartMateriales(data) {
-    this.materiales = data.obj.porcentajesCategoriaColors.colores;
-    this.materialesCount = data.obj.porcentajesCategoriaColors.coloresCount;
+    this.materiales = data.obj.materialsData.materials;
+    this.materialesCount = data.obj.materialsData.countMaterials;
   }
 
   //Obtener datos desde index.ts para mostrar en el modal
@@ -679,6 +679,14 @@ export class GeneralComponent implements OnInit {
         }
         ]
       },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        }
+      }
     }); // fin chart 1
   };
 
@@ -734,10 +742,10 @@ export class GeneralComponent implements OnInit {
     this.myChart3 = new Chart('myChartMateriales', {
       type: 'bar',
       data: {
-        labels: ["material1","material2","material3"],
+        labels: this.materiales,
         datasets: [{
-          data: [54, 23, 76],
-          label: "Materiales",
+          data: this.materialesCount,
+          label: "Cantidad",
           borderColor: ['rgb(58, 115, 184)'],
           backgroundColor: ['rgb(58, 115, 184)'],
           borderWidth: 1
@@ -746,7 +754,11 @@ export class GeneralComponent implements OnInit {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        }
       }
     }); // fin chart 1
   };
