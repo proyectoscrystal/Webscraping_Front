@@ -68,6 +68,10 @@ export class BlackboxService {
   getInfoDiscount(params: any) {
     return this.http.get(this.url + '/m_averageDiscount/' ,{ params } );
   }
+// peticion para el chart por semana
+  getInfoDiscountWeek(params: any) {
+    return this.http.get(this.url + '/m_averageDiscountWeek/' ,{ params } );
+  }
 
   getInfoDiscountinued(params: any) {
     return this.http.get(this.url + '/m_averageDiscountinued/' ,{ params } );

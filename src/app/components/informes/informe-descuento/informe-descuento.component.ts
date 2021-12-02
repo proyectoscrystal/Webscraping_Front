@@ -129,6 +129,8 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
         console.log(`recibiendo valor mes data: ${data}`,);        
       }
     })
+
+    // this.getInfoDiscountWeek();
     
     this.dataSubscription = data;
 
@@ -178,6 +180,13 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     );
   }
 
+  // set info table
+  setInfoTable(res) {
+    this.photos = res.obj.arr;
+    this.tableAvgDescuento = res.obj.descuentoPromedio;
+    this.tableDifference = res.obj.differences;
+  }
+
   // peticion para el chart
   getInfoDiscount() {
     let params = {
@@ -201,12 +210,73 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     );
   }
 
-  // set info table
-  setInfoTable(res) {
-    this.photos = res.obj.arr;
-    this.tableAvgDescuento = res.obj.descuentoPromedio;
-    this.tableDifference = res.obj.differences;
+  // metodo para chart semana
+ // peticion para el chart
+ getInfoDiscountWeek() {
+  let params = {
+    origin: this.originSelected,
+    categoria: this.categoriaSelected,
+    subCategoria: this.subCategoriaSelected,
+    tipoPrenda: this.tipoPrendaSelected,
+    color: this.colorSelected,
+    composicion: this.composicionSelected
+  };
+
+  this.blackboxService.getInfoDiscountWeek(params).subscribe(
+    (res) => {
+      this.setInfoDiscountWeek(res);
+      console.log(res);
+      this.ng();
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
+
+
+  setInfoDiscountWeek(res) {
+    console.log("desde chart semanas")
+    // let date = new Date();
+    // let year = date.getFullYear();
+    // if (res.obj.origin === 'general') {
+    //   this.label1 = 'Zara';
+    //   this.label2 = 'Mango';
+    //   this.months = res.obj.months;
+    //   for (let index = 0; index < res.obj.values.length; index++) {
+    //     if (index <= 11) {
+    //       this.averageDiscount1[index] = res.obj.values[index];
+    //     } else if (index >= 24 && index <= 35) {
+    //       this.averageDiscount2[index - 24] = res.obj.values[index];
+    //     }
+    //   }
+    // } else if (res.obj.origin === 'Mango') {
+    //   this.label1 = `${res.obj.origin} ${year}`;
+    //   this.label2 = `${res.obj.origin} ${year - 1}`;
+    //   this.months = res.obj.months;
+    //   for (let index = 0; index < res.obj.values.length; index++) {
+    //     if (index <= 11) {
+    //       this.averageDiscount1[index] = res.obj.values[index];
+    //     } else if (index >= 12 && index <= 23) {
+    //       this.averageDiscount2[index - 12] = res.obj.values[index];
+    //     }
+    //   }
+    // } else if (res.obj.origin === 'Zara') {
+    //   this.label1 = `${res.obj.origin} ${year}`;
+    //   this.label2 = `${res.obj.origin} ${year - 1}`;
+    //   this.months = res.obj.months;
+    //   for (let index = 0; index < res.obj.values.length; index++) {
+    //     if (index <= 11) {
+    //       this.averageDiscount1[index] = res.obj.values[index];
+    //     } else if (index >= 12 && index <= 23) {
+    //       this.averageDiscount2[index - 12] = res.obj.values[index];
+    //     }
+    //   }
+    // }
   }
+
+  
 
   //===============INICIO FILTROS MODAL===============
 
