@@ -343,6 +343,12 @@
       </ng-template>
     </div>
 
+    <div class="item-filters-top itemsFilters">
+      <div *ngFor="let filter3 of selectedFilter3" class="content-filter-item">
+        <p class="item-filter">{{filter3.item}}</p>
+      </div>
+    </div>
+
     <div class="item3-content">
       <!-- aca va el chart -->
       <div class="chart-line marginTop">
@@ -350,15 +356,6 @@
 
         </canvas>
       </div>
-
-    </div>
-
-    <div class="item-filters-top">
-      <div *ngFor="let filter3 of selectedFilter3" class="content-filter-item">
-        <p class="item-filter">{{filter3.item}}</p>
-      </div>
-    </div>
-    <div class="item3-content">
 
     </div>
   </div>
