@@ -130,7 +130,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       }
     })
 
-    // this.getInfoDiscountWeek();
+    this.getInfoDiscountWeek();
     
     this.dataSubscription = data;
 
