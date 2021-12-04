@@ -28,6 +28,10 @@
   color: white;
 }
 
+.itemsFilters {
+  margin-top: -30px;
+}
+
 /* Filtros aplicados en pantalla */
 
 
@@ -199,10 +203,6 @@
   height: 30px;
   border-radius: 50%;
   margin: 0 auto;
-}
-
-.itemsFilters {
-  margin-top: -15px;
 }
 
 .chartColor {
