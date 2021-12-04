@@ -114,27 +114,22 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     private blackboxService: BlackboxService,
     private modalService: BsModalService,
     private modalService2: BsModalService,
-    private servicioEnvioData: ServicioEnvioDataService
+    public servicioEnvioData: ServicioEnvioDataService
   ) {
     Chart.register(...registerables);
     this.datos = new Datos();
   }
 
   ngOnInit(): void {
-
-    let data = this.servicioEnvioData.disparador.subscribe(data => {
-      if (data === 'Semana') {
-        console.log(`recibiendo valor semana data: ${data}`,);        
-      } else if (data === 'Mes') {
-        console.log(`recibiendo valor mes data: ${data}`,);        
-      }
+    // suscribiendo al servicio de data y llamando la funcion
+    let data = this.servicioEnvioData.enviarObservable.subscribe(data => {
+      this.setWeekOrMonth(data);
+      
     })
+    console.log(data)
 
-    this.getInfoDiscountWeek();
-    
     this.dataSubscription = data;
-
-    this.getInfoDiscount();
+    
     this.getInfotableDiscount();
     this.showDataModal();
     
@@ -178,6 +173,9 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
         console.log(err);
       }
     );
+      
+
+
   }
 
   // set info table
@@ -225,7 +223,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   this.blackboxService.getInfoDiscountWeek(params).subscribe(
     (res) => {
       this.setInfoDiscountWeek(res);
-      console.log(res);
+      // console.log(res);
       this.ng();
     },
     (err) => {
@@ -237,45 +235,50 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
 
 
   setInfoDiscountWeek(res) {
-    console.log("desde chart semanas")
-    // let date = new Date();
-    // let year = date.getFullYear();
-    // if (res.obj.origin === 'general') {
-    //   this.label1 = 'Zara';
-    //   this.label2 = 'Mango';
-    //   this.months = res.obj.months;
-    //   for (let index = 0; index < res.obj.values.length; index++) {
-    //     if (index <= 11) {
-    //       this.averageDiscount1[index] = res.obj.values[index];
-    //     } else if (index >= 24 && index <= 35) {
-    //       this.averageDiscount2[index - 24] = res.obj.values[index];
-    //     }
-    //   }
-    // } else if (res.obj.origin === 'Mango') {
-    //   this.label1 = `${res.obj.origin} ${year}`;
-    //   this.label2 = `${res.obj.origin} ${year - 1}`;
-    //   this.months = res.obj.months;
-    //   for (let index = 0; index < res.obj.values.length; index++) {
-    //     if (index <= 11) {
-    //       this.averageDiscount1[index] = res.obj.values[index];
-    //     } else if (index >= 12 && index <= 23) {
-    //       this.averageDiscount2[index - 12] = res.obj.values[index];
-    //     }
-    //   }
-    // } else if (res.obj.origin === 'Zara') {
-    //   this.label1 = `${res.obj.origin} ${year}`;
-    //   this.label2 = `${res.obj.origin} ${year - 1}`;
-    //   this.months = res.obj.months;
-    //   for (let index = 0; index < res.obj.values.length; index++) {
-    //     if (index <= 11) {
-    //       this.averageDiscount1[index] = res.obj.values[index];
-    //     } else if (index >= 12 && index <= 23) {
-    //       this.averageDiscount2[index - 12] = res.obj.values[index];
-    //     }
-    //   }
-    // }
+    let date = new Date();
+    let year = date.getFullYear();
+    if (res.obj.origin === 'general') {
+      this.label1 = 'Zara';
+      this.label2 = 'Mango';
+      this.months = [];
+      this.months = res.obj.weeks;
+      this.averageDiscount1 = res.obj.values.weeksZaraActual;
+      this.averageDiscount2 = res.obj.values.weeksMangoActual;
+    } else if (res.obj.origin === 'Mango') {
+      this.label1 = `${res.obj.origin} ${year}`;
+      this.label2 = `${res.obj.origin} ${year - 1}`;
+      this.months = res.obj.months;
+      for (let index = 0; index < res.obj.values.length; index++) {
+        if (index <= 11) {
+          this.averageDiscount1[index] = res.obj.values[index];
+        } else if (index >= 12 && index <= 23) {
+          this.averageDiscount2[index - 12] = res.obj.values[index];
+        }
+      }
+    } else if (res.obj.origin === 'Zara') {
+      this.label1 = `${res.obj.origin} ${year}`;
+      this.label2 = `${res.obj.origin} ${year - 1}`;
+      this.months = res.obj.months;
+      for (let index = 0; index < res.obj.values.length; index++) {
+        if (index <= 11) {
+          this.averageDiscount1[index] = res.obj.values[index];
+        } else if (index >= 12 && index <= 23) {
+          this.averageDiscount2[index - 12] = res.obj.values[index];
+        }
+      }
+    }
   }
 
+
+  setWeekOrMonth(data) {
+    if (data === 'Semana') {
+      console.log(`recibiendo valor data: ${data}`,);
+      this.getInfoDiscountWeek();        
+    } else if (data === 'Mes') {
+      console.log(`recibiendo valor data: ${data}`,);   
+      this.getInfoDiscount();     
+    }
+  }
   
 
   //===============INICIO FILTROS MODAL===============
@@ -680,6 +683,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     if (res.obj.origin === 'general') {
       this.label1 = 'Zara';
       this.label2 = 'Mango';
+      this.months = [];
       this.months = res.obj.months;
       for (let index = 0; index < res.obj.values.length; index++) {
         if (index <= 11) {

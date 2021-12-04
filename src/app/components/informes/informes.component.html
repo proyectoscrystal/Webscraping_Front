@@ -93,7 +93,7 @@
         </div>
 
         <div class="selectTop">
-          <select [(ngModel)]="valorSeleccionado" (change)="cambioSemanaMes()" class="form-control">
+          <select [(ngModel)]="valorSeleccionado" (ngModelChange)="cambioSemanaMes()" class="form-control">
             <option value="Mes">Mes</option>
             <option value="Semana">Semana</option>
           </select>

@@ -34,7 +34,7 @@ export class InformesComponent implements OnInit {
   };
 
   // variable cambio mes a semana 
-  valorSeleccionado: any = '';
+  valorSeleccionado: any = 'Mes';
   semana: any = '';
   mes: any = '';
   tituloResumen: any = '';
@@ -99,7 +99,6 @@ export class InformesComponent implements OnInit {
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService, private servicioEnvioData: ServicioEnvioDataService) {
     Chart.register(...registerables);
     this.datos = new Datos();
-    this.valorSeleccionado = "Mes";
     this.tituloResumen = "Resumen Mes";
     this.tituloCardActual = "Que el mes pasado";
     // metodo para obtener todos los documentos de tipo images
@@ -110,10 +109,12 @@ export class InformesComponent implements OnInit {
       this.getInfoCards();
       //TODO: enviar el valor de mes a los charts de los informes hijos    
       this.cambioSemanaMes();
-    }
+      
+    } 
     this.showDataModal();
     this.toggleSidebar();
   }
+
 
   // Ocultar/Mostrar sidebar
   toggleSidebar() {
@@ -157,6 +158,7 @@ export class InformesComponent implements OnInit {
 
   // funciones para implementar funcion de semanas
   cambioSemanaMes() {
+    console.log("se ingresa inmediatamente")
     if(this.valorSeleccionado === "Semana") {
       let valor = this.valorSeleccionado;
       this.tituloResumen = "Resumen Semana";
@@ -164,16 +166,17 @@ export class InformesComponent implements OnInit {
       // metodo para volver a cargar valores por semana TODO
 
       // envio del valor a los componente hijos
-      this.servicioEnvioData.disparador.emit(this.valorSeleccionado);
+      this.servicioEnvioData.enviarMensaje(this.valorSeleccionado);
+      
     } else if (this.valorSeleccionado === "Mes") {
       let valor = this.valorSeleccionado;
       this.tituloResumen = "Resumen Mes";
       this.tituloCardActual = "Que el mes pasado";
       // metodo para volver a cargar los valores por mes en los cards
-      // this.getInfoCards();
 
       // envio del valor a los componente hijos
-      this.servicioEnvioData.disparador.emit(this.valorSeleccionado);
+      // this.servicioEnvioData.disparador.emit(this.valorSeleccionado);
+      this.servicioEnvioData.enviarMensaje(this.valorSeleccionado);
     }
   }
 
