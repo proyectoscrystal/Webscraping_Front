@@ -206,8 +206,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     );
   }
 
-  // metodo para chart semana
- // peticion para el chart
+ // peticion para el chart por semana 
  getInfoDiscountWeek() {
   let params = {
     origin: this.originSelected,
@@ -221,7 +220,6 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   this.blackboxService.getInfoDiscountWeek(params).subscribe(
     (res) => {
       this.setInfoDiscountWeek(res);
-      console.log(res);
       this.ng();
     },
     (err) => {
@@ -229,8 +227,6 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     }
   );
 }
-
-
 
   setInfoDiscountWeek(res) {
     let date = new Date();
@@ -252,14 +248,9 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     } else if (res.obj.origin === 'Zara') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
-      this.months = res.obj.months;
-      for (let index = 0; index < res.obj.values.length; index++) {
-        if (index <= 11) {
-          this.averageDiscount1[index] = res.obj.values[index];
-        } else if (index >= 12 && index <= 23) {
-          this.averageDiscount2[index - 12] = res.obj.values[index];
-        }
-      }
+      this.months = res.obj.weeks;
+      this.averageDiscount1 = res.obj.values.weeksActualYear;
+      this.averageDiscount2 = res.obj.values.weeksLastYear;
     }
   }
 

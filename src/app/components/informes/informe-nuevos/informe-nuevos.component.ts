@@ -56,6 +56,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
 
   dataSubscription: Subscription;
 
+  seleccion: string = '';
   photos: any;
   total: any;
   label1: any;
@@ -116,17 +117,13 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    let data = this.servicioEnvioData.disparador.subscribe(data => {
-      if (data === 'Semana') {
-        console.log(`recibiendo valor semana data: ${data}`,);        
-      } else if (data === 'Mes') {
-        console.log(`recibiendo valor mes data: ${data}`,);        
-      }
+    let data = this.servicioEnvioData.enviarObservable.subscribe(data => {
+      this.setWeekOrMonth(data);
+      this.seleccion = data;
     })
     
     this.dataSubscription = data;
 
-    this.getInfoNews();
     this.getInfotableNews();
     this.showDataModal();
 
@@ -188,7 +185,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     this.blackboxService.getInfoNews(params).subscribe(
       (res) => {
         this.setInfoNews(res);
-        // console.log(res);
+        console.log(res);
         this.ng();
       },
       (err) => {
@@ -197,6 +194,65 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     );
   }
 
+   // peticion para el chart por semana
+ getInfoNewsWeek() {
+  let params = {
+    origin: this.originSelected,
+    categoria: this.categoriaSelected,
+    subCategoria: this.subCategoriaSelected,
+    tipoPrenda: this.tipoPrendaSelected,
+    color: this.colorSelected,
+    composicion: this.composicionSelected
+  };
+
+  this.blackboxService.getInfoNewWeek(params).subscribe(
+    (res) => {
+      this.setInfoNewsWeek(res);
+      console.log(res);
+      this.ng();
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
+setInfoNewsWeek(res) {
+  let date = new Date();
+  let year = date.getFullYear();
+  if (res.obj.origin === 'general') {
+    this.label1 = 'Zara';
+    this.label2 = 'Mango';
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averageNews1 = res.obj.values.weeksZaraActual;
+    this.averageNews2 = res.obj.values.weeksMangoActual;
+  } else if (res.obj.origin === 'Mango') {
+    this.label1 = `${res.obj.origin} ${year}`;
+    this.label2 = `${res.obj.origin} ${year - 1}`;
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averageNews1 = res.obj.values.weeksActualYear;
+    this.averageNews2 = res.obj.values.weeksLastYear;
+  } else if (res.obj.origin === 'Zara') {
+    this.label1 = `${res.obj.origin} ${year}`;
+    this.label2 = `${res.obj.origin} ${year - 1}`;
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averageNews1 = res.obj.values.weeksActualYear;
+    this.averageNews2 = res.obj.values.weeksLastYear;
+  }
+}
+
+
+  // funcion que elige semana o mes
+  setWeekOrMonth(data) {
+    if (data === 'Semana') {
+      this.getInfoNewsWeek();        
+    } else if (data === 'Mes') {  
+      this.getInfoNews();     
+    }
+  }
   //===============INICIO FILTROS MODAL===============
 
   //Obtener datos desde index.ts para mostrar en el modal
@@ -241,13 +297,21 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
       console.log(this.origin);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -255,13 +319,21 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
       console.log(this.categoria);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.categoriaSelected);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     }
 
     if (value.checked && value.clase === 'subCategoria') {
@@ -269,13 +341,21 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
@@ -283,13 +363,21 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
       console.log(this.tipoPrenda);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.tipoPrendaSelected);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     }
 
     if (value.checked && value.clase === 'color colorStyles') {
@@ -297,13 +385,21 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       console.log(this.color);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     }
 
     if (value.checked && value.clase === 'composicion') {
@@ -311,13 +407,21 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.composicion = this.composicionSelected;
       console.log(this.composicion);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     } else if (value.clase == 'composicion' && !value.checked) {
       this.composicion = [];
       this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.composicionSelected);
-      this.getInfoNews();
+      if(this.seleccion === "Mes") {
+        this.getInfoNews();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoNewsWeek();
+      }
     }       
   }
 
@@ -450,7 +554,11 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
 
-    this.getInfoNews();
+    if(this.seleccion === "Mes") {
+      this.getInfoNews();
+    } else if (this.seleccion === "Semana") {
+      this.getInfoNewsWeek();
+    }
   }
 
   closeModal () {
