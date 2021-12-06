@@ -56,7 +56,6 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
 
   photos: any;
   total: any;
-  yearMonth: string[] = ['mes', 'año Zara', 'año Mango'];
   seleccion: string = '';
   averageDiscount1: number[] = [];
   averageDiscount2: number[] = [];
@@ -124,9 +123,8 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     // suscribiendo al servicio de data y llamando la funcion
     let data = this.servicioEnvioData.enviarObservable.subscribe(data => {
       this.setWeekOrMonth(data);
-      
+      this.seleccion = data;
     })
-    console.log(data)
 
     this.dataSubscription = data;
     
@@ -223,7 +221,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   this.blackboxService.getInfoDiscountWeek(params).subscribe(
     (res) => {
       this.setInfoDiscountWeek(res);
-      // console.log(res);
+      console.log(res);
       this.ng();
     },
     (err) => {
@@ -247,14 +245,10 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     } else if (res.obj.origin === 'Mango') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
-      this.months = res.obj.months;
-      for (let index = 0; index < res.obj.values.length; index++) {
-        if (index <= 11) {
-          this.averageDiscount1[index] = res.obj.values[index];
-        } else if (index >= 12 && index <= 23) {
-          this.averageDiscount2[index - 12] = res.obj.values[index];
-        }
-      }
+      this.months = [];
+      this.months = res.obj.weeks;
+      this.averageDiscount1 = res.obj.values.weeksActualYear;
+      this.averageDiscount2 = res.obj.values.weeksLastYear;
     } else if (res.obj.origin === 'Zara') {
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
@@ -272,10 +266,8 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
 
   setWeekOrMonth(data) {
     if (data === 'Semana') {
-      console.log(`recibiendo valor data: ${data}`,);
       this.getInfoDiscountWeek();        
-    } else if (data === 'Mes') {
-      console.log(`recibiendo valor data: ${data}`,);   
+    } else if (data === 'Mes') {  
       this.getInfoDiscount();     
     }
   }
@@ -324,60 +316,102 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.originSelected.push(item);
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
-      this.getInfoDiscount();
+
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
+
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     }
 
     if (value.checked && value.clase === 'categoria') {
       this.categoriaSelected.push(item);
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     }
 
     if (value.checked && value.clase === 'subCategoria') {
       this.subCategoriaSelected.push(item);
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
       this.tipoPrendaSelected.push(item);
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     }
 
     if (value.checked && value.clase === 'color colorStyles') {
       this.colorSelected.push(item);
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     }
 
     if (value.checked && value.clase === 'composicion') {
@@ -385,13 +419,21 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.composicion = this.composicionSelected;
       console.log(this.composicion);
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     } else if (value.clase == 'composicion' && !value.checked) {
       this.composicion = [];
       this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.composicionSelected);
-      this.getInfoDiscount();
+      if(this.seleccion === "Mes") {
+        this.getInfoDiscount();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoDiscountWeek();
+      }
     }      
   }
 
@@ -514,7 +556,11 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
 
-    this.getInfoDiscount();
+    if(this.seleccion === "Mes") {
+      this.getInfoDiscount();
+    } else if (this.seleccion === "Semana") {
+      this.getInfoDiscountWeek();
+    }
   }
 
   closeModal () {
