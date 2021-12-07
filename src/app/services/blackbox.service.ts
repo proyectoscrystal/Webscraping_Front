@@ -69,12 +69,20 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_averageDiscount/' ,{ params } );
   }
 // peticiones para el chart por semana
+  getInfoPriceWeek(params: any) {
+    return this.http.get(this.url + '/m_averagePriceWeek/' ,{ params } );
+  }
+  
   getInfoDiscountWeek(params: any) {
     return this.http.get(this.url + '/m_averageDiscountWeek/' ,{ params } );
   }
 
   getInfoNewWeek(params: any) {
     return this.http.get(this.url + '/m_averageNewWeek/' ,{ params } );
+  }
+
+  getInfoSKUWeek(params: any) {
+    return this.http.get(this.url + '/m_averageSKUWeek/' ,{ params } );
   }
 
   getInfoDiscontinuedWeek(params: any) {

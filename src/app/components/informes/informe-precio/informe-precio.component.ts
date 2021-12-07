@@ -75,7 +75,7 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
   subcategorys: any;
   imagesNames: any;
 
-  Seleccionado: any = 'Mes';
+  Seleccion: any = '';
 
   origin: any = '';
   categoria: any = '';
@@ -128,16 +128,12 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    let data = this.servicioEnvioData.disparador.subscribe(data => {
-      if (data === 'Semana') {
-        console.log(`recibiendo valor semana data: ${data}`,);        
-      } else if (data === 'Mes') {
-        console.log(`recibiendo valor mes data: ${data}`,);        
-      }
-    })
+    let data = this.servicioEnvioData.enviarObservable.subscribe(data => {
+      this.setWeekOrMonth(data);
+      this.seleccion = data;
+    });
     
     this.dataSubscription = data;
-    this.getInfoPrice();
     this.getInfoTable();
     this.showDataModal();
 
@@ -215,15 +211,65 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     return index;
   }
 
-  // recibiendo el valor seleccionado de mes o semana desde el padre
-  // valorSeleccionado() {
-  //   this.Seleccionado = "Semana";
-  //   if(this.Seleccionado === "Semana") {
-  //     console.log(`recibiendo desde el padre a ${this.Seleccionado}`);
-  //   } else if (this.Seleccionado === "Mes") {
-  //     console.log(`recibiendo desde el padre a ${this.Seleccionado}`);
-  //   }
-  // } 
+     // peticion para el chart por semana
+ getInfoPriceWeek() {
+  let params = {
+    origin: this.originSelected,
+    categoria: this.categoriaSelected,
+    subCategoria: this.subCategoriaSelected,
+    tipoPrenda: this.tipoPrendaSelected,
+    color: this.colorSelected,
+    composicion: this.composicionSelected
+  };
+
+  this.blackboxService.getInfoPriceWeek(params).subscribe(
+    (res) => {
+      this.setInfoPriceWeek(res);
+      console.log(res);
+      this.ng();
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
+setInfoPriceWeek(res) {
+  let date = new Date();
+  let year = date.getFullYear();
+  if (res.obj.origin === 'general') {
+    this.label1 = 'Zara';
+    this.label2 = 'Mango';
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averagePrice1 = res.obj.values.weeksZaraActual;
+    this.averagePrice2 = res.obj.values.weeksMangoActual;
+  } else if (res.obj.origin === 'Mango') {
+    this.label1 = `${res.obj.origin} ${year}`;
+    this.label2 = `${res.obj.origin} ${year - 1}`;
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averagePrice1 = res.obj.values.weeksActualYear;
+    this.averagePrice2 = res.obj.values.weeksLastYear;
+  } else if (res.obj.origin === 'Zara') {
+    this.label1 = `${res.obj.origin} ${year}`;
+    this.label2 = `${res.obj.origin} ${year - 1}`;
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averagePrice1 = res.obj.values.weeksActualYear;
+    this.averagePrice2 = res.obj.values.weeksLastYear;
+  }
+}
+
+
+  // funcion que elige semana o mes
+  setWeekOrMonth(data) {
+    if (data === 'Semana') {
+      this.getInfoPriceWeek();        
+    } else if (data === 'Mes') {  
+      this.getInfoPrice();     
+    }
+  }
 
   //===============INICIO FILTROS MODAL===============
 
@@ -269,13 +315,21 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
       console.log(this.origin);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -283,13 +337,21 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
       console.log(this.categoria);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.categoriaSelected);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     }
 
     if (value.checked && value.clase === 'subCategoria') {
@@ -297,13 +359,21 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
@@ -311,13 +381,21 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
       console.log(this.tipoPrenda);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.tipoPrendaSelected);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     }
 
     if (value.checked && value.clase === 'color colorStyles') {
@@ -325,13 +403,21 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
       console.log(this.color);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     }
 
     if (value.checked && value.clase === 'composicion') {
@@ -339,13 +425,21 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.composicion = this.composicionSelected;
       console.log(this.composicion);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     } else if (value.clase == 'composicion' && !value.checked) {
       this.composicion = [];
       this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.composicionSelected);
-      this.getInfoPrice();
+      if(this.seleccion === "Mes") {
+        this.getInfoPrice();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoPriceWeek();
+      }
     }   
   }
 
@@ -478,7 +572,11 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
 
-    this.getInfoPrice();
+    if(this.seleccion === "Mes") {
+      this.getInfoPrice();
+    } else if (this.seleccion === "Semana") {
+      this.getInfoPriceWeek();
+    }
   }
 
   closeModal () {

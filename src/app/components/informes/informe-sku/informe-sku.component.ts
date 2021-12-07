@@ -50,6 +50,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   dtTrigger = new Subject();
 
   dataSubscription: Subscription;
+  seleccion: any = '';
 
   photos: any;
   total: any;
@@ -115,19 +116,15 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    let data = this.servicioEnvioData.disparador.subscribe(data => {
-      if (data === 'Semana') {
-        console.log(`recibiendo valor semana data: ${data}`,);        
-      } else if (data === 'Mes') {
-        console.log(`recibiendo valor mes data: ${data}`,);        
-      }
+    let data = this.servicioEnvioData.enviarObservable.subscribe(data => {
+      this.setWeekOrMonth(data);
+      this.seleccion = data;
     })
     
     this.dataSubscription = data;
 
 
-    this.getInfotableSKU()
-    this.getInfoSKU();
+    this.getInfotableSKU();
     this.showDataModal();
 
     this.dtOptions = {
@@ -201,6 +198,66 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.tasaFrescura = res.obj.tasaFrescura;
   }
 
+     // peticion para el chart por semana
+ getInfoSKUWeek() {
+  let params = {
+    origin: this.originSelected,
+    categoria: this.categoriaSelected,
+    subCategoria: this.subCategoriaSelected,
+    tipoPrenda: this.tipoPrendaSelected,
+    color: this.colorSelected,
+    composicion: this.composicionSelected
+  };
+
+  this.blackboxService.getInfoSKUWeek(params).subscribe(
+    (res) => {
+      this.setInfoNewsWeek(res);
+      console.log(res);
+      this.ng();
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
+setInfoNewsWeek(res) {
+  let date = new Date();
+  let year = date.getFullYear();
+  if (res.obj.origin === 'general') {
+    this.label1 = 'Zara';
+    this.label2 = 'Mango';
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averageSKU1 = res.obj.values.weeksZaraActual;
+    this.averageSKU2 = res.obj.values.weeksMangoActual;
+  } else if (res.obj.origin === 'Mango') {
+    this.label1 = `${res.obj.origin} ${year}`;
+    this.label2 = `${res.obj.origin} ${year - 1}`;
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averageSKU1 = res.obj.values.weeksActualYear;
+    this.averageSKU2 = res.obj.values.weeksLastYear;
+  } else if (res.obj.origin === 'Zara') {
+    this.label1 = `${res.obj.origin} ${year}`;
+    this.label2 = `${res.obj.origin} ${year - 1}`;
+    this.months = [];
+    this.months = res.obj.weeks;
+    this.averageSKU1 = res.obj.values.weeksActualYear;
+    this.averageSKU2 = res.obj.values.weeksLastYear;
+  }
+}
+
+
+  // funcion que elige semana o mes
+  setWeekOrMonth(data) {
+    if (data === 'Semana') {
+      this.getInfoSKUWeek();        
+    } else if (data === 'Mes') {  
+      this.getInfoSKU();     
+    }
+  }
+
   //===============INICIO FILTROS MODAL===============
 
   //Obtener datos desde index.ts para mostrar en el modal
@@ -245,13 +302,21 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.origin = this.originSelected;
       console.log(this.origin);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -259,13 +324,21 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.categoria = this.categoriaSelected;
       console.log(this.categoria);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.categoriaSelected);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     }
 
     if (value.checked && value.clase === 'subCategoria') {
@@ -273,13 +346,21 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
@@ -287,25 +368,41 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.tipoPrenda = this.tipoPrendaSelected;
       console.log(this.tipoPrenda);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.tipoPrendaSelected);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     }
 
     if (value.checked && value.clase === 'color colorStyles') {
       this.colorSelected.push(item);
       this.selectedFilter.push(value);
       this.color = this.colorSelected;
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     }
 
     if (value.checked && value.clase === 'composicion') {
@@ -313,13 +410,21 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       this.selectedFilter.push(value);
       this.composicion = this.composicionSelected;
       console.log(this.composicion);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     } else if (value.clase == 'composicion' && !value.checked) {
       this.composicion = [];
       this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.composicionSelected);
-      this.getInfoSKU();
+      if(this.seleccion === "Mes") {
+        this.getInfoSKU();
+      } else if (this.seleccion === "Semana") {
+        this.getInfoSKUWeek();
+      }
     }   
   }
 
@@ -450,7 +555,11 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
 
-    this.getInfoSKU();
+    if(this.seleccion === "Mes") {
+      this.getInfoSKU();
+    } else if (this.seleccion === "Semana") {
+      this.getInfoSKUWeek();
+    }
   }
 
   closeModal () {
