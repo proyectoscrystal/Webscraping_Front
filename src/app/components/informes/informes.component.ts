@@ -88,8 +88,8 @@ export class InformesComponent implements OnInit {
   colorSelected = [];
   composicionSelected = [];
   // variables para fecha y marca
-  inicio: any = '';
-  fin: any = '';
+  inicio = '';
+  fin = '';
   //inicio2 = '';
   //fin2 = '';
   origenSeleccionado: any;
@@ -148,6 +148,33 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
         this.setInfoCards(res);
+        // console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  // TODO: metodo para el servicio de las cards semana
+
+  //Setear filtros obtenidos en cards
+  getInfoCardWeek() {
+
+    let params = {
+      origin: this.originSelected,
+      categoria: this.categoriaSelected,
+      subCategoria: this.subCategoriaSelected,
+      tipoPrenda: this.tipoPrendaSelected,
+      color: this.colorSelected,
+      composicion: this.composicionSelected,
+      // fechaInicio: this.inicio,
+      // fechaFin: this.fin
+    };
+
+    this.blackboxService.getInfoCardWeek(params).subscribe(
+      (res) => {
+        this.setInfoCardsWeek(res);
         console.log(res);
       },
       (err) => {
@@ -156,26 +183,39 @@ export class InformesComponent implements OnInit {
     );
   }
 
+  setInfoCardsWeek(info: any) {
+    this.precioPromedio = new Intl.NumberFormat('es-CO').format(info.obj.precioPromedio);
+
+    this.currency1 = new Intl.NumberFormat('es-CO').format(info.obj.precioPromedio);
+    this.totalDiscount = info.obj.discount;
+    this.totalNew = new Intl.NumberFormat('es-CO').format(info.obj.nuevos);
+    this.totalDescontinuados = new Intl.NumberFormat('es-CO').format(info.obj.discontinueds);
+    this.totalsku = new Intl.NumberFormat('es-CO').format(info.obj.sku);
+
+    this.priceDifference = info.obj.differencePrice;
+    this.discountDifference = info.obj.differencePorcentage;
+
+    this.skuDifference[1] = new Intl.NumberFormat('es-CO').format(info.obj.differenceSKU[1]);
+    this.skuDifference[0] = info.obj.differenceSKU[0];
+    this.newsDifference[1] = new Intl.NumberFormat('es-CO').format(info.obj.differenceNew[1]);
+    this.newsDifference[0] = info.obj.differenceNew[0];
+    this.discontinuedDifference = info.obj.differenceDiscontinued;
+  }
+
   // funciones para implementar funcion de semanas
   cambioSemanaMes() {
-    console.log("se ingresa inmediatamente")
     if(this.valorSeleccionado === "Semana") {
-      let valor = this.valorSeleccionado;
+      this.getInfoCardWeek();
       this.tituloResumen = "Resumen Semana";
       this.tituloCardActual = "Que la semana pasada";
-      // metodo para volver a cargar valores por semana TODO
-
-      // envio del valor a los componente hijos
+      // metodo para volver a cargar valores por semana
       this.servicioEnvioData.enviarMensaje(this.valorSeleccionado);
       
     } else if (this.valorSeleccionado === "Mes") {
-      let valor = this.valorSeleccionado;
+      this.getInfoCards();
       this.tituloResumen = "Resumen Mes";
       this.tituloCardActual = "Que el mes pasado";
       // metodo para volver a cargar los valores por mes en los cards
-
-      // envio del valor a los componente hijos
-      // this.servicioEnvioData.disparador.emit(this.valorSeleccionado);
       this.servicioEnvioData.enviarMensaje(this.valorSeleccionado);
     }
   }
@@ -201,7 +241,7 @@ export class InformesComponent implements OnInit {
     this.filterItemsData(data);
   }
 
-  //Recibe los datos seleccionados en el filtro
+  //Recibe los datos seleccionados en el filtro cards
   filterItemsData(value) {
     const { item } = value;
 
@@ -211,7 +251,11 @@ export class InformesComponent implements OnInit {
       this.origin = this.originSelected;
       console.log(this.origin);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
 
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
@@ -219,7 +263,11 @@ export class InformesComponent implements OnInit {
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -228,14 +276,22 @@ export class InformesComponent implements OnInit {
       this.categoria = this.categoriaSelected;
       console.log(this.categoria);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.categoriaSelected);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     }
 
     if (value.checked && value.clase === 'subCategoria') {
@@ -244,14 +300,22 @@ export class InformesComponent implements OnInit {
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = []
       this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
@@ -260,14 +324,22 @@ export class InformesComponent implements OnInit {
       this.tipoPrenda = this.tipoPrendaSelected;
       console.log(this.tipoPrenda);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.tipoPrendaSelected);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     }
 
     if (value.checked && value.clase === 'color colorStyles') {
@@ -276,14 +348,22 @@ export class InformesComponent implements OnInit {
       this.color = this.colorSelected;
       console.log(this.color);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     }
 
     if (value.checked && value.clase === 'composicion') {
@@ -292,14 +372,22 @@ export class InformesComponent implements OnInit {
       this.composicion = this.composicionSelected;
       console.log(this.composicion);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     } else if (value.clase == 'composicion' && !value.checked) {
       this.composicion = [];
       this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.composicionSelected);
 
-      this.getInfoCards();
+      if(this.valorSeleccionado === "Mes") {
+        this.getInfoCards();
+      } else if (this.valorSeleccionado === "Semana") {
+        this.getInfoCardWeek();
+      }
     }
   }
 
@@ -332,7 +420,11 @@ export class InformesComponent implements OnInit {
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
 
-    this.getInfoCards();
+    if(this.valorSeleccionado === "Mes") {
+      this.getInfoCards();
+    } else if (this.valorSeleccionado === "Semana") {
+      this.getInfoCardWeek();
+    }
   }
 
   closeModal() {
