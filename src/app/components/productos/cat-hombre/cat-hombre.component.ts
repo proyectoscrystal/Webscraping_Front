@@ -189,7 +189,7 @@ export class CatHombreComponent implements OnInit {
 
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.setInfoBarChart(res);
         this.ng();
       },

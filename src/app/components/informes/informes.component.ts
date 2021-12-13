@@ -175,7 +175,7 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getInfoCardWeek(params).subscribe(
       (res) => {
         this.setInfoCardsWeek(res);
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         console.log(err);

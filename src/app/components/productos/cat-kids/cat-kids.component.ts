@@ -134,7 +134,7 @@ export class CatKidsComponent implements OnInit {
       (res) => {
         this.setInfoCategories(res);
         this.ng();
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         console.log(err);
@@ -189,7 +189,7 @@ export class CatKidsComponent implements OnInit {
 
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.setInfoBarChart(res);
         this.ng();
       },

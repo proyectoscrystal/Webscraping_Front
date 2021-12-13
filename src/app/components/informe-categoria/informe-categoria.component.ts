@@ -162,7 +162,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.blackboxService.getPrendasInfoCards(params).subscribe(
       (res) => {
         this.setPrendasInfoCards(res);
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         console.log(err);

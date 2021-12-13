@@ -185,7 +185,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
     this.blackboxService.getInfoNews(params).subscribe(
       (res) => {
         this.setInfoNews(res);
-        console.log(res);
+        // console.log(res);
         this.ng();
       },
       (err) => {
