@@ -508,16 +508,10 @@ export class InformesComponent implements OnInit {
   }
 
   fechaInicio() {
-    // console.log(this.inicio2);
-    //this.inicio = moment(this.inicio2).format('yyyy-MM-DD');
-    console.log(this.inicio);
     this.getInfoCards();
   }
 
   fechaFin() {
-    // let date = new Date(this.fin);
-    console.log(this.fin);
-    //this.fin = moment(this.fin2).format('yyyy-MM-DD');
     this.getInfoCards();
   }
 

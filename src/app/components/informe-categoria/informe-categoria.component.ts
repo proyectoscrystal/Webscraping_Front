@@ -105,8 +105,8 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   tasaFrescura: any;
   tableAvgSKU: any;
   tableDifference: any;
-  inicio: '';
-  fin: '';
+  inicio: any = '';
+  fin: any = '';
 
   
   constructor(
