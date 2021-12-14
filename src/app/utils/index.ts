@@ -300,6 +300,41 @@ export class Datos {
     }
   ]
 
+  private iconos: any[] = [
+    
+      'accesoriosPet',
+      'accesorios',
+      'bermudas',
+      'bisuteria',
+      'bodys',
+      'bolsos',
+      'boxer',
+      'brassier',
+      'bufandas',
+      'buzo',
+      'calcetines',
+      'calzado',
+      'camisa',
+      'camisetas',
+      'chaquetas',
+      'cuidadoPersonal',
+      'faldas',
+      'gorras',
+      'jeans',
+      'joggers',
+      'marroquineria',
+      'otrosAccesorios',
+      'pantalon',
+      'panties',
+      'pijamas',
+      'polo',
+      'shorts',
+      'top',
+      'vestidos',
+      'zapatos',
+    
+  ]
+
   private colores: any[] = [
     { value: 'amarillo', text: 'Amarillo', hexa: '#FFFF00' },
     { value: 'beige', text: 'Beige', hexa: '#F5F5DC' },

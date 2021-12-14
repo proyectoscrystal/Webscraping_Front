@@ -38,6 +38,7 @@ export class CatMujerComponent implements OnInit {
   };
 
   photos: any;
+  copy: any = ['','','','','','','','','',''];
 
   //Modal categorias
   origin: any = '';
@@ -173,6 +174,7 @@ export class CatMujerComponent implements OnInit {
     this.topTenColoresRGB = data.obj.topTen.coloresRGB;
     this.topTenPorcentajeSKU = data.obj.topTen.porcentajeSKU; 
     this.topTenTotalSKU = data.obj.topTen.totalSKU;
+    this.iconos(this.topTenTipoPrenda);
   }
 
   //info seccion barchart 
@@ -514,17 +516,37 @@ export class CatMujerComponent implements OnInit {
         }
         ]
       },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        }
+      }
     }); // fin chart 1
   };
 
-  /*
-  onlyOne() {
-    $(document).on("change", ".check", function() {
-      var $allCheckboxes = $(".check");
-      $allCheckboxes.prop("disabled", false);
-      this.checked && $allCheckboxes.not(this).prop("disabled", true);
-    });
+  iconos(array) {
+    for (let i = 0; i < array.length; i++) {
+      this.copy[i] = array[i];
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      let temp = array[i];
+
+      let test = this.datos.iconos.some((element) => {
+        return element === temp;
+      });
+
+      if(test === false) {
+        array[i] = "";
+      }
+            
+    }
+
   }
-  */
+
+
 
 }
