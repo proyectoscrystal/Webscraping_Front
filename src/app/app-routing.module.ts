@@ -36,6 +36,7 @@ const routes: Routes = [
   {
     path: 'informes',
     component: InformesComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
