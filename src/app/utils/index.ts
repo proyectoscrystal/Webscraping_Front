@@ -155,6 +155,8 @@ export class Datos {
     { value: 'viajes', text: 'VIAJES' },
     { value: 'web', text: 'WEB' },
     { value: 'wgsn', text: 'WGSN' },
+    { value: 'Zara', text: 'Zara' },
+    { value: 'Mango', text: 'Mango' },
   ];
 
   private mainColors: any[] = [
