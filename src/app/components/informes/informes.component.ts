@@ -125,9 +125,6 @@ export class InformesComponent implements OnInit {
     });
   }
 
-  prueba() {
-    console.log("esta el linkRoute activo");
-  }
 
   //===============INICIO FILTROS MODAL===============
 
@@ -175,7 +172,7 @@ export class InformesComponent implements OnInit {
     this.blackboxService.getInfoCardWeek(params).subscribe(
       (res) => {
         this.setInfoCardsWeek(res);
-        // console.log(res);
+        console.log(res);
       },
       (err) => {
         console.log(err);

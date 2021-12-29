@@ -318,9 +318,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let e of photos">
-          <td data-label="Categoría" class="alignTableItems"> {{e.categoria}} </td>
-          <td data-label="Subcategoría" class="alignTableItems"> {{e.subCategoria}} </td>
-          <td data-label="Tipo de prenda" class="alignTableItems"> {{e.tipoPrenda}} </td>
+          <td data-label="Categoría" class="alignTableItems"> {{selectedFilter2.length !== 0 ? e.categoria : 'todas'}} </td>
+          <td data-label="Subcategoría" class="alignTableItems"> {{selectedFilter2.length !== 0 ? e.subCategoria : 'todas'}} </td>
+          <td data-label="Tipo de prenda" class="alignTableItems"> {{selectedFilter2.length !== 0 ? e.tipoPrenda : 'todas'}} </td>
           <td data-label="Descontinuados" class="alignTableItems"> {{tableAvgDescontinuados}} </td>
           <td data-label="Diferencia" [ngClass]="diferencia()" class="alignTableItems"> {{tableDifference[1]}} </td>
         </tr>

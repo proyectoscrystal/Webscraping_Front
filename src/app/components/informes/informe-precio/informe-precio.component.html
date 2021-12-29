@@ -322,9 +322,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of photos; trackBy:TrackByFn">
-          <td data-label="Categoría" class="alignTableItems"> {{item.categoria}} </td>
-          <td data-label="Subcategoría" class="alignTableItems"> {{item.subCategoria}} </td>
-          <td data-label="Tipo de prenda" class="alignTableItems"> {{item.tipoPrenda}} </td>
+          <td data-label="Categoría" class="alignTableItems"> {{selectedFilter2.length !== 0 ? item.categoria : 'todas'}} </td>
+          <td data-label="Subcategoría" class="alignTableItems"> {{selectedFilter2.length !== 0 ? item.subCategoria : 'todas'}} </td>
+          <td data-label="Tipo de prenda" class="alignTableItems"> {{selectedFilter2.length !== 0 ? item.tipoPrenda : 'todas'}} </td>
           <td data-label="Precio promedio" class="alignTableItems"> $ {{tableAvgPrice}} </td>
           <td data-label="Diferencia" [ngClass]="diferencia()" class="alignTableItems"> {{tableDifference[1]}} </td>
         </tr>
