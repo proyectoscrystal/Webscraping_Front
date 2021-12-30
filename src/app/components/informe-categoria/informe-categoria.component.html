@@ -265,14 +265,14 @@
                         <p>Total SKU: {{womensku}}</p>
                       </div>
                     </div>
-                    <div class="detalles">
+                    <!-- <div class="detalles">
                       <a href="">
                         <span class="material-icons" style="font-size: 25px;">add_circle</span>
                       </a>
                       <a href="">
                         <p>Más detalles</p>
                       </a>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -293,14 +293,14 @@
                         <p>Total SKU: {{mensku}}</p>
                       </div>
                     </div>
-                    <div class="detalles">
+                    <!-- <div class="detalles">
                       <a href="">
                         <span class="material-icons" style="font-size: 25px;">add_circle</span>
                       </a>
                       <a href="">
                         <p>Más detalles</p>
                       </a>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -321,14 +321,14 @@
                         <p>Total SKU: {{kidssku}}</p>
                       </div>
                     </div>
-                    <div class="detalles">
+                    <!-- <div class="detalles">
                       <a href="">
                         <span class="material-icons" style="font-size: 25px;">add_circle</span>
                       </a>
                       <a href="">
                         <p>Más detalles</p>
                       </a>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -504,9 +504,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let e of photos">
-              <td data-label="Categoría" class="alignTableItems"> {{e.categoria}} </td>
-              <td data-label="Subcategoría" class="alignTableItems"> {{e.subCategoria}} </td>
-              <td data-label="Tipo de prenda" class="alignTableItems"> {{e.tipoPrenda}} </td>
+              <td data-label="Categoría" class="alignTableItems"> {{selectedFilter.length !== 0 ? e.categoria : 'todas'}} </td>
+              <td data-label="Subcategoría" class="alignTableItems"> {{selectedFilter.length !== 0 ? e.subCategoria : 'todas'}} </td>
+              <td data-label="Tipo de prenda" class="alignTableItems"> {{selectedFilter.length !== 0 ? e.tipoPrenda : 'todas'}} </td>
               <td data-label="SKU" class="alignTableItems"> {{tableAvgSKU}} </td>
               <td data-label="Precio promedio" class="alignTableItems"> $ {{averagePrice}} </td>
               <td data-label="Nueva llegada" class="alignTableItems"> {{averageNews2}} </td>

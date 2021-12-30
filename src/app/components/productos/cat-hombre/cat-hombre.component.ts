@@ -108,6 +108,7 @@ export class CatHombreComponent implements OnInit {
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
     Chart.register(...registerables);
+    this.categoriaSelected2.push("Hombre");
   }
 
   ngOnInit(): void {
