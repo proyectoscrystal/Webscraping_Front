@@ -129,6 +129,8 @@ export class NewImageComponent implements OnInit {
         'mb'
     );
     this.allFiles.push(this.outputFile);
+
+    console.log(this.outputFile);
   }
 
   async onPhotoSelected(event, useWebWorker: boolean) {
@@ -148,7 +150,8 @@ export class NewImageComponent implements OnInit {
 
       await this.compressImg(this.selectedFile, useWebWorker);
 
-      while (this.outputFile.size > 200000) {
+      while (this.outputFile.size > 202000) {
+        console.log('Comprimiendo nuevamente');
         this.preview = this.sanitizer.bypassSecurityTrustUrl(
           URL.createObjectURL(this.outputFile)
         );
@@ -174,6 +177,8 @@ export class NewImageComponent implements OnInit {
         };
 
         this.outputFile = await imageCompression(this.outputFile, options);
+
+        console.log("IMG COMPRIMIDA 2", this.outputFile);
 
         this.updateLog(
           true,
@@ -265,9 +270,9 @@ export class NewImageComponent implements OnInit {
         n = convertToString;
 
         this.nameToken = this.token();
-        // console.log(this.nameToken);
+        console.log(this.nameToken);
 
-        // console.log(this.fileName[i]);
+        console.log(this.fileName[i]);
       }
 
       this.payload.push({
