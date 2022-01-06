@@ -94,7 +94,7 @@ export class Table2Component implements OnInit, OnDestroy {
       composicion: this.composicionSelected2
     };
 
-    this.blackboxService.getTablePriceInfo(params).subscribe(
+    this.blackboxService.getTablePrendasInfo(params).subscribe(
       (res) => {
         this.setInfoTable2(res);
         this.dtTrigger2.next();

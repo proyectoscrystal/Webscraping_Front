@@ -200,11 +200,16 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
 
   setInfoTable(res) {
     // formatear numero a monedades
-    let precioPromedio = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
+    // let precioPromedio = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
+    res.obj.arr3 = res.obj.arr3.map(element => {
+      if(element.precioPromedio !== null) element.precioPromedio = new Intl.NumberFormat('es-CO').format(element.precioPromedio);
 
-    this.photos = res.obj.arr;
-    this.tableAvgPrice = precioPromedio;
-    this.tableDifference = res.obj.differences;
+      return element
+    });
+
+    this.photos = res.obj.arr3;
+    // this.tableAvgPrice = precioPromedio;
+    // this.tableDifference = res.obj.differences;
   }
 
   TrackByFn(index: number, item: any): number {

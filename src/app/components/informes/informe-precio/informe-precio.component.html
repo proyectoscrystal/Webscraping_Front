@@ -322,11 +322,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of photos; trackBy:TrackByFn">
-          <td data-label="Categoría" class="alignTableItems"> {{selectedFilter2.length !== 0 ? item.categoria : 'todas'}} </td>
-          <td data-label="Subcategoría" class="alignTableItems"> {{selectedFilter2.length !== 0 ? item.subCategoria : 'todas'}} </td>
-          <td data-label="Tipo de prenda" class="alignTableItems"> {{selectedFilter2.length !== 0 ? item.tipoPrenda : 'todas'}} </td>
-          <td data-label="Precio promedio" class="alignTableItems"> $ {{tableAvgPrice}} </td>
-          <td data-label="Diferencia" [ngClass]="diferencia()" class="alignTableItems"> {{tableDifference[1]}} </td>
+          <!-- selectedFilter2.length !== 0 ? item.categoria : 'todas'
+          asi estaba para cuando era el filtro general -->
+          <td data-label="Categoría" class="alignTableItems"> {{item._id.categoria !== null ? item._id.categoria : 'sin dato'}} </td>
+          <td data-label="Subcategoría" class="alignTableItems"> {{item._id.subCategoria !== null ? item._id.subCategoria : 'sin dato'}} </td>
+          <td data-label="Tipo de prenda" class="alignTableItems"> {{item._id.tipoPrenda !== null ? item._id.tipoPrenda : 'sin dato'}} </td>
+          <td data-label="Precio promedio" class="alignTableItems"> $ {{item.precioPromedio}} </td>
+          <td data-label="Diferencia"  class="alignTableItems"> {{'0'}} </td>
         </tr>
       </tbody>
     </table>

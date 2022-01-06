@@ -44,6 +44,11 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_tablePriceInfo/' ,{ params } );
   }
 
+  // peticiones para las tablas 
+  getTablePrendasInfo(params: any) {
+    return this.http.get(this.url + '/m_tablePrendasInfo/' ,{ params } );
+  }
+
   getTableDiscountInfo(params: any) {
     return this.http.get(this.url + '/m_tableDiscountInfo/' ,{ params } );
   }
