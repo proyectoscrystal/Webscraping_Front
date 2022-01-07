@@ -220,9 +220,16 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
 
   // set info table
   setInfoTable(res) {
-    this.photos = res.obj.arr;
-    this.tableAvgDescontinuados = new Intl.NumberFormat('es-CO').format(res.obj.descontinuados);
-    this.tableDifference = res.obj.differences;
+    
+    res.obj.arr2 = res.obj.arr2.map(element => {
+      if(element.descontinuados !== null) element.descontinuados = new Intl.NumberFormat('es-CO').format(element.descontinuados);
+      
+      return element;
+    });
+
+    this.photos = res.obj.arr2;
+    // this.tableAvgDescontinuados = new Intl.NumberFormat('es-CO').format(res.obj.descontinuados);
+    // this.tableDifference = res.obj.differences;
   }
 
    // peticion para el chart por semana

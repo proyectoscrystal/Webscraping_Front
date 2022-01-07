@@ -155,6 +155,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableNewsInfo(params).subscribe(
       (res) => {
+        // console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
       },
@@ -166,9 +167,9 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
 
   // set info table
   setInfoTable(res) {
-    this.photos = res.obj.arr;
-    this.tableAvgnuevos = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
-    this.tableDifference = res.obj.differences;
+    this.photos = res.obj.arr2;
+    // this.tableAvgnuevos = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
+    // this.tableDifference = res.obj.differences;
   }
 
   // peticion para el chart
