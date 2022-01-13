@@ -201,7 +201,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       return element
     });
     this.photos = res.obj.arr2;
-    console.log(this.photos);
+    // console.log(this.photos);
     
     // this.tableAvgSKU = new Intl.NumberFormat('es-CO').format( res.obj.SKU);
     // this.tableDifference = res.obj.differences;

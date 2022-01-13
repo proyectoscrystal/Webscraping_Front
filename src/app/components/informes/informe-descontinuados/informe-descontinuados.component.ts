@@ -229,7 +229,7 @@ export class InformeDescontinuadosComponent implements OnDestroy, OnInit {
 
     this.photos = res.obj.arr2;
     // this.tableAvgDescontinuados = new Intl.NumberFormat('es-CO').format(res.obj.descontinuados);
-    // this.tableDifference = res.obj.differences;
+    this.tableDifference = res.obj.differences;
   }
 
    // peticion para el chart por semana

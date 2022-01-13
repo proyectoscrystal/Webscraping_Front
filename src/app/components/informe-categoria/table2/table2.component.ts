@@ -107,7 +107,7 @@ export class Table2Component implements OnInit, OnDestroy {
 
   setInfoTable2(res) {
     this.photos = res.obj.arr;
-    this.descuentoTable2 = res.obj.descuentoPromedio;
+    // console.log(this.photos);
   }
 
   setPrice(price) {

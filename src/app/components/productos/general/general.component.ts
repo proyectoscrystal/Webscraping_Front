@@ -198,9 +198,13 @@ export class GeneralComponent implements OnInit {
   }
 
 
-//info seccion barchart 
+//info seccion barchart colores
   getInfoBarChart() {
     let params = {
+      origin: this.originSelected,
+      sku: this.sku,
+      discount: this.discount,
+      new: this.new,
       categoria: this.categoriaSelected2,
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
@@ -227,14 +231,19 @@ export class GeneralComponent implements OnInit {
     this.coloresRGB = data.obj.porcentajesCategoriaColors.coloresRGB;
   }
 
-  //info seccion barchart 
+  //info seccion barchart materiales
   getInfoBarChartMateriales() {
     let params = {
       categoria: this.categoriaSelected3,
       subCategoria: this.subCategoriaSelected3,
       tipoPrenda: this.tipoPrendaSelected3,
       fechaInicio: this.inicio,
-      fechaFin: this.fin
+      fechaFin: this.fin,
+
+      origin: this.originSelected,
+      sku: this.sku,
+      discount: this.discount,
+      new: this.new,
 
     };
 
@@ -290,6 +299,8 @@ export class GeneralComponent implements OnInit {
       console.log(this.origin);
 
       this.getInfoCategory();
+      this.getInfoBarChartMateriales();
+      this.getInfoBarChart();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
@@ -297,6 +308,8 @@ export class GeneralComponent implements OnInit {
       console.log(this.originSelected);
 
       this.getInfoCategory();
+      this.getInfoBarChartMateriales();
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'sku check') {
@@ -307,6 +320,8 @@ export class GeneralComponent implements OnInit {
 
   
       this.getInfoCategory();
+      this.getInfoBarChartMateriales();
+      this.getInfoBarChart();
     } else if (value.clase == 'sku check' && !value.checked) {
       this.sku = '';
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
@@ -315,6 +330,8 @@ export class GeneralComponent implements OnInit {
 
   
       this.getInfoCategory();
+      this.getInfoBarChartMateriales();
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'discount check') {
@@ -325,6 +342,8 @@ export class GeneralComponent implements OnInit {
 
   
       this.getInfoCategory();
+      this.getInfoBarChartMateriales();
+      this.getInfoBarChart();
     } else if (value.clase == 'discount check' && !value.checked) {
       this.discount = '';
       this.discountSelected.splice(this.discountSelected.indexOf(item), 1);
@@ -333,6 +352,8 @@ export class GeneralComponent implements OnInit {
 
   
       this.getInfoCategory();
+      this.getInfoBarChartMateriales();
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'new check') {
@@ -343,6 +364,8 @@ export class GeneralComponent implements OnInit {
 
   
       this.getInfoCategory();
+      this.getInfoBarChartMateriales();
+      this.getInfoBarChart();
     } else if (value.clase == 'new check' && !value.checked) {
       this.new = '';
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
@@ -351,6 +374,8 @@ export class GeneralComponent implements OnInit {
 
   
       this.getInfoCategory();
+      this.getInfoBarChartMateriales();
+      this.getInfoBarChart();
     }
 
     // Validación check chart colores
@@ -491,6 +516,8 @@ export class GeneralComponent implements OnInit {
     $(".new").prop("checked", false);
 
     this.getInfoCategory();
+    this.getInfoBarChartMateriales();
+    this.getInfoBarChart();
   }
   closeModal() {
     this.modalRef.hide();

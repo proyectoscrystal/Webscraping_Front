@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
       (res) => {
         this.photos = res;
         this.total = this.photos.length;
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         console.log(err);

@@ -322,8 +322,8 @@
           <td data-label="Subcategoría" class="alignTableItems"> {{e._id.subCategoria !== null ? e._id.subCategoria : 'sin dato'}} </td>
           <td data-label="Tipo de prenda" class="alignTableItems"> {{e._id.tipoPrenda !== null ? e._id.tipoPrenda : 'sin dato'}} </td>
           <td data-label="Descontinuados" class="alignTableItems"> {{e.descontinuados}} </td>
-          <td data-label="Diferencia"  class="alignTableItems"> {{0}} </td>
-          <!-- [ngClass]="diferencia()" -  {{difference[1]}} -->
+          <td data-label="Diferencia" [ngClass]="diferencia()" class="alignTableItems"> {{tableDifference[1]}} </td>
+ 
         </tr>
       </tbody>
     </table>
