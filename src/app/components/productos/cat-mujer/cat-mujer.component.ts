@@ -181,6 +181,10 @@ export class CatMujerComponent implements OnInit {
   //info seccion barchart 
   getInfoBarChart() {
     let params = {
+      origin: this.originSelected,
+      sku: this.sku,
+      discount: this.discount,
+      new: this.new,
       categoria: this.categoriaSelected2,
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
@@ -191,7 +195,7 @@ export class CatMujerComponent implements OnInit {
 
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
         this.setInfoBarChart(res);
         this.ng();
       },
@@ -244,6 +248,7 @@ export class CatMujerComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
+      this.getInfoBarChart();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
@@ -252,6 +257,7 @@ export class CatMujerComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'sku check') {
@@ -262,6 +268,7 @@ export class CatMujerComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
+      this.getInfoBarChart();
     } else if (value.clase == 'sku check' && !value.checked) {
       this.sku = '';
       this.skuSelected.splice(this.skuSelected.indexOf(item), 1);
@@ -270,6 +277,7 @@ export class CatMujerComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'discount check') {
@@ -280,6 +288,7 @@ export class CatMujerComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
+      this.getInfoBarChart();
     } else if (value.clase == 'discount check' && !value.checked) {
       this.discount = '';
       this.discountSelected.splice(this.discountSelected.indexOf(item), 1);
@@ -288,6 +297,7 @@ export class CatMujerComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
+      this.getInfoBarChart();
     }
 
     if (value.checked && value.clase === 'new check') {
@@ -298,6 +308,7 @@ export class CatMujerComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
+      this.getInfoBarChart();
     } else if (value.clase == 'new check' && !value.checked) {
       this.new = '';
       this.newSelected.splice(this.newSelected.indexOf(item), 1);
@@ -306,6 +317,7 @@ export class CatMujerComponent implements OnInit {
 
       // Metodo a ejecutar >
       this.getInfoCategory();
+      this.getInfoBarChart();
     }
 
     // Validación check chart colores
@@ -382,6 +394,7 @@ export class CatMujerComponent implements OnInit {
     $(".new").prop("checked", false);
 
     this.getInfoCategory();
+    this.getInfoBarChart();
   }
   closeModal() {
     this.modalRef.hide();
