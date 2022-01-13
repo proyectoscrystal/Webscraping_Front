@@ -162,7 +162,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableDiscountInfo(params).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
         this.ng();
@@ -180,7 +180,7 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   setInfoTable(res) {
     this.photos = res.obj.arr2;
     // this.tableAvgDescuento = res.obj.descuentoPromedio;
-    // this.tableDifference = res.obj.differences;
+    this.tableDifference = res.obj.differences;
   }
 
   // peticion para el chart

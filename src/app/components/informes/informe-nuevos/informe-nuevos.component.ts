@@ -169,7 +169,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   setInfoTable(res) {
     this.photos = res.obj.arr2;
     // this.tableAvgnuevos = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
-    // this.tableDifference = res.obj.differences;
+    this.tableDifference = res.obj.differences;
   }
 
   // peticion para el chart

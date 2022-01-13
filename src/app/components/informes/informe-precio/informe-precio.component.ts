@@ -209,7 +209,7 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
 
     this.photos = res.obj.arr3;
     // this.tableAvgPrice = precioPromedio;
-    // this.tableDifference = res.obj.differences;
+    this.tableDifference = res.obj.differences;
   }
 
   TrackByFn(index: number, item: any): number {

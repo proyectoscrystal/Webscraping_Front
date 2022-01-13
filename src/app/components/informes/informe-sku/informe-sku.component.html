@@ -320,15 +320,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let e of photos">
-        <td data-label="Categoría" class="alignTableItems"> {{selectedFilter2.length !== 0 ? e.categoria : 'todas'}} </td>
-        <td data-label="Subcategoría" class="alignTableItems"> {{selectedFilter2.length !== 0 ? e.subCategoria : 'todas'}} </td>
-        <td data-label="Tipo de prenda" class="alignTableItems"> {{selectedFilter2.length !== 0 ? e.tipoPrenda : 'todas'}} </td>
-        <td data-label="SKU" class="alignTableItems"> {{tableAvgSKU}} </td>
-        <td data-label="Precio promedio" class="alignTableItems">$ {{averagePrice}} </td>
-        <td data-label="Nueva llegada" class="alignTableItems"> {{averageNews2}} </td>
-        <td data-label="Tasa de frescura" class="alignTableItems"> {{tasaFrescura}} </td>
-        <td data-label="Descuento promedio" class="alignTableItems"> {{averageDiscount2}} % </td>
+      <tr *ngFor="let item of photos">
+        <td data-label="Categoría" class="alignTableItems"> {{item._id.categoria !== null ? item._id.categoria : 'sin dato'}} </td>
+        <td data-label="Subcategoría" class="alignTableItems"> {{item._id.subCategoria !== null ? item._id.subCategoria : 'sin dato'}} </td>
+        <td data-label="Tipo de prenda" class="alignTableItems"> {{item._id.tipoPrenda !== null ? item._id.tipoPrenda : 'sin dato'}} </td>
+        <td data-label="SKU" class="alignTableItems"> {{item.SKU !== null ? item.SKU : '0'}} </td>
+        <td data-label="Precio promedio" class="alignTableItems">$ {{item.precioPromedio !== null ? item.precioPromedio : '0'}} </td>
+        <td data-label="Nueva llegada" class="alignTableItems"> {{item.nuevos !== null ? item.nuevos : '0'}} </td>
+        <td data-label="Tasa de frescura" class="alignTableItems"> {{item.tasaFrescura !== null ? item.tasaFrescura : '0'}} </td>
+        <td data-label="Descuento promedio" class="alignTableItems"> {{item.porcentajeDescuento !== null ? item.porcentajeDescuento : '0'}} % </td>
       </tr>
     </tbody>
   </table>

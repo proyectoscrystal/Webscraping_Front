@@ -328,7 +328,7 @@
           <td data-label="Subcategoría" class="alignTableItems"> {{item._id.subCategoria !== null ? item._id.subCategoria : 'sin dato'}} </td>
           <td data-label="Tipo de prenda" class="alignTableItems"> {{item._id.tipoPrenda !== null ? item._id.tipoPrenda : 'sin dato'}} </td>
           <td data-label="Precio promedio" class="alignTableItems"> $ {{item.precioPromedio}} </td>
-          <td data-label="Diferencia"  class="alignTableItems"> {{'0'}} </td>
+          <td data-label="Diferencia" [ngClass]="diferencia()" class="alignTableItems"> {{tableDifference[1]}} </td>
         </tr>
       </tbody>
     </table>

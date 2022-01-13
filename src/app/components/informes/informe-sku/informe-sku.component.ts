@@ -155,6 +155,7 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
 
     this.blackboxService.getTableSKUInfo(params).subscribe(
       (res) => {
+        // console.log(res);
         this.setInfoTable(res);
         this.dtTrigger.next();
       },
@@ -188,14 +189,26 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
 
   // set info table
   setInfoTable(res) {
-    this.photos = res.obj.arr;
+
+    res.obj.arr2 = res.obj.arr2.map(element => {
+      if(element.precioPromedio !== null) {
+        element.precioPromedio = new Intl.NumberFormat('es-CO').format(element.precioPromedio);
+        element.nuevos = new Intl.NumberFormat('es-CO').format(element.nuevos);
+        element.SKU = new Intl.NumberFormat('es-CO').format(element.SKU);
+
+      }
+
+      return element
+    });
+    this.photos = res.obj.arr2;
+    console.log(this.photos);
     
-    this.tableAvgSKU = new Intl.NumberFormat('es-CO').format( res.obj.SKU);
-    this.tableDifference = res.obj.differences;
-    this.averagePrice = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
-    this.averageNews2 = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
-    this.averageDiscount2 = new Intl.NumberFormat('es-CO').format(res.obj.descuentoPromedio);
-    this.tasaFrescura = res.obj.tasaFrescura;
+    // this.tableAvgSKU = new Intl.NumberFormat('es-CO').format( res.obj.SKU);
+    // this.tableDifference = res.obj.differences;
+    // this.averagePrice = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
+    // this.averageNews2 = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
+    // this.averageDiscount2 = new Intl.NumberFormat('es-CO').format(res.obj.descuentoPromedio);
+    // this.tasaFrescura = res.obj.tasaFrescura;
   }
 
      // peticion para el chart por semana
