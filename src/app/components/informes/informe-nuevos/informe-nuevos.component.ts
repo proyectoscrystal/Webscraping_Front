@@ -87,6 +87,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   tipoPrendaData: any;
   colorData: any;
   composicionData: any;
+
   tableAvgnuevos: any;
   tableDifference: any;
 
@@ -105,6 +106,13 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   tipoPrendaSelected2 = [];
   colorSelected2 = [];
   composicionSelected2 = [];
+
+  isCheckedOrigin = false;
+  isCheckedCategory = false;
+  isCheckedSubCategory = false;
+  isCheckedTipoPrenda = false;
+  isCheckedColor = false;
+  isCheckedComposicion = false;
 
   constructor(
     private blackboxService: BlackboxService,
@@ -277,17 +285,6 @@ setInfoNewsWeek(res) {
     this.filterItemsData(data);
   }
 
-  //Función para validar checked del filtro tabla
-  validateCheckFilter2(checked, item, className) {
-    let data = {
-      checked,
-      clase: className,
-      item: item.value || '',
-    };
-
-    this.filterItemsData2(data);
-  }
-
   //Recibe los datos seleccionados en el filtro chart
   filterItemsData(value) {
     const { item } = value;
@@ -426,6 +423,330 @@ setInfoNewsWeek(res) {
     }       
   }
 
+  //Validación check all filtros
+  checkAllOrigin() {
+    if (this.isCheckedOrigin == true) {
+      $('.marca2').prop('checked', false);
+      this.isCheckedOrigin = false;
+      $('.marca2').prop('disabled', false);
+
+      this.originData.forEach(element => {
+        this.selectedFilter2.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.originSelected2.splice(element.value);
+      });
+
+      this.getInfotableNews();
+    } else {
+      if (this.originSelected2.length > 0 && this.selectedFilter2.length > 0) {
+        this.originSelected2 = [];
+
+        this.originData.forEach(element => {
+          this.selectedFilter2.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.originSelected2.splice(element.value);
+        });
+      }
+
+      $('.marca2').prop('checked', true);
+      this.isCheckedOrigin = true;
+      $('.marca2').prop('disabled', true);
+
+      this.originData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.originSelected2.push(element.value);
+        this.selectedFilter2.push(value);
+      });
+
+      this.getInfotableNews();
+    }
+  }
+
+  checkAllCategory() {
+    if (this.isCheckedCategory == true) {
+      $('.categoria2').prop('checked', false);
+      this.isCheckedCategory = false;
+      $('.categoria2').prop('disabled', false);
+
+      this.categoryData.forEach(element => {
+        this.selectedFilter2.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.categoriaSelected2.splice(element.value);
+      });
+
+      this.getInfotableNews();
+    } else {
+      if (this.categoriaSelected2.length > 0 && this.selectedFilter2.length > 0) {
+        this.categoriaSelected2 = [];
+
+        this.categoryData.forEach(element => {
+          this.selectedFilter2.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.categoriaSelected2.splice(element.value);
+        });
+      }
+
+      $('.categoria2').prop('checked', true);
+      this.isCheckedCategory = true;
+      $('.categoria2').prop('disabled', true);
+
+      this.categoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.categoriaSelected2.push(element.value);
+        this.selectedFilter2.push(value);
+      });
+
+      this.getInfotableNews();
+    }
+  }
+
+  checkAllSubCategory() {
+    if (this.isCheckedSubCategory == true) {
+      $('.subCategoria2').prop('checked', false);
+      this.isCheckedSubCategory = false;
+      $('.subCategoria2').prop('disabled', false);
+
+      this.subCategoryData.forEach(element => {
+        this.selectedFilter2.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.subCategoriaSelected2.splice(element.value);
+      });
+
+      this.getInfotableNews();
+    } else {
+      if (this.subCategoriaSelected2.length > 0 && this.selectedFilter2.length > 0) {
+        this.subCategoriaSelected2 = [];
+
+        this.subCategoryData.forEach(element => {
+          this.selectedFilter2.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.subCategoriaSelected2.splice(element.value);
+        });
+      }
+
+      $('.subCategoria2').prop('checked', true);
+      this.isCheckedSubCategory = true;
+      $('.subCategoria2').prop('disabled', true);
+
+      this.subCategoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.subCategoriaSelected2.push(element.value);
+        this.selectedFilter2.push(value);
+      });
+
+      this.getInfotableNews();
+    }
+  }
+
+  checkAllTipoPrenda() {
+    if (this.isCheckedTipoPrenda == true) {
+      $('.tipoPrenda2').prop('checked', false);
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrenda2').prop('disabled', false);
+
+      this.tipoPrendaData.forEach(element => {
+        this.selectedFilter2.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.tipoPrendaSelected2.splice(element.value);
+      });
+
+      this.getInfotableNews();
+    } else {
+      if (this.tipoPrendaSelected2.length > 0 && this.selectedFilter2.length > 0) {
+        this.tipoPrendaSelected2 = [];
+
+        this.tipoPrendaData.forEach(element => {
+          this.selectedFilter2.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.tipoPrendaSelected2.splice(element.value);
+        });
+      }
+
+      $('.tipoPrenda2').prop('checked', true);
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrenda2').prop('disabled', true);
+
+      this.tipoPrendaData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.tipoPrendaSelected2.push(element.value);
+        this.selectedFilter2.push(value);
+      });
+
+      this.getInfotableNews();
+    }
+  }
+  
+  checkAllColor() {
+    if (this.isCheckedColor == true) {
+      $('.color2').prop('checked', false);
+      this.isCheckedColor = false;
+      $('.color2').prop('disabled', false);
+
+      this.colorData.forEach(element => {
+        this.selectedFilter2.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.colorSelected2.splice(element.value);
+      });
+
+      this.getInfotableNews();
+    } else {
+      if (this.colorSelected2.length > 0 && this.selectedFilter2.length > 0) {
+        this.colorSelected2 = [];
+
+        this.colorData.forEach(element => {
+          this.selectedFilter2.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.colorSelected2.splice(element.value);
+        });
+      }
+
+      $('.color2').prop('checked', true);
+      this.isCheckedColor = true;
+      $('.color2').prop('disabled', true);
+
+      this.colorData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.colorSelected2.push(element.value);
+        this.selectedFilter2.push(value);
+      });
+
+      this.getInfotableNews();
+    }
+  }
+
+  checkAllComposicion() {
+    if (this.isCheckedComposicion == true) {
+      $('.composicion2').prop('checked', false);
+      this.isCheckedComposicion = false;
+      $('.composicion2').prop('disabled', false);
+
+      this.composicionData.forEach(element => {
+        this.selectedFilter2.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.composicionSelected2.splice(element.value);
+      });
+
+      this.getInfotableNews();
+    } else {
+      if (this.composicionSelected2.length > 0 && this.selectedFilter2.length > 0) {
+        this.composicionSelected2 = [];
+
+        this.composicionData.forEach(element => {
+          this.selectedFilter2.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter2 = this.selectedFilter2.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.composicionSelected2.splice(element.value);
+        });
+      }
+
+      $('.composicion2').prop('checked', true);
+      this.isCheckedComposicion = true;
+      $('.composicion2').prop('disabled', true);
+
+      this.composicionData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.composicionSelected2.push(element.value);
+        this.selectedFilter2.push(value);
+      });
+
+      this.getInfotableNews();
+    }
+  }
+
+  //Función para validar checked del filtro tabla
+  validateCheckFilter2(checked, item, className) {
+    let data = {
+      checked,
+      clase: className,
+      item: item.value || '',
+    };
+
+    this.filterItemsData2(data);
+  }
+
   //Recibe los datos seleccionados en el filtro tabla
   filterItemsData2(value) {
     const { item } = value;
@@ -435,6 +756,7 @@ setInfoNewsWeek(res) {
       this.originSelected2.push(item);
       this.selectedFilter2.push(value);
       this.origin2 = this.originSelected2;
+      console.log(this.selectedFilter2);
       console.log(this.origin2);
       this.getInfotableNews();
       this.rerender();
@@ -592,6 +914,20 @@ setInfoNewsWeek(res) {
     $(".tipoPrenda2").prop("checked", false);
     $(".color2").prop("checked", false);
     $(".composicion2").prop("checked", false);
+    
+    $(".marcaAll").prop("checked", false);
+    $(".categoriaAll").prop("checked", false);
+    $(".subCategoriaAll").prop("checked", false);
+    $(".tipoPrendaAll").prop("checked", false);
+    $(".colorAll").prop("checked", false);
+    $(".composicionAll").prop("checked", false);
+
+    this.isCheckedOrigin = false;
+    this.isCheckedCategory = false;
+    this.isCheckedSubCategory = false;
+    this.isCheckedTipoPrenda = false;
+    this.isCheckedColor = false;
+    this.isCheckedComposicion = false;
 
     this.getInfotableNews();
     this.rerender();
@@ -665,6 +1001,14 @@ setInfoNewsWeek(res) {
       let chequearMarca2 = document.getElementById(`marca2${marcaCheck2}`);
       chequearMarca2.setAttribute('checked', 'checked');
     }
+    
+    if (this.isCheckedOrigin == true) {
+      this.isCheckedOrigin = false;
+      $('.marca2').prop('disabled', false);
+    } else {
+      this.isCheckedOrigin = true;
+      $('.marca2').prop('disabled', true);
+    }
   }
 
   validateCheckCategory2(value: any, categoriaCheck2: any) {
@@ -673,6 +1017,14 @@ setInfoNewsWeek(res) {
     if (validarCategoria2) {
       let chequearCategoria2 = document.getElementById(`categoria2${categoriaCheck2}`);
       chequearCategoria2.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedCategory == true) {
+      this.isCheckedCategory = false;
+      $('.categoria2').prop('disabled', false);
+    } else {
+      this.isCheckedCategory = true;
+      $('.categoria2').prop('disabled', true);
     }
   }
 
@@ -683,6 +1035,14 @@ setInfoNewsWeek(res) {
       let chequearSubCategoria2 = document.getElementById(`subcategoria2${subCategoriaCheck2}`);
       chequearSubCategoria2.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedSubCategory == true) {
+      this.isCheckedSubCategory = false;
+      $('.subCategoria2').prop('disabled', false);
+    } else {
+      this.isCheckedSubCategory = true;
+      $('.subCategoria2').prop('disabled', true);
+    }
   }
 
   validateCheckTipoPrenda2(value: any, tipoPrendaCheck2: any) {
@@ -691,6 +1051,14 @@ setInfoNewsWeek(res) {
     if (validarTipoPrenda2) {
       let chequearTipoPrenda2 = document.getElementById(`tipoprenda2${tipoPrendaCheck2}`);
       chequearTipoPrenda2.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedTipoPrenda == true) {
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrenda2').prop('disabled', false);
+    } else {
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrenda2').prop('disabled', true);
     }
   }
 
@@ -701,6 +1069,14 @@ setInfoNewsWeek(res) {
       let chequearColor2 = document.getElementById(`color2${colorCheck2}`);
       chequearColor2.setAttribute('checked', 'checked');
     }
+    
+    if (this.isCheckedColor == true) {
+      this.isCheckedColor = false;
+      $('.color2').prop('disabled', false);
+    } else {
+      this.isCheckedColor = true;
+      $('.color2').prop('disabled', true);
+    }
   }
 
   validateCheckComposicion2(value: any, composicionCheck2: any) {
@@ -709,6 +1085,14 @@ setInfoNewsWeek(res) {
     if (validarComposicion2) {
       let chequearComposicion2 = document.getElementById(`composicion2${composicionCheck2}`);
       chequearComposicion2.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedComposicion == true) {
+      this.isCheckedComposicion = false;
+      $('.composicion2').prop('disabled', false);
+    } else {
+      this.isCheckedComposicion = true;
+      $('.composicion2').prop('disabled', true);
     }
   }
 
