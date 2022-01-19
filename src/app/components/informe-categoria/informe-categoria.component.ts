@@ -108,6 +108,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   inicio: any = '';
   fin: any = '';
 
+  //Checked All
+  isCheckedOrigin2 = false;
+  isCheckedCategory2 = false;
+  isCheckedSubCategory2 = false;
+  isCheckedTipoPrenda2 = false;
+  isCheckedColor2 = false;
+  isCheckedComposicion2 = false;
+
   
   constructor(
     private blackboxService: BlackboxService, private modalServiceCards: BsModalService, private modalService: BsModalService
@@ -346,7 +354,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilterCards.splice(this.selectedFilterCards.indexOf(value), 1);
       console.log(this.composicionSelectedCards);
       this.getInfoCards();
-    }     
+    }       
 
     //Filtro tabla
     if (value.checked && value.clase === 'marca') {
@@ -447,6 +455,319 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     }            
   }
 
+  //Validación check all filtros
+  checkAllOrigin2() {
+    if (this.isCheckedOrigin2 == true) {
+      $('.marca').prop('checked', false);
+      this.isCheckedOrigin2 = false;
+      $('.marca').prop('disabled', false);
+
+      this.originData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.originSelected.splice(element.value);
+      });
+
+      this.getInfoTable();
+    } else {
+      if (this.originSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.originSelected = [];
+
+        this.originData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.originSelected.splice(element.value);
+        });
+      }
+
+      $('.marca').prop('checked', true);
+      this.isCheckedOrigin2 = true;
+      $('.marca').prop('disabled', true);
+
+      this.originData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.originSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoTable();
+    }
+  }
+
+  checkAllCategory2() {
+    if (this.isCheckedCategory2 == true) {
+      $('.categoria').prop('checked', false);
+      this.isCheckedCategory2 = false;
+      $('.categoria').prop('disabled', false);
+
+      this.categoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.categoriaSelected.splice(element.value);
+      });
+
+      this.getInfoTable();
+    } else {
+      if (this.categoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.categoriaSelected = [];
+
+        this.categoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.categoriaSelected.splice(element.value);
+        });
+      }
+
+      $('.categoria').prop('checked', true);
+      this.isCheckedCategory2 = true;
+      $('.categoria').prop('disabled', true);
+
+      this.categoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.categoriaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoTable();
+    }
+  }
+
+  checkAllSubCategory2() {
+    if (this.isCheckedSubCategory2 == true) {
+      $('.subCategoria').prop('checked', false);
+      this.isCheckedSubCategory2 = false;
+      $('.subCategoria').prop('disabled', false);
+
+      this.subCategoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.subCategoriaSelected.splice(element.value);
+      });
+
+      this.getInfoTable();
+    } else {
+      if (this.subCategoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.subCategoriaSelected = [];
+
+        this.subCategoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.subCategoriaSelected.splice(element.value);
+        });
+      }
+
+      $('.subCategoria').prop('checked', true);
+      this.isCheckedSubCategory2 = true;
+      $('.subCategoria').prop('disabled', true);
+
+      this.subCategoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.subCategoriaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoTable();
+    }
+  }
+
+  checkAllTipoPrenda2() {
+    if (this.isCheckedTipoPrenda2 == true) {
+      $('.tipoPrenda').prop('checked', false);
+      this.isCheckedTipoPrenda2 = false;
+      $('.tipoPrenda').prop('disabled', false);
+
+      this.tipoPrendaData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.tipoPrendaSelected.splice(element.value);
+      });
+
+      this.getInfoTable();
+    } else {
+      if (this.tipoPrendaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.tipoPrendaSelected = [];
+
+        this.tipoPrendaData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.tipoPrendaSelected.splice(element.value);
+        });
+      }
+
+      $('.tipoPrenda').prop('checked', true);
+      this.isCheckedTipoPrenda2 = true;
+      $('.tipoPrenda').prop('disabled', true);
+
+      this.tipoPrendaData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.tipoPrendaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoTable();
+    }
+  }
+  
+  checkAllColor2() {
+    if (this.isCheckedColor2 == true) {
+      $('.color').prop('checked', false);
+      this.isCheckedColor2 = false;
+      $('.color').prop('disabled', false);
+
+      this.colorData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.colorSelected.splice(element.value);
+      });
+
+      this.getInfoTable();
+    } else {
+      if (this.colorSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.colorSelected = [];
+
+        this.colorData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.colorSelected.splice(element.value);
+        });
+      }
+
+      $('.color').prop('checked', true);
+      this.isCheckedColor2 = true;
+      $('.color').prop('disabled', true);
+
+      this.colorData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.colorSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoTable();
+    }
+  }
+
+  checkAllComposicion2() {
+    if (this.isCheckedComposicion2 == true) {
+      $('.composicion').prop('checked', false);
+      this.isCheckedComposicion2 = false;
+      $('.composicion').prop('disabled', false);
+
+      this.composicionData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.composicionSelected.splice(element.value);
+      });
+
+      this.getInfoTable();
+    } else {
+      if (this.composicionSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.composicionSelected = [];
+
+        this.composicionData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.composicionSelected.splice(element.value);
+        });
+      }
+
+      $('.composicion').prop('checked', true);
+      this.isCheckedComposicion2 = true;
+      $('.composicion').prop('disabled', true);
+
+      this.composicionData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.composicionSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoTable();
+    }
+  }    
+
   // Modal Cards
   openModalCards(templateCards: TemplateRef<any>) {
     this.modalRefCards = this.modalServiceCards.show(templateCards, this.config);
@@ -507,6 +828,20 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     $(".tipoPrenda").prop("checked", false);
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
+
+    $(".marcaAll2").prop("checked", false);
+    $(".categoriaAll2").prop("checked", false);
+    $(".subCategoriaAll2").prop("checked", false);
+    $(".tipoPrendaAll2").prop("checked", false);
+    $(".colorAll2").prop("checked", false);
+    $(".composicionAll2").prop("checked", false);
+
+    this.isCheckedOrigin2 = false;
+    this.isCheckedCategory2 = false;
+    this.isCheckedSubCategory2 = false;
+    this.isCheckedTipoPrenda2 = false;
+    this.isCheckedColor2 = false;
+    this.isCheckedComposicion2 = false;
 
     this.getInfoTable();
     this.rerender();
@@ -579,6 +914,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       let chequearMarca = document.getElementById(`marca${marcaCheck}`);
       chequearMarca.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedOrigin2 == true) {
+      this.isCheckedOrigin2 = false;
+      $('.marca').prop('disabled', false);
+    } else {
+      this.isCheckedOrigin2 = true;
+      $('.marca').prop('disabled', true);
+    }    
   }
 
   validateCheckCategory(value: any, categoriaCheck: any) {
@@ -588,6 +931,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       let chequearCategoria = document.getElementById(`categoria${categoriaCheck}`);
       chequearCategoria.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedCategory2 == true) {
+      this.isCheckedCategory2 = false;
+      $('.categoria').prop('disabled', false);
+    } else {
+      this.isCheckedCategory2 = true;
+      $('.categoria').prop('disabled', true);
+    }  
   }
 
   validateCheckSubCategory(value: any, subCategoriaCheck: any) {
@@ -596,6 +947,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     if (validarSubCategoria) {
       let chequearSubCategoria = document.getElementById(`subcategoria${subCategoriaCheck}`);
       chequearSubCategoria.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedSubCategory2 == true) {
+      this.isCheckedSubCategory2 = false;
+      $('.subCategoria').prop('disabled', false);
+    } else {
+      this.isCheckedSubCategory2 = true;
+      $('.subCategoria').prop('disabled', true);
     }
   }
 
@@ -606,6 +965,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
       chequearTipoPrenda.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedTipoPrenda2 == true) {
+      this.isCheckedTipoPrenda2 = false;
+      $('.tipoPrenda').prop('disabled', false);
+    } else {
+      this.isCheckedTipoPrenda2 = true;
+      $('.tipoPrenda').prop('disabled', true);
+    }
   }
 
   validateCheckColor(value: any, colorCheck: any) {
@@ -615,6 +982,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       let chequearColor = document.getElementById(`color${colorCheck}`);
       chequearColor.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedColor2 == true) {
+      this.isCheckedColor2 = false;
+      $('.color').prop('disabled', false);
+    } else {
+      this.isCheckedColor2 = true;
+      $('.color').prop('disabled', true);
+    }
   }
 
   validateCheckComposicion(value: any, composicionCheck: any) {
@@ -623,6 +998,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     if (validarComposicion) {
       let chequearComposicion = document.getElementById(`composicion${composicionCheck}`);
       chequearComposicion.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedComposicion2 == true) {
+      this.isCheckedComposicion2 = false;
+      $('.composicion').prop('disabled', false);
+    } else {
+      this.isCheckedComposicion2 = true;
+      $('.composicion').prop('disabled', true);
     }
   } 
 

@@ -25,7 +25,7 @@
 }
 
 .itemsMargin {
-  margin-top: -18px;
+  margin-top: 2px;
 }
 
 .hoverSvgFilter:hover {
@@ -86,6 +86,37 @@
 .colorStyles:checked:after {
   content: '✔';
   color: white;
+}
+
+.colorStyles2 {
+  width: 30px !important;
+  height: 30px !important;
+  margin: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: none;
+  font-size: 13px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.colorStyles2:hover {
+  cursor: pointer;
+}
+
+.colorStyles2::after {
+  content: 'Todo';
+  color: black;
+}
+
+.colorStyles2:checked:after {
+  content: '✔';
+  font-size: 20px;
+  color: black;
 }
 
 table {

@@ -370,6 +370,12 @@
                     class="dropdown-toggle menu-color">Marca
                   </a>
                   <ul class="collapse list-unstyled" id="filterMArk">
+                    <li>
+                      <label class="control control--checkbox">
+                        <input class="marcaAll2" type="checkbox" (change)="checkAllOrigin2()" [checked]="isCheckedOrigin2"/>
+                        Todo
+                      </label>
+                    </li>
                     <li *ngFor="let origin of originData; let marcaCheck = index">
                       <label class="control control--checkbox">
                         <input class="marca" type="checkbox" name="{{origin.value}}"
@@ -387,6 +393,12 @@
                     class="dropdown-toggle menu-color">Categoria
                   </a>
                   <ul class="collapse list-unstyled" id="filterCategory">
+                    <li>
+                      <label class="control control--checkbox">
+                        <input class="categoriaAll2" type="checkbox" (change)="checkAllCategory2()" [checked]="isCheckedCategory2"/>
+                        Todo
+                      </label>
+                    </li>
                     <li *ngFor="let category of categoryData; let categoriaCheck = index">
                       <label class="control control--checkbox">
                         <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
@@ -404,6 +416,12 @@
                     class="dropdown-toggle menu-color">Sub categoría
                   </a>
                   <ul class="collapse list-unstyled" id="filterSubCategory">
+                    <li>
+                      <label class="control control--checkbox">
+                        <input class="subCategoriaAll2" type="checkbox" (change)="checkAllSubCategory2()" [checked]="isCheckedSubCategory2"/>
+                        Todo
+                      </label>
+                    </li>
                     <li *ngFor="let subcategory of subCategoryData; let subCategoriaCheck = index">
                       <label class="control control--checkbox">
                         <input class="subCategoria" type="checkbox" value="{{subcategory.value}}"
@@ -423,6 +441,12 @@
                   </a>
                   <ul class="collapse list-unstyled" id="filterTipoPrenda">
                     <div class="overflow-auto container-scroll">
+                      <li>
+                        <label class="control control--checkbox">
+                          <input class="tipoPrendaAll2" type="checkbox" (change)="checkAllTipoPrenda2()" [checked]="isCheckedTipoPrenda2"/>
+                          Todo
+                        </label>
+                      </li>
                       <li *ngFor="let tipoprenda of tipoPrendaData; let tipoPrendaCheck = index">
                         <label class="control control--checkbox">
                           <input class="tipoPrenda" type="checkbox" value="{{tipoprenda.value}}"
@@ -443,6 +467,11 @@
                   </a>
                   <ul class="collapse list-unstyled" id="filterColor">
                     <div class="overflow-auto checkboxAlign">
+                      <li>
+                        <label class="control control--checkbox">
+                          <input class="colorAll2 colorStyles2" type="checkbox" (change)="checkAllColor2()" [checked]="isCheckedColor2"/>
+                        </label>
+                      </li>
                       <div *ngFor="let color of colorData; let colorCheck = index">
                         <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}"
                           title="{{color.text}}"
@@ -460,6 +489,12 @@
                   </a>
                   <ul class="collapse list-unstyled" id="filterComposicion">
                     <div class="overflow-auto container-scroll">
+                      <li>
+                        <label class="control control--checkbox">
+                          <input class="composicionAll2" type="checkbox" (change)="checkAllComposicion2()" [checked]="isCheckedcomposicion2"/>
+                          Todo
+                        </label>
+                      </li>
                       <li *ngFor="let composicion of composicionData; let composicionCheck = index">
                         <label class="control control--checkbox">
                           <input class="composicion" type="checkbox" value="{{composicion.value}}"

@@ -107,6 +107,7 @@ export class InformeNuevosComponent implements OnDestroy, OnInit {
   colorSelected2 = [];
   composicionSelected2 = [];
 
+  //Checked All
   isCheckedOrigin = false;
   isCheckedCategory = false;
   isCheckedSubCategory = false;
