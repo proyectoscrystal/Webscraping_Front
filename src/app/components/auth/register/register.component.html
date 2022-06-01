@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="title mt-5">
+        <h1 class="text-center title">Registro</h1>
+    </div>
+    <div class="row">
+        <div id="formContent" class="mt-5">
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="./assets/blackbox-nav.png" id="icon" alt="User Icon" />
+                <h2 class="subtitle">Blackbox</h2>
+            </div>
+
+            <!-- register Form -->
+            <form  [formGroup]="myForm" (submit)="signUp()" ngNativeValidate autocomplete="off" >
+                <div class="form-group">
+                    <input type="email" id="email" class="fadeIn second" name="email" formControlName="email" placeholder="correo" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="username" class="fadeIn second" name="username" formControlName="username" placeholder="Nombre de usuario" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="password" class="fadeIn third" name="password"
+                    formControlName="password" placeholder="Contraseña" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="fadeIn fourth" value="Registro">
+                </div>
+            </form>
+
+            <div class="footer-card">
+                <p>¿Ya tienes una cuenta? <a [routerLink]="['/login']">Inicia sesión</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>

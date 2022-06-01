@@ -1,0 +1,431 @@
+<!-- Page Content -->
+<div class="container-top mt-3">
+  <div class="grid">
+    <div class="titulo-grid1">
+      <h1 class="titulo1">Hombres</h1>
+    </div>
+
+    <div class="input-grid1">
+      <input type="text" class="form-control datepickerMargin" [(ngModel)]="inicio" (ngModelChange)="fechaInicio()"
+        placeholder="Fecha inicial" onfocus="(this.type='date')" onblur="(this.type='text')">
+      <input type="text" class="form-control datepickerMargin" [(ngModel)]="fin" (ngModelChange)="fechaFin()"
+        placeholder="Fecha final" onfocus="(this.type='date')" onblur="(this.type='text')">
+
+      <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal(template)" width="17" heigth="17"
+        xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
+        viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill: #000000" role="img"
+        aria-label="Illustration of a Funnel" class="hoverSvgFilter">
+        <g id="__id33_ssutzzo1g">
+          <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
+            style="fill: inherit"></path>
+        </g>
+      </svg>
+      <br />
+      <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Filtros</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" [ngClass]="getSpinnerClass()">
+          <div class="loading" *ngIf="spinnerTable">
+            <div class="sk-cube-grid sp-position">
+              <div class="sk-cube sk-cube1"></div>
+              <div class="sk-cube sk-cube2"></div>
+              <div class="sk-cube sk-cube3"></div>
+              <div class="sk-cube sk-cube4"></div>
+              <div class="sk-cube sk-cube5"></div>
+              <div class="sk-cube sk-cube6"></div>
+              <div class="sk-cube sk-cube7"></div>
+              <div class="sk-cube sk-cube8"></div>
+              <div class="sk-cube sk-cube9"></div>
+              <p class="loadingText">Cargando...</p>
+            </div>
+          </div>
+          <ul class="list-unstyled components">
+            <li class="active">
+              <p class="itemsModal">Marca</p>
+              <ul class="list-unstyled">
+                <li *ngFor="let origin of originData; let marcaCheck = index">
+                  <label class="control control--checkbox">
+                    <input class="marca" type="checkbox" value="{{origin.value}}" name="{{origin.value}}"
+                      (change)="validateCheckFilter($event.target.checked, origin, $event.target.className, $event.target)"
+                      id="{{'marca'+marcaCheck}}"
+                      value="{{origin.value !== '' ? validateCheckOrigin(origin.value, marcaCheck) : origin.value}}" />
+                    {{origin.text}}
+                  </label>
+                </li>
+              </ul>
+            </li>
+
+            <li class="active mt-2">
+              <p class="itemsModal">Sku</p>
+              <ul class="list-unstyled">
+                <li *ngFor="let sku of skuData; let skuCheck = index">
+                  <label class="control control--checkbox">
+                    <input class="sku check" type="checkbox" value="{{sku.value}}" name="{{sku.value}}"
+                      (change)="validateCheckFilter($event.target.checked, sku, $event.target.className, $event.target)"
+                      id="{{'sku'+skuCheck}}"
+                      value="{{sku.value !== '' ? validateCheckSku(sku.value, skuCheck) : sku.value}}" />
+                    {{sku.text}}
+                  </label>
+                </li>
+              </ul>
+            </li>
+
+            <li class="active mt-2">
+              <p class="itemsModal">Descuento</p>
+              <ul class="list-unstyled">
+                <li *ngFor="let discounts of discountsData; let discountsCheck = index">
+                  <label class="control control--checkbox">
+                    <input class="discount check" type="checkbox" value="{{discounts.value}}" name="{{discounts.value}}"
+                      (change)="validateCheckFilter($event.target.checked, discounts, $event.target.className, $event.target)"
+                      id="{{'discounts'+discountsCheck}}"
+                      value="{{discounts.value !== '' ? validateCheckDiscounts(discounts.value, discountsCheck) : discounts.value}}" />
+                    {{discounts.text}}
+                  </label>
+                </li>
+              </ul>
+            </li>
+
+            <li class="active mt-2">
+              <p class="itemsModal">Nuevos</p>
+              <ul class="list-unstyled">
+                <li *ngFor="let news of newsData; let newsCheck = index">
+                  <label class="control control--checkbox">
+                    <input class="new check" type="checkbox" value="{{news.value}}" name="{{news.value}}"
+                      (change)="validateCheckFilter($event.target.checked, news, $event.target.className, $event.target)"
+                      id="{{'news'+newsCheck}}"
+                      value="{{news.value !== '' ? validateCheckNews(news.value, newsCheck) : news.value}}" />
+                    {{news.text}}
+                  </label>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-danger" (click)="clearFilters()">
+            Limpiar filtros
+          </button>
+          <button type="button" class="btn btn-primary" (click)="closeModal()">
+            Cerrar filtros
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<accordion [isAnimated]="true">
+  <accordion-group>
+    <button
+      class="btn btn-link btn-block justify-content-between btnAccordion"
+      accordion-heading type="button">
+      <div class="pull-left float-left">Filtros seleccionados</div>
+      <div class="arrow">
+        <span class="flechaFilters abajo"></span>
+      </div>
+    </button>
+    <span *ngFor="let filter of selectedFilter" class="item-filter">{{filter.item}} /&nbsp;</span>
+  </accordion-group>
+</accordion>
+
+<div class="grid-container">
+  <div class="item1 grid-container-item1">
+    <div>
+      <h2 class="ml-2">Categorías</h2>
+      <div class="item1-1-content items">
+        <div class="item1-1-img">
+          <img src="../../../../assets/hombre.png" alt="Silueta Hombre" class="float-left imgMan" />
+        </div>
+        <h3>Hombres</h3>
+        <p>Total SKU: {{hombreTotalSKU}}</p>
+        <p>% de participación: {{hombreSKU}}%</p>
+        <div class="d-flex">
+          <p>Color predominante: </p>
+          <div [ngStyle]="{'background-color': rgbHombre }" class="colorCat" title="{{colorHombrePalabra}}"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2 class="ml-2">Sub-Categorías</h2>
+      <div class="item1-2-content items">
+        <div class="item2-2-img">
+          <h3>Exterior</h3>
+          <img src="../../../../assets/productos/exterior.png" alt="Silueta Mujer" class="imgPrendas" />
+          <p>{{exterior}}</p>
+          <p>{{exteriorPorcentage}}%</p>
+          <abbr style=" cursor:pointer" title="{{colorExteriorPalabra}}">
+            <div [ngStyle]="{'background-color': colorExterior }" class="colorSub mb-3"></div>
+          </abbr>
+        </div>
+        <div class="item2-2-img">
+          <h3>Interior</h3>
+          <img src="../../../../assets/productos/interior.png" alt="Silueta Mujer" class="imgPrendas" />
+          <p>{{interior}}</p>
+          <p>{{interiorPorcentage}}%</p>
+          <abbr style=" cursor:pointer" title="{{colorInteriorPalabra}}">
+            <div [ngStyle]="{'background-color': colorInterior }" class="colorSub mb-3"></div>
+          </abbr>
+        </div>
+        <div class="item2-2-img">
+          <h3>Calzado</h3>
+          <img src="../../../../assets/productos/calzado.png" alt="Silueta Mujer" class="imgPrendas" />
+          <p>{{calzado}}</p>
+          <p>{{calzadoPorcentage}}%</p>
+          <abbr style=" cursor:pointer" title="{{colorCalzadoPalabra}}">
+            <div [ngStyle]="{'background-color': colorCalzado }" class="colorSub mb-3"></div>
+          </abbr>
+        </div>
+        <div class="item2-2-img">
+          <h3>Accesorios</h3>
+          <img src="../../../../assets/productos/accesorios.png" alt="Silueta Mujer" class="imgPrendas" />
+          <p>{{accesorios}}</p>
+          <p>{{accesoriosPorcentage}}%</p>
+          <abbr style=" cursor:pointer" title="{{colorAccesoriosPalabra}}">
+            <div [ngStyle]="{'background-color': colorAccesorios }" class="colorSub mb-3"></div>
+          </abbr>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item2">
+    <div class="grid-container-item2 mt-4">
+      <h2 class="ml-2">Colores</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" (click)="openModal2(template2)" width="17" heigth="17"
+        xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0"
+        viewBox="0.0 0.0 180.0 210.0" zoomAndPan="magnify" style="fill:#000000 " role="img"
+        aria-label="Illustration of a Funnel" class="hoverSvgFilter">
+        <g id="__id33_ssutzzo1g">
+          <path d="m350 144.09h180v20l-70 90v100l-40-20v-80l-70-90v-20" transform="translate(-350 -144.09)"
+            style="fill: inherit"></path>
+        </g>
+      </svg>
+      <br>
+      <ng-template #template2>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Filtros</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal2()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" [ngClass]="getSpinnerClass()">
+          <div class="loading" *ngIf="spinnerTable">
+            <div class="sk-cube-grid sp-position">
+              <div class="sk-cube sk-cube1"></div>
+              <div class="sk-cube sk-cube2"></div>
+              <div class="sk-cube sk-cube3"></div>
+              <div class="sk-cube sk-cube4"></div>
+              <div class="sk-cube sk-cube5"></div>
+              <div class="sk-cube sk-cube6"></div>
+              <div class="sk-cube sk-cube7"></div>
+              <div class="sk-cube sk-cube8"></div>
+              <div class="sk-cube sk-cube9"></div>
+              <p class="loadingText">Cargando...</p>
+            </div>
+          </div>
+          <ul class="list-unstyled components">
+            <li class="active mt-2">
+              <a href="#filterCategory" data-toggle="collapse" aria-expanded="false"
+                class="dropdown-toggle menu-color">Categoria
+              </a>
+              <ul class="collapse list-unstyled" id="filterCategory">
+                <li *ngFor="let category of categoryData; let categoriaCheck2 = index">
+                  <label class="control control--checkbox">
+                    <input class="categoria2" type="checkbox" value="{{category.value}}" name="{{category.value}}"
+                      (change)="validateCheckFilter($event.target.checked, category, $event.target.className, $event.target)"
+                      id="{{'categoria2'+categoriaCheck2}}"
+                      value="{{category.value !== '' ? validateCheckCategory2(category.value, categoriaCheck2) : category.value}}" />
+                    {{category.text}}
+                  </label>
+                </li>
+              </ul>
+            </li>
+
+            <li class="active mt-2">
+              <a href="#filterSubCategory" data-toggle="collapse" aria-expanded="false"
+                class="dropdown-toggle menu-color">Sub categoría
+              </a>
+              <ul class="collapse list-unstyled" id="filterSubCategory">
+                <li *ngFor="let subcategory of subCategoryData; let subCategoriaCheck2 = index">
+                  <label class="control control--checkbox">
+                    <input class="subCategoria2" type="checkbox" value="{{subcategory.value}}"
+                      name="{{subcategory.value}}"
+                      (change)="validateCheckFilter($event.target.checked, subcategory, $event.target.className, $event.target)"
+                      id="{{'subcategoria2'+subCategoriaCheck2}}"
+                      value="{{subcategory.value !== '' ? validateCheckSubCategory2(subcategory.value, subCategoriaCheck2) : subcategory.value}}" />
+                    {{subcategory.text}}
+                  </label>
+                </li>
+              </ul>
+            </li>
+
+            <li class="active mt-2">
+              <a href="#filterTipoPrenda" data-toggle="collapse" aria-expanded="false"
+                class="dropdown-toggle menu-color">Tipo de prenda
+              </a>
+              <ul class="collapse list-unstyled" id="filterTipoPrenda">
+                <div class="overflow-auto container-scroll">
+                  <li *ngFor="let tipoprenda of tipoPrendaData; let tipoPrendaCheck2 = index">
+                    <label class="control control--checkbox">
+                      <input class="tipoPrenda2" type="checkbox" value="{{tipoprenda.value}}"
+                        name="{{tipoprenda.value}}"
+                        (change)="validateCheckFilter($event.target.checked, tipoprenda, $event.target.className, $event.target)"
+                        id="{{'tipoprenda2'+tipoPrendaCheck2}}"
+                        value="{{tipoprenda.value !== '' ? validateCheckTipoPrenda2(tipoprenda.value, tipoPrendaCheck2) : tipoprenda.value}}" />
+                      {{tipoprenda.text}}
+                    </label>
+                  </li>
+                </div>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="clearFilters2()">Limpiar filtros</button>
+          <button type="button" class="btn btn-primary" (click)="closeModal2()">Cerrar filtros</button>
+        </div>
+      </ng-template>
+    </div>
+    <accordion [isAnimated]="true">
+      <accordion-group>
+        <button
+          class="btn btn-link btn-block justify-content-between btnAccordion"
+          accordion-heading type="button">
+          <div class="pull-left float-left">Filtros seleccionados colores</div>
+          <div class="arrow">
+            <span class="flechaFilters abajo"></span>
+          </div>
+        </button>
+        <span *ngFor="let filterx of selectedFilter2" class="item-filter">{{filterx.item}} /&nbsp;</span>
+      </accordion-group>
+    </accordion>
+    <div class="item2-content chartColor">
+      <div class="chart-line">
+        <canvas id="myChartHombre"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="item3">
+    <h2>TOP 10 tipos de prenda</h2>
+    <div class="table-container-colores">
+      <table class="tipoP">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Total SKU</th>
+            <th>%</th>
+            <th>Color TOP</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[0]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[0].length !== 0 ? topTenTipoPrenda[0] +'.png' : default.png}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[0] !== undefined ? topTenTotalSKU[0] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[0] !== undefined ? topTenPorcentajeSKU[0] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[0]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[0] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[1]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[1].length !== 0 ? topTenTipoPrenda[1] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[1] !== undefined ? topTenTotalSKU[1] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[1] !== undefined ? topTenPorcentajeSKU[1] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[1]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[1] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[2]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[2].length !== 0 ? topTenTipoPrenda[2] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[2] !== undefined ? topTenTotalSKU[2] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[2] !== undefined ? topTenPorcentajeSKU[2] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[2]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[2] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[3]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[3].length !== 0 ? topTenTipoPrenda[3] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[3] !== undefined ? topTenTotalSKU[3] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[3] !== undefined ? topTenPorcentajeSKU[3] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[3]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[3] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[4]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[4].length !== 0 ? topTenTipoPrenda[4] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[4] !== undefined ? topTenTotalSKU[4] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[4] !== undefined ? topTenPorcentajeSKU[4] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[4]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[4] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[5]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[5].length !== 0 ? topTenTipoPrenda[5] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[5] !== undefined ? topTenTotalSKU[5] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[5] !== undefined ? topTenPorcentajeSKU[5] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[5]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[5] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[6]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[6].length !== 0 ? topTenTipoPrenda[6] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[6] !== undefined ? topTenTotalSKU[6] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[6] !== undefined ? topTenPorcentajeSKU[6] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[6]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[6] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[7]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[7].length !== 0 ? topTenTipoPrenda[7] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[7] !== undefined ? topTenTotalSKU[7] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[7] !== undefined ? topTenPorcentajeSKU[7] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[7]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[7] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[8]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[8].length !== 0 ? topTenTipoPrenda[8] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[8] !== undefined ? topTenTotalSKU[8] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[8] !== undefined ? topTenPorcentajeSKU[8] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[8]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[8] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+          <tr>
+            <td data-label="Tipo"><abbr style=" cursor:pointer" title="{{copy[9]}}"><img
+                  src="../../../../assets/productos/{{topTenTipoPrenda[9].length !== 0 ? topTenTipoPrenda[9] +'.png' : '/default.png'}}"
+                  alt="" class="imgPrendasTabla" /></abbr></td>
+                  <td data-label="Total SKU">{{topTenTotalSKU[9] !== undefined ? topTenTotalSKU[9] : '0'}}</td>
+                  <td data-label="%">{{topTenPorcentajeSKU[9] !== undefined ? topTenPorcentajeSKU[9] : '0'}}%</td>
+            <td data-label="Color TOP"><abbr style=" cursor:pointer" title="{{topTenColoresLetra[9]}}">
+                <div [ngStyle]="{'background-color': topTenColoresRGB[9] }" class="colorx mb-3"></div>
+              </abbr></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,395 @@
+.container-scroll {
+  height: 250px;
+}
+
+.filtersTable {
+  padding-bottom: 1rem;
+}
+
+.filtersChart {
+  padding-bottom: 2rem;
+  padding-right: 2rem;
+  padding-left: 1rem;
+}
+
+.btnAccordion {
+  box-shadow: none !important;
+  background-color: #FFFFFF !important;
+  border: none !important;
+}
+
+.arrow {
+  margin-left: 1rem;
+  margin-top: -3px;
+  float: left;
+}
+
+.flechaFilters	{
+  display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin: 0 auto;
+	border-top: solid 3px;
+	border-right: solid 3px;
+}
+
+.flechaFilters.abajo {
+	transform: rotate(135deg);
+}
+
+.titulo-chart {
+  text-align: center;
+}
+
+.marginTitle {
+  margin-top: -15px;
+}
+
+/* .marginCharts {
+  margin-top: -20px;
+} */
+
+.hoverSvgFilter:hover {
+  cursor: pointer;
+}
+
+.item-filters-top {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.content-filter-item {
+  display: flex;
+  text-align: center;
+}
+
+.checkboxAlign {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2%;
+}
+
+.colorStyles{
+  width: 30px !important;
+  height: 30px !important;
+  margin: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: none;
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.colorStyles:hover {
+  cursor: pointer;
+}
+
+.colorStyles:checked:after {
+  content: '✔';
+  color: white;
+}
+
+.colorStyles2 {
+  width: 30px !important;
+  height: 30px !important;
+  margin: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: none;
+  font-size: 13px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.colorStyles2:hover {
+  cursor: pointer;
+}
+
+.colorStyles2::after {
+  content: 'Todo';
+  color: black;
+}
+
+.colorStyles2:checked:after {
+  content: '✔';
+  font-size: 20px;
+  color: black;
+}
+
+.item-filter {
+  margin: 0;
+  font-weight: bold;
+  color: #000000;
+}
+
+.menu-color {
+  color: #212121;
+  font-weight: bold;
+}
+
+/* Tablas */
+.mat-form-field {
+  width: 100%;
+  font-size: 14px;
+  margin: 0 auto;
+}
+
+.table-container {
+  width: 100%;
+  max-width: auto;
+}
+
+tr:hover td {
+  background-color:#358da3;
+  color: white;
+}
+
+.alignTableTitles {
+  text-align: center;
+}
+
+.alignTableItems {
+  text-align: center;
+}
+
+/* Responsive tables*/
+@media screen and (max-width: 1024px) {
+  table {
+    border: 0px;
+  }
+
+  th {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  td {
+    text-align: right !important;
+    display: block;
+  }
+
+  td:last-child {
+    border-bottom: 0px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    float: left;
+  }
+
+  .alignTableItems {
+    text-align: right;
+  }
+}
+/* Fin Tablas */
+
+p-table ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+p-table {
+  border-radius: 10px;
+}
+
+/* inicio estilos chart */
+.chart-container {
+  width: 100%;
+}
+
+.chart-line {
+  width: 95%;
+}
+/* fin chart */
+
+
+/* grid para poner las cosas en una sola fila */
+
+.grid-informs {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.alignFilterChart {
+  display: grid;
+  grid-template-columns: 99% 1%;
+  text-align: center;
+}
+
+.alignFilterTable {
+  display: grid;
+  grid-template-columns: 99% 1%;
+  text-align: center;
+}
+
+.svgFilter {
+  margin-bottom: -10px;
+  margin-left: -25px;
+}
+
+.svgFilterChart {
+  margin-bottom: -10px;
+  margin-left: -100px;
+}
+
+
+.diferencia {
+  color: rgb(103 209 166);
+}
+
+.diferencia2 {
+  color: rgb(255 92 96);
+}
+
+/* media queryes */
+@media (max-width: 1024px) {
+
+  .alignFilterChart {
+    display: inline-grid;
+    grid-template-columns: 90% 10%;
+    width: 100%;
+    align-items: center;
+  }
+
+  .alignFilterTable {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    text-align: center;
+  }
+
+  .svgFilterChart {
+    margin-bottom: 7px;
+    margin-left: 0px;
+  }
+
+  .svgFilter {
+    margin-bottom: 7px;
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .grid-informs {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .grid-informs {
+    display: block;
+    margin-top: 20%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid-informs {
+    display: block;
+    margin-top: 30%;
+  }
+}
+
+
+
+
+/*Spinner*/
+.loading {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  visibility: visible;
+}
+
+.loadingText {
+  margin-left: -10px;
+}
+
+.sp-position {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.sk-cube-grid {
+  width: 40px;
+  height: 40px;
+}
+
+.sk-cube-grid .sk-cube {
+  width: 33%;
+  height: 33%;
+  background-color: #333;
+  float: left;
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+.sk-cube-grid .sk-cube1 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube2 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube3 {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s; }
+.sk-cube-grid .sk-cube4 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube5 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube6 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube7 {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s; }
+.sk-cube-grid .sk-cube8 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube9 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1); 
+  }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+  } 
+}
+
+/* ocultar componentes en el modal */
+
+.modalHidden {
+  visibility: hidden;
+}
+
+.modalShow {
+  visibility: visible;
+}

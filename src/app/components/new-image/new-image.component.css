@@ -1,0 +1,100 @@
+.title-new-image {
+  color: #212121;
+}
+
+.file-upload {
+  margin: 0 10px 0 25px;
+}
+.file-upload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  font-size: 20px;
+  cursor: pointer;
+  height: 36px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+#fileuploadurl {
+  border: none;
+  font-size: 12px;
+  padding-left: 0;
+  width: 250px;
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.btn-subir {
+  background: #20537d;
+}
+
+@media only screen and (max-width: 480px) {
+  .opciones {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .opciones {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .opciones {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+}
+
+.label-formularios-linea {
+  margin-right: 20px;
+  color: #20537d;
+}
+
+.formulario {
+  border-top: 5px solid #20537d;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.29);
+  padding: 20px;
+  height: 200px;
+}
+
+.btn-upload {
+  border: 1px solid #55836b;
+  background-color: #55836b;
+  color: white;
+}
+
+.btn-upload:hover {
+  background-color: rgba(85, 131, 107, 0.8);
+  border: 1px solid rgba(85, 131, 107, 0.8);
+  color: white;
+}
+
+/* Spinner */
+
+.spinner-container {
+  margin-top: 10px;
+  height: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}

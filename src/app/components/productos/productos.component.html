@@ -1,0 +1,94 @@
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <div class="menu-container">
+      <div class="list-group">
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="sel1">
+              <img src="./assets/rect.png" alt="" class="imgsel material-icons" />Comparativos<img
+                src="./assets/tri.png" alt="" class="imgsel2" />
+            </a>
+            <ul class="collapse list-unstyled firstitem itemlist" id="homeSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../informes/informePrecios" routerLinkActive="activo">Precio
+                  promedio</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../informes/informeDescuentos" routerLinkActive="activo">Descuento
+                  promedio</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../informes/informeNuevos" routerLinkActive="activo">Recien llegados</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../informes/informeDescontinuados"
+                  routerLinkActive="activo">Descontinuados</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled itemlist" id="homeSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../informes/informeSKU" routerLinkActive="activo">Resumen sku</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#colectionSubmenu" data-toggle="collapse" aria-expanded="false" class="sel1">
+              <img src="./assets/rect.png" alt="" class="imgsel" />Productos<img src="./assets/tri.png" alt="imagen"
+                class="imgsel2" />
+            </a>
+            <ul class="collapse list-unstyled firstitem itemlist" id="colectionSubmenu">
+              <li class="list-items-container">
+                <a routerLink="/informeCategoria" class="sel2">Prendas</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled itemlist" id="colectionSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../productos/general" routerLinkActive="activo">General</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled itemlist" id="colectionSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../productos/informeCatMujer" routerLinkActive="activo">Categoria
+                  mujeres</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled itemlist" id="colectionSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../productos/informeCatHombre" routerLinkActive="activo">Categoria
+                  hombres</a>
+              </li>
+            </ul>
+            <ul class="collapse list-unstyled itemlist" id="colectionSubmenu">
+              <li class="list-items-container">
+                <a class="sel2" routerLink="../productos/informeCatKids" routerLinkActive="activo">Categoria kids</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <div class="contenedor-labels">
+    <div class="button-sidebar">
+      <button class="btn-sidebar" id="menu-toggle-sidebar-products">
+        <span class="flecha izquierda"></span>
+      </button>
+    </div>
+  </div>
+
+  <br>
+  <div class="container-fluid ml-2 mr-2">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

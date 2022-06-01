@@ -1,0 +1,191 @@
+#wrapper {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  background-color: #cecece;
+  min-height: 100vh;
+  margin-left: -12rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .list-group {
+  width: 12rem;
+  padding: 1rem;
+  padding-top: 3rem;
+}
+
+.contenedor-labels {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding-top: 175px;
+}
+
+.btn-sidebar {
+  background: #cecece;
+  border: 0px solid #cecece;
+  width: 18px;
+  height: 100px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+.flecha	{
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin: 0 auto;
+	border-top: solid 3px;
+	border-right: solid 3px;
+}
+
+.flecha.izquierda {
+	transform: rotate(225deg);
+}
+
+.sel1 {
+  font-size: 16px;
+  padding: 10px 0;
+  display: block;
+  color: rgba(0, 0, 0, 0.987);
+  border-bottom: 2px solid rgba(92, 92, 92, 0.974);
+}
+
+.sel2 {
+  font-size: 14px;
+  padding: 5px 0;
+  display: block;
+  color: rgba(0, 0, 0, 0.987);
+  text-decoration: none;
+}
+
+.imgsel {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  text-align: center;
+}
+
+.imgsel2 {
+  width: 14px;
+  height: 14px;
+  margin-left: 8px;
+}
+
+.firstitem {
+  padding-top: 10px;
+}
+
+.itemlist {
+  margin-left: 30px;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+  overflow: hidden;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 1024px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -12rem;
+  }
+}
+
+/* Estilos de items del filtro*/
+.list-items-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.list-items-container p {
+  margin-left: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+ul.nav {
+  list-style: none;
+  background-color: #f1f1f1;
+  border-radius: 7%;
+}
+
+ul.nav:hover {
+  background-color: #868686;
+}
+
+
+.nav li{
+  color: #0a0a0a;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.nav > li {
+  float: left;
+  padding-bottom: 8px;
+}
+
+.nav li ul li {
+  float: left;
+}
+
+.nav li ul {
+  display: none;
+  position: absolute;
+  min-width: 135px;
+  z-index: 3;
+  background-color: #f1f1f1;
+  margin-top: 8px;
+  padding-right: 5px;
+}
+
+.nav li:hover {
+  background-color: #868686;
+}
+
+.nav li:hover > ul{
+  display: block;
+}
+
+
+/* clases del routing */
+.activo {
+  background-color:#c4e3eb ;
+  color: black;
+
+}
+
+a.sel2.activo {
+  background-color: transparent;
+  color: #358da3;
+}
+
+a.sel2.activo::before {
+  content: " ";
+  position: absolute;
+  margin-top: 2.5px;
+  left: 25px;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: #358da3;
+}

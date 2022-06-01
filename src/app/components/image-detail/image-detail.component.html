@@ -1,0 +1,433 @@
+<div class="container">
+
+  <div class="button-regresar">
+    <button class="btn btn-back" (click)="backDashboard()">
+      <span class="material-icons">
+        keyboard_backspace
+      </span>
+    </button>
+
+  </div>
+
+  <div class="row">
+    <div class="card" *ngIf="filtersLoaded | async">
+      <div class="tarjeta">
+        <div class="container-image">
+          <img [src]="photo.base64" class="card-img img-detail">
+        </div>
+        <div class="content-tarjeta">
+
+          <div class="container-text">
+            <div class="card-body">
+
+              <ul class="list-unstyled components ">
+                <li class="active">
+                  <h4 class="card-title title-submenu">
+                    <a href="#dataSubmenu" data-toggle="collapse" aria-expanded="false"
+                      class="dropdown-toggle">Información general
+                    </a>
+                  </h4>
+                  <ul class="collapse list-unstyled" id="dataSubmenu">
+                    <li>
+                      <p class="card-text"> <span class="label-bold">Año: </span> {{photo.year}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Fuente: </span>
+                        {{photo.origin}} </p>
+                      <p class="card-text"> <span class="label-bold">Colección: </span>
+                        {{photo.quarter}} </p>
+                      <p class="card-text"> <span class="label-bold">Categoría:
+                        </span>{{photo.categoria}}</p>
+                      <p class="card-text"> <span class="label-bold">Subcategoría: </span>
+                        {{photo.subCategoria}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Tipo de prenda: </span>
+                        {{photo.tipoPrenda}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Nombre: </span>
+                        {{photo.imageName}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Precio: </span>
+                        {{photo.precio}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Precio final promoción:
+                        </span>
+                        {{photo.descuento}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Tallas: </span>
+                        {{photo.talla}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Tallas agotadas: </span>
+                        {{photo.tallasAgotadas}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Color: </span>
+                        {{photo.color}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Características: </span>
+                        {{photo.caracteristicas}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Materiales: </span>
+                        {{photo.materiales}}
+                      </p>
+                      <p class="card-text"> <span class="label-bold">Estado: </span>
+                        {{photo.estado}}
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <!--
+                            <ul class="list-unstyled components ">
+                                <li class="active">
+                                    <h4 class="card-title title-submenu">
+                                        <a href="#prendaInfo" data-toggle="collapse" aria-expanded="false"
+                                            class="dropdown-toggle">Información prenda (Scraping)
+                                        </a>
+                                    </h4>
+                                    <ul class="collapse list-unstyled" id="prendaInfo">
+                                        <li>
+
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            -->
+
+              <ul class="list-unstyled components ">
+                <li class="active">
+                  <h4 class="card-title title-submenu">
+                    <a href="#prendaGeneralSubmenu" data-toggle="collapse" aria-expanded="false"
+                      class="dropdown-toggle">Prendas generales
+                    </a>
+                  </h4>
+                  <ul class="collapse list-unstyled" id="prendaGeneralSubmenu">
+                    <li>
+                      <ul class="list-caract">
+                        <div class="item-list prendaColorInfo" *ngFor="let prenda of prendaColor; let i = index">
+                          <div class="container-buttonAddColor">
+
+                            <button class="btn btn-dark btn-delCar"
+                              (click)="deletePrendaColor(prenda, photo.imageName)">
+                              <span class="material-icons btn-clear">
+                                clear
+                              </span>
+                            </button>
+                          </div>
+                          <li>
+                            <div class="namePrenda-container">
+                              <h5 class="prendaName">{{prenda.prenda}}</h5>
+                            </div>
+
+                            <div class="contenedor-box-colors">
+                              <div class="contenedor-sec">
+                                <p>Pantone</p>
+                                <div class="colores-name-box">
+                                  <div class="container-color-box">
+                                    <div class="colors-box" [ngStyle]="{'background-color': prenda.hexaColor}">
+                                    </div>
+                                  </div>
+                                  <p class="pantoneNameColor">{{prenda.pantoneColor}}
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="contenedor-sec">
+                                <p>Color Principal</p>
+                                <div class="colores-name-box">
+                                  <div class="container-color-box">
+                                    <div class="colors-box" [ngStyle]="{'background-color': prenda.ppalHexa}">
+                                    </div>
+                                  </div>
+                                  <p class="pantoneNameColor">{{prenda.ppal}}
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </div>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+              <ul class="list-unstyled components ">
+                <li class="active">
+                  <h5 class="card-title title-submenu">
+                    <a href="#featureSubmenu" data-toggle="collapse" aria-expanded="false"
+                      class="dropdown-toggle">Características
+                    </a>
+                  </h5>
+                  <ul class="collapse list-unstyled" id="featureSubmenu">
+                    <li>
+                      <ul class="list-caract">
+                        <div class="item-list" *ngFor="let feature of features; let i = index">
+                          <div class="container-item-button">
+                            <button class="btn btn-dark btn-delCar" (click)="deleteFeature(feature, photo.imageName)">
+                              <span class="material-icons btn-clear">
+                                clear
+                              </span>
+                            </button>
+                            <li>
+                              <p class="feature-list">{{feature}}</p>
+                            </li>
+                          </div>
+                        </div>
+                      </ul>
+                      <div class="features-add-button-container">
+                        <button class="btn btn-primary btn-agregar"
+                          (click)="addFeature(photo.imageName, featuresModal)">
+                          <span class="material-icons"> add </span>Agregar
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+              <ul class="list-unstyled components" *ngIf="this.mostrarInferiores == true">
+                <li class="active">
+                  <h5 class="card-title title-submenu">
+                    <a href="#inferiorSubmenu" data-toggle="collapse" aria-expanded="false"
+                      class="dropdown-toggle">Prendas inferiores</a>
+                  </h5>
+                  <ul class="collapse list-unstyled" id="inferiorSubmenu">
+                    <li>
+                      <ul class="list-caract">
+                        <div class="item-list" *ngFor="let prenda of prendasInferiores; let i = index">
+                          <div class="container-item-button">
+                            <button class="btn btn-dark btn-delCar" (click)="deleteInferior(prenda, photo.imageName)">
+                              <span class="material-icons btn-clear">
+                                clear
+                              </span>
+                            </button>
+                            <li>
+                              <p class="feature-list">{{prenda}}</p>
+                            </li>
+                          </div>
+                        </div>
+                      </ul>
+                      <div class="features-add-button-container">
+                        <button class="btn btn-primary btn-agregar"
+                          (click)="addInferior(photo.imageName, prendaInferiorModal)">
+                          <span class="material-icons"> add </span>Agregar
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+              <ul class="list-unstyled components ">
+                <li class="active">
+                  <h5 class="card-title title-submenu">
+                    <a href="#editSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Acciones
+                      adicionales
+                    </a>
+                  </h5>
+                  <ul class="collapse list-unstyled" id="editSubmenu">
+                    <li>
+
+                      <button class="btn btn-block btn-warning btn-edit-info"
+                        (click)="editInfo(photo.imageName, editModal)">
+                        <span class="material-icons">mode_edit</span>Editar información
+                      </button>
+
+                      <button class="btn btn-block btn-danger btn-delImage" (click)="deleteImage(photo.imageName)">
+                        <span class="material-icons">delete </span>Eliminar imagen
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+          <div class="username-container-main">
+            <div class="container-username">
+              <p>Subida por <span>{{photo.usuario[0]?.username || photo.origin}}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal de edición -->
+<ng-template #editModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Editar información</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="list-group">
+      <ul class="list-unstyled components">
+        <li class="active">
+          <a href="#prendaGen" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle prendaGen">Prendas
+            generales
+          </a>
+
+          <ul class="collapse list-unstyled" id="prendaGen">
+            <li *ngFor="let prenda of prendaGeneralList">
+
+              <div *ngIf="prenda.checked == false">
+                <label class="control control--checkbox">{{prenda.value}}
+                  <input class="prenda" id="prenda" type="checkbox" value="{{prenda.value}}"
+                    (change)="updateCheckFilterPrendaGen($event.target.checked, prenda, $event.target.className, $event.target)"
+                    name="{{prenda.value}}" />
+                </label>
+              </div>
+
+              <div *ngIf="prenda.checked == true">
+                <label class="control control--checkbox">{{prenda.value}}
+                  <input class="prenda" id="prenda" type="checkbox" value="{{prenda.value}}"
+                    (change)="updateCheckFilterPrendaGen($event.target.checked, prenda, $event.target.className, $event.target)"
+                    name="{{prenda.value}}" checked="true" />
+                </label>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="list-group">
+      <ul class="list-unstyled components">
+        <li class="active">
+          <a href="#colores" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle prendaGen">Agregar
+            colores
+          </a>
+
+          <ul class="collapse list-unstyled" id="colores">
+            <div class="container container-main-colors">
+              <h4>Seleccione un color principal</h4>
+              <div class="row">
+                <div *ngFor="let color of mainColors" class="col-md-3 box-main-color">
+                  <div *ngIf="color.checked == false">
+                    <label class="control control--checkbox">{{color.value | titlecase}}
+                      <input class="color" id="color" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                        (change)="updateColorSelect($event.target.checked, color, $event.target.className, $event.target)">
+                    </label>
+                    <div class="colors-box" [ngStyle]="{'background-color': color.hexa}"></div>
+                  </div>
+
+                  <div *ngIf="color.checked == true">
+                    <label class="control control--checkbox">{{color.value | titlecase}}
+                      <input class="color" id="color" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                        (change)="updateColorSelect($event.target.checked, color, $event.target.className, $event.target)"
+                        checked="true">
+                    </label>
+                    <div class="colors-box" [ngStyle]="{'background-color': color.hexa}"></div>
+                  </div>
+                </div>
+
+                <h4>Elija el tono de color más adecuado</h4>
+                <div class="input-color-container">
+                  <input type="color" name="colorInput" (change)="updateColorInput($event)">
+                </div>
+              </div>
+            </div>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+      <button type="button" class="btn btn-primary" (click)="createPrendaGeneral()">Guardar cambios</button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #prendaInferiorModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Editar información</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="list-group">
+      <ul class="list-unstyled components ">
+        <li class="active">
+          <a href="#prendaInferiorMenu" data-toggle="collapse" aria-expanded="false"
+            class="dropdown-toggle menu-color">Prendas inferiores</a>
+
+          <ul class="collapse list-unstyled" id="prendaInferiorMenu">
+            <li *ngFor="let prenda of prendaInfOptions">
+              <div *ngIf="prenda.checked == false">
+                <label class="control control--checkbox">{{prenda.value}}
+                  <input class="prenda" id="prenda" type="checkbox" value="{{prenda.value}}"
+                    (change)="updateCheckFilterInferior($event.target.checked, prenda, $event.target.className, $event.target)"
+                    name="{{prenda.value}}" />
+                </label>
+              </div>
+
+              <div *ngIf="prenda.checked == true">
+                <label class="control control--checkbox">{{prenda.value}}
+                  <input class="prenda" id="prenda" type="checkbox" value="{{prenda.value}}"
+                    (change)="updateCheckFilterInferior($event.target.checked, prenda, $event.target.className, $event.target)"
+                    name="{{prenda.value}}" checked="true" />
+                </label>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+      <button type="button" class="btn btn-primary" (click)="savePrendaInf()">Guardar cambios</button>
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #featuresModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Agregar característica</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="list-group">
+      <ul class="list-unstyled components">
+        <li class="active">
+          <a href="#featuresMenu" data-toggle="collapse" aria-expanded="false"
+            class="dropdown-toggle menu-color">Seleccionar características
+          </a>
+
+          <ul class="collapse list-unstyled" id="featuresMenu">
+            <li *ngFor="let feature of featuresOptions">
+              <div *ngIf="feature.checked == false">
+                <label class="control control--checkbox">{{feature.value}}
+                  <input class="feature" id="feature" type="checkbox" value="{{feature.value}}"
+                    (change)="updateCheckFeature($event.target.checked, feature, $event.target.className, $event.target)"
+                    name="{{feature.value}}" />
+                </label>
+              </div>
+
+              <div *ngIf="feature.checked == true">
+                <label class="control control--checkbox">{{feature.value}}
+                  <input class="feature" id="feature" type="checkbox" value="{{feature.value}}"
+                    (change)="updateCheckFeature($event.target.checked, feature, $event.target.className, $event.target)"
+                    name="{{feature.value}}" checked="true" />
+                </label>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+      <button type="button" class="btn btn-primary" (click)="createFeature()">Guardar cambios</button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,349 @@
+<div class="container">
+
+    <div class="button-regresar">
+        <button class="btn btn-back" (click)="backDashboard()">
+            <span class="material-icons">
+                keyboard_backspace
+            </span>
+        </button>
+
+    </div>
+
+    <div class="row">
+
+        <div class="card mb-3 mt-5" *ngIf="filtersLoaded | async">
+            <div class="tarjeta">
+                <div class="container-image">
+                    <img [src]="photo.base64" class="card-img img-detail">
+                </div>
+                <div class="content-tarjeta">
+
+                    <div class="container-text">
+                        <div class="card-body">
+
+                            <ul class="list-unstyled components ">
+                                <li class="active">
+                                    <h5 class="card-title title-submenu">
+                                        <a href="#dataSubmenu" data-toggle="collapse" aria-expanded="false"
+                                            class="dropdown-toggle">Información general
+                                        </a>
+                                    </h5>
+                                    <ul class="collapse list-unstyled" id="dataSubmenu">
+                                        <li>
+                                            <p class="card-text"> <span class="label-bold">Año: </span> {{photo.year}}
+                                            </p>
+                                            <p class="card-text"> <span class="label-bold">Fuente: </span>
+                                                {{photo.origin}} </p>
+                                            <p class="card-text"> <span class="label-bold">Colección: </span>
+                                                {{photo.quarter}} </p>
+                                            <p class="card-text"> <span class="label-bold">Género:
+                                                </span>{{photo.gender}}</p>
+
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <ul class="list-unstyled components ">
+                                <li class="active">
+                                    <h5 class="card-title title-submenu">
+                                        <a href="#prendaGeneralSubmenu" data-toggle="collapse" aria-expanded="false"
+                                            class="dropdown-toggle">Prendas generales
+                                        </a>
+                                    </h5>
+                                    <ul class="collapse list-unstyled" id="prendaGeneralSubmenu">
+                                        <li>
+                                            <ul class="list-caract">
+                                                <div class="item-list"
+                                                    *ngFor="let feature of prendasGenerales; let i = index">
+                                                    <button class="btn btn-dark btn-delCar"
+                                                        (click)="deletePrendaGeneral(feature, photo.imageName)">
+                                                        <span class="material-icons btn-clear">
+                                                            clear
+                                                        </span>
+                                                    </button>
+                                                    <li> {{feature}} </li>
+                                                </div>
+                                            </ul>
+                                            <div class="features-add-button-container">
+                                                <button class="btn btn-primary btn-agregar"
+                                                    (click)="addPrendaGeneral(photo.imageName, PrendaGeneralModal)">
+                                                    <span class="material-icons"> add </span>Agregar
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <ul class="list-unstyled components">
+                                <li class="active">
+                                    <h5 class="card-title title-submenu">
+                                        <a href="#inferiorSubmenu" data-toggle="collapse" aria-expanded="false"
+                                            class="dropdown-toggle">Prendas inferiores</a>
+                                    </h5>
+                                    <ul class="collapse list-unstyled" id="inferiorSubmenu">
+                                        <li>
+                                            <ul class="list-caract">
+                                                <div class="item-list"
+                                                    *ngFor="let prenda of prendasInferiores; let i = index">
+                                                    <button class="btn btn-dark btn-delCar"
+                                                        (click)="deleteInferior(prenda, photo.imageName)">
+                                                        <span class="material-icons btn-clear">
+                                                            clear
+                                                        </span>
+                                                    </button>
+                                                    <li>{{prenda}}</li>
+                                                </div>
+                                            </ul>
+                                            <div class="features-add-button-container">
+                                                <button class="btn btn-primary btn-agregar"
+                                                    (click)="addInferior(photo.imageName, prendaInferiorModal)">
+                                                    <span class="material-icons"> add </span>Agregar
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <ul class="list-unstyled components ">
+                                <li class="active">
+                                    <h5 class="card-title title-submenu">
+                                        <a href="#featureSubmenu" data-toggle="collapse" aria-expanded="false"
+                                            class="dropdown-toggle">Características
+                                        </a>
+                                    </h5>
+                                    <ul class="collapse list-unstyled" id="featureSubmenu">
+                                        <li>
+                                            <ul class="list-caract">
+                                                <div class="item-list" *ngFor="let feature of features; let i = index">
+                                                    <button class="btn btn-dark btn-delCar"
+                                                        (click)="deleteFeature(feature, photo.imageName)">
+                                                        <span class="material-icons btn-clear">
+                                                            clear
+                                                        </span>
+                                                    </button>
+                                                    <li> {{feature}} </li>
+                                                </div>
+                                            </ul>
+                                            <div class="features-add-button-container">
+                                                <button class="btn btn-primary btn-agregar"
+                                                    (click)="addFeature(photo.imageName, featuresModal)">
+                                                    <span class="material-icons"> add </span>Agregar
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <h4 class="card-title text-center">Colores</h4>
+                            <h5 class="subtitle-color">Pantone</h5>
+
+                            <div class="container-colors">
+                                <div *ngFor="let color of arrayColor" class="colors-x">
+                                    <label class="label-color-box">{{color.pantoneColor}}</label>
+                                    <div class="colors-box" [ngStyle]="{'background-color': color.hexColor}"></div>
+                                </div>
+                            </div>
+                            <div class="container-ppal-colors">
+                                <h5 class="subtitle-color">Principal Colors</h5>
+                                <div class="container-colors">
+                                    <div *ngFor="let color of pColor" class="colors-x">
+                                        <label>{{color.name}}</label>
+                                        <label class="control control--checkbox color-control">
+                                            <input class="color" type="radio" name="color" value="{{color.name}}"
+                                                (change)="selectPrincipalColor($event.target.checked, color, $event.target.className)" />
+                                            <div class="control__indicator"
+                                                [ngStyle]="{'background-color': color.hexa}">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="list-unstyled components ">
+                                <li class="active">
+                                    <h5 class="card-title title-submenu">
+                                        <a href="#editSubmenu" data-toggle="collapse" aria-expanded="false"
+                                            class="dropdown-toggle">Acciones adicionales
+                                        </a>
+                                    </h5>
+                                    <ul class="collapse list-unstyled" id="editSubmenu">
+                                        <li>
+                                            <div class="container-buttonAddColor">
+                                                <button class="btn btn-primary btn-agregar"
+                                                    (click)="addColors(photo.imageName, colors)">
+                                                    <span class="material-icons"> add </span>Agregar Color
+                                                </button>
+                                            </div>
+
+                                            <div class="container-buttonAddColor">
+                                                <button class="btn btn-danger btn-delColor"
+                                                    (click)="deleteColor(photo.imageName)">
+                                                    <span class="material-icons"> delete </span>Eliminar Color
+                                                </button>
+                                            </div>
+
+                                            <button class="btn btn-block btn-danger btn-delImage"
+                                                (click)="deleteImage(photo.imageName)">
+                                                <span class="material-icons">delete </span>Eliminar imagen
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="username-container-main">
+                        <div class="container-username">
+                            <p>Subida por <span>{{photo.usuario[0].username}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal prenda general -->
+
+<ng-template #PrendaGeneralModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Agregar prenda general</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="list-group">
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#prendaGen" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle menu-color">Seleccionar prenda general</a>
+
+                    <ul class="collapse list-unstyled" id="prendaGen">
+                        <li *ngFor="let feature of prendaGenOptions">
+                            <label class="control control--checkbox">{{feature.value}}
+                                <input class="feature" id="feature" type="checkbox" value="{{feature.value}}"
+                                    (change)="updateCheckFilterPrendaGen($event.target.checked, feature, $event.target.className, $event.target)"
+                                    name="{{feature.value}}" />
+                            </label>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="createPrendaGeneral()">Guardar cambios</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<!-- Modal features -->
+<ng-template #featuresModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Agregar característica</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="list-group">
+            <ul class="list-unstyled components ">
+                <li class="active">
+                    <a href="#featuresMenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle menu-color">Seleccionar características</a>
+
+                    <ul class="collapse list-unstyled" id="featuresMenu">
+                        <li *ngFor="let feature of featuresOptions">
+                            <label class="control control--checkbox">{{feature.value}}
+                                <input class="feature" id="feature" type="checkbox" value="{{feature.value}}"
+                                    (change)="updateCheckFilter($event.target.checked, feature, $event.target.className, $event.target)"
+                                    name="{{feature.value}}" />
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="createFeature()">Guardar cambios</button>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal prendas inferiores -->
+<ng-template #prendaInferiorModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Agregar prenda inferior</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="list-group">
+            <ul class="list-unstyled components ">
+                <li class="active">
+                    <a href="#prendaInferiorMenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle menu-color">Seleccionar prenda inferior</a>
+
+                    <ul class="collapse list-unstyled" id="prendaInferiorMenu">
+                        <li *ngFor="let prenda of prendaInfOptions">
+                            <label class="control control--checkbox">{{prenda.value}}
+                                <input class="prenda" id="prenda" type="checkbox" value="{{prenda.value}}"
+                                    (change)="updateCheckFilterInferior($event.target.checked, prenda, $event.target.className, $event.target)"
+                                    name="{{prenda.value}}" />
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="createPrendaInferior()">Guardar cambios</button>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal Colors -->
+<ng-template #colors>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Agregar característica</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h3 class="text-center">Agregar Colores</h3>
+
+        <div class="container container-main-colors">
+            <div class="row">
+                <div *ngFor="let color of mainColors" class="col-md-3 box-main-color">
+                    <label class="control control--checkbox">{{color.value | titlecase}}
+                        <input class="color" id="color" type="checkbox" value="{{color.value}}" name="{{color.value}}"
+                            (change)="updateColorSelect($event.target.checked, color, $event.target.className, $event.target)">
+                    </label>
+                    <div class="colors-box" [ngStyle]="{'background-color': color.hexa}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="createColor()">Guardar cambios</button>
+        </div>
+    </div>
+</ng-template>
