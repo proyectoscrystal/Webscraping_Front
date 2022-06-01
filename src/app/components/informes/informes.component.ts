@@ -54,7 +54,7 @@ export class InformesComponent implements OnInit {
   totalsku: any = '';
   totalDiscount: number;
   currency1: any = '';
-  priceDifference: any[] = [0, 0];
+  priceDifference: number[] = [0, 0];
   discountDifference: any[] = [0, 0];
   newsDifference: any[] = [0, 0];
   skuDifference: any[] = [0, 0];
@@ -95,6 +95,15 @@ export class InformesComponent implements OnInit {
   origenSeleccionado: any;
   origenCheck: any;
   selected: any;
+  spinner = false;
+
+  //Checked All
+  isCheckedOrigin = false;
+  isCheckedCategory = false;
+  isCheckedSubCategory = false;
+  isCheckedTipoPrenda = false;
+  isCheckedColor = false;
+  isCheckedComposicion = false;
 
   constructor(private blackboxService: BlackboxService, @Inject(LOCALE_ID) public locale: string, private modalService: BsModalService, private servicioEnvioData: ServicioEnvioDataService) {
     Chart.register(...registerables);
@@ -128,6 +137,14 @@ export class InformesComponent implements OnInit {
 
   //===============INICIO FILTROS MODAL===============
 
+  getSpinnerClass() {
+    if (this.spinner) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
+  }
+
   //Setear filtros obtenidos en cards
   getInfoCards() {
 
@@ -142,10 +159,14 @@ export class InformesComponent implements OnInit {
       fechaFin: this.fin
     };
 
+    this.spinner = true;
+
     this.blackboxService.getInfoCards(params).subscribe(
       (res) => {
         this.setInfoCards(res);
         // console.log(res);
+
+        this.spinner = false;
       },
       (err) => {
         console.log(err);
@@ -165,8 +186,6 @@ export class InformesComponent implements OnInit {
       tipoPrenda: this.tipoPrendaSelected,
       color: this.colorSelected,
       composicion: this.composicionSelected,
-      // fechaInicio: this.inicio,
-      // fechaFin: this.fin
     };
 
     this.blackboxService.getInfoCardWeek(params).subscribe(
@@ -417,6 +436,21 @@ export class InformesComponent implements OnInit {
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
 
+    $(".marcaAll").prop("checked", false);
+    $(".categoriaAll").prop("checked", false);
+    $(".subCategoriaAll").prop("checked", false);
+    $(".tipoPrendaAll").prop("checked", false);
+    $(".colorAll").prop("checked", false);
+    $(".composicionAll").prop("checked", false);
+
+    this.isCheckedOrigin = false;
+    this.isCheckedCategory = false;
+    this.isCheckedSubCategory = false;
+    this.isCheckedTipoPrenda = false;
+    this.isCheckedColor = false;
+    this.isCheckedComposicion = false;
+    
+
     if(this.valorSeleccionado === "Mes") {
       this.getInfoCards();
     } else if (this.valorSeleccionado === "Semana") {
@@ -436,6 +470,15 @@ export class InformesComponent implements OnInit {
       let chequearMarca = document.getElementById(`marca${marcaCheck}`);
       chequearMarca.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedOrigin == true) {
+      this.isCheckedOrigin = false;
+      $('.marca').prop('disabled', false);
+    } else {
+      this.isCheckedOrigin = true;
+      $('.marca').prop('disabled', true);
+    }
+
   }
 
   validateCheckCategory(value: any, categoriaCheck: any) {
@@ -444,6 +487,14 @@ export class InformesComponent implements OnInit {
     if (validarCategoria) {
       let chequearCategoria = document.getElementById(`categoria${categoriaCheck}`);
       chequearCategoria.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedCategory == true) {
+      this.isCheckedCategory = false;
+      $('.categoria').prop('disabled', false);
+    } else {
+      this.isCheckedCategory = true;
+      $('.categoria').prop('disabled', true);
     }
   }
 
@@ -454,6 +505,14 @@ export class InformesComponent implements OnInit {
       let chequearSubCategoria = document.getElementById(`subcategoria${subCategoriaCheck}`);
       chequearSubCategoria.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedSubCategory == true) {
+      this.isCheckedSubCategory = false;
+      $('.subCategoria').prop('disabled', false);
+    } else {
+      this.isCheckedSubCategory = true;
+      $('.subCategoria').prop('disabled', true);
+    }
   }
 
   validateCheckTipoPrenda(value: any, tipoPrendaCheck: any) {
@@ -462,6 +521,14 @@ export class InformesComponent implements OnInit {
     if (validarTipoPrenda) {
       let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
       chequearTipoPrenda.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedTipoPrenda == true) {
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrenda').prop('disabled', false);
+    } else {
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrenda').prop('disabled', true);
     }
   }
 
@@ -472,6 +539,14 @@ export class InformesComponent implements OnInit {
       let chequearColor = document.getElementById(`color${colorCheck}`);
       chequearColor.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedColor == true) {
+      this.isCheckedColor = false;
+      $('.color').prop('disabled', false);
+    } else {
+      this.isCheckedColor = true;
+      $('.color').prop('disabled', true);
+    }
   }
 
   validateCheckComposicion(value: any, composicionCheck: any) {
@@ -481,7 +556,331 @@ export class InformesComponent implements OnInit {
       let chequearComposicion = document.getElementById(`composicion${composicionCheck}`);
       chequearComposicion.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedComposicion == true) {
+      this.isCheckedComposicion = false;
+      $('.composicion').prop('disabled', false);
+    } else {
+      this.isCheckedComposicion = true;
+      $('.composicion').prop('disabled', true);
+    }
   }
+
+  // validate check filter all 
+  checkAllOrigin() {
+    if (this.isCheckedOrigin == true) {
+      $('.marca').prop('checked', false);
+      this.isCheckedOrigin = false;
+      $('.marca').prop('disabled', false);
+
+      this.originData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.originSelected.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.originSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.originSelected = [];
+
+        this.originData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.originSelected.splice(element.value);
+        });
+      }
+
+      $('.marca').prop('checked', true);
+      this.isCheckedOrigin = true;
+      $('.marca').prop('disabled', true);
+
+      this.originData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.originSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+
+  checkAllCategory() {
+    if (this.isCheckedCategory == true) {
+      $('.categoria').prop('checked', false);
+      this.isCheckedCategory = false;
+      $('.categoria').prop('disabled', false);
+
+      this.categoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.categoriaSelected.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.categoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.categoriaSelected = [];
+
+        this.categoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.categoriaSelected.splice(element.value);
+        });
+      }
+
+      $('.categoria').prop('checked', true);
+      this.isCheckedCategory = true;
+      $('.categoria').prop('disabled', true);
+
+      this.categoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.categoriaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+
+  checkAllSubCategory() {
+    if (this.isCheckedSubCategory == true) {
+      $('.subCategoria').prop('checked', false);
+      this.isCheckedSubCategory = false;
+      $('.subCategoria').prop('disabled', false);
+
+      this.subCategoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.subCategoriaSelected.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.subCategoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.subCategoriaSelected = [];
+
+        this.subCategoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.subCategoriaSelected.splice(element.value);
+        });
+      }
+
+      $('.subCategoria').prop('checked', true);
+      this.isCheckedSubCategory = true;
+      $('.subCategoria').prop('disabled', true);
+
+      this.subCategoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.subCategoriaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+
+  checkAllTipoPrenda() {
+    if (this.isCheckedTipoPrenda == true) {
+      $('.tipoPrenda').prop('checked', false);
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrenda').prop('disabled', false);
+
+      this.tipoPrendaData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.tipoPrendaSelected.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.tipoPrendaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.tipoPrendaSelected = [];
+
+        this.tipoPrendaData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.tipoPrendaSelected.splice(element.value);
+        });
+      }
+
+      $('.tipoPrenda').prop('checked', true);
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrenda').prop('disabled', true);
+
+      this.tipoPrendaData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.tipoPrendaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+  
+  checkAllColor() {
+    if (this.isCheckedColor == true) {
+      $('.color').prop('checked', false);
+      this.isCheckedColor = false;
+      $('.color').prop('disabled', false);
+
+      this.colorData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.colorSelected.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.colorSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.colorSelected = [];
+
+        this.colorData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.colorSelected.splice(element.value);
+        });
+      }
+
+      $('.color').prop('checked', true);
+      this.isCheckedColor = true;
+      $('.color').prop('disabled', true);
+
+      this.colorData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.colorSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }  
+
+  checkAllComposicion() {
+    if (this.isCheckedComposicion == true) {
+      $('.composicion').prop('checked', false);
+      this.isCheckedComposicion = false;
+      $('.composicion').prop('disabled', false);
+
+      this.composicionData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.composicionSelected.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.composicionSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.composicionSelected = [];
+
+        this.composicionData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.composicionSelected.splice(element.value);
+        });
+      }
+
+      $('.composicion').prop('checked', true);
+      this.isCheckedComposicion = true;
+      $('.composicion').prop('disabled', true);
+
+      this.composicionData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.composicionSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+
+  // validate checks with modal closed 
+
 
   //===============FIN FILTROS MODAL===============
 
@@ -514,7 +913,7 @@ export class InformesComponent implements OnInit {
 
   // metodos para setear la clase de las diferencias
   difference1() {
-    if (this.priceDifference[0] === 0) {
+    if (this.priceDifference[0] === 0 || this.priceDifference[0] !== undefined) {
       return 'porcentaje2';
     }
     return 'porcentaje';

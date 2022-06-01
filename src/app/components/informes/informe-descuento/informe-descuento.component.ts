@@ -18,8 +18,7 @@ import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
+import { Subscription } from 'rxjs';
 
 //Filtro modal
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -46,12 +45,6 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     ignoreBackdropClick: true,
   };
 
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
-
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
-
   dataSubscription: Subscription;
 
   photos: any;
@@ -59,6 +52,10 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   seleccion: string = '';
   averageDiscount1: number[] = [];
   averageDiscount2: number[] = [];
+  averageDiscount3: number[] = [];
+  averageDiscount4: number[] = [];
+  averageDiscount5: number[] = [];
+  averageDiscount6: number[] = [];
   label1: any;
   label2: any;
   myChart: Chart;
@@ -116,6 +113,11 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
   isCheckedTipoPrenda = false;
   isCheckedColor = false;
   isCheckedComposicion = false;
+  spinnerTable: boolean = false;
+  label3: string;
+  label4: string;
+  label5: string;
+  label6: string;
 
   constructor(
     private blackboxService: BlackboxService,
@@ -139,19 +141,9 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.getInfotableDiscount();
     this.showDataModal();
     
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-      destroy: true,
-    };
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
     this.dataSubscription.unsubscribe();
   }
 
@@ -165,15 +157,19 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
       color: this.colorSelected2,
-      composicion: this.composicionSelected2
+      composicion: this.composicionSelected2,
+
+      allCategory: this.isCheckedCategory,
+      allSubCategory: this.isCheckedSubCategory,
+      allTipoPrenda: this.isCheckedTipoPrenda
     };
+    this.spinnerTable = true;
 
     this.blackboxService.getTableDiscountInfo(params).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
         this.setInfoTable(res);
-        this.dtTrigger.next();
-        this.ng();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -184,8 +180,17 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
 
   }
 
+  getSpinnerClass() {
+    if (this.spinnerTable) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
+  }
+
   // set info table
   setInfoTable(res) {
+    this.photos = [];
     this.photos = res.obj.arr2;
     // this.tableAvgDescuento = res.obj.descuentoPromedio;
     this.tableDifference = res.obj.differences;
@@ -202,11 +207,14 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       composicion: this.composicionSelected
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoDiscount(params).subscribe(
       (res) => {
         this.setInfoDiscount(res);
-        // console.log(res);
+        console.log(res);
         this.ng();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -759,13 +767,11 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.origin2 = this.originSelected2;
       this.getInfotableDiscount();
-      this.rerender();
     } else if (value.clase == 'marca2' && !value.checked) {
       this.origin2 = [];
       this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       this.getInfotableDiscount();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'categoria2') {
@@ -773,13 +779,11 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.categoria2 = this.categoriaSelected2;
       this.getInfotableDiscount();
-      this.rerender();
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       this.getInfotableDiscount();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -787,13 +791,11 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.subCategoria2 = this.subCategoriaSelected2;
       this.getInfotableDiscount();
-      this.rerender();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       this.getInfotableDiscount();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -801,13 +803,11 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       this.getInfotableDiscount();
-      this.rerender();
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       this.getInfotableDiscount();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'color2 colorStyles') {
@@ -815,13 +815,11 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.selectedFilter2.push(value);
       this.color2 = this.colorSelected2;
       this.getInfotableDiscount();
-      this.rerender();
     } else if (value.clase == 'color2 colorStyles' && !value.checked) {
       this.color2 = [];
       this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       this.getInfotableDiscount();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'composicion2') {
@@ -830,15 +828,326 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       this.composicion2 = this.composicionSelected2;
       console.log(this.composicion2);
       this.getInfotableDiscount();
-      this.rerender();
     } else if (value.clase == 'composicion2' && !value.checked) {
       this.composicion2 = [];
       this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.composicionSelected2);
       this.getInfotableDiscount();
-      this.rerender();
     } 
+  }
+
+  //Validación check all filtros charts 
+  checkAllOrigin2() {
+    if (this.isCheckedOrigin == true) {
+      $('.marca').prop('checked', false);
+      this.isCheckedOrigin = false;
+      $('.marca').prop('disabled', false);
+
+      this.originData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.originSelected.splice(element.value);
+      });
+
+      this.getInfoDiscount();
+    } else {
+      if (this.originSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.originSelected = [];
+
+        this.originData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.originSelected.splice(element.value);
+        });
+      }
+
+      $('.marca').prop('checked', true);
+      this.isCheckedOrigin = true;
+      $('.marca').prop('disabled', true);
+
+      this.originData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.originSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoDiscount();
+    }
+  }
+
+  checkAllCategory2() {
+    if (this.isCheckedCategory == true) {
+      $('.categoria').prop('checked', false);
+      this.isCheckedCategory = false;
+      $('.categoria').prop('disabled', false);
+
+      this.categoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.categoriaSelected.splice(element.value);
+      });
+
+      this.getInfoDiscount();
+    } else {
+      if (this.categoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.categoriaSelected = [];
+
+        this.categoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.categoriaSelected.splice(element.value);
+        });
+      }
+
+      $('.categoria').prop('checked', true);
+      this.isCheckedCategory = true;
+      $('.categoria').prop('disabled', true);
+
+      this.categoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.categoriaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoDiscount();
+    }
+  }
+
+  checkAllSubCategory2() {
+    if (this.isCheckedSubCategory == true) {
+      $('.subCategoria').prop('checked', false);
+      this.isCheckedSubCategory = false;
+      $('.subCategoria').prop('disabled', false);
+
+      this.subCategoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.subCategoriaSelected.splice(element.value);
+      });
+
+      this.getInfoDiscount();
+    } else {
+      if (this.subCategoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.subCategoriaSelected = [];
+
+        this.subCategoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.subCategoriaSelected.splice(element.value);
+        });
+      }
+
+      $('.subCategoria').prop('checked', true);
+      this.isCheckedSubCategory = true;
+      $('.subCategoria').prop('disabled', true);
+
+      this.subCategoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.subCategoriaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoDiscount();
+    }
+  }
+
+  checkAllTipoPrenda2() {
+    if (this.isCheckedTipoPrenda == true) {
+      $('.tipoPrenda').prop('checked', false);
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrenda').prop('disabled', false);
+
+      this.tipoPrendaData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.tipoPrendaSelected.splice(element.value);
+      });
+
+      this.getInfoDiscount();
+    } else {
+      if (this.tipoPrendaSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.tipoPrendaSelected = [];
+
+        this.tipoPrendaData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.tipoPrendaSelected.splice(element.value);
+        });
+      }
+
+      $('.tipoPrenda').prop('checked', true);
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrenda').prop('disabled', true);
+
+      this.tipoPrendaData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.tipoPrendaSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoDiscount();
+    }
+  }
+  
+  checkAllColor2() {
+    if (this.isCheckedColor == true) {
+      $('.color').prop('checked', false);
+      this.isCheckedColor = false;
+      $('.color').prop('disabled', false);
+
+      this.colorData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.colorSelected.splice(element.value);
+      });
+
+      this.getInfoDiscount();
+    } else {
+      if (this.colorSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.colorSelected = [];
+
+        this.colorData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.colorSelected.splice(element.value);
+        });
+      }
+
+      $('.color').prop('checked', true);
+      this.isCheckedColor = true;
+      $('.color').prop('disabled', true);
+
+      this.colorData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.colorSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoDiscount();
+    }
+  }  
+
+  checkAllComposicion2() {
+    if (this.isCheckedComposicion == true) {
+      $('.composicion').prop('checked', false);
+      this.isCheckedComposicion = false;
+      $('.composicion').prop('disabled', false);
+
+      this.composicionData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.composicionSelected.splice(element.value);
+      });
+
+      this.getInfoDiscount();
+    } else {
+      if (this.composicionSelected.length > 0 && this.selectedFilter.length > 0) {
+        this.composicionSelected = [];
+
+        this.composicionData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.composicionSelected.splice(element.value);
+        });
+      }
+
+      $('.composicion').prop('checked', true);
+      this.isCheckedComposicion = true;
+      $('.composicion').prop('disabled', true);
+
+      this.composicionData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.composicionSelected.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoDiscount();
+    }
   }
 
   // Modal Charts
@@ -867,6 +1176,20 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     $(".tipoPrenda").prop("checked", false);
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
+
+    $(".marcaAll").prop("checked", false);
+    $(".categoriaAll").prop("checked", false);
+    $(".subCategoriaAll").prop("checked", false);
+    $(".tipoPrendaAll").prop("checked", false);
+    $(".colorAll").prop("checked", false);
+    $(".composicionAll").prop("checked", false);
+
+    this.isCheckedOrigin = false;
+    this.isCheckedCategory = false;
+    this.isCheckedSubCategory = false;
+    this.isCheckedTipoPrenda = false;
+    this.isCheckedColor = false;
+    this.isCheckedComposicion = false;
 
     if(this.seleccion === "Mes") {
       this.getInfoDiscount();
@@ -921,7 +1244,6 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     this.isCheckedComposicion = false;
 
     this.getInfotableDiscount();
-    this.rerender();
   }
 
   closeModal2 () {
@@ -936,6 +1258,14 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       let chequearMarca = document.getElementById(`marca${marcaCheck}`);
       chequearMarca.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedOrigin == true) {
+      this.isCheckedOrigin = false;
+      $('.marca').prop('disabled', false);
+    } else {
+      this.isCheckedOrigin = true;
+      $('.marca').prop('disabled', true);
+    }
   }
 
   validateCheckCategory(value: any, categoriaCheck: any) {
@@ -945,6 +1275,15 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       let chequearCategoria = document.getElementById(`categoria${categoriaCheck}`);
       chequearCategoria.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedCategory == true) {
+      this.isCheckedCategory = false;
+      $('.categoria').prop('disabled', false);
+    } else {
+      this.isCheckedCategory = true;
+      $('.categoria').prop('disabled', true);
+    }
+    
   }
 
   validateCheckSubCategory(value: any, subCategoriaCheck: any) {
@@ -953,6 +1292,14 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     if (validarSubCategoria) {
       let chequearSubCategoria = document.getElementById(`subcategoria${subCategoriaCheck}`);
       chequearSubCategoria.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedSubCategory == true) {
+      this.isCheckedSubCategory = false;
+      $('.subCategoria').prop('disabled', false);
+    } else {
+      this.isCheckedSubCategory = true;
+      $('.subCategoria').prop('disabled', true);
     }
   }
 
@@ -963,6 +1310,14 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
       chequearTipoPrenda.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedTipoPrenda == true) {
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrenda').prop('disabled', false);
+    } else {
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrenda').prop('disabled', true);
+    }
   }
 
   validateCheckColor(value: any, colorCheck: any) {
@@ -972,6 +1327,14 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
       let chequearColor = document.getElementById(`color${colorCheck}`);
       chequearColor.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedColor == true) {
+      this.isCheckedColor = false;
+      $('.color').prop('disabled', false);
+    } else {
+      this.isCheckedColor = true;
+      $('.color').prop('disabled', true);
+    }
   }
 
   validateCheckComposicion(value: any, composicionCheck: any) {
@@ -980,6 +1343,14 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     if (validarComposicion) {
       let chequearComposicion = document.getElementById(`composicion${composicionCheck}`);
       chequearComposicion.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedComposicion == true) {
+      this.isCheckedComposicion = false;
+      $('.composicion').prop('disabled', false);
+    } else {
+      this.isCheckedComposicion = true;
+      $('.composicion').prop('disabled', true);
     }
   }  
 
@@ -1103,6 +1474,10 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
     if (res.obj.origin === 'general') {
       this.label1 = 'Zara';
       this.label2 = 'Mango';
+      this.label3 = 'Gef';
+      this.label4 = 'Punto Blanco';
+      this.label5 = 'Baby fresh';
+      this.label6 = 'Galax';
       this.months = [];
       this.months = res.obj.months;
       for (let index = 0; index < res.obj.values.length; index++) {
@@ -1110,20 +1485,25 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
           this.averageDiscount1[index] = res.obj.values[index];
         } else if (index >= 24 && index <= 35) {
           this.averageDiscount2[index - 24] = res.obj.values[index];
+        } else if (index >= 48 && index <= 59) {
+          this.averageDiscount3[index - 48] = res.obj.values[index];
+        } else if (index >= 72 && index <= 83) {
+          this.averageDiscount4[index - 72] = res.obj.values[index];
+        } else if (index >= 96 && index <= 107) {
+          this.averageDiscount5[index - 96] = res.obj.values[index];
+        } else if (index >= 120 && index <= 131) {
+          this.averageDiscount6[index - 120] = res.obj.values[index];
         }
       }
-    } else if (res.obj.origin === 'Mango') {
-      this.label1 = `${res.obj.origin} ${year}`;
-      this.label2 = `${res.obj.origin} ${year - 1}`;
-      this.months = res.obj.months;
-      for (let index = 0; index < res.obj.values.length; index++) {
-        if (index <= 11) {
-          this.averageDiscount1[index] = res.obj.values[index];
-        } else if (index >= 12 && index <= 23) {
-          this.averageDiscount2[index - 12] = res.obj.values[index];
-        }
-      }
-    } else if (res.obj.origin === 'Zara') {
+    } else {
+      this.label3 = '';
+      this.averageDiscount3 = [];
+      this.label4 = '';
+      this.averageDiscount4 = [];
+      this.label5 = '';
+      this.averageDiscount5 = [];
+      this.label6 = '';
+      this.averageDiscount6 = [];
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
@@ -1135,25 +1515,6 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
         }
       }
     }
-  }
-
-  rerender(): void {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-    });
-    this.dtOptionsReload();
-  }
-
-  dtOptionsReload() {
-    this.dtOptions = {
-      destroy: true,
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-    };
   }
 
   @ViewChild('mychart') mychart: any;
@@ -1188,6 +1549,30 @@ export class InformeDescuentoComponent implements OnDestroy, OnInit {
             label: this.label2,
             data: this.averageDiscount2,
             borderColor: '#e5a67c',
+            fill: true,
+          },
+          {
+            label: this.label3,
+            data: this.averageDiscount3,
+            borderColor: '#000000',
+            fill: true,
+          },
+          {
+            label: this.label4,
+            data: this.averageDiscount4,
+            borderColor: '#EBFE04',
+            fill: true,
+          },
+          {
+            label: this.label5,
+            data: this.averageDiscount5,
+            borderColor: '#89b7e8',
+            fill: true,
+          },
+          {
+            label: this.label6,
+            data: this.averageDiscount6,
+            borderColor: '#fa4c06',
             fill: true,
           },
         ],

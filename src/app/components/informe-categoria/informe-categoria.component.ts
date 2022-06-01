@@ -4,7 +4,6 @@ import { BlackboxService } from '../../services/blackbox.service';
 
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 
 //Filtro modal
@@ -30,12 +29,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     backdrop: true,
     ignoreBackdropClick: true,
   };
-
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
-
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
 
   photos: any;
 
@@ -115,6 +108,15 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
   isCheckedTipoPrenda2 = false;
   isCheckedColor2 = false;
   isCheckedComposicion2 = false;
+  spinnerTable = false;
+
+  //Checked All
+  isCheckedOrigin = false;
+  isCheckedCategory = false;
+  isCheckedSubCategory = false;
+  isCheckedTipoPrenda = false;
+  isCheckedColor = false;
+  isCheckedComposicion = false;
 
   
   constructor(
@@ -129,18 +131,9 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.getInfoTable();
     this.showDataModal();
 
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-      destroy: true,
-    };
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
   }
 
   // Ocultar/Mostrar sidebar
@@ -152,6 +145,14 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
         $('#wrapper.toggled').find('#sidebar-wrapper').find('.collapse')
       )).collapse('hide');
     });
+  }
+
+  getSpinnerClass() {
+    if (this.spinnerTable) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
   }
 
   // Peticion infoCards
@@ -167,10 +168,13 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getPrendasInfoCards(params).subscribe(
       (res) => {
         this.setPrendasInfoCards(res);
         // console.log(res);
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -204,15 +208,24 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelected,
       tipoPrenda: this.tipoPrendaSelected,
       color: this.colorSelected,
-      composicion: this.composicionSelected
+      composicion: this.composicionSelected,
+      fechaInicio: this.inicio,
+      fechaFin: this.fin,
+
+
+      allCategory: this.isCheckedCategory2,
+      allSubCategory: this.isCheckedSubCategory2,
+      allTipoPrenda: this.isCheckedTipoPrenda2
     };
 
+    this.spinnerTable = true;
+
     //Cambiar la ruta de get
-    this.blackboxService.getTableSKUInfo(params).subscribe(
+    this.blackboxService.getTablePrendasInfo2(params).subscribe(
       (res) => {
         // console.log(res);
         this.setInfoTable(res);
-        this.dtTrigger.next();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -234,14 +247,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     });
     this.photos = res.obj.arr2;
 
-
-    // this.photos = res.obj.arr;
-    // this.tableAvgSKU = new Intl.NumberFormat('es-CO').format(res.obj.SKU);
-    // this.tableDifference = res.obj.differences;
-    // this.averagePrice = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
-    // this.averageNews2 = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
-    // this.averageDiscount2 = res.obj.descuentoPromedio;
-    // this.tasaFrescura = res.obj.tasaFrescura;
   }
 
   //===============INICIO FILTROS MODAL===============
@@ -363,14 +368,12 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.origin = this.originSelected;
       console.log(this.origin);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'marca' && !value.checked) {
       this.origin = [];
       this.originSelected.splice(this.originSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.originSelected);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'categoria') {
@@ -379,14 +382,12 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.categoria = this.categoriaSelected;
       console.log(this.categoria);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'categoria' && !value.checked) {
       this.categoria = [];
       this.categoriaSelected.splice(this.categoriaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.categoriaSelected);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'subCategoria') {
@@ -395,7 +396,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.subCategoria = this.subCategoriaSelected;
       console.log(this.subCategoria);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'subCategoria' && !value.checked) {
       this.subCategoria = [];
       this.subCategoriaSelected.splice(
@@ -403,7 +403,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.subCategoriaSelected);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'tipoPrenda') {
@@ -412,14 +411,12 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.tipoPrenda = this.tipoPrendaSelected;
       console.log(this.tipoPrenda);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'tipoPrenda' && !value.checked) {
       this.tipoPrenda = [];
       this.tipoPrendaSelected.splice(this.tipoPrendaSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.tipoPrendaSelected);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'color colorStyles') {
@@ -428,14 +425,12 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.color = this.colorSelected;
       console.log(this.color);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'color colorStyles' && !value.checked) {
       this.color = [];
       this.colorSelected.splice(this.colorSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.colorSelected);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'composicion') {
@@ -444,14 +439,12 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
       this.composicion = this.composicionSelected;
       console.log(this.composicion);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'composicion' && !value.checked) {
       this.composicion = [];
       this.composicionSelected.splice(this.composicionSelected.indexOf(item), 1);
       this.selectedFilter.splice(this.selectedFilter.indexOf(value), 1);
       console.log(this.composicionSelected);
       this.getInfoTable();
-      this.rerender();
     }            
   }
 
@@ -766,7 +759,324 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
 
       this.getInfoTable();
     }
-  }    
+  }   
+  
+  // funcion para validar los checks de cards
+
+  
+
+  // validar check filtros de categoria 
+  checkAllOrigin() {
+    if (this.isCheckedOrigin == true) {
+      $('.marcaCards').prop('checked', false);
+      $('.marcaCards').prop('disabled', false);
+      this.isCheckedOrigin = false;
+
+      this.originData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.originSelectedCards.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.originSelectedCards.length > 0 && this.selectedFilter.length > 0) {
+        this.originSelectedCards = [];
+
+        this.originData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.originSelectedCards.splice(element.value);
+        });
+      }
+
+      $('.marcaCards').prop('checked', true);
+      this.isCheckedOrigin = true;
+      $('.marcaCards').prop('disabled', true);
+
+      this.originData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.originSelectedCards.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+
+  checkAllCategory() {
+    if (this.isCheckedCategory == true) {
+      $('.categoriaCards').prop('checked', false);
+      this.isCheckedCategory = false;
+      $('.categoriaCards').prop('disabled', false);
+
+      this.categoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.categoriaSelectedCards.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.categoriaSelectedCards.length > 0 && this.selectedFilter.length > 0) {
+        this.categoriaSelectedCards = [];
+
+        this.categoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.categoriaSelectedCards.splice(element.value);
+        });
+      }
+
+      $('.categoriaCards').prop('checked', true);
+      this.isCheckedCategory = true;
+      $('.categoriaCards').prop('disabled', true);
+
+      this.categoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.categoriaSelectedCards.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+
+  checkAllSubCategory() {
+    if (this.isCheckedSubCategory == true) {
+      $('.subCategoriaCards').prop('checked', false);
+      this.isCheckedSubCategory = false;
+      $('.subCategoriaCards').prop('disabled', false);
+
+      this.subCategoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.subCategoriaSelectedCards.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.subCategoriaSelectedCards.length > 0 && this.selectedFilter.length > 0) {
+        this.subCategoriaSelectedCards = [];
+
+        this.subCategoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.subCategoriaSelectedCards.splice(element.value);
+        });
+      }
+
+      $('.subCategoriaCards').prop('checked', true);
+      this.isCheckedSubCategory = true;
+      $('.subCategoriaCards').prop('disabled', true);
+
+      this.subCategoryData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.subCategoriaSelectedCards.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+
+  checkAllTipoPrenda() {
+    if (this.isCheckedTipoPrenda == true) {
+      $('.tipoPrendaCards').prop('checked', false);
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrendaCards').prop('disabled', false);
+
+      this.tipoPrendaData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.tipoPrendaSelectedCards.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.tipoPrendaSelectedCards.length > 0 && this.selectedFilter.length > 0) {
+        this.tipoPrendaSelectedCards = [];
+
+        this.tipoPrendaData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.tipoPrendaSelectedCards.splice(element.value);
+        });
+      }
+
+      $('.tipoPrendaCards').prop('checked', true);
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrendaCards').prop('disabled', true);
+
+      this.tipoPrendaData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.tipoPrendaSelectedCards.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+  
+  checkAllColor() {
+    if (this.isCheckedColor == true) {
+      $('.colorCards').prop('checked', false);
+      this.isCheckedColor = false;
+      $('.colorCards').prop('disabled', false);
+
+      this.colorData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.colorSelectedCards.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.colorSelectedCards.length > 0 && this.selectedFilter.length > 0) {
+        this.colorSelectedCards = [];
+
+        this.colorData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.colorSelectedCards.splice(element.value);
+        });
+      }
+
+      $('.colorCards').prop('checked', true);
+      this.isCheckedColor = true;
+      $('.colorCards').prop('disabled', true);
+
+      this.colorData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.colorSelectedCards.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  }
+
+  checkAllComposicion() {
+    if (this.isCheckedComposicion == true) {
+      $('.composicionCards').prop('checked', false);
+      this.isCheckedComposicion = false;
+      $('.composicionCards').prop('disabled', false);
+
+      this.composicionData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        }); 
+
+        this.composicionSelectedCards.splice(element.value);
+      });
+
+      this.getInfoCards();
+    } else {
+      if (this.composicionSelectedCards.length > 0 && this.selectedFilter.length > 0) {
+        this.composicionSelectedCards = [];
+
+        this.composicionData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.composicionSelectedCards.splice(element.value);
+        });
+      }
+
+      $('.composicionCards').prop('checked', true);
+      this.isCheckedComposicion = true;
+      $('.composicionCards').prop('disabled', true);
+
+      this.composicionData.forEach(element =>  {
+        let value = {
+          item: element.value || ''
+        }
+        this.composicionSelectedCards.push(element.value);
+        this.selectedFilter.push(value);
+      });
+
+      this.getInfoCards();
+    }
+  } 
 
   // Modal Cards
   openModalCards(templateCards: TemplateRef<any>) {
@@ -795,6 +1105,27 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     $(".colorCards").prop("checked", false);
     $(".composicionCards").prop("checked", false);
 
+    $(".marcaCards").prop("disabled", false);
+    $(".categoriaCards").prop("disabled", false);
+    $(".subCategoriaCards").prop("disabled", false);
+    $(".tipoPrendaCards").prop("disabled", false);
+    $(".colorCards").prop("disabled", false);
+    $(".composicionCards").prop("disabled", false);
+
+    $(".marcaAll").prop("checked", false);
+    $(".categoriaAll").prop("checked", false);
+    $(".subCategoriaAll").prop("checked", false);
+    $(".tipoPrendaAll").prop("checked", false);
+    $(".colorAll").prop("checked", false);
+    $(".composicionAll").prop("checked", false);
+
+    this.isCheckedOrigin = false;
+    this.isCheckedCategory = false;
+    this.isCheckedSubCategory = false;
+    this.isCheckedTipoPrenda = false;
+    this.isCheckedColor = false;
+    this.isCheckedComposicion = false;
+
     this.getInfoCards();
   }
 
@@ -807,6 +1138,7 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.modalRef = this.modalService.show(template, this.config);
   }
 
+  // clear table
   clearFilters() {
     this.origin = [];
     this.categoria = [];
@@ -844,7 +1176,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     this.isCheckedComposicion2 = false;
 
     this.getInfoTable();
-    this.rerender();
   }
 
   closeModal() {
@@ -1009,13 +1340,6 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     }
   } 
 
-  rerender(): void {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-    });
-    this.dtOptionsReload();
-  }
-
   fechaInicio(){    
     // console.log(this.inicio);
     this.getInfoCards();
@@ -1025,16 +1349,5 @@ export class InformeCategoriaComponent implements OnDestroy, OnInit {
     // let date = new Date(this.fin);
     // console.log(this.fin);
     this.getInfoCards();
-  }
-
-  dtOptionsReload() {
-    this.dtOptions = {
-      destroy: true,
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-    };
   }
 }

@@ -103,6 +103,8 @@ export class CatKidsComponent implements OnInit {
   topTenPorcentajeSKU: any = [0,0,0,0,0,0,0,0,0,0];
   topTenTotalSKU: any = [0,0,0,0,0,0,0,0,0,0];
   copy: any = ['','','','','','','','','',''];
+
+  spinnerTable = false;
   
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
@@ -121,6 +123,14 @@ export class CatKidsComponent implements OnInit {
 
   //===============INICIO FILTROS MODAL===============
 
+  getSpinnerClass() {
+    if (this.spinnerTable) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
+  }
+
   getInfoCategory() {
     let params = {
       origin: this.originSelected,
@@ -132,10 +142,13 @@ export class CatKidsComponent implements OnInit {
 
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoKidsCategoryColors(params).subscribe(
       (res) => {
         this.setInfoCategories(res);
         this.ng();
+        this.spinnerTable = false;
         // console.log(res);
       },
       (err) => {
@@ -194,11 +207,14 @@ export class CatKidsComponent implements OnInit {
 
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
         // console.log(res);
         this.setInfoBarChart(res);
         this.ng();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);

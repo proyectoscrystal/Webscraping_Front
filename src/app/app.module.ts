@@ -52,10 +52,15 @@ import { DataTablesModule } from "angular-datatables";
 import { ProductosComponent } from './components/productos/productos.component';
 import { Table2Component } from './components/informe-categoria/table2/table2.component';
 
+// primeng table
+import {TableModule} from 'primeng-lts/table';
+import {ButtonModule} from 'primeng-lts/button';
+
 //Datepicker
 import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 defineLocale('es', esLocale);
 
 @NgModule({
@@ -85,6 +90,8 @@ defineLocale('es', esLocale);
   ],
   imports: [
     BrowserModule,
+    TableModule,
+    ButtonModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -99,7 +106,8 @@ defineLocale('es', esLocale);
     DataTablesModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    AccordionModule.forRoot()
   ],
   providers: [
     AuthGuard,

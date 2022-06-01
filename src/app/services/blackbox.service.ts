@@ -61,6 +61,10 @@ export class BlackboxService {
     return this.http.get(this.url + '/m_tableSKUInfo/' ,{ params } );
   }
 
+  getTablePrendasInfo2(params: any) {
+    return this.http.get(this.url + '/m_tablePrendasInfo2/' ,{ params } );
+  }
+
   getTableNewsInfo(params: any) {
     return this.http.get(this.url + '/m_tableNewsInfo/' ,{ params } );
   }

@@ -103,6 +103,7 @@ export class CatMujerComponent implements OnInit {
   topTenColoresRGB: any = ['','','','','','','','','',''];
   topTenPorcentajeSKU: any = [0,0,0,0,0,0,0,0,0,0];
   topTenTotalSKU: any = [0,0,0,0,0,0,0,0,0,0];
+  spinnerTable = false;
 
   constructor(private blackboxService: BlackboxService, private modalService: BsModalService, private modalService2: BsModalService) {
     this.datos = new Datos();
@@ -120,6 +121,13 @@ export class CatMujerComponent implements OnInit {
 
   //===============INICIO FILTROS MODAL===============
 
+  getSpinnerClass() {
+    if (this.spinnerTable) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
+  }
   //Setear filtros obtenidos
   getInfoCategory() {
     let params = {
@@ -132,11 +140,14 @@ export class CatMujerComponent implements OnInit {
 
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoMujerCategoryColors(params).subscribe(
       (res) => {
         this.setInfoCategories(res);
         this.ng();
         // console.log(res);
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -193,11 +204,14 @@ export class CatMujerComponent implements OnInit {
 
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
         console.log(res);
         this.setInfoBarChart(res);
         this.ng();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);

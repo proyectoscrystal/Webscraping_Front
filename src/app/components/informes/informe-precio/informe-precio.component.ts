@@ -22,8 +22,10 @@ import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
+
+// api de primeng 
+
+import { PrimeNGConfig } from 'primeng-lts/api';
 
 //Filtro modal
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -51,25 +53,26 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     ignoreBackdropClick: true,
   };
 
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
-
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
 
   dataSubscription: Subscription;
 
-  photos: any;
+  cols: any[];
+  photos: [];
   tableAvgPrice: any;
-  tableDifference: any;
+  tableDifference: number[] = [0,0];
   total: any;
   yearMonth: string[] = ['mes', 'año Zara', 'año Mango'];
   seleccion: string = '';
   averagePrice1: number[] = [];
   averagePrice2: number[] = [];
+  averagePrice3: number[] = [];
+  averagePrice4: number[] = [];
+  averagePrice5: number[] = [];
+  averagePrice6: number[] = [];
   months: [];
   label1: any;
   label2: any;
+  label5: any;
   myChart: Chart;
   categorys: any;
   subcategorys: any;
@@ -124,12 +127,21 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
   isCheckedColor = false;
   isCheckedComposicion = false;
 
+  isCheckedFirtsTime = false;
+
+  spinnerChart = false;
+  spinnerTable = false;
+  label3: string;
+  label4: string;
+  label6: string;
+
 
   constructor(
     private blackboxService: BlackboxService,
     private modalService: BsModalService,
     private modalService2: BsModalService,
-    private servicioEnvioData: ServicioEnvioDataService
+    private servicioEnvioData: ServicioEnvioDataService,
+    private primengConfig: PrimeNGConfig
   ) {
     Chart.register(...registerables);
     this.datos = new Datos();
@@ -145,18 +157,19 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
     this.getInfoTable();
     this.showDataModal();
 
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-      destroy: true,
-    };
+    this.primengConfig.ripple = true;
+
+
+    this.cols = [
+      { field: 'categoria', header: 'Categoria' },
+      { field: 'subcategoria', header: 'Subcategoria' },
+      { field: 'tipoPrenda', header: 'Tipo de Prenda' },
+      { field: 'precioPromedio', header: 'Precio Promedio' },
+      { field: 'diferencia', header: 'Diferencia' }
+    ];
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
     this.dataSubscription.unsubscribe();
   }
 
@@ -171,10 +184,13 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       composicion: this.composicionSelected
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoPrice(params).subscribe(
       (res) => {
         this.setInfoPrice(res);
         this.ng();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -190,33 +206,50 @@ export class InformePrecioComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
       color: this.colorSelected2,
-      composicion: this.composicionSelected2
+      composicion: this.composicionSelected2,
+
+
+      allCategory: this.isCheckedCategory,
+      allSubCategory: this.isCheckedSubCategory,
+      allTipoPrenda: this.isCheckedTipoPrenda
     };
 
+    this.spinnerTable = true;
     this.blackboxService.getTablePriceInfo(params).subscribe(
       (res) => {
         // console.log(res);
-
         this.setInfoTable(res);
-        this.dtTrigger.next();
+        this.spinnerTable = false;
+
       },
       (err) => {
         console.log(err);
       }
+      
     );
+    
   }
 
-  setInfoTable(res) {
-    // formatear numero a monedades
-    // let precioPromedio = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
-    res.obj.arr3 = res.obj.arr3.map(element => {
-      if(element.precioPromedio !== null) element.precioPromedio = new Intl.NumberFormat('es-CO').format(element.precioPromedio);
+  getSpinnerClass() {
+    if (this.spinnerTable) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
+  }
 
+  
+
+  setInfoTable(res) {
+    // borrando la info del arreglo photos
+    this.photos = [];
+
+    this.photos = res.obj.arr3.map(element => {
+      if(element.precioPromedio !== null) element.precioPromedio = new Intl.NumberFormat('es-CO').format(element.precioPromedio);
+ 
       return element
     });
 
-    this.photos = res.obj.arr3;
-    // this.tableAvgPrice = precioPromedio;
     this.tableDifference = res.obj.differences;
   }
 
@@ -298,6 +331,7 @@ setInfoPriceWeek(res) {
  
   //Función para validar checked del filtro chart
   validateCheckFilter(checked, item, className) {
+    
     let data = {
       checked,
       clase: className,
@@ -456,7 +490,7 @@ setInfoPriceWeek(res) {
     }   
   }
 
-  //Validación check all filtros
+  //Validación check all filtros tables
   checkAllOrigin() {
     if (this.isCheckedOrigin == true) {
       $('.marca2').prop('checked', false);
@@ -772,6 +806,7 @@ setInfoPriceWeek(res) {
   //Recibe los datos seleccionados en el filtro tabla
   filterItemsData2(value) {
     const { item } = value;
+    this.isCheckedFirtsTime = true;
 
     //Filtro tabla
     if (value.checked && value.clase === 'marca2') {
@@ -780,14 +815,12 @@ setInfoPriceWeek(res) {
       this.origin2 = this.originSelected2;
       console.log(this.origin2);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'marca2' && !value.checked) {
       this.origin2 = [];
       this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.originSelected2);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'categoria2') {
@@ -796,14 +829,12 @@ setInfoPriceWeek(res) {
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -812,14 +843,12 @@ setInfoPriceWeek(res) {
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -828,14 +857,12 @@ setInfoPriceWeek(res) {
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'color2 colorStyles') {
@@ -844,14 +871,12 @@ setInfoPriceWeek(res) {
       this.color2 = this.colorSelected2;
       console.log(this.color2);
       this.getInfoTable();
-      this.rerender();
     } else if (value.clase == 'color2 colorStyles' && !value.checked) {
       this.color2 = [];
       this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.colorSelected2);
       this.getInfoTable();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'composicion2') {
@@ -860,16 +885,328 @@ setInfoPriceWeek(res) {
       this.composicion2 = this.composicionSelected2;
       console.log(this.composicion2);
       this.getInfoPrice();
-      this.rerender();
     } else if (value.clase == 'composicion2' && !value.checked) {
       this.composicion2 = [];
       this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.composicionSelected2);
       this.getInfoPrice();
-      this.rerender();
     }       
   }
+
+  //Validación check all filtros charts 
+    checkAllOrigin2() {
+      if (this.isCheckedOrigin == true) {
+        $('.marca').prop('checked', false);
+        this.isCheckedOrigin = false;
+        $('.marca').prop('disabled', false);
+  
+        this.originData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          });
+  
+          this.originSelected.splice(element.value);
+        });
+  
+        this.getInfoPrice();
+      } else {
+        if (this.originSelected.length > 0 && this.selectedFilter.length > 0) {
+          this.originSelected = [];
+  
+          this.originData.forEach(element => {
+            this.selectedFilter.forEach((e,) => {
+              if (e.item === element.value) {
+                this.selectedFilter = this.selectedFilter.filter(filtro => {
+                  return filtro.item !== e.item;
+                });
+              }
+            });
+    
+            this.originSelected.splice(element.value);
+          });
+        }
+  
+        $('.marca').prop('checked', true);
+        this.isCheckedOrigin = true;
+        $('.marca').prop('disabled', true);
+  
+        this.originData.forEach(element =>  {
+          let value = {
+            item: element.value || ''
+          }
+          this.originSelected.push(element.value);
+          this.selectedFilter.push(value);
+        });
+  
+        this.getInfoPrice();
+      }
+    }
+  
+    checkAllCategory2() {
+      if (this.isCheckedCategory == true) {
+        $('.categoria').prop('checked', false);
+        this.isCheckedCategory = false;
+        $('.categoria').prop('disabled', false);
+  
+        this.categoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          }); 
+  
+          this.categoriaSelected.splice(element.value);
+        });
+  
+        this.getInfoPrice();
+      } else {
+        if (this.categoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+          this.categoriaSelected = [];
+  
+          this.categoryData.forEach(element => {
+            this.selectedFilter.forEach((e,) => {
+              if (e.item === element.value) {
+                this.selectedFilter = this.selectedFilter.filter(filtro => {
+                  return filtro.item !== e.item;
+                });
+              }
+            });
+    
+            this.categoriaSelected.splice(element.value);
+          });
+        }
+  
+        $('.categoria').prop('checked', true);
+        this.isCheckedCategory = true;
+        $('.categoria').prop('disabled', true);
+  
+        this.categoryData.forEach(element =>  {
+          let value = {
+            item: element.value || ''
+          }
+          this.categoriaSelected.push(element.value);
+          this.selectedFilter.push(value);
+        });
+  
+        this.getInfoPrice();
+      }
+    }
+  
+    checkAllSubCategory2() {
+      if (this.isCheckedSubCategory == true) {
+        $('.subCategoria').prop('checked', false);
+        this.isCheckedSubCategory = false;
+        $('.subCategoria').prop('disabled', false);
+  
+        this.subCategoryData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          }); 
+  
+          this.subCategoriaSelected.splice(element.value);
+        });
+  
+        this.getInfoPrice();
+      } else {
+        if (this.subCategoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+          this.subCategoriaSelected = [];
+  
+          this.subCategoryData.forEach(element => {
+            this.selectedFilter.forEach((e,) => {
+              if (e.item === element.value) {
+                this.selectedFilter = this.selectedFilter.filter(filtro => {
+                  return filtro.item !== e.item;
+                });
+              }
+            });
+    
+            this.subCategoriaSelected.splice(element.value);
+          });
+        }
+  
+        $('.subCategoria').prop('checked', true);
+        this.isCheckedSubCategory = true;
+        $('.subCategoria').prop('disabled', true);
+  
+        this.subCategoryData.forEach(element =>  {
+          let value = {
+            item: element.value || ''
+          }
+          this.subCategoriaSelected.push(element.value);
+          this.selectedFilter.push(value);
+        });
+  
+        this.getInfoPrice();
+      }
+    }
+  
+    checkAllTipoPrenda2() {
+      if (this.isCheckedTipoPrenda == true) {
+        $('.tipoPrenda').prop('checked', false);
+        this.isCheckedTipoPrenda = false;
+        $('.tipoPrenda').prop('disabled', false);
+  
+        this.tipoPrendaData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          }); 
+  
+          this.tipoPrendaSelected.splice(element.value);
+        });
+  
+        this.getInfoPrice();
+      } else {
+        if (this.tipoPrendaSelected.length > 0 && this.selectedFilter.length > 0) {
+          this.tipoPrendaSelected = [];
+  
+          this.tipoPrendaData.forEach(element => {
+            this.selectedFilter.forEach((e,) => {
+              if (e.item === element.value) {
+                this.selectedFilter = this.selectedFilter.filter(filtro => {
+                  return filtro.item !== e.item;
+                });
+              }
+            });
+    
+            this.tipoPrendaSelected.splice(element.value);
+          });
+        }
+  
+        $('.tipoPrenda').prop('checked', true);
+        this.isCheckedTipoPrenda = true;
+        $('.tipoPrenda').prop('disabled', true);
+  
+        this.tipoPrendaData.forEach(element =>  {
+          let value = {
+            item: element.value || ''
+          }
+          this.tipoPrendaSelected.push(element.value);
+          this.selectedFilter.push(value);
+        });
+  
+        this.getInfoPrice();
+      }
+    }
+    
+    checkAllColor2() {
+      if (this.isCheckedColor == true) {
+        $('.color').prop('checked', false);
+        this.isCheckedColor = false;
+        $('.color').prop('disabled', false);
+  
+        this.colorData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          }); 
+  
+          this.colorSelected.splice(element.value);
+        });
+  
+        this.getInfoPrice();
+      } else {
+        if (this.colorSelected.length > 0 && this.selectedFilter.length > 0) {
+          this.colorSelected = [];
+  
+          this.colorData.forEach(element => {
+            this.selectedFilter.forEach((e,) => {
+              if (e.item === element.value) {
+                this.selectedFilter = this.selectedFilter.filter(filtro => {
+                  return filtro.item !== e.item;
+                });
+              }
+            });
+    
+            this.colorSelected.splice(element.value);
+          });
+        }
+  
+        $('.color').prop('checked', true);
+        this.isCheckedColor = true;
+        $('.color').prop('disabled', true);
+  
+        this.colorData.forEach(element =>  {
+          let value = {
+            item: element.value || ''
+          }
+          this.colorSelected.push(element.value);
+          this.selectedFilter.push(value);
+        });
+  
+        this.getInfoPrice();
+      }
+    }  
+  
+    checkAllComposicion2() {
+      if (this.isCheckedComposicion == true) {
+        $('.composicion').prop('checked', false);
+        this.isCheckedComposicion = false;
+        $('.composicion').prop('disabled', false);
+  
+        this.composicionData.forEach(element => {
+          this.selectedFilter.forEach((e,) => {
+            if (e.item === element.value) {
+              this.selectedFilter = this.selectedFilter.filter(filtro => {
+                return filtro.item !== e.item;
+              });
+            }
+          }); 
+  
+          this.composicionSelected.splice(element.value);
+        });
+  
+        this.getInfoPrice();
+      } else {
+        if (this.composicionSelected.length > 0 && this.selectedFilter.length > 0) {
+          this.composicionSelected = [];
+  
+          this.composicionData.forEach(element => {
+            this.selectedFilter.forEach((e,) => {
+              if (e.item === element.value) {
+                this.selectedFilter = this.selectedFilter.filter(filtro => {
+                  return filtro.item !== e.item;
+                });
+              }
+            });
+    
+            this.composicionSelected.splice(element.value);
+          });
+        }
+  
+        $('.composicion').prop('checked', true);
+        this.isCheckedComposicion = true;
+        $('.composicion').prop('disabled', true);
+  
+        this.composicionData.forEach(element =>  {
+          let value = {
+            item: element.value || ''
+          }
+          this.composicionSelected.push(element.value);
+          this.selectedFilter.push(value);
+        });
+  
+        this.getInfoPrice();
+      }
+    }
+
 
   // Modal Charts
   openModal(template: TemplateRef<any>) {
@@ -882,6 +1219,7 @@ setInfoPriceWeek(res) {
     this.subCategoria = [];
     this.tipoPrenda = [];
     this.color = [];
+    this.composicion = [];
 
     this.originSelected.splice(0, this.originSelected.length);
     this.categoriaSelected.splice(0, this.categoriaSelected.length);
@@ -897,6 +1235,20 @@ setInfoPriceWeek(res) {
     $(".tipoPrenda").prop("checked", false);
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
+
+    $(".marcaAll").prop("checked", false);
+    $(".categoriaAll").prop("checked", false);
+    $(".subCategoriaAll").prop("checked", false);
+    $(".tipoPrendaAll").prop("checked", false);
+    $(".colorAll").prop("checked", false);
+    $(".composicionAll").prop("checked", false);
+
+    this.isCheckedOrigin = false;
+    this.isCheckedCategory = false;
+    this.isCheckedSubCategory = false;
+    this.isCheckedTipoPrenda = false;
+    this.isCheckedColor = false;
+    this.isCheckedComposicion = false;
 
     if(this.seleccion === "Mes") {
       this.getInfoPrice();
@@ -952,7 +1304,6 @@ setInfoPriceWeek(res) {
 
 
     this.getInfoTable();
-    this.rerender();
   }
 
   closeModal2 () {
@@ -967,6 +1318,14 @@ setInfoPriceWeek(res) {
       let chequearMarca = document.getElementById(`marca${marcaCheck}`);
       chequearMarca.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedOrigin == true) {
+      this.isCheckedOrigin = false;
+      $('.marca').prop('disabled', false);
+    } else {
+      this.isCheckedOrigin = true;
+      $('.marca').prop('disabled', true);
+    }
   }
 
   validateCheckCategory(value: any, categoriaCheck: any) {
@@ -975,6 +1334,14 @@ setInfoPriceWeek(res) {
     if (validarCategoria) {
       let chequearCategoria = document.getElementById(`categoria${categoriaCheck}`);
       chequearCategoria.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedCategory == true) {
+      this.isCheckedCategory = false;
+      $('.categoria').prop('disabled', false);
+    } else {
+      this.isCheckedCategory = true;
+      $('.categoria').prop('disabled', true);
     }
   }
 
@@ -985,6 +1352,14 @@ setInfoPriceWeek(res) {
       let chequearSubCategoria = document.getElementById(`subcategoria${subCategoriaCheck}`);
       chequearSubCategoria.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedSubCategory == true) {
+      this.isCheckedSubCategory = false;
+      $('.subCategoria').prop('disabled', false);
+    } else {
+      this.isCheckedSubCategory = true;
+      $('.subCategoria').prop('disabled', true);
+    }
   }
 
   validateCheckTipoPrenda(value: any, tipoPrendaCheck: any) {
@@ -993,6 +1368,14 @@ setInfoPriceWeek(res) {
     if (validarTipoPrenda) {
       let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
       chequearTipoPrenda.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedTipoPrenda == true) {
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrenda').prop('disabled', false);
+    } else {
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrenda').prop('disabled', true);
     }
   }
 
@@ -1003,6 +1386,14 @@ setInfoPriceWeek(res) {
       let chequearColor = document.getElementById(`color${colorCheck}`);
       chequearColor.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedColor == true) {
+      this.isCheckedColor = false;
+      $('.color').prop('disabled', false);
+    } else {
+      this.isCheckedColor = true;
+      $('.color').prop('disabled', true);
+    }
   }
 
   validateCheckComposicion(value: any, composicionCheck: any) {
@@ -1011,6 +1402,14 @@ setInfoPriceWeek(res) {
     if (validarComposicion) {
       let chequearComposicion = document.getElementById(`composicion${composicionCheck}`);
       chequearComposicion.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedComposicion == true) {
+      this.isCheckedComposicion = false;
+      $('.composicion').prop('disabled', false);
+    } else {
+      this.isCheckedComposicion = true;
+      $('.composicion').prop('disabled', true);
     }
   }  
 
@@ -1034,6 +1433,7 @@ setInfoPriceWeek(res) {
   }
 
   validateCheckCategory2(value: any, categoriaCheck2: any) {
+    
     let validarCategoria2 = false;
     validarCategoria2 = this.categoriaSelected2.some(element => element === value)
     if (validarCategoria2) {
@@ -1122,6 +1522,8 @@ setInfoPriceWeek(res) {
   diferencia() {
     if (this.tableDifference[0] === 0) {
       return 'diferencia2';
+    } else if(this.tableDifference[0] === undefined) {
+      return 'diferencia2';
     }
     return 'diferencia';
   }
@@ -1130,29 +1532,39 @@ setInfoPriceWeek(res) {
   setInfoPrice(res) {
     let date = new Date();
     let year = date.getFullYear();
+    // construyendo los arrays para 
     if (res.obj.origin === 'general') {
       this.label1 = 'Zara';
       this.label2 = 'Mango';
+      this.label3 = 'Gef';
+      this.label4 = 'Punto Blanco';
+      this.label5 = 'Baby Fresh';
+      this.label6 = 'Galax';
       this.months = res.obj.months;
       for (let index = 0; index < res.obj.values.length; index++) {
         if (index <= 11) {
           this.averagePrice1[index] = res.obj.values[index];
         } else if (index >= 24 && index <= 35) {
           this.averagePrice2[index - 24] = res.obj.values[index];
+        } else if (index >= 48 && index <= 59) { 
+          this.averagePrice3[index - 48] = res.obj.values[index];
+        } else if (index >= 72 && index <= 83) {
+          this.averagePrice4[index - 72] = res.obj.values[index];
+        } else if (index >= 96 && index <= 107) {
+          this.averagePrice5[index - 96] = res.obj.values[index];
+        } else if (index >= 120 && index <= 131) {
+          this.averagePrice6[index - 120] = res.obj.values[index];
         }
       }
-    } else if (res.obj.origin === 'Mango') {
-      this.label1 = `${res.obj.origin} ${year}`;
-      this.label2 = `${res.obj.origin} ${year - 1}`;
-      this.months = res.obj.months;
-      for (let index = 0; index < res.obj.values.length; index++) {
-        if (index <= 11) {
-          this.averagePrice1[index] = res.obj.values[index];
-        } else if (index >= 12 && index <= 23) {
-          this.averagePrice2[index - 12] = res.obj.values[index];
-        }
-      }
-    } else if (res.obj.origin === 'Zara') {
+    } else {
+      this.label3 = '';
+      this.averagePrice3 = [];
+      this.label4 = '';
+      this.averagePrice4 = [];
+      this.label5 = '';
+      this.averagePrice5 = [];
+      this.label6 = '';
+      this.averagePrice6 = [];
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
@@ -1165,25 +1577,7 @@ setInfoPriceWeek(res) {
       }
     }
   }
-
-  rerender(): void {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-    });
-    this.dtOptionsReload();
-  }
-
-  dtOptionsReload() {
-    this.dtOptions = {
-      destroy: true,
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-    };
-  }
+  //  if (res.obj.origin === 'Zara')
 
   //Desde aca empieza el chart
   @ViewChild('mychart') mychart: any;
@@ -1218,6 +1612,30 @@ setInfoPriceWeek(res) {
             borderColor: '#e5a67c',
             fill: true,
           },
+          {
+            label: this.label3,
+            data: this.averagePrice3,
+            borderColor: '#000000',
+            fill: true,
+          },
+          {
+            label: this.label4,
+            data: this.averagePrice4,
+            borderColor: '#EBFE04',
+            fill: true,
+          },
+          {
+            label: this.label5,
+            data: this.averagePrice5,
+            borderColor: '#89b7e8',
+            fill: true,
+          },
+          {
+            label: this.label6,
+            data: this.averagePrice6,
+            borderColor: '#fa4c06',
+            fill: true,
+          }
         ],
         labels: this.months,
       },
@@ -1229,5 +1647,7 @@ setInfoPriceWeek(res) {
         }
       }
     }); // fin chart 1
+    // probando nueva tabla
+
   };
 }

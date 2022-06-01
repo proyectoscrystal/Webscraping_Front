@@ -14,7 +14,7 @@ import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 //Filtro modal
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -43,12 +43,6 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     ignoreBackdropClick: true,
   };
 
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
-
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
-
   dataSubscription: Subscription;
   seleccion: any = '';
 
@@ -66,6 +60,10 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   months: any;
   averageSKU1: number[] = [];
   averageSKU2: number[] = [];
+  averageSKU3: number[] = [];
+  averageSKU4: number[] = [];
+  averageSKU5: number[] = [];
+  averageSKU6: number[] = [];
 
   origin2: any = '';
   categoria2: any = '';
@@ -112,6 +110,11 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   isCheckedTipoPrenda = false;
   isCheckedColor = false;
   isCheckedComposicion = false;
+  spinnerTable = false;
+  label3: string;
+  label4: string;
+  label5: string;
+  label6: string;
 
   constructor(
     private blackboxService: BlackboxService,
@@ -135,19 +138,18 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
     this.getInfotableSKU();
     this.showDataModal();
 
-    this.dtOptions = {
-      destroy: true,
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-    };
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
     this.dataSubscription.unsubscribe();
+  }
+
+  getSpinnerClass() {
+    if (this.spinnerTable) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
   }
 
   // peticion para la tabla
@@ -158,14 +160,21 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       subCategoria: this.subCategoriaSelected2,
       tipoPrenda: this.tipoPrendaSelected2,
       color: this.colorSelected2,
-      composicion: this.composicionSelected2
+      composicion: this.composicionSelected2,
+
+
+      allCategory: this.isCheckedCategory,
+      allSubCategory: this.isCheckedSubCategory,
+      allTipoPrenda: this.isCheckedTipoPrenda
     };
+
+    this.spinnerTable = true;
 
     this.blackboxService.getTableSKUInfo(params).subscribe(
       (res) => {
         // console.log(res);
         this.setInfoTable(res);
-        this.dtTrigger.next();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -184,10 +193,13 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       composicion: this.composicionSelected
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoSKU(params).subscribe(
       (res) => {
         this.setInfoSKU(res);
         this.ng();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -209,14 +221,6 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
       return element
     });
     this.photos = res.obj.arr2;
-    // console.log(this.photos);
-    
-    // this.tableAvgSKU = new Intl.NumberFormat('es-CO').format( res.obj.SKU);
-    // this.tableDifference = res.obj.differences;
-    // this.averagePrice = new Intl.NumberFormat('es-CO').format(res.obj.precioPromedio);
-    // this.averageNews2 = new Intl.NumberFormat('es-CO').format(res.obj.nuevosPromedio);
-    // this.averageDiscount2 = new Intl.NumberFormat('es-CO').format(res.obj.descuentoPromedio);
-    // this.tasaFrescura = res.obj.tasaFrescura;
   }
 
      // peticion para el chart por semana
@@ -233,7 +237,6 @@ export class InformeSKUComponent implements OnDestroy, OnInit {
   this.blackboxService.getInfoSKUWeek(params).subscribe(
     (res) => {
       this.setInfoNewsWeek(res);
-      console.log(res);
       this.ng();
     },
     (err) => {
@@ -773,14 +776,14 @@ setInfoNewsWeek(res) {
       this.origin2 = this.originSelected2;
       console.log(this.origin2);
       this.getInfotableSKU();
-      this.rerender();
+
     } else if (value.clase == 'marca2' && !value.checked) {
       this.origin2 = [];
       this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.originSelected2);
       this.getInfotableSKU();
-      this.rerender();
+
     }
 
     if (value.checked && value.clase === 'categoria2') {
@@ -789,14 +792,14 @@ setInfoNewsWeek(res) {
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria);
       this.getInfotableSKU();
-      this.rerender();
+
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
       this.getInfotableSKU();
-      this.rerender();
+
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -805,14 +808,14 @@ setInfoNewsWeek(res) {
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria);
       this.getInfotableSKU();
-      this.rerender();
+
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
       this.getInfotableSKU();
-      this.rerender();
+
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -821,14 +824,14 @@ setInfoNewsWeek(res) {
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
       this.getInfotableSKU();
-      this.rerender();
+
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
       this.getInfotableSKU();
-      this.rerender();
+
     }
 
     if (value.checked && value.clase === 'color2 colorStyles') {
@@ -836,13 +839,13 @@ setInfoNewsWeek(res) {
       this.selectedFilter2.push(value);
       this.color2 = this.colorSelected2;
       this.getInfotableSKU();
-      this.rerender();
+
     } else if (value.clase == 'color2 colorStyles' && !value.checked) {
       this.color2 = [];
       this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       this.getInfotableSKU();
-      this.rerender();
+
     }
 
     if (value.checked && value.clase === 'composicion2') {
@@ -851,16 +854,329 @@ setInfoNewsWeek(res) {
       this.composicion2 = this.composicionSelected2;
       console.log(this.composicion2);
       this.getInfotableSKU();
-      this.rerender();
+
     } else if (value.clase == 'composicion2' && !value.checked) {
       this.composicion2 = [];
       this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.composicionSelected2);
       this.getInfotableSKU();
-      this.rerender();
+
     }   
   }
+
+//Validación check all filtros charts 
+checkAllOrigin2() {
+  if (this.isCheckedOrigin == true) {
+    $('.marca').prop('checked', false);
+    this.isCheckedOrigin = false;
+    $('.marca').prop('disabled', false);
+
+    this.originData.forEach(element => {
+      this.selectedFilter.forEach((e,) => {
+        if (e.item === element.value) {
+          this.selectedFilter = this.selectedFilter.filter(filtro => {
+            return filtro.item !== e.item;
+          });
+        }
+      });
+
+      this.originSelected.splice(element.value);
+    });
+
+    this.getInfoSKU();
+  } else {
+    if (this.originSelected.length > 0 && this.selectedFilter.length > 0) {
+      this.originSelected = [];
+
+      this.originData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.originSelected.splice(element.value);
+      });
+    }
+
+    $('.marca').prop('checked', true);
+    this.isCheckedOrigin = true;
+    $('.marca').prop('disabled', true);
+
+    this.originData.forEach(element =>  {
+      let value = {
+        item: element.value || ''
+      }
+      this.originSelected.push(element.value);
+      this.selectedFilter.push(value);
+    });
+
+    this.getInfoSKU();
+  }
+}
+
+checkAllCategory2() {
+  if (this.isCheckedCategory == true) {
+    $('.categoria').prop('checked', false);
+    this.isCheckedCategory = false;
+    $('.categoria').prop('disabled', false);
+
+    this.categoryData.forEach(element => {
+      this.selectedFilter.forEach((e,) => {
+        if (e.item === element.value) {
+          this.selectedFilter = this.selectedFilter.filter(filtro => {
+            return filtro.item !== e.item;
+          });
+        }
+      }); 
+
+      this.categoriaSelected.splice(element.value);
+    });
+
+    this.getInfoSKU();
+  } else {
+    if (this.categoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+      this.categoriaSelected = [];
+
+      this.categoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.categoriaSelected.splice(element.value);
+      });
+    }
+
+    $('.categoria').prop('checked', true);
+    this.isCheckedCategory = true;
+    $('.categoria').prop('disabled', true);
+
+    this.categoryData.forEach(element =>  {
+      let value = {
+        item: element.value || ''
+      }
+      this.categoriaSelected.push(element.value);
+      this.selectedFilter.push(value);
+    });
+
+    this.getInfoSKU();
+  }
+}
+
+checkAllSubCategory2() {
+  if (this.isCheckedSubCategory == true) {
+    $('.subCategoria').prop('checked', false);
+    this.isCheckedSubCategory = false;
+    $('.subCategoria').prop('disabled', false);
+
+    this.subCategoryData.forEach(element => {
+      this.selectedFilter.forEach((e,) => {
+        if (e.item === element.value) {
+          this.selectedFilter = this.selectedFilter.filter(filtro => {
+            return filtro.item !== e.item;
+          });
+        }
+      }); 
+
+      this.subCategoriaSelected.splice(element.value);
+    });
+
+    this.getInfoSKU();
+  } else {
+    if (this.subCategoriaSelected.length > 0 && this.selectedFilter.length > 0) {
+      this.subCategoriaSelected = [];
+
+      this.subCategoryData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.subCategoriaSelected.splice(element.value);
+      });
+    }
+
+    $('.subCategoria').prop('checked', true);
+    this.isCheckedSubCategory = true;
+    $('.subCategoria').prop('disabled', true);
+
+    this.subCategoryData.forEach(element =>  {
+      let value = {
+        item: element.value || ''
+      }
+      this.subCategoriaSelected.push(element.value);
+      this.selectedFilter.push(value);
+    });
+
+    this.getInfoSKU();
+  }
+}
+
+checkAllTipoPrenda2() {
+  if (this.isCheckedTipoPrenda == true) {
+    $('.tipoPrenda').prop('checked', false);
+    this.isCheckedTipoPrenda = false;
+    $('.tipoPrenda').prop('disabled', false);
+
+    this.tipoPrendaData.forEach(element => {
+      this.selectedFilter.forEach((e,) => {
+        if (e.item === element.value) {
+          this.selectedFilter = this.selectedFilter.filter(filtro => {
+            return filtro.item !== e.item;
+          });
+        }
+      }); 
+
+      this.tipoPrendaSelected.splice(element.value);
+    });
+
+    this.getInfoSKU();
+  } else {
+    if (this.tipoPrendaSelected.length > 0 && this.selectedFilter.length > 0) {
+      this.tipoPrendaSelected = [];
+
+      this.tipoPrendaData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.tipoPrendaSelected.splice(element.value);
+      });
+    }
+
+    $('.tipoPrenda').prop('checked', true);
+    this.isCheckedTipoPrenda = true;
+    $('.tipoPrenda').prop('disabled', true);
+
+    this.tipoPrendaData.forEach(element =>  {
+      let value = {
+        item: element.value || ''
+      }
+      this.tipoPrendaSelected.push(element.value);
+      this.selectedFilter.push(value);
+    });
+
+    this.getInfoSKU();
+  }
+}
+
+checkAllColor2() {
+  if (this.isCheckedColor == true) {
+    $('.color').prop('checked', false);
+    this.isCheckedColor = false;
+    $('.color').prop('disabled', false);
+
+    this.colorData.forEach(element => {
+      this.selectedFilter.forEach((e,) => {
+        if (e.item === element.value) {
+          this.selectedFilter = this.selectedFilter.filter(filtro => {
+            return filtro.item !== e.item;
+          });
+        }
+      }); 
+
+      this.colorSelected.splice(element.value);
+    });
+
+    this.getInfoSKU();
+  } else {
+    if (this.colorSelected.length > 0 && this.selectedFilter.length > 0) {
+      this.colorSelected = [];
+
+      this.colorData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.colorSelected.splice(element.value);
+      });
+    }
+
+    $('.color').prop('checked', true);
+    this.isCheckedColor = true;
+    $('.color').prop('disabled', true);
+
+    this.colorData.forEach(element =>  {
+      let value = {
+        item: element.value || ''
+      }
+      this.colorSelected.push(element.value);
+      this.selectedFilter.push(value);
+    });
+
+    this.getInfoSKU();
+  }
+}  
+
+checkAllComposicion2() {
+  if (this.isCheckedComposicion == true) {
+    $('.composicion').prop('checked', false);
+    this.isCheckedComposicion = false;
+    $('.composicion').prop('disabled', false);
+
+    this.composicionData.forEach(element => {
+      this.selectedFilter.forEach((e,) => {
+        if (e.item === element.value) {
+          this.selectedFilter = this.selectedFilter.filter(filtro => {
+            return filtro.item !== e.item;
+          });
+        }
+      }); 
+
+      this.composicionSelected.splice(element.value);
+    });
+
+    this.getInfoSKU();
+  } else {
+    if (this.composicionSelected.length > 0 && this.selectedFilter.length > 0) {
+      this.composicionSelected = [];
+
+      this.composicionData.forEach(element => {
+        this.selectedFilter.forEach((e,) => {
+          if (e.item === element.value) {
+            this.selectedFilter = this.selectedFilter.filter(filtro => {
+              return filtro.item !== e.item;
+            });
+          }
+        });
+
+        this.composicionSelected.splice(element.value);
+      });
+    }
+
+    $('.composicion').prop('checked', true);
+    this.isCheckedComposicion = true;
+    $('.composicion').prop('disabled', true);
+
+    this.composicionData.forEach(element =>  {
+      let value = {
+        item: element.value || ''
+      }
+      this.composicionSelected.push(element.value);
+      this.selectedFilter.push(value);
+    });
+
+    this.getInfoSKU();
+  }
+}  
 
   // Modal Charts
   openModal(template: TemplateRef<any>) {
@@ -888,6 +1204,20 @@ setInfoNewsWeek(res) {
     $(".tipoPrenda").prop("checked", false);
     $(".color").prop("checked", false);
     $(".composicion").prop("checked", false);
+
+    $(".marcaAll").prop("checked", false);
+    $(".categoriaAll").prop("checked", false);
+    $(".subCategoriaAll").prop("checked", false);
+    $(".tipoPrendaAll").prop("checked", false);
+    $(".colorAll").prop("checked", false);
+    $(".composicionAll").prop("checked", false);
+
+    this.isCheckedOrigin = false;
+    this.isCheckedCategory = false;
+    this.isCheckedSubCategory = false;
+    this.isCheckedTipoPrenda = false;
+    this.isCheckedColor = false;
+    this.isCheckedComposicion = false;
 
     if(this.seleccion === "Mes") {
       this.getInfoSKU();
@@ -942,7 +1272,6 @@ setInfoNewsWeek(res) {
     this.isCheckedComposicion = false;
 
     this.getInfotableSKU();
-    this.rerender();
   }
 
   closeModal2 () {
@@ -957,6 +1286,14 @@ setInfoNewsWeek(res) {
       let chequearMarca = document.getElementById(`marca${marcaCheck}`);
       chequearMarca.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedOrigin == true) {
+      this.isCheckedOrigin = false;
+      $('.marca').prop('disabled', false);
+    } else {
+      this.isCheckedOrigin = true;
+      $('.marca').prop('disabled', true);
+    }
   }
 
   validateCheckCategory(value: any, categoriaCheck: any) {
@@ -965,6 +1302,14 @@ setInfoNewsWeek(res) {
     if (validarCategoria) {
       let chequearCategoria = document.getElementById(`categoria${categoriaCheck}`);
       chequearCategoria.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedCategory == true) {
+      this.isCheckedCategory = false;
+      $('.categoria').prop('disabled', false);
+    } else {
+      this.isCheckedCategory = true;
+      $('.categoria').prop('disabled', true);
     }
   }
 
@@ -975,6 +1320,14 @@ setInfoNewsWeek(res) {
       let chequearSubCategoria = document.getElementById(`subcategoria${subCategoriaCheck}`);
       chequearSubCategoria.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedSubCategory == true) {
+      this.isCheckedSubCategory = false;
+      $('.subCategoria').prop('disabled', false);
+    } else {
+      this.isCheckedSubCategory = true;
+      $('.subCategoria').prop('disabled', true);
+    }
   }
 
   validateCheckTipoPrenda(value: any, tipoPrendaCheck: any) {
@@ -983,6 +1336,14 @@ setInfoNewsWeek(res) {
     if (validarTipoPrenda) {
       let chequearTipoPrenda = document.getElementById(`tipoprenda${tipoPrendaCheck}`);
       chequearTipoPrenda.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedTipoPrenda == true) {
+      this.isCheckedTipoPrenda = false;
+      $('.tipoPrenda').prop('disabled', false);
+    } else {
+      this.isCheckedTipoPrenda = true;
+      $('.tipoPrenda').prop('disabled', true);
     }
   }
 
@@ -993,6 +1354,14 @@ setInfoNewsWeek(res) {
       let chequearColor = document.getElementById(`color${colorCheck}`);
       chequearColor.setAttribute('checked', 'checked');
     }
+
+    if (this.isCheckedColor == true) {
+      this.isCheckedColor = false;
+      $('.color').prop('disabled', false);
+    } else {
+      this.isCheckedColor = true;
+      $('.color').prop('disabled', true);
+    }
   }
 
   validateCheckComposicion(value: any, composicionCheck: any) {
@@ -1001,6 +1370,14 @@ setInfoNewsWeek(res) {
     if (validarComposicion) {
       let chequearComposicion = document.getElementById(`composicion${composicionCheck}`);
       chequearComposicion.setAttribute('checked', 'checked');
+    }
+
+    if (this.isCheckedComposicion == true) {
+      this.isCheckedComposicion = false;
+      $('.composicion').prop('disabled', false);
+    } else {
+      this.isCheckedComposicion = true;
+      $('.composicion').prop('disabled', true);
     }
   }  
 
@@ -1124,6 +1501,10 @@ setInfoNewsWeek(res) {
     if (res.obj.origin === 'general') {
       this.label1 = 'Zara';
       this.label2 = 'Mango';
+      this.label3 = 'Gef';
+      this.label4 = 'Punto blanco';
+      this.label5 = 'Baby fresh';
+      this.label6 = 'Galax';
       this.months = res.obj.months;
       // console.log(res);
       for (let index = 0; index < res.obj.values.length; index++) {
@@ -1131,9 +1512,25 @@ setInfoNewsWeek(res) {
           this.averageSKU1[index] = res.obj.values[index];
         } else if (index >= 24 && index <= 35) {
           this.averageSKU2[index - 24] = res.obj.values[index];
+        } else if (index >= 48 && index <= 59) {
+          this.averageSKU3[index - 48] = res.obj.values[index];
+        } else if (index >= 72 && index <= 83) {
+          this.averageSKU4[index - 72] = res.obj.values[index];
+        } else if (index >= 96 && index <= 107) {
+          this.averageSKU5[index - 96] = res.obj.values[index];
+        } else if (index >= 120 && index <= 131) {
+          this.averageSKU6[index - 120] = res.obj.values[index];
         }
       }
-    } else if (res.obj.origin === 'Mango') {
+    } else {
+      this.label3 = '';
+      this.averageSKU3 = [];
+      this.label4 = '';
+      this.averageSKU4 = [];
+      this.label5 = '';
+      this.averageSKU5 = [];
+      this.label6 = '';
+      this.averageSKU6 = [];
       this.label1 = `${res.obj.origin} ${year}`;
       this.label2 = `${res.obj.origin} ${year - 1}`;
       this.months = res.obj.months;
@@ -1144,37 +1541,7 @@ setInfoNewsWeek(res) {
           this.averageSKU2[index - 12] = res.obj.values[index];
         }
       }
-    } else if (res.obj.origin === 'Zara') {
-      this.label1 = `${res.obj.origin} ${year}`;
-      this.label2 = `${res.obj.origin} ${year - 1}`;
-      this.months = res.obj.months;
-      for (let index = 0; index < res.obj.values.length; index++) {
-        if (index <= 11) {
-          this.averageSKU1[index] = res.obj.values[index];
-        } else if (index >= 12 && index <= 23) {
-          this.averageSKU2[index - 12] = res.obj.values[index];
-        }
-      }
-    }
-  }
-
-  rerender(): void {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-    });
-    this.dtOptionsReload();
-  }
-
-  dtOptionsReload() {
-    this.dtOptions = {
-      destroy: true,
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-    };
+    } 
   }
 
   @ViewChild('mychart') mychart: any;
@@ -1209,6 +1576,30 @@ setInfoNewsWeek(res) {
             label: this.label2,
             data: this.averageSKU2,
             borderColor: '#e5a67c',
+            fill: true,
+          },
+          {
+            label: this.label3,
+            data: this.averageSKU3,
+            borderColor: '#000000',
+            fill: true,
+          },
+          {
+            label: this.label4,
+            data: this.averageSKU4,
+            borderColor: '#EBFE04',
+            fill: true,
+          },
+          {
+            label: this.label5,
+            data: this.averageSKU5,
+            borderColor: '#89b7e8',
+            fill: true,
+          },
+          {
+            label: this.label6,
+            data: this.averageSKU6,
+            borderColor: '#fa4c06',
             fill: true,
           },
         ],

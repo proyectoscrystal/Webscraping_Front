@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { Datos } from '../../../utils/index';
 import { BlackboxService } from '../../../services/blackbox.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { HomeComponent } from '../../home/home.component';
+import { ServicioEnvioDataService } from './service-filter.service';
+import { Subscription } from 'rxjs';
 
 interface photoObject {
   base64: string;
@@ -30,7 +33,7 @@ interface valueFilter {
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   @ViewChild(HomeComponent) home: HomeComponent;
 
   modalRef: BsModalRef;
@@ -56,7 +59,12 @@ export class SidebarComponent implements OnInit {
   useSelected = [];
   originSelected = [];
   featureSelected = [];
+  tipoPrendaSelected = [];
   colorSelected = [];
+  sendToService = [];
+  colorScrapingSelected = [];
+  subCategoriaSelected = [];
+  categoriaSelected = [];
   orderSelected = [];
   userSelected = [];
   prendasGenerales = [];
@@ -69,6 +77,7 @@ export class SidebarComponent implements OnInit {
   objFilter: any;
   filterPhoto: any;
   url: any;
+  dataSubscription: Subscription;
 
   /**
    * Variables para la agrupación de colores
@@ -78,15 +87,25 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private blackboxService: BlackboxService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private servicioEnvioData: ServicioEnvioDataService
   ) {
     this.datos = new Datos();
   }
 
   ngOnInit(): void {
+
     this.toggleSidebar();
     this.showDataSidebar();
-    this.getPhotoList();
+    this.getPhotoList();  
+  }
+
+  ngOnDestroy(): void {
+    if(this.dataSubscription !== undefined) {
+      this.dataSubscription.unsubscribe();
+    }
   }
 
   /**
@@ -96,6 +115,7 @@ export class SidebarComponent implements OnInit {
     this.blackboxService.getPhotos().subscribe(
       (res) => {
         this.photos = res;
+        
         this.enviarDatos(res);
         this.getUsers();
         this.colorsGroup();
@@ -123,6 +143,10 @@ export class SidebarComponent implements OnInit {
   // Enviar datos para realizar filtro
   getDataFilter() {
     let params = {
+      categoria: this.categoriaSelected,
+      tipoPrenda: this.tipoPrendaSelected,
+      subCategoria: this.subCategoriaSelected,
+      color2: this.colorScrapingSelected,
       year: this.yearSelected,
       quarter: this.quarterSelected,
       gender: this.genderSelected,
@@ -159,6 +183,43 @@ export class SidebarComponent implements OnInit {
     this.arrayUsers = [...dataUsername];
   }
 
+  getWithFilter(){
+    // obtener los datos del servicio
+    let filters: any;
+    let data = this.servicioEnvioData.enviarObservable.subscribe(data => {
+      // se le asignan los filtros a la variable local filters
+      filters = data;
+    });
+    this.dataSubscription = data;
+
+    // filters.forEach(() => {
+
+    // })
+
+    console.log(filters);
+    // chulear los checkbox 
+      //$(".categoria2").prop("disabled", false);
+
+      // let {
+      // categoria: this.categoriaSelected,
+      // tipoPrenda: this.tipoPrendaSelected,
+      // subCategoria: this.subCategoriaSelected,
+      // color2: this.colorScrapingSelected,
+      // year: this.yearSelected,
+      // quarter: this.quarterSelected,
+      // gender: this.genderSelected,
+      // origin: this.originSelected,
+      // use: this.useSelected,
+      // feature: this.featureSelected,
+      // color: this.colorSelected,
+      // user: this.userSelected,} = this.arrayEnServicio;
+
+      // finalmente pedimos los productos
+      this.getDataFilter();
+      // this.getUsers();
+      // this.colorsGroup();
+  }
+
   // Función para validar checked del filtro
   updateCheckFilter(checked, item, className, elemento) {
     let data = {
@@ -172,29 +233,63 @@ export class SidebarComponent implements OnInit {
     if (checked) {
       if (className == 'year') {
         this.yearSelected.push(item.value);
+        let data = {
+          year: item.value
+        }
+        this.sendToService.push(data);
       } else if (className == 'quarter') {
         this.quarterSelected.push(item.value);
+        let data = {
+          quarter: item.value
+        }
+        this.sendToService.push(data);
       } else if (className == 'gender') {
         this.genderSelected.push(item.value);
+        if (item.value === "hjovenes" || item.value === "huniversitarios") {
+          this.categoriaSelected.push("Hombre");
+          this.sendToService.push(item.value);
+        } else if (item.value === "hniños" || item.value === "hjunior") {
+          this.categoriaSelected.push("Niño");
+          this.categoriaSelected.push("Niña");
+          this.sendToService.push(item.value);
+        } else if (item.value === "mjovenes" || item.value === "muniversitarios") {
+          this.categoriaSelected.push("Mujer");
+          this.sendToService.push(item.value);
+        }
       } else if (className == 'use') {
         this.useSelected.push(item.value);
+        this.sendToService.push(item.value);
+        if (item.value === "exterior") {
+          this.subCategoriaSelected.push("ropa exterior");
+          this.sendToService.push(item.value);
+        } else if (item.value === "interior") {
+          this.subCategoriaSelected.push("ropa interior");
+          this.sendToService.push(item.value);
+        }
       } else if (className == 'origin') {
         this.originSelected.push(item.value);
-        console.log(this.originSelected);
+        this.sendToService.push(item.value);
       } else if (className == 'feature') {
         let featureLower = item.text.toLowerCase();
 
+        this.tipoPrendaSelected.push(featureLower);
         this.featureSelected.push(featureLower);
+        this.sendToService.push(featureLower);
       } else if (className == 'color') {
 
         if(item.value) {
           let colorCapitalize =
             item.value[0].toUpperCase() + item.value.substring(1);
           this.colorSelected.push(colorCapitalize);
+          this.colorScrapingSelected.push(colorCapitalize);
+          this.sendToService.push(colorCapitalize);
         }
         this.colorSelected.push(item)
+        this.colorScrapingSelected.push(item);
+        this.sendToService.push(item);
       } else if (className == 'user') {
         this.userSelected.push(item);
+        this.sendToService.push(item.value);
       }
     } else {
       if (className == 'year' && !checked) {
@@ -207,10 +302,12 @@ export class SidebarComponent implements OnInit {
         );
       }
       if (className == 'gender' && !checked) {
-        this.genderSelected.splice(this.quarterSelected.indexOf(item.value), 1);
+        this.genderSelected.splice(this.genderSelected.indexOf(item.value), 1);
+        this.categoriaSelected.splice(this.categoriaSelected.indexOf(item.value), 1);
       }
       if (className == 'use' && !checked) {
         this.useSelected.splice(this.useSelected.indexOf(item.value), 1);
+        this.subCategoriaSelected.splice(this.subCategoriaSelected.indexOf(item.value), 1);
       }
       if (className == 'origin' && !checked) {
         this.originSelected.splice(this.originSelected.indexOf(item.value), 1);
@@ -220,14 +317,23 @@ export class SidebarComponent implements OnInit {
           this.featureSelected.indexOf(item.value),
           1
         );
+        this.tipoPrendaSelected.splice(
+          this.tipoPrendaSelected.indexOf(item.value),
+          1
+        );
       }
       if (className == 'color' && !checked) {
         this.colorSelected.splice(this.colorSelected.indexOf(item.value), 1);
+        this.colorScrapingSelected.splice(this.colorScrapingSelected.indexOf(item.value), 1);
       }
       if (className == 'user' && !checked) {
         this.userSelected.splice(this.userSelected.indexOf(item), 1);
       }
     }
+
+    //enviar la info en el servicio desde UpdatedcheckedFilter
+    // console.log(this.sendToService);
+      this.servicioEnvioData.enviarMensaje(this.sendToService);
 
     this.getDataFilter();
   }
@@ -386,12 +492,14 @@ export class SidebarComponent implements OnInit {
 
   /**
    * Agrupar colores
-   */
+   */ 
   colorsGroup() {
     let colores = [];
     let coloresGroup = [];
     this.photos.forEach((item) => {
-      colores.push(item.colores);
+      if(item.colores !== undefined) {
+        colores.push(item.colores);
+      }
     });
 
     for (let i of colores) {
@@ -417,8 +525,8 @@ export class SidebarComponent implements OnInit {
     });
 
     this.ppalColorModal = color;
-    console.log(this.ppalColorModal.hexa);
+    // console.log(this.ppalColorModal.hexa);
 
-    console.log(this.hexaColorModal);
+    // console.log(this.hexaColorModal);
   }
 }

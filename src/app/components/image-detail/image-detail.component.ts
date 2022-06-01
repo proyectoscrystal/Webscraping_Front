@@ -49,6 +49,7 @@ export class ImageDetailComponent implements OnInit {
   prendasInferiores = [];
   prendaColor = [];
   mostrarInferiores: boolean;
+  id: string = "false";
 
   arrayItems = [];
   prendaGenSelected: string[] = [];
@@ -576,7 +577,8 @@ export class ImageDetailComponent implements OnInit {
   }
 
   backDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.id = "true";
+    this.router.navigate(['/dashboard', this.id]);
   }
 
   getMainColors() {

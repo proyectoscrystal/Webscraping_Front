@@ -14,7 +14,7 @@
     "@angular/cdk": "^10.2.7",
     "@angular/common": "~10.1.6",
     "@angular/compiler": "~10.1.6",
-    "@angular/core": "~10.1.6",
+    "@angular/core": "^10.1.6",
     "@angular/forms": "~10.1.6",
     "@angular/material": "^10.2.7",
     "@angular/platform-browser": "~10.1.6",
@@ -43,6 +43,9 @@
     "ngx-pagination": "^5.0.0",
     "ngx-toastr": "^13.1.0",
     "popper.js": "^1.16.1",
+    "primeicons": "^5.0.0",
+    "primeng-lts": "^11.4.10",
+    "puppeteer": "^10.4.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

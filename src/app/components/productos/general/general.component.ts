@@ -118,6 +118,7 @@ export class GeneralComponent implements OnInit {
   topTenTotalSKU: any = [0,0,0,0,0,0,0,0,0,0];
   materiales: any;
   materialesCount: any;
+  spinnerTable= false;
 
   copy: any = ['','','','','','','','','',''];
 
@@ -138,6 +139,14 @@ export class GeneralComponent implements OnInit {
     this.ng3();
   }
 
+  getSpinnerClass() {
+    if (this.spinnerTable) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
+  }
+
   //===============INICIO FILTROS MODAL===============
 
   //info seccion categoria 
@@ -152,10 +161,13 @@ export class GeneralComponent implements OnInit {
 
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoCategoryColors(params).subscribe(
       (res) => {
         this.setInfoCategories(res);
         this.ng2();
+        this.spinnerTable = false;
         // console.log(res);
       },
       (err) => {
@@ -213,11 +225,14 @@ export class GeneralComponent implements OnInit {
 
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoGeneralColors(params).subscribe(
       (res) => {
         // console.log(res);
         this.setInfoBarChart(res);
         this.ng();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -247,11 +262,14 @@ export class GeneralComponent implements OnInit {
 
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getInfoGeneralColorsMateriales(params).subscribe(
       (res) => {
         // console.log(res);
         this.setInfoBarChartMateriales(res);
         this.ng3();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -537,7 +555,7 @@ export class GeneralComponent implements OnInit {
     this.subCategoriaSelected2.splice(0, this.subCategoriaSelected2.length);
     this.tipoPrendaSelected2.splice(0, this.tipoPrendaSelected2.length);
 
-    $(".categori2a").prop("checked", false);
+    $(".categoria2").prop("checked", false);
     $(".subCategoria2").prop("checked", false);
     $(".tipoPrenda2").prop("checked", false);
 

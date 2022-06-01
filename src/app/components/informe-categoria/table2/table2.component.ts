@@ -4,7 +4,6 @@ import { BlackboxService } from '../../../services/blackbox.service';
 
 // Angular DataTable
 import { OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 
 //Filtro modal
@@ -22,13 +21,6 @@ export class Table2Component implements OnInit, OnDestroy {
     backdrop: true,
     ignoreBackdropClick: true,
   };
-
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement2: DataTableDirective;
-
-  dtOptions: DataTables.Settings = {};
-
-  dtTrigger2 = new Subject();
 
   photos: any;
 
@@ -65,7 +57,8 @@ export class Table2Component implements OnInit, OnDestroy {
   isCheckedSubCategory = false;
   isCheckedTipoPrenda = false;
   isCheckedColor = false;
-  isCheckedComposicion = false;  
+  isCheckedComposicion = false;
+  spinnerTable = false;  
 
 
   constructor(private blackboxService: BlackboxService, private modalService2: BsModalService
@@ -77,18 +70,17 @@ export class Table2Component implements OnInit, OnDestroy {
     this.getInfoTable2();
     this.showDataModal();
 
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-      destroy: true,
-    };
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger2.unsubscribe();
+  }
+
+  getSpinnerClass() {
+    if (this.spinnerTable) {
+      return 'modalHidden';
+    } else {
+      return 'modalShow';
+    }
   }
 
   // Peticion a la tabla 2
@@ -102,10 +94,12 @@ export class Table2Component implements OnInit, OnDestroy {
       composicion: this.composicionSelected2
     };
 
+    this.spinnerTable = true;
+
     this.blackboxService.getTablePrendasInfo(params).subscribe(
       (res) => {
         this.setInfoTable2(res);
-        this.dtTrigger2.next();
+        this.spinnerTable = false;
       },
       (err) => {
         console.log(err);
@@ -153,14 +147,12 @@ export class Table2Component implements OnInit, OnDestroy {
       this.origin2 = this.originSelected2;
       console.log(this.origin2);
       this.getInfoTable2();
-      this.rerender();
     } else if (value.clase == 'marca2' && !value.checked) {
       this.origin2 = [];
       this.originSelected2.splice(this.originSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.originSelected2);
       this.getInfoTable2();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'categoria2') {
@@ -169,14 +161,12 @@ export class Table2Component implements OnInit, OnDestroy {
       this.categoria2 = this.categoriaSelected2;
       console.log(this.categoria2);
       this.getInfoTable2();
-      this.rerender();
     } else if (value.clase == 'categoria2' && !value.checked) {
       this.categoria2 = [];
       this.categoriaSelected2.splice(this.categoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.categoriaSelected2);
       this.getInfoTable2();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'subCategoria2') {
@@ -185,14 +175,12 @@ export class Table2Component implements OnInit, OnDestroy {
       this.subCategoria2 = this.subCategoriaSelected2;
       console.log(this.subCategoria2);
       this.getInfoTable2();
-      this.rerender();
     } else if (value.clase == 'subCategoria2' && !value.checked) {
       this.subCategoria2 = []
       this.subCategoriaSelected2.splice(this.subCategoriaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.subCategoriaSelected2);
       this.getInfoTable2();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'tipoPrenda2') {
@@ -201,14 +189,12 @@ export class Table2Component implements OnInit, OnDestroy {
       this.tipoPrenda2 = this.tipoPrendaSelected2;
       console.log(this.tipoPrenda2);
       this.getInfoTable2();
-      this.rerender();
     } else if (value.clase == 'tipoPrenda2' && !value.checked) {
       this.tipoPrenda2 = [];
       this.tipoPrendaSelected2.splice(this.tipoPrendaSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.tipoPrendaSelected2);
       this.getInfoTable2();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'color2 colorStyles') {
@@ -217,14 +203,12 @@ export class Table2Component implements OnInit, OnDestroy {
       this.color2 = this.colorSelected2;
       console.log(this.color2);
       this.getInfoTable2();
-      this.rerender();
     } else if (value.clase == 'color2 colorStyles' && !value.checked) {
       this.color2 = [];
       this.colorSelected2.splice(this.colorSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.colorSelected2);
       this.getInfoTable2();
-      this.rerender();
     }
 
     if (value.checked && value.clase === 'composicion2') {
@@ -233,14 +217,12 @@ export class Table2Component implements OnInit, OnDestroy {
       this.composicion2 = this.composicionSelected2;
       console.log(this.composicion2);
       this.getInfoTable2();
-      this.rerender();
     } else if (value.clase == 'composicion2' && !value.checked) {
       this.composicion2 = [];
       this.composicionSelected2.splice(this.composicionSelected2.indexOf(item), 1);
       this.selectedFilter2.splice(this.selectedFilter2.indexOf(value), 1);
       console.log(this.composicionSelected2);
       this.getInfoTable2();
-      this.rerender();
     }     
   }
 
@@ -600,7 +582,6 @@ export class Table2Component implements OnInit, OnDestroy {
     this.isCheckedComposicion = false;
 
     this.getInfoTable2();
-    this.rerender();
   }
 
   closeModal2() {
@@ -710,21 +691,4 @@ export class Table2Component implements OnInit, OnDestroy {
     }
   } 
 
-  rerender(): void {
-    this.datatableElement2.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-    });
-    this.dtOptionsReload();
-  }
-
-  dtOptionsReload() {
-    this.dtOptions = {
-      destroy: true,
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json',
-      },
-    };
-  }
 }

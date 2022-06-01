@@ -23,7 +23,21 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" [ngClass]="getSpinnerClass()">
+            <div class="loading" *ngIf="spinnerTable">
+              <div class="sk-cube-grid sp-position">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+                <p class="loadingText">Cargando...</p>
+              </div>
+            </div>
             <ul class="list-unstyled components">
 
               <li class="active">
@@ -31,6 +45,12 @@
                   class="dropdown-toggle menu-color">Marca
                 </a>
                 <ul class="collapse list-unstyled" id="filterMArk">
+                  <li>
+                    <label class="control control--checkbox">
+                      <input class="marcaAll" type="checkbox" (change)="checkAllOrigin2()" [checked]="isCheckedOrigin" />
+                      Todo
+                    </label>
+                  </li>
                   <li *ngFor="let origin of originData; let marcaCheck = index">
                     <label class="control control--checkbox">
                       <input class="marca" type="checkbox" name="{{origin.value}}"
@@ -48,6 +68,13 @@
                   class="dropdown-toggle menu-color">Categoria
                 </a>
                 <ul class="collapse list-unstyled" id="filterCategory">
+                  <li>
+                    <label class="control control--checkbox">
+                      <input class="categoriaAll" type="checkbox" (change)="checkAllCategory2()"
+                        [checked]="isCheckedCategory" />
+                      Todo
+                    </label>
+                  </li>
                   <li *ngFor="let category of categoryData; let categoriaCheck = index">
                     <label class="control control--checkbox">
                       <input class="categoria" type="checkbox" value="{{category.value}}" name="{{category.value}}"
@@ -65,6 +92,13 @@
                   class="dropdown-toggle menu-color">Sub categoría
                 </a>
                 <ul class="collapse list-unstyled" id="filterSubCategory">
+                  <li>
+                    <label class="control control--checkbox">
+                      <input class="subCategoriaAll" type="checkbox" (change)="checkAllSubCategory2()"
+                        [checked]="isCheckedSubCategory" />
+                      Todo
+                    </label>
+                  </li>
                   <li *ngFor="let subcategory of subCategoryData; let subCategoriaCheck = index">
                     <label class="control control--checkbox">
                       <input class="subCategoria" type="checkbox" value="{{subcategory.value}}"
@@ -84,6 +118,13 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterTipoPrenda">
                   <div class="overflow-auto container-scroll">
+                    <li>
+                      <label class="control control--checkbox">
+                        <input class="tipoPrendaAll" type="checkbox" (change)="checkAllTipoPrenda2()"
+                          [checked]="isCheckedTipoPrenda" />
+                        Todo
+                      </label>
+                    </li>
                     <li *ngFor="let tipoprenda of tipoPrendaData; let tipoPrendaCheck = index">
                       <label class="control control--checkbox">
                         <input class="tipoPrenda" type="checkbox" value="{{tipoprenda.value}}"
@@ -104,6 +145,12 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterColor">
                   <div class="overflow-auto checkboxAlign">
+                    <li>
+                      <label class="control control--checkbox">
+                        <input class="colorAll colorStyles2" type="checkbox" (change)="checkAllColor2()"
+                          [checked]="isCheckedColor" />
+                      </label>
+                    </li>
                     <div *ngFor="let color of colorData; let colorCheck = index">
                       <input class="color colorStyles" type="checkbox" value="{{color.value}}" name="{{color.value}}"
                         title="{{color.text}}"
@@ -121,6 +168,13 @@
                 </a>
                 <ul class="collapse list-unstyled" id="filterComposicion">
                   <div class="overflow-auto container-scroll">
+                    <li>
+                      <label class="control control--checkbox">
+                        <input class="composicionAll" type="checkbox" (change)="checkAllComposicion2()"
+                          [checked]="isCheckedcomposicion" />
+                        Todo
+                      </label>
+                    </li>
                     <li *ngFor="let composicion of composicionData; let composicionCheck = index">
                       <label class="control control--checkbox">
                         <input class="composicion" type="checkbox" value="{{composicion.value}}"
@@ -139,16 +193,24 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="clearFilters()">Limpiar filtros</button>
-            <button type="button" class="btn btn-primary" (click)="closeModal()">Aplicar filtros</button>
+            <button type="button" class="btn btn-primary" (click)="closeModal()">Cerrar filtros</button>
           </div>
         </ng-template>
       </div>
     </div>
-    <div class="item-filters-top marginTitle">
-      <div *ngFor="let filter of selectedFilter" class="content-filter-item">
-        <p class="item-filter">{{filter.item}}</p>
-      </div>
-    </div>
+    <accordion [isAnimated]="true">
+      <accordion-group>
+        <button
+          class="btn btn-link btn-block justify-content-between btnAccordion"
+          accordion-heading type="button">
+          <div class="pull-left float-left">Filtros seleccionados gráfica</div>
+          <div class="arrow">
+            <span class="flechaFilters abajo"></span>
+          </div>
+        </button>
+        <span *ngFor="let filter of selectedFilter" class="item-filter">{{filter.item}} /&nbsp;</span>
+      </accordion-group>
+    </accordion>
     <div class="chart-line marginCharts">
       <canvas id="myChart" width="200px" height="120px"></canvas>
     </div>
@@ -178,7 +240,21 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" [ngClass]="getSpinnerClass()">
+            <div class="loading" *ngIf="spinnerTable">
+              <div class="sk-cube-grid sp-position">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+                <p class="loadingText">Cargando...</p>
+              </div>
+            </div>
             <ul class="list-unstyled components">
 
               <li class="active">
@@ -329,41 +405,86 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="clearFilters2()">Limpiar filtros</button>
-            <button type="button" class="btn btn-primary" (click)="closeModal2()">Aplicar filtros</button>
+            <button type="button" class="btn btn-primary" (click)="closeModal2()">Cerrar filtros</button>
           </div>
         </ng-template>
       </div>
     </div>
-    <div class="item-filters-top marginTitle">
-      <div *ngFor="let filter2 of selectedFilter2" class="content-filter-item">
-        <p class="item-filter">{{filter2.item}}</p>
-      </div>
+    <div class="filtersTable">
+      <accordion [isAnimated]="true">
+        <accordion-group>
+          <button
+            class="btn btn-link btn-block justify-content-between btnAccordion"
+            accordion-heading type="button">
+            <div class="pull-left float-left">Filtros seleccionados tabla</div>
+            <div class="arrow">
+              <span class="flechaFilters abajo"></span>
+            </div>
+          </button>
+          <span *ngFor="let filter2 of selectedFilter2" class="item-filter">{{filter2.item}} /&nbsp;</span>
+        </accordion-group>
+      </accordion>
     </div>
 
     <p class="marginTable">Comparación mes a mes</p>
 
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-hover table-sm">
-      <thead>
-        <tr>
-          <th class="alignTableTitles">Categoría</th>
-          <th class="alignTableTitles">Subcategoría</th>
-          <th class="alignTableTitles">Tipo de prenda</th>
-          <th class="alignTableTitles">Descuento promedio</th>
-          <th class="alignTableTitles">Diferencia</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let e of photos">
-          <td data-label="Categoría" class="alignTableItems"> {{e._id.categoria !== null ? e._id.categoria : 'sin dato'}} </td>
-          <td data-label="Subcategoría" class="alignTableItems"> {{e._id.subCategoria !== null ? e._id.subCategoria : 'sin dato'}} </td>
-          <td data-label="Tipo de prenda" class="alignTableItems"> {{e._id.tipoPrenda !== null ? e._id.tipoPrenda : 'sin dato'}} </td>
-          <td data-label="Descuento promedio" class="alignTableItems"> {{e.porcentajeDescuento}}% </td>
-          <td data-label="Diferencia" [ngClass]="diferencia()" class="alignTableItems"> {{tableDifference[1]}} %</td>
-          <!-- [ngClass]="diferencia()" -->
-        </tr>
-      </tbody>
+    <p-table #dt1 [value]="photos" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-striped p-datatable-gridlines" class="table table-striped table-hover table-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="alignTableTitles">Categoría</th>
+                <th class="alignTableTitles">Subcategoría</th>
+                <th class="alignTableTitles">Tipo de prenda</th>
+                <th class="alignTableTitles">Descuento promedio</th>
+                <th class="alignTableTitles">Diferencia</th>
+            </tr>
+            <tr>
+                <th>
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, '_id.categoria', 'contains')" [value]="dt1.filters['_id.categoria']?.value" placeholder="Buscar" class="p-column-filter form-control">
+                    </span>
 
-    </table>
+                </th>
+                <th>
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, '_id.subCategoria', 'contains')" [value]="dt1.filters['_id.subCategoria']?.value" placeholder="Buscar" class="p-column-filter form-control">
+                    </span>
+                </th>
+                <th>
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, '_id.tipoPrenda', 'contains')" [value]="dt1.filters['_id.tipoPrenda']?.value" placeholder="Buscar" class="p-column-filter form-control">
+                    </span>
+                </th>
+                <th>
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'precioPromedio', 'contains')" [value]="dt1.filters['precioPromedio']?.value" placeholder="Buscar" class="p-column-filter form-control">
+                    </span>
+                </th>
+                <th>
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'tableDifference[1]', 'contains')" [value]="dt1.filters['tableDifference[1]']?.value" placeholder="Buscar" class="p-column-filter form-control">
+                    </span>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr >
+            <td data-label="Categoría: " class="alignTableItems"> {{ !isCheckedCategory ? item._id.categoria : isCheckedCategory ? 'Todas' : 'sin
+              dato'}} </td>
+            <td data-label="Subcategoría: " class="alignTableItems"> {{ !isCheckedSubCategory ? item._id.subCategoria : isCheckedSubCategory ? 'Todas' : 'sin dato'}} </td>
+            <td data-label="Tipo de prenda" class="alignTableItems"> {{ !isCheckedTipoPrenda ? item._id.tipoPrenda : isCheckedTipoPrenda ? 'Todas' : 'sin
+              dato'}} </td>
+            <td data-label="Precio promedio: " class="alignTableItems"> {{item.porcentajeDescuento}} % </td> 
+            <td data-label="Diferencia: " [ngClass]="diferencia()" class="alignTableItems"> {{tableDifference[1]}} %</td>
+          </tr>
+        </ng-template>
+        
+    </p-table>
   </div>
   <!-- Fin tabla descuento promedio -->
 
