@@ -50,6 +50,11 @@ export class NewImageComponent implements OnInit {
   payload: any[] = [];
   filesBase64 = [];
   selectedFile = null;
+  datoYear: any;
+  datoOrigin: any;
+  datoGender:any;
+  datoUse:any;
+  datoQuarters:any;
   newImg;
   message: string;
   datos: any;
@@ -77,15 +82,49 @@ export class NewImageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mostrar = false;
-    this.inputFile();
+    var datosImagen= localStorage.getItem('informacionImagen');
+    console.log(datosImagen)
     this.years = this.getYear();
     this.quarters = this.getQuarter();
     this.genders = this.getGender();
     this.uses = this.getUse();
     this.origins = this.getOrigin();
-
+    this.mostrar = false;
+    this.inputFile();
     this.username = localStorage.getItem('user');
+    if(datosImagen)
+    {
+      var informacionImagen = JSON.parse(localStorage.getItem('informacionImagen'));
+      this.datoYear = informacionImagen.year;
+      this.datoOrigin = informacionImagen.origin;
+      this.datoUse = informacionImagen.use;
+      if(informacionImagen.gender && informacionImagen.quarter)
+      {
+        this.datoQuarters = informacionImagen.quarter;
+        this.datoGender = informacionImagen.gender;
+      }
+      else if(informacionImagen.gender && !informacionImagen.quarter)
+      {
+        this.datoQuarters = "";
+        this.datoGender = informacionImagen.gender;
+      }
+      else if( informacionImagen.quarter && !informacionImagen.gender)
+      {
+        this.datoQuarters = informacionImagen.quarter;
+        this.datoGender = "";
+      }
+      else{
+        this.datoQuarters = "";
+        this.datoGender = "";
+      }
+    }
+    else{
+      this.datoYear = "";
+      this.datoOrigin = "";
+      this.datoUse = "";
+      this.datoQuarters = "";
+      this.datoGender = "";
+    }
     console.log(this.username);
   }
 
@@ -120,7 +159,6 @@ export class NewImageComponent implements OnInit {
         }
       },
     };
-
     this.outputFile = await imageCompression(this.selectedFile, options);
     this.updateLog(
       true,
@@ -147,6 +185,7 @@ export class NewImageComponent implements OnInit {
 
     for (let i = 0; i < newArrayFiles.length; i++) {
       this.selectedFile = newArrayFiles[i];
+
 
       await this.compressImg(this.selectedFile, useWebWorker);
 
@@ -222,94 +261,140 @@ export class NewImageComponent implements OnInit {
     var d;
     this.mostrar = true;
     let data = form.value;
-
-    for (let i = 0; i < this.filesBase64.length; i++) {
-      this.newImg = this.filesBase64[i].replace(/^data:image\/\w+;base64,/, '');
-
-      if (this.fileName[i].indexOf('.jpeg') !== -1) {
-        let extensionSlice = this.fileName[i].substring(
-          0,
-          this.fileName[i].length - 5
-        );
-        this.fileName[i] = extensionSlice;
-
-        let quitSpaces = this.fileName[i].replace(/ /g, '');
-        this.fileName[i] = quitSpaces;
-
-        d = new Date();
-        n = d.getTime();
-
-        let newChar = this.fileName[i] + n;
-        this.fileName[i] = newChar;
-
-        let convertToString = n.toString();
-        n = convertToString;
-
-        this.nameToken = this.token();
-        // console.log(this.nameToken);
-
-        // console.log(this.fileName[i]);
-      } else if (
-        this.fileName[i].indexOf('.jpg') !== -1 ||
-        this.fileName[i].indexOf('.png') ||
-        this.fileName[i].indexOf('.gif')
-      ) {
-        let extensionSlice = this.fileName[i].substring(
-          0,
-          this.fileName[i].length - 4
-        );
-        this.fileName[i] = extensionSlice;
-
-        let quitSpaces = this.fileName[i].replace(/ /g, '');
-        this.fileName[i] = quitSpaces;
-
-        d = new Date();
-        n = d.getTime();
-
-        let convertToString = n.toString();
-        n = convertToString;
-
-        this.nameToken = this.token();
-        console.log(this.nameToken);
-
-        console.log(this.fileName[i]);
+    
+    try {      
+      if(data.use === "producto")
+      {
+        if(data.gender == "" &&  data.quarter == "")
+        {
+          var mensaje = "Por favor diligenciar el campo género y colección.";
+          throw new SyntaxError(mensaje);
+        }
+        else if(data.gender == "")
+        {
+          var mensaje = "Por favor diligenciar el campo género.";
+          throw new SyntaxError(mensaje);
+        }
+        else if(data.quarter == "")
+        {
+          var mensaje = "Por favor diligenciar el campo colección.";
+          throw new SyntaxError(mensaje);
+        }
       }
 
-      this.payload.push({
-        imageName: this.nameToken,
-        year: data.year,
-        quarter: data.quarter,
-        use: data.use,
-        gender: data.gender,
-        origin: data.origin,
-        base64: this.newImg,
-        user: this.username,
-        action: 'prendas',
-      });
-    }
+      for (let i = 0; i < this.filesBase64.length; i++) {
+        this.newImg = this.filesBase64[i].replace(/^data:image\/\w+;base64,/, '');
 
-    if (this.payload.length > 1) {
-      let contador = 0;
-      for (let i of this.payload) {
-        await this.blackboxService.uploadPhoto(i).subscribe(
-          async (res) => {
-            this.showSuccess();
-            // console.log('multiple', res);
+        if (this.fileName[i].indexOf('.jpeg') !== -1) {
+          let extensionSlice = this.fileName[i].substring(
+            0,
+            this.fileName[i].length - 5
+          );
+          this.fileName[i] = extensionSlice;
 
-            contador += 1;
-            // console.log(contador);
+          let quitSpaces = this.fileName[i].replace(/ /g, '');
+          this.fileName[i] = quitSpaces;
 
-            if (contador >= this.payload.length) {
+          d = new Date();
+          n = d.getTime();
+
+          let newChar = this.fileName[i] + n;
+          this.fileName[i] = newChar;
+
+          let convertToString = n.toString();
+          n = convertToString;
+
+          this.nameToken = this.token();
+          // console.log(this.nameToken);
+
+          // console.log(this.fileName[i]);
+        } else if (
+          this.fileName[i].indexOf('.jpg') !== -1 ||
+          this.fileName[i].indexOf('.png') ||
+          this.fileName[i].indexOf('.gif')
+        ) {
+          let extensionSlice = this.fileName[i].substring(
+            0,
+            this.fileName[i].length - 4
+          );
+          this.fileName[i] = extensionSlice;
+
+          let quitSpaces = this.fileName[i].replace(/ /g, '');
+          this.fileName[i] = quitSpaces;
+
+          d = new Date();
+          n = d.getTime();
+
+          let convertToString = n.toString();
+          n = convertToString;
+
+          this.nameToken = this.token();
+          console.log(this.nameToken);
+
+          console.log(this.fileName[i]);
+        }
+
+        this.payload.push({
+          imageName: this.nameToken,
+          year: data.year,
+          quarter: data.quarter,
+          use: data.use,
+          gender: data.gender,
+          origin: data.origin,
+          base64: this.newImg,
+          user: this.username,
+          action: 'prendas',
+        });
+      }
+
+      if (this.payload.length > 1) {
+        let contador = 0;
+        for (let i of this.payload) {
+          await this.blackboxService.uploadPhoto(i).subscribe(
+            async (res) => {
+              this.showSuccess();
+              // console.log('multiple', res);
+
+              contador += 1;
+              // console.log(contador);
+
+              if (contador >= this.payload.length) {
+                setTimeout(() => {
+                  // this.router.navigate(['/newImage']).then(() => {
+                  window.location.reload();
+                  // });
+                }, 3000);
+              }
+            },
+            (err) => {
+              this.showError();
+              console.log(err);
+
               setTimeout(() => {
                 // this.router.navigate(['/newImage']).then(() => {
                 window.location.reload();
                 // });
               }, 3000);
             }
+          );
+        }
+      } else {
+        let imgs = this.payload[0];
+        console.log('UNA: ', imgs);
+        this.blackboxService.uploadPhoto(imgs).subscribe(
+          (res) => {
+            this.showSuccess();
+            // console.log(res);
+
+            setTimeout(() => {
+              // this.router.navigate(['/newImage']).then(() => {
+              window.location.reload();
+              // });
+            }, 3000);
           },
           (err) => {
-            this.showError();
             console.log(err);
+            this.showError();
 
             setTimeout(() => {
               // this.router.navigate(['/newImage']).then(() => {
@@ -319,34 +404,15 @@ export class NewImageComponent implements OnInit {
           }
         );
       }
-    } else {
-      let imgs = this.payload[0];
-      console.log('UNA: ', imgs);
-      this.blackboxService.uploadPhoto(imgs).subscribe(
-        (res) => {
-          this.showSuccess();
-          // console.log(res);
 
-          setTimeout(() => {
-            // this.router.navigate(['/newImage']).then(() => {
-            window.location.reload();
-            // });
-          }, 3000);
-        },
-        (err) => {
-          console.log(err);
-          this.showError();
+      localStorage.setItem('informacionImagen', JSON.stringify(data));
 
-          setTimeout(() => {
-            // this.router.navigate(['/newImage']).then(() => {
-            window.location.reload();
-            // });
-          }, 3000);
-        }
-      );
+      return false;
+    } catch (error) {
+      this.showErrorValidarError(error.message);
+      this.mostrar = false;
+      return false;
     }
-
-    return false;
   }
 
   /**
@@ -393,6 +459,12 @@ export class NewImageComponent implements OnInit {
     return this.datos.fuenteOptions;
   }
 
+  //Limpiar Campos 
+  limpiarCampos()
+  {
+    localStorage.removeItem('informacionImagen');
+    window.location.reload();
+  }
   // Notificaciones
   showSuccess() {
     this.toastr.success('', 'imagen cargada!', {
@@ -405,6 +477,15 @@ export class NewImageComponent implements OnInit {
   showError() {
     this.toastr.error('', 'Error al subir la imagen', {
       timeOut: 3000,
+      closeButton: true,
+      progressBar: true,
+    });
+  }
+
+  showErrorValidarError(mensaje)
+  {
+    this.toastr.error('', mensaje, {
+      timeOut: 5000,
       closeButton: true,
       progressBar: true,
     });

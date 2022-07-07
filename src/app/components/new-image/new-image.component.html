@@ -19,23 +19,33 @@
                         <div class="opciones">
                             <div class="form-group">
                                 <label for="year">Año</label>
-                                <select class="form-control" id="year" name="year" ngModel required>
+                                <select class="form-control" id="year" name="year"  [(ngModel)]="datoYear"  required>
                                     <option value="" selected="selected" disabled="disabled">Año</option>
                                     <option *ngFor="let year of years" value="{{year.value}}">{{year.text}}</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="quarter">Colección</label>
-                                <select class="form-control" name="quarter" id="quarter" ngModel required>
-                                    <option value="" selected="selected" disabled="disabled">Colección</option>
-                                    <option *ngFor="let quarter of quarters" value="{{quarter.value}}">{{quarter.text}}</option>
+                                <label for="fuente">Fuente</label>
+                                <select class="form-control" id="origin" name="origin" [(ngModel)]="datoOrigin" required>
+                                    <option value="" selected="selected" disabled="disabled">Fuente</option>
+                                    <option *ngFor="let origin of origins" value="{{origin.value}}">{{origin.text}}</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
+                                <label for="uso">Uso</label>
+                                <select class="form-control" id="use" name="use" [(ngModel)]="datoUse" required>
+                                    <option value="" selected="selected" disabled="disabled">Uso</option>
+                                    <option *ngFor="let use of uses" value="{{use.value}}">{{use.text}}</option>
+                                </select>
+                            </div>
+
+                            
+
+                            <div class="form-group">
                                 <label for="gender">Género</label>
-                                <select class="form-control" id="gender" name="gender" ngModel required>
+                                <select class="form-control" id="gender" name="gender" [(ngModel)]="datoGender">
                                     <option value="" selected="selected" disabled="disabled">Género</option>
                                     <optgroup *ngFor="let gender of genders" label="{{gender.label}}">
                                         <option *ngFor="let genero of gender.options" value="{{genero.value}}" disabled="{{genero.disabled}}">{{genero.text}}</option>
@@ -44,23 +54,25 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="uso">uso</label>
-                                <select class="form-control" id="use" name="use" ngModel required>
-                                    <option value="" selected="selected" disabled="disabled">Uso</option>
-                                    <option *ngFor="let use of uses" value="{{use.value}}">{{use.text}}</option>
+                                <label for="quarter">Colección</label>
+                                <select class="form-control" name="quarter" id="quarter" [(ngModel)]="datoQuarters">
+                                    <option value="" selected="selected" disabled="disabled">Colección</option>
+                                    <option *ngFor="let quarter of quarters" value="{{quarter.value}}">{{quarter.text}}</option>
                                 </select>
-                            </div>
-
+                            </div>                 
+                            
                             <div class="form-group">
-                                <label for="fuente">Fuente</label>
-                                <select class="form-control" id="origin" name="origin" ngModel required>
-                                    <option value="" selected="selected" disabled="disabled">Fuente</option>
-                                    <option *ngFor="let origin of origins" value="{{origin.value}}">{{origin.text}}</option>
-                                </select>
+                                <button type="button" class="btn btn-primary btn-block btn-subir" (click)="limpiarCampos()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                                    </svg>
+                                    Limpiar Campos
+                                </button>
                             </div>
 
                         </div>
-                        <button class="btn btn-primary btn-block btn-subir">Subir</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-subir">Subir</button>
                     </form>
                 </div>
             </div>
