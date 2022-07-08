@@ -158,7 +158,7 @@ export class Datos {
     { value: 'instagram', text: 'INSTAGRAM' },
     { value: 'libros', text: 'LIBROS' },
     { value: 'pinterest', text: 'PINTEREST' },
-    { value: 'pb', text: 'PUNTO Blanco' },
+    { value: 'pb', text: 'PUNTO BLANCO' },
     { value: 'revistas', text: 'REVISTAS' },
     { value: 'tagwalk', text: 'TAGWALK' },
     { value: 'viajes', text: 'VIAJES' },
