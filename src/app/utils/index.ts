@@ -153,6 +153,7 @@ export class Datos {
   private fuenteOptions: any[] = [
     { value: 'bf', text: 'BABY FRESH' },
     { value: 'Ferias', text: 'FERIAS' },
+    { value: 'Galax', text: 'GALAX' },
     { value: 'gef', text: 'GEF' },
     { value: 'instagram', text: 'INSTAGRAM' },
     { value: 'Mango', text: 'MANGO' },
