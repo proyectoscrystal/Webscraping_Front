@@ -160,7 +160,7 @@ export class Datos {
     { value: 'libros', text: 'LIBROS' },
     { value: 'Pasarelas', text: 'PASARELAS' },
     { value: 'pinterest', text: 'PINTEREST' },
-    { value: 'pb', text: 'PUNTO Blanco' },
+    { value: 'pb', text: 'PUNTO BLANCO' },
     { value: 'revistas', text: 'REVISTAS' },
     { value: 'tagwalk', text: 'TAGWALK' },
     { value: 'viajes', text: 'VIAJES' },
