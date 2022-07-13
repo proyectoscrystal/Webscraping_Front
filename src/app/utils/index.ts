@@ -157,6 +157,8 @@ export class Datos {
     { value: 'gef', text: 'GEF' },
     { value: 'instagram', text: 'INSTAGRAM' },
     { value: 'libros', text: 'LIBROS' },
+    { value: 'Mango', text: 'MANGO' },
+    { value: 'Pasarelas', text: 'PASARELAS' },
     { value: 'pinterest', text: 'PINTEREST' },
     { value: 'pb', text: 'PUNTO BLANCO' },
     { value: 'revistas', text: 'REVISTAS' },
