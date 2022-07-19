@@ -33,7 +33,7 @@ export class InformesComponent implements OnInit {
     ignoreBackdropClick: true
   };
 
-  // variable cambio mes a semana 
+  // variable cambio mes a semana
   valorSeleccionado: any = 'Mes';
   semana: any = '';
   mes: any = '';
@@ -116,10 +116,10 @@ export class InformesComponent implements OnInit {
   ngOnInit(): void {
     if(this.valorSeleccionado === 'Mes'){
       this.getInfoCards();
-      //TODO: enviar el valor de mes a los charts de los informes hijos    
+      //TODO: enviar el valor de mes a los charts de los informes hijos
       this.cambioSemanaMes();
-      
-    } 
+
+    }
     this.showDataModal();
     this.toggleSidebar();
   }
@@ -226,7 +226,7 @@ export class InformesComponent implements OnInit {
       this.tituloCardActual = "Que la semana pasada";
       // metodo para volver a cargar valores por semana
       this.servicioEnvioData.enviarMensaje(this.valorSeleccionado);
-      
+
     } else if (this.valorSeleccionado === "Mes") {
       this.getInfoCards();
       this.tituloResumen = "Resumen Mes";
@@ -449,7 +449,7 @@ export class InformesComponent implements OnInit {
     this.isCheckedTipoPrenda = false;
     this.isCheckedColor = false;
     this.isCheckedComposicion = false;
-    
+
 
     if(this.valorSeleccionado === "Mes") {
       this.getInfoCards();
@@ -566,7 +566,7 @@ export class InformesComponent implements OnInit {
     }
   }
 
-  // validate check filter all 
+  // validate check filter all
   checkAllOrigin() {
     if (this.isCheckedOrigin == true) {
       $('.marca').prop('checked', false);
@@ -598,7 +598,7 @@ export class InformesComponent implements OnInit {
               });
             }
           });
-  
+
           this.originSelected.splice(element.value);
         });
       }
@@ -632,7 +632,7 @@ export class InformesComponent implements OnInit {
               return filtro.item !== e.item;
             });
           }
-        }); 
+        });
 
         this.categoriaSelected.splice(element.value);
       });
@@ -650,7 +650,7 @@ export class InformesComponent implements OnInit {
               });
             }
           });
-  
+
           this.categoriaSelected.splice(element.value);
         });
       }
@@ -684,7 +684,7 @@ export class InformesComponent implements OnInit {
               return filtro.item !== e.item;
             });
           }
-        }); 
+        });
 
         this.subCategoriaSelected.splice(element.value);
       });
@@ -702,7 +702,7 @@ export class InformesComponent implements OnInit {
               });
             }
           });
-  
+
           this.subCategoriaSelected.splice(element.value);
         });
       }
@@ -736,7 +736,7 @@ export class InformesComponent implements OnInit {
               return filtro.item !== e.item;
             });
           }
-        }); 
+        });
 
         this.tipoPrendaSelected.splice(element.value);
       });
@@ -754,7 +754,7 @@ export class InformesComponent implements OnInit {
               });
             }
           });
-  
+
           this.tipoPrendaSelected.splice(element.value);
         });
       }
@@ -774,7 +774,7 @@ export class InformesComponent implements OnInit {
       this.getInfoCards();
     }
   }
-  
+
   checkAllColor() {
     if (this.isCheckedColor == true) {
       $('.color').prop('checked', false);
@@ -788,7 +788,7 @@ export class InformesComponent implements OnInit {
               return filtro.item !== e.item;
             });
           }
-        }); 
+        });
 
         this.colorSelected.splice(element.value);
       });
@@ -806,7 +806,7 @@ export class InformesComponent implements OnInit {
               });
             }
           });
-  
+
           this.colorSelected.splice(element.value);
         });
       }
@@ -825,7 +825,7 @@ export class InformesComponent implements OnInit {
 
       this.getInfoCards();
     }
-  }  
+  }
 
   checkAllComposicion() {
     if (this.isCheckedComposicion == true) {
@@ -840,7 +840,7 @@ export class InformesComponent implements OnInit {
               return filtro.item !== e.item;
             });
           }
-        }); 
+        });
 
         this.composicionSelected.splice(element.value);
       });
@@ -858,7 +858,7 @@ export class InformesComponent implements OnInit {
               });
             }
           });
-  
+
           this.composicionSelected.splice(element.value);
         });
       }
@@ -879,7 +879,7 @@ export class InformesComponent implements OnInit {
     }
   }
 
-  // validate checks with modal closed 
+  // validate checks with modal closed
 
 
   //===============FIN FILTROS MODAL===============
@@ -913,7 +913,7 @@ export class InformesComponent implements OnInit {
 
   // metodos para setear la clase de las diferencias
   difference1() {
-    if (this.priceDifference[0] === 0 || this.priceDifference[0] !== undefined) {
+    if (this.priceDifference[0] === 0) {
       return 'porcentaje2';
     }
     return 'porcentaje';
